@@ -1,0 +1,31 @@
+<!--网站或网店信息-->
+<div ng-if="rptType <=17 || rptType == 19">
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowWangzhanxinxi =! isShowWangzhanxinxi">
+        <div class="col-xs-12 title">
+            网站或网店信息
+        </div>
+        <div ng-show="isShowWangzhanxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowWangzhanxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-if="isShowWangzhanxinxi && webInfo && webInfo.length != 0" ng-repeat="item in webInfo">
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="名称" t-review-content="{{item.webSitName}}"></review-item-multi>
+            <review-item-multi t-review-title="类型"
+                               t-review-content="{{item.webType}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="网址" t-review-content="{{item.domain}}"></review-item-multi>
+        </div>
+        <div class="list-fenggexian"></div>
+    </div>
+    <div ng-if="isShowWangzhanxinxi && webInfo && webInfo.length ==0">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+
+</div>

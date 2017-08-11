@@ -1,0 +1,90 @@
+<div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('home.zhishichanquan')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">知识产权出质详细信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+
+<div class="pageBody" style="background-color: #EEEEEE;font-size: 1.3rem" ng-model="zhishichanquanDetailData">
+    <div class="container" style="background-color: white;margin-bottom: 5px">
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">知识产权登记证号</div>
+            <div class="col-xs-7"> {{zhishichanquanDetailData.tmregNo}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">名称</div>
+            <div class="col-xs-7"> {{zhishichanquanDetailData.tmname}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">种类</div>
+            <div class="col-xs-7"> {{zhishichanquanDetailData.kinds}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">出质人名称</div>
+            <div class="col-xs-7"> {{zhishichanquanDetailData.pledgor}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">质权人名称</div>
+            <div class="col-xs-7"> {{zhishichanquanDetailData.impOrg}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">质权登记期限</div>
+            <div class="col-xs-7"> {{date}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">状态</div>
+            <div class="col-xs-7"> {{zhishichanquanDetailData.type}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">公示日期</div>
+            <div class="col-xs-7"> {{zhishichanquanDetailData.noticeDate}}</div>
+        </div>
+    </div>
+    <div class="container yingyezhizhaoCell"   ng-show="zhishichanquanDetailData.altItems" ng-repeat=" i in zhishichanquanDetailData.altItems">
+
+        <div class="thirdBorder">
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">变更事项</div>
+                <div class="col-xs-7"> {{i.alt}}</div>
+            </div>
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">变更时间</div>
+                <div class="col-xs-7"> {{i.altDate}}</div>
+            </div>
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">变更前内容</div>
+                <div class="col-xs-7"> {{i.altBe}}</div>
+            </div>
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">变更后内容</div>
+                <div class="col-xs-7"> {{i.altAf}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container yingyezhizhaoCell"
+         ng-repeat=" i in revokeItems"
+         style="padding-top: 0">
+        <div class="row" style="padding-bottom: 5px">
+            <div class="col-xs-12">{{i.title}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">{{i.firstTitle}}</div>
+            <div class="col-xs-7">{{i.cancelDate}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">{{i.secondTitle}}</div>
+            <div class="col-xs-7">{{i.cancelReason}}</div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,613 @@
+<!-- 基本信息 15-1-->
+<!--<div ng-if="rptType==1 && year =='2015' || rptType==1 && year =='2014'-->
+<!--|| rptType==1 && year =='2013' || rptType==10 && year =='2015'-->
+<!--|| rptType==10 && year =='2014' || rptType==10 && year =='2013'">-->
+<div ng-if="year <=2015 && (rptType==1 || rptType==10)">
+
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="邮政编码" t-review-content="{{baseInfo.postalCode}}"></review-item-multi>
+            <review-item-multi t-review-title="企业联系电话" t-review-content="{{baseInfo.tel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业电子邮箱" t-review-content="{{baseInfo.email}}"></review-item-multi>
+            <review-item-multi t-review-title="从业人数" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业经营状态" t-review-content="{{baseInfo.busSt}}"></review-item-multi>
+            <review-item-multi t-review-title="是否有网站或网店" t-review-content="{{baseInfo.hasWebSite}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="有限责任公司本年度是否发生股东股权转让"
+                                t-review-content="{{baseInfo.ifStocktrans}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有投资信息或购买其他公司股权"
+                                t-review-content="{{baseInfo.ifInvest}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+        <review-item-single t-review-title="是否有对外提供担保信息"
+        t-review-content="{{baseInfo.hasFwarnnt}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<!-- 基本信息 15-2-->
+<!--<div ng-if="rptType==2 && year =='2015' ||-->
+<!--rptType==2 && year =='2014' || rptType==2 && year =='2013' ||-->
+<!--rptType==4 && year =='2015'||  rptType==4 && year =='2014' || rptType==4 && year =='2013'-->
+<!--|| rptType==6 && year =='2015' || rptType==6 && year =='2014' || rptType==6 && year =='2013'-->
+<!--|| rptType==8 && year =='2015'  || rptType==8 && year =='2014' || rptType==8 && year =='2013'-->
+<!--|| rptType==9 && year =='2015' || rptType==9 && year =='2014' || rptType==9 && year =='2013'-->
+<!--|| rptType==11 && year =='2015'  || rptType==11 && year =='2014'  || rptType==11 && year =='2013'-->
+<!--|| rptType==13 && year =='2015'  || rptType==13 && year =='2014'  || rptType==13 && year =='2013'-->
+<!--|| rptType==14 && year =='2015'" || rptType==14 && year=='2014'" || rptType==14 && year=='2013'"-->
+<!--&gt;-->
+<div ng-if="year <=2015 &&(rptType==2||rptType==4|| rptType==6|| rptType==8|| rptType==9
+|| rptType==11|| rptType==13|| rptType==14)"
+>
+
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="隶属企业名称" t-review-content="{{baseInfo.own}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="邮政编码" t-review-content="{{baseInfo.postalCode}}"></review-item-multi>
+            <review-item-multi t-review-title="企业联系电话" t-review-content="{{baseInfo.tel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业电子邮箱" t-review-content="{{baseInfo.email}}"></review-item-multi>
+            <review-item-multi t-review-title="从业人数" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业经营状态" t-review-content="{{baseInfo.busSt}}"></review-item-multi>
+            <review-item-multi t-review-title="是否有网站或网店" t-review-content="{{baseInfo.hasWebSite}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+        <review-item-single t-review-title="是否有对外提供担保信息"
+        t-review-content="{{baseInfo.hasFwarnnt}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+<!--基本信息  15-3-->
+<!--<div ng-if="rptType==3 && year=='2015' ||rptType==3 && year=='2014'  ||rptType==3 && year=='2013'-->
+<!--|| rptType==5 && year =='2015'  || rptType==5 && year =='2014'  || rptType==5 && year =='2013'-->
+<!--|| rptType==7 && year =='2015'  || rptType==7 && year =='2014'  || rptType==7 && year =='2013'-->
+<!--|| rptType==12 && year =='2015'  || rptType==12 && year =='2014'  || rptType==12 && year =='2013'-->
+<!--|| rptType==15 && year =='2015' || rptType==15 && year =='2014' || rptType==15 && year =='2013'"-->
+<!--&gt;-->
+
+<div ng-if="rptType==3 && year <= 2015
+ || rptType==5 && year<=2015
+|| rptType==7 &&  year<=2015
+|| rptType==12 &&  year<=2015
+|| rptType==15 && year<=2015 "
+>
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="邮政编码" t-review-content="{{baseInfo.postalCode}}"></review-item-multi>
+            <review-item-multi t-review-title="企业联系电话" t-review-content="{{baseInfo.tel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业电子邮箱" t-review-content="{{baseInfo.email}}"></review-item-multi>
+            <review-item-multi t-review-title="从业人数" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业经营状态" t-review-content="{{baseInfo.busSt}}"></review-item-multi>
+            <review-item-multi t-review-title="是否有网站或网店" t-review-content="{{baseInfo.hasWebSite}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有投资信息或购买其他公司股权"
+                                t-review-content="{{baseInfo.ifInvest}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有对外提供担保信息"
+                                t-review-content="{{baseInfo.hasFwarnnt}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<!--基本信息15-19-->
+<div ng-if="year <= 2015 && rptType==19">
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<!--基本信息 16-1-->
+<!--<div ng-if="rptType==1 && year == '2016' || rptType==10 && year =='2016'"-->
+<!--&gt;-->
+<div ng-if="rptType==1 && year == 2016 || rptType==10 && year ==2016"
+>
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="邮政编码" t-review-content="{{baseInfo.postalCode}}"></review-item-multi>
+            <review-item-multi t-review-title="企业联系电话" t-review-content="{{baseInfo.tel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业电子邮箱" t-review-content="{{baseInfo.email}}"></review-item-multi>
+            <review-item-multi t-review-title="从业人数" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="其中女性从业人数" t-review-content="{{baseInfo.womEmpNum}}"></review-item-multi>
+            <review-item-multi t-review-title="企业经营状态" t-review-content="{{baseInfo.busSt}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业控股情况" t-review-content="{{baseInfo.holdingsMsg}}"></review-item-multi>
+            <review-item-multi t-review-title="是否有网站或网店" t-review-content="{{baseInfo.hasWebSite}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有投资信息或购买其他公司股权"
+                                t-review-content="{{baseInfo.ifInvest}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有对外提供担保信息"
+                                t-review-content="{{baseInfo.hasFwarnnt}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="有限责任公司本年度是否发生股东股权转让"
+                                t-review-content="{{baseInfo.ifStocktrans}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业主营业务活动"
+                                t-review-content="{{baseInfo.mainBusiact}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<!--基本信息 16-2-->
+<!--<div ng-if="rptType==2 && year=='2016'  || rptType==4 && year =='2016'-->
+<!--|| rptType==6 && year =='2016'|| rptType==8 && year =='2016' || rptType==9 && year =='2016'-->
+<!--|| rptType==11 && year =='2016' || rptType==13 && year =='2016'-->
+<!--|| rptType==14 && year =='2016'">-->
+
+<div ng-if="year==2016 && (rptType==2 || rptType==4 || rptType==6 || rptType==8 || rptType==9
+|| rptType==11 || rptType==13|| rptType==14  || rptType==19)">
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="隶属企业统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.ownRegNo}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="隶属企业名称" t-review-content="{{baseInfo.own}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="邮政编码" t-review-content="{{baseInfo.postalCode}}"></review-item-multi>
+            <review-item-multi t-review-title="企业联系电话" t-review-content="{{baseInfo.tel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业电子邮箱" t-review-content="{{baseInfo.email}}"></review-item-multi>
+            <review-item-multi t-review-title="从业人数" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="其中女性从业人数" t-review-content="{{baseInfo.womEmpNum}}"></review-item-multi>
+            <review-item-multi t-review-title="企业经营状态" t-review-content="{{baseInfo.busSt}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+
+            <review-item-multi t-review-title="是否有网站或网店" t-review-content="{{baseInfo.hasWebSite}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有对外提供担保信息"
+                                t-review-content="{{baseInfo.hasFwarnnt}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业主营业务活动"
+                                t-review-content="{{baseInfo.mainBusiact}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<!--基本信息 16-3-->
+<!--<div ng-if="rptType==3 && year =='2016'  || rptType==5 && year =='2016'-->
+<!--|| rptType==7 && year =='2016' || rptType==12 && year =='2016'|| rptType==15 && year =='2016'">-->
+
+<div ng-if="rptType==3 && year ==2016  || rptType==5 && year ==2016
+|| rptType==7 && year ==2016 || rptType==12 && year ==2016|| rptType==15 && year ==2016">
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="邮政编码" t-review-content="{{baseInfo.postalCode}}"></review-item-multi>
+            <review-item-multi t-review-title="企业联系电话" t-review-content="{{baseInfo.tel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业电子邮箱" t-review-content="{{baseInfo.email}}"></review-item-multi>
+            <review-item-multi t-review-title="从业人数" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="其中女性从业人数" t-review-content="{{baseInfo.womEmpNum}}"></review-item-multi>
+            <review-item-multi t-review-title="企业经营状态" t-review-content="{{baseInfo.busSt}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="企业控股情况" t-review-content="{{baseInfo.holdingsMsg}}"></review-item-multi>
+            <review-item-multi t-review-title="是否有网站或网店" t-review-content="{{baseInfo.hasWebSite}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有投资信息或购买其他公司股权"
+                                t-review-content="{{baseInfo.ifInvest}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="是否有对外提供担保信息"
+                                t-review-content="{{baseInfo.hasFwarnnt}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="企业主营业务活动"
+                                t-review-content="{{baseInfo.mainBusiact}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<!--基本信息 16-16-->
+<div ng-if=" rptType==16 && year <=2016">
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="注册号" t-review-content="{{baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="个体户名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="经营者姓名" t-review-content="{{baseInfo.psnName}}"></review-item-multi>
+            <review-item-multi t-review-title="经营者联系电话" t-review-content="{{baseInfo.peTel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="资产数额" t-review-content="{{baseInfo.fundAm}}"></review-item-multi>
+            <review-item-multi t-review-title="从业人数" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+
+            <review-item-multi t-review-title="是否有网站或网店" t-review-content="{{baseInfo.hasWebSite}}"></review-item-multi>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<!--基本信息 16-17-->
+<div ng-if="rptType==17 && year >=2016 ">
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="农专社名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="电子邮件" t-review-content="{{baseInfo.farmEmail}}"></review-item-multi>
+            <review-item-multi t-review-title="联系电话" t-review-content="{{baseInfo.farmTel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="成员人数" t-review-content="{{baseInfo.memNum}}"></review-item-multi>
+            <review-item-multi t-review-title="成员人数中农民人数" t-review-content="{{baseInfo.farmNum}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="本年度新增成员人数" t-review-content="{{baseInfo.newMemNum}}"></review-item-multi>
+            <review-item-multi t-review-title="本年度退出成员人数"
+                               t-review-content="{{baseInfo.leaveMemNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="从业人员" t-review-content="{{baseInfo.empNum}}"></review-item-multi>
+            <review-item-multi t-review-title=" 其中女性从业人数"
+                               t-review-content="{{baseInfo.womEmpNum}}"></review-item-multi>
+        </div>
+
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="主营业务活动" t-review-content="{{baseInfo.mainBusiact}}"></review-item-multi>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+
+<!--基本信息 15-17-->
+<div ng-if="rptType==17 && year <=2015 ">
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowJibenxinxi =! isShowJibenxinxi">
+        <div class="col-xs-12 title">
+            基本信息
+        </div>
+        <div ng-show="isShowJibenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowJibenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowJibenxinxi && baseInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="合作社名称" t-review-content="{{baseInfo.entName}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="统一社会信用代码/注册号"
+                                t-review-content="{{baseInfo.uniScid ? baseInfo.uniScid : baseInfo.regNo}}"></review-item-single>
+
+        </div>
+        <!--<div class="row preview item-row vertical-middle">-->
+            <!--<review-item-single t-review-title="通信地址" t-review-content="{{baseInfo.addr}}"></review-item-single>-->
+        <!--</div>-->
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="电子邮件" t-review-content="{{baseInfo.farmEmail}}"></review-item-multi>
+            <review-item-multi t-review-title="联系电话" t-review-content="{{baseInfo.farmTel}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="成员人数" t-review-content="{{baseInfo.memNum}}"></review-item-multi>
+            <review-item-multi t-review-title="成员人数中农民人数" t-review-content="{{baseInfo.farmNum}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="本年度新增成员人数" t-review-content="{{baseInfo.newMemNum}}"></review-item-multi>
+            <review-item-multi t-review-title="本年度退出成员人数"
+                               t-review-content="{{baseInfo.leaveMemNum}}"></review-item-multi>
+        </div>
+    </div>
+    <div ng-if="isShowJibenxinxi && baseInfo ==null || baseInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+

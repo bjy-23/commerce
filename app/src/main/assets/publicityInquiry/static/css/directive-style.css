@@ -1,0 +1,42 @@
+/*左key，右value*/
+.keyValueRow {
+    width: 100%;
+    border-bottom: 1px solid #EEEEEE;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+.rowLeftKey {
+    width: 32%;
+    padding: 1rem 0 1rem 1.6rem;
+    float: left;
+    color: #666666;
+}
+
+.rowRightValue {
+    width: 68%;
+    padding: 1rem 0 1rem 1.6rem;
+    float: right;
+    color: #333333;
+}
+
+/*上图片，下文字的方格*/
+.boxDiv {
+    width: 25%;
+    height: 80px;
+    font-size: 1.2rem;
+    text-align: center;
+    float: left;
+    border-top: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+}
+
+.indexBoxImg {
+    width: 25%;
+    margin: 20% auto 0 auto;
+}
+
+.indexBoxTitle {
+    margin-top: 10%;
+}

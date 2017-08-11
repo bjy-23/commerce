@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/system_background"
+    android:orientation="vertical">
+
+  <!--  <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="49dp"
+        android:background="@color/system_tab"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/system_tab" />
+    </RelativeLayout>
+-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="162dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/img_head"
+                android:layout_width="74dp"
+                android:layout_height="73dp"
+                android:layout_marginLeft="41dp"
+                android:layout_marginTop="45dp"
+                android:background="@mipmap/linkman" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/img_head"
+                android:layout_marginLeft="34dp"
+                android:layout_toRightOf="@id/img_head"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="姓名"
+                        android:textColor="@color/system_font"
+                        android:textSize="@dimen/system_size" />
+
+                    <TextView
+                        android:id="@+id/setting_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="章三笠"
+                        android:textColor="@color/system_font"
+                        android:textSize="@dimen/system_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="机关"
+                        android:textColor="@color/system_font"
+                        android:textSize="@dimen/system_size" />
+
+                    <TextView
+                        android:id="@+id/setting_organ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:text="河北"
+                        android:textColor="@color/system_font"
+                        android:textSize="@dimen/system_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/setting_dept_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="部门"
+                        android:textColor="@color/system_font"
+                        android:textSize="@dimen/system_size" />
+
+                    <TextView
+                        android:id="@+id/setting_dept"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:text="信息中心"
+                        android:textColor="@color/system_font"
+                        android:textSize="@dimen/system_size" />
+                    <ImageView
+                        android:id="@+id/setting_dept_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow_down"
+                        android:layout_marginTop="-5dp"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:id="@+id/btn_check"
+                android:layout_width="fill_parent"
+                android:layout_height="51dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="21dp"
+                android:text="版本检测"
+                android:textColor="@color/system_font" />
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1.0.0"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:layout_marginRight="20dp"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/btn_about"
+            android:layout_width="fill_parent"
+            android:layout_height="51dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="21dp"
+            android:text="关于"
+            android:textColor="@color/system_font" />
+
+        <TextView
+            android:id="@+id/btn_exit"
+            android:layout_width="fill_parent"
+            android:layout_height="51dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/system_tab"
+            android:gravity="center"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/system_btn" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

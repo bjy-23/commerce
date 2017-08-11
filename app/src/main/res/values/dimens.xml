@@ -1,0 +1,12 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- system-->
+    <dimen name="system_size">14dp</dimen>
+    <dimen name="system_btn">16dp</dimen>
+    <dimen name="line_height">1px</dimen>
+
+    <dimen name="label_height">60dp</dimen>
+    <dimen name="label_width">145dp</dimen>
+    <dimen name="label_margin_left">16dp</dimen>
+    <dimen name="line_thickness">1px</dimen>
+</resources>

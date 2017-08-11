@@ -1,0 +1,36 @@
+<ui-view>
+    <div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">商标注册信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+    <div class="pageBody">
+        <div ng-show="!isEmpty">
+            <div ng-repeat="x in shangbiaozhuceData ">
+                <div class="sbzcContainerView">
+                    <div class="sbzcDetailContainerView">
+                        <div class="sbzcImageContainer">
+                            <img src="/notice/download/downloadImage?fileName={{x.image}}" class="sbzcImageView">
+                        </div>
+                        <div class="sbzcDetailInfoView">
+                            <span class="sbzcDetailLabel">商标注册号：{{x.regNum}}</span><br>
+                            <span class="sbzcDetailLabel">类别：第{{x.intCls}}类</span><br>
+                            <span class="sbzcDetailLabel">注册公告日期：{{x.regAnncDate}}</span><br>
+                        </div>
+                        <a class="sbzcDetailButton" ng-click="goSBZCDetail(x.id)">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <empty-page ng-show="isEmpty"></empty-page>
+</ui-view>

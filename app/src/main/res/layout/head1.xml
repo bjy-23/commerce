@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_head"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/blue">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/app_back"
+        android:layout_marginLeft="10dp"
+        android:padding="10dp"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/layout_search"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/img_back"
+        android:layout_toLeftOf="@+id/layout_right"
+        android:orientation="horizontal"
+        android:background="@drawable/rect_corner_white"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@mipmap/search_linkman"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:hint="名称/注册号/统一社会信用代码"
+            android:textSize="12sp"
+            android:background="@color/white"
+            android:focusable="false"/>
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@mipmap/del"
+            android:layout_marginRight="5dp"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+
+        <LinearLayout
+            android:id="@+id/layout_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="筛选"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="12dp"
+                android:layout_height="10dp"
+                android:background="@mipmap/filter"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:padding="5dp"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

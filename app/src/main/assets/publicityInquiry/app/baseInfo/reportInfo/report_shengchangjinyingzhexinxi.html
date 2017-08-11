@@ -1,0 +1,140 @@
+<div ng-if="rptType ==2 || rptType ==4 || rptType ==6 || rptType ==8 || rptType ==9 || rptType ==11
+|| rptType ==13 || rptType ==14">
+    <!--生产经营情况信息 15-2-->
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowShenchangjinyingzhexinxi =! isShowShenchangjinyingzhexinxi">
+        <div class="col-xs-12 title">
+            生产经营情况信息
+        </div>
+        <div ng-show="isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="主营业务收入" t-review-content="{{assetInfo.vendInc}}"></review-item-multi>
+            <review-item-multi t-review-title="净利润" t-review-content="{{assetInfo.netInc}}">
+            </review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="纳税总额" t-review-content="{{assetInfo.ratGro}}"></review-item-multi>
+        </div>
+    </div>
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo == null || assetInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<div ng-if="rptType ==88">
+    <!--生产经营情况信息 16-3-->
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowShenchangjinyingzhexinxi =!isShowShenchangjinyingzhexinxi">
+        <div class="col-xs-12 title">
+            生产经营情况信息
+        </div>
+        <div ng-show="isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="资产总额" t-review-content="{{assetInfo.assGro}}"></review-item-multi>
+            <review-item-multi t-review-title="所有者权益合计" t-review-content="{{assetInfo.totEqu}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="营业总收入" t-review-content="{{assetInfo.vendInc}}"></review-item-multi>
+            <review-item-multi t-review-title="纳税总额" t-review-content="{{assetInfo.ratGro}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="营业总收入中主营业务收入"
+                                t-review-content="{{assetInfo.maiBusInc}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="净利润" t-review-content="{{assetInfo.netInc}}"></review-item-multi>
+            <review-item-multi t-review-title="利润总额" t-review-content="{{assetInfo.proGro}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="负债总额" t-review-content="{{assetInfo.liaGro}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo == null || assetInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+
+<div ng-if="rptType ==16">
+    <!--生产经营者信息 16-16-->
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowShenchangjinyingzhexinxi =! isShowShenchangjinyingzhexinxi">
+        <div class="col-xs-12 title">
+            生产经营情况信息
+        </div>
+        <div ng-show="isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="销售额或营业收入" t-review-content="{{assetInfo.vendInc}}"></review-item-multi>
+            <review-item-multi t-review-title="纳税总额" t-review-content="{{assetInfo.ratGro}}"></review-item-multi>
+        </div>
+    </div>
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo == null || assetInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
+
+<div ng-if="rptType ==17">
+    <!--生产经营情况信息 16-17 -->
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowShenchangjinyingzhexinxi =! isShowShenchangjinyingzhexinxi">
+        <div class="col-xs-12 title">
+            资产状况信息
+        </div>
+        <div ng-show="isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowShenchangjinyingzhexinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="销售额或营业收入" t-review-content="{{assetInfo.vendInc}}"></review-item-multi>
+            <review-item-multi t-review-title="纳税总额" t-review-content="{{assetInfo.ratGro}}"></review-item-multi>
+        </div>
+        <!--盈余总额 proGro-->
+        <!--金融贷款 priYeaLoan-->
+        <!--获得政府扶持资金、补助 priYeaSub-->
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="盈余总额" t-review-content="{{assetInfo.proGro}}"></review-item-multi>
+            <review-item-multi t-review-title="金融贷款" t-review-content="{{assetInfo.priYeaLoan}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="获得政府扶持资金、补助"
+                                t-review-content="{{assetInfo.priYeaSub}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowShenchangjinyingzhexinxi && assetInfo == null || assetInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>

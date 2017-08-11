@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+
+        <TextView
+            style="@style/trade_mark_tab_textview"
+            android:id="@+id/tvRegNumber4ItemTradeMarkInterRegList"
+            android:text="序号"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="国际注册名称："/>
+        <TextView
+            android:id="@+id/tvRegName4ItemTradeMarkInterRegList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="国际注册号："/>
+        <TextView
+            android:id="@+id/tvRegNo4ItemTradeMarkInterRegList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="国际分类号："/>
+        <TextView
+            android:id="@+id/tvTypeNo4ItemTradeMarkInterRegList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="注册途径："/>
+        <TextView
+            android:id="@+id/tvRegWay4ItemTradeMarkInterRegList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="注册国家："/>
+        <TextView
+            android:id="@+id/tvCountry4ItemTradeMarkInterRegList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="注册日期："/>
+        <TextView
+            android:id="@+id/tvRegDate4ItemTradeMarkInterRegList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+</LinearLayout>

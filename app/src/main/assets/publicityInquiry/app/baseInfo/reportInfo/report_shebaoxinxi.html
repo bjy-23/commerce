@@ -1,0 +1,101 @@
+<div ng-if="(rptType < 16 || rptType == 17|| rptType == 19)&& year =='2016'">
+    <!--社保信息 16-2-->
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowShebaoxinxi=! isShowShebaoxinxi">
+        <div class="col-xs-12 title">
+            社保信息
+        </div>
+        <div ng-show="isShowShebaoxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowShebaoxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-if="isShowShebaoxinxi && socInfo !=null">
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="城镇职工基本养老保险" t-review-content="{{socInfo.socOldNum}}"></review-item-multi>
+            <review-item-multi t-review-title="失业保险"
+                               t-review-content="{{socInfo.socUnemploymentNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="职工基本医疗保险"
+                               t-review-content="{{socInfo.socMedicalMum}}"></review-item-multi>
+            <review-item-multi t-review-title="工伤保险" t-review-content="{{socInfo.socInjuryNum}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="生育保险" t-review-content="{{socInfo.socBirthNum}}"></review-item-single>
+        </div>
+
+
+        <div class="shebaoxinxi-xiaobiaoti"> 单位缴费基数(单位:万元)</div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加城镇职工基本养老保险缴费基数"
+                                t-review-content="{{socInfo.socOldBaseNum}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加失业保险缴费基数"
+                                t-review-content="{{socInfo.socUnemploymentBaseNum}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加职工基本医疗保险缴费基数"
+                                t-review-content="{{socInfo.socMedicalBaseNum}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加生育保险缴费基数"
+                                t-review-content="{{socInfo.socBirthBaseNum}}"></review-item-single>
+        </div>
+        <div class="shebaoxinxi-xiaobiaoti"> 本期实际缴费金额(单位:万元)</div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="参加城镇职工基本养老保险本期实际缴费金额"
+                                t-review-content="{{socInfo.socOldPeriodAmount}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="参加失业保险本期实际缴费金额"
+                                t-review-content="{{socInfo.socUnemploymentPeriodAmount}}"></review-item-single>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="参加职工基本医疗保险本期实际缴费金额"
+                                t-review-content="{{socInfo.socMedicalPeriodAmount}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="参加工伤保险本期实际缴费金额"
+                                t-review-content="{{socInfo.socInjuryPeriodAmount}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="参加生育保险本期实际缴费金额"
+                                t-review-content="{{socInfo.socBirthPeriodAmount}}"></review-item-single>
+        </div>
+
+        <div class="shebaoxinxi-xiaobiaoti"> 单位累计欠缴金额(单位:万元)</div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加城镇职工基本养老保险累计欠缴金额"
+                                t-review-content="{{socInfo.socOldArrearsAmount}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加失业保险累计欠缴金额"
+                                t-review-content="{{socInfo.socUnemploymentArrearsAmount}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加职工基本医疗保险累计欠缴金额"
+                                t-review-content="{{socInfo.socMedicalArrearsAmount}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加工伤保险累计欠缴金额"
+                                t-review-content="{{socInfo.socInjuryArrearsAmount}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="单位参加生育保险累计欠缴金额"
+                                t-review-content="{{socInfo.socBirthArrearsAmount}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowShebaoxinxi && socInfo && socInfo == null || socInfo ==''">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>

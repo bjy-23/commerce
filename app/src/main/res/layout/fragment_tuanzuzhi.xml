@@ -1,0 +1,413 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wondersgroup.commerce.fgdj.fragment.BaseInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="组织信息" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="团组织全称："/>
+            <TextView
+                android:id="@+id/tv_full_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="团组织简称："/>
+            <TextView
+                android:id="@+id/tv_short_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="上级团组织简称："/>
+            <TextView
+                android:id="@+id/tv_super_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="团组织级别："/>
+            <TextView
+                android:id="@+id/tv_level"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="办公详细地址："/>
+            <TextView
+                android:id="@id/tv_address"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="组建时间："/>
+            <TextView
+                android:id="@+id/tv_es_date"
+                style="@style/tv_fragment_base_info_2"
+                android:text="请选择日期"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="组建方式："/>
+
+            <TextView
+                android:id="@+id/tv_es_way"
+                style="@style/tv_fragment_base_info_2"
+                android:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="联系电话：" />
+            <TextView
+                android:id="@+id/tv_tel"
+                style="@style/tv_fragment_base_info_2"
+                android:text="请选择方式"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="覆盖企业数（个）："/>
+
+            <TextView
+                android:id="@+id/tv_over_num"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="团务工作者人数："/>
+
+            <TextView
+                android:id="@+id/tv_aff_num"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="专职团务工作者人数："/>
+
+            <TextView
+                android:id="@+id/tv_ft_aff_num"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="人员信息" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="书记姓名："/>
+
+            <TextView
+                android:id="@+id/tv_secretary_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="书记手机号码："/>
+
+            <TextView
+                android:id="@+id/tv_secretary_tel"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="指导员姓名："/>
+
+            <TextView
+                android:id="@+id/tv_instructor_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="指导员手机号码："/>
+
+            <TextView
+                android:id="@+id/tv_instructor_tel"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="指导员派出单位："/>
+
+            <TextView
+                android:id="@+id/tv_instructor_from"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="经费信息" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="财政经费投入（万元）："/>
+            <TextView
+                android:id="@+id/tv_budget_inv"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="团费投入（万元）："/>
+            <TextView
+                android:id="@+id/tv_dues_inv"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="企业投入（万元）："/>
+            <TextView
+                android:id="@+id/tv_ent_inv"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="其他投入（万元）："/>
+            <TextView
+                android:id="@+id/tv_other_inv"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="请选择方式"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="9dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="25dp">
+        <View
+            android:id="@+id/topline"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white_gray" />
+        <ImageView
+            android:id="@+id/point"
+            android:layout_width="9dp"
+            android:layout_height="9dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/circle"
+            android:background="@android:color/transparent"/>
+        <View
+            android:id="@+id/bottomline"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white_gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/contentBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@color/white">
+
+    </LinearLayout>
+
+</LinearLayout>

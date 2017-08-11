@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="send_info_name">
+        <item>文件类别</item>
+        <item>政府信息公开属性</item>
+        <item>拟稿部门不公开理由</item>
+        <item>文号</item>
+        <item>印刷份数</item>
+        <item>紧急程度</item>
+        <item>是否规范性文件</item>
+        <item>是否公开查阅</item>
+        <item>密级</item>
+        <item>是否需要解读</item>
+        <item>不予解读原因</item>
+        <item>文件标题</item>
+        <item>拟稿单位</item>
+        <item>拟稿人</item>
+        <item>拟稿日期</item>
+        <item>签发人</item>
+        <item>签发日期</item>
+        <item>主送单位</item>
+        <item>抄送单位（局内）</item>
+        <item>抄送单位（局外）</item>
+        <item>备注</item>
+        <item>正文</item>
+    </string-array>
+
+    <string-array name="receive_info_name">
+        <item>收件类型</item>
+        <item>紧急程度</item>
+        <item>是否批示件</item>
+        <item>收文号</item>
+        <item>是否会签文</item>
+        <item>收文序号</item>
+        <item>收文日期</item>
+        <item>文件标题</item>
+        <item>来文机关</item>
+        <item>备注</item>
+        <item>正文</item>
+    </string-array>
+
+    <string-array name="tj_item_yn">
+        <item>近五年所有市场主体年报上报趋势图</item>
+        <item>近五年第一二三产业发展趋势</item>
+        <item>历年已年报、应年报的比率趋势</item>
+        <item>2016-2017年近6个月已年报同比情况</item>
+        <item>排名十位行业的利润统计图</item>
+        <item>排名十位行业的纳税统计图</item>
+        <item>排名十位行业的行业营业收入统计图</item>
+        <item>连续N年未年报的图表</item>
+
+        <item>小微企业各注册资本范围数量统计图</item>
+        <item>各机关小微企业数量统计图</item>
+        <item>近6个月全省小微企业享受扶持金额趋势图</item>
+        <item>排名前十的行业小微企业数量统计图</item>
+        <item>各承办部门小微企业扶持数量统计图</item>
+
+        <item>企业列入异常名录原因数量统计图</item>
+        <item>企业移出异常名录原因数量统计图</item>
+        <item>各机关企业列入异常名录数量统计图</item>
+        <item>全省企业近6个月列入异常名录数量趋势图</item>
+        <item>历年因未年报列入异常名录同比图</item>
+        <item>列入异常名录次数的企业数量</item>
+
+        <item>本期新设个体工商户户数</item>
+        <item>个体工商户数占各第三产业类别前五名</item>
+        <item>个体工商户存续周期统计图</item>
+        <item>近十年个体工商户期末统计图</item>
+        <item>旧照换新照数量及比例</item>
+        <item>2016-2017年个体同比折线图（按月份）</item>
+        <item>个体经营户则年龄段占比图</item>
+        <item>个体经营者各年龄段占前十行业数量</item>
+    </string-array>
+
+</resources>

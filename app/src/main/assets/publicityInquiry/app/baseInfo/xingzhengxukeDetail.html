@@ -1,0 +1,90 @@
+<div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('home.xingzhengxuke')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">行政许可详细信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody" style="background-color: #EEEEEE" ng-model="xingzhengxukeDetail">
+    <div class="container" style="background-color: white">
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">许可文件编号</div>
+            <div class="col-xs-7"> {{xingzhengxukeDetail.basic.licNO}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">许可文件名称</div>
+            <div class="col-xs-7"> {{xingzhengxukeDetail.basic.licName}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">有效期自</div>
+            <div class="col-xs-7"> {{xingzhengxukeDetail.basic.valFrom}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">有效期至</div>
+            <div class="col-xs-7"> {{xingzhengxukeDetail.basic.valTo}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">许可机关</div>
+            <div class="col-xs-7"> {{xingzhengxukeDetail.basic.licAnth}}</div>
+        </div>
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">许可内容</div>
+            <div class="col-xs-7"> {{xingzhengxukeDetail.basic.licItem}}</div>
+        </div>
+        <!--<div class="row xingzhengxukeDetailCell">-->
+            <!--<div class="col-xs-5">公示日期</div>-->
+            <!--<div class="col-xs-7"> 2013000018587</div>-->
+        <!--</div>-->
+        <div class="row xingzhengxukeDetailCell">
+            <div class="col-xs-5">状态</div>
+            <div class="col-xs-7"> {{xingzhengxukeDetail.basic.type}}</div>
+        </div>
+    </div>
+    <div class="container yingyezhizhaoCell" ng-show="xingzhengxukeDetail.changeInfos.length">
+        <div class="row" style="padding-bottom: 5px;padding-top: 5px">
+            <div class="col-xs-12" style=""> 变更情形 </div>
+        </div>
+        <div class="thirdBorder" ng-repeat="i in xingzhengxukeDetail.changeInfos">
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">变更事项</div>
+                <div class="col-xs-7"> {{i.alt}}</div>
+            </div>
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">变更时间</div>
+                <div class="col-xs-7"> {{i.altDate}}</div>
+            </div>
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">变更前内容</div>
+                <div class="col-xs-7"> {{i.altBe}}</div>
+            </div>
+            <div class="row xingzhengxukeDetailCell" >
+                <div class="col-xs-5">变更后内容</div>
+                <div class="col-xs-7"> {{i.altAf}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container yingyezhizhaoCell" ng-show="xingzhengxukeDetail.changeItems.length">
+        <div class="row" style="padding-bottom: 5px;padding-top: 5px">
+            <div class="col-xs-12" style=""> {{infoTitle}} </div>
+        </div>
+        <div class="thirdBorder" ng-repeat="i in xingzhengxukeDetail.changeItems">
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">{{firstTitle}}</div>
+                <div class="col-xs-7"> {{firstContent}}</div>
+            </div>
+            <div class="row xingzhengxukeDetailCell">
+                <div class="col-xs-5">{{secondTitle}}</div>
+                <div class="col-xs-7"> {{secondContent}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>

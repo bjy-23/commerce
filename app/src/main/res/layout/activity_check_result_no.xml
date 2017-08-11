@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/system_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_mid_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/checkType"
+            style="@style/a_base_btn_xiala"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/white_corner_stroke_first"
+            android:hint="请选择业务分类"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/check_date_start"
+            style="@style/check_result_data"
+            android:hint="开始时间" />
+
+        <TextView
+            android:id="@+id/check_date_end"
+            style="@style/check_result_data"
+            android:hint="结束" />
+
+        <Button
+            android:id="@+id/btn_check"
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/button_four_corner_lightblue"
+            android:text="确定" />
+    </LinearLayout>
+
+</LinearLayout>

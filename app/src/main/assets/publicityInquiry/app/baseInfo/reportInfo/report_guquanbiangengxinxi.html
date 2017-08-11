@@ -1,0 +1,36 @@
+<div ng-if="rptType==1 || rptType ==10">
+    <!--股权变更信息 16-2  列表展示-->
+
+    <div class="nianbiao-biaoti-tongyi" ng-click="isShowGuquanbiangenxinxi =! isShowGuquanbiangenxinxi">
+        <div class="col-xs-12 title">
+            股权变更信息
+        </div>
+        <div ng-show="isShowGuquanbiangenxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowGuquanbiangenxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-if="isShowGuquanbiangenxinxi && equChgInfo && equChgInfo.length != 0"
+         ng-repeat="itemequChgInfo in equChgInfo">
+        <div class="gudongmingzi">{{itemequChgInfo.inv}}</div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="变更前股权比例"
+                               t-review-content="{{itemequChgInfo.transAmPr}}"></review-item-multi>
+            <review-item-multi t-review-title="变更后股权比例"
+                               t-review-content="{{itemequChgInfo.altTransAmPr}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="股权变更日期"
+                                t-review-content="{{itemequChgInfo.altDate}}"></review-item-single>
+        </div>
+        <div class="list-fenggexian"></div>
+    </div>
+    <div ng-if="isShowGuquanbiangenxinxi && equChgInfo && equChgInfo.length == 0">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+
+    <div class="bottom-fenggexian"></div>
+</div>

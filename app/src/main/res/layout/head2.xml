@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/blue">
+    
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="20dp"
+        android:layout_height="26dp"
+        android:padding="5dp"
+        android:src="@mipmap/app_back"
+        android:layout_marginLeft="20dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="非公党建信息"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:maxWidth="220dp"/>
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:padding="8dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_op"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/icon_op"
+        android:padding="8dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/search"
+        android:padding="8dp"
+        android:visibility="gone"/>
+
+</RelativeLayout>

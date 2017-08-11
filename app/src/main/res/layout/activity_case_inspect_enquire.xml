@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.admin.helloworld.CaseInspectActivity">
+
+    <include layout="@layout/view_mid_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:id="@+id/case_info_ScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_above="@+id/commit_record_Button"
+            android:scrollbars="vertical">
+            <LinearLayout
+                android:id="@+id/components_LinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+
+        </ScrollView>
+        <Button
+            android:id="@+id/commit_record_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="30px"
+            android:layout_marginLeft="30px"
+            android:layout_marginBottom="30px"
+            android:background="@color/tjcf"
+            android:textColor="@color/white"
+            android:text="提交" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

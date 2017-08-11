@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:alpha="0.90"
+    android:background="@drawable/dialog_pickpic_bg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:text="照片选取"
+        android:textColor="#1E1F21"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_dark" />
+
+    <Button
+        android:id="@+id/btn_one"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="拍照"
+        android:textColor="#6D9DCB"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_dark" />
+
+    <Button
+        android:id="@+id/btn_two"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="从手机相册选取"
+        android:textColor="#6D9DCB"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_dark" />
+
+    <Button
+        android:id="@+id/btn_three"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:text="取消"
+        android:textColor="#6D9DCB"
+        android:textSize="15sp" />
+
+</LinearLayout>

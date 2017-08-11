@@ -1,0 +1,124 @@
+<style type="text/css">
+    .jyyccontainer {
+        border-width: 0 0 4px 0;
+        border-color: #f0f0f0;
+        border-style: solid;
+        width: 100%;
+    }
+    .jyycSingleContainer {
+        margin-top: 1rem;
+        margin-right: 1.5rem;
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+        display: grid;
+    }
+    .jyycTitleLabel {
+        color: #333333;
+        font-size: 1.4rem;
+    }
+    .jyycTitleContainer {
+
+    }
+    .jyycContentLabel {
+        color:#999999;
+        font-size: 1.2rem;
+    }
+    .jyycContentContainer {
+        margin-top: 0.5rem;
+    }
+</style>
+
+
+<div class="pageTitle  ">
+	<span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+	<span class="title-text">经营异常</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody">
+	<div ng-show="!isEmpty">
+		<div ng-repeat="x in jingyingyichangData">
+			<div class="jyyccontainer">
+				<div class="jyycSingleContainer">
+					<div class="jyycTitleContainer">
+						<div ng-if='type!="16"'>
+							<span class="jyycTitleLabel">列入经营异常名录原因</span>
+						</div>
+						<div ng-if='type=="16"'>
+							<span class="jyycTitleLabel">标记经营异常状态原因</span>
+						</div>
+					</div>
+					<div class="jyycContentContainer">
+						<span class="jyycContentLabel">{{x.speCause}}</span>
+					</div>
+				</div>
+				<div class="jyycSingleContainer">
+					<div class="jyycTitleContainer">
+						<div ng-if='type!="16"'>
+							<span class="jyycTitleLabel">列入日期</span>
+						</div>
+						<div ng-if='type=="16"'>
+							<span class="jyycTitleLabel">标记日期</span>
+						</div>
+					</div>
+					<div class="jyycContentContainer">
+						<span class="jyycContentLabel">{{x.abnTime}}</span>
+					</div>
+				</div>
+				<div class="jyycSingleContainer">
+					<div class="jyycTitleContainer">
+						<span class="jyycTitleLabel">作出决定机关（列入）</span>
+					</div>
+					<div class="jyycContentContainer">
+						<span class="jyycContentLabel">{{x.decOrg}}</span>
+					</div>
+				</div>
+				<div class="jyycSingleContainer">
+					<div class="jyycTitleContainer">
+						<div ng-if='type!="16"'>
+							<span class="jyycTitleLabel">移出经营异常名录原因</span>
+						</div>
+						<div ng-if='type=="16"'>
+							<span class="jyycTitleLabel">恢复正常记载状态原因</span>
+						</div>
+					</div>
+					<div class="jyycContentContainer">
+						<span class="jyycContentLabel">{{x.remExcpRes}}</span>
+					</div>
+				</div>
+				<div class="jyycSingleContainer">
+					<div class="jyycTitleContainer">
+						<div ng-if='type!="16"'>
+							<span class="jyycTitleLabel">移出日期</span>
+						</div>
+						<div ng-if='type=="16"'>
+							<span class="jyycTitleLabel">恢复日期</span>
+						</div>
+					</div>
+					<div class="jyycContentContainer">
+						<span class="jyycContentLabel">{{x.remDate}}</span>
+					</div>
+				</div>
+				<div class="jyycSingleContainer">
+					<div class="jyycTitleContainer">
+						<span class="jyycTitleLabel">作出决定机关（移出）</span>
+					</div>
+					<div ng-show="x.remDate">
+						<div class="jyycContentContainer">
+							<span class="jyycContentLabel">{{x.decOrg}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<empty-page ng-show="isEmpty"></empty-page>
+</div>

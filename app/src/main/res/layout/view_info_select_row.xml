@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:background="@color/white">
+
+
+    <TextView
+        android:id="@+id/info_bar_title"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text=""
+        android:textColor="@color/deep_gray"
+        android:textSize="14sp"
+        android:layout_marginLeft="22dp"/>
+    <TextView
+        android:id="@+id/info_bar_text"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/info_bar_title"
+        android:layout_centerVertical="true"
+        android:text=""
+        android:textColor="@color/deep_gray"
+        android:textSize="14sp"
+        android:textColorHint="@color/white_gray"
+        android:layout_marginLeft="28dp"/>
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="16dp"
+        android:src="@mipmap/app_right"
+        android:layout_marginRight="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+</RelativeLayout>

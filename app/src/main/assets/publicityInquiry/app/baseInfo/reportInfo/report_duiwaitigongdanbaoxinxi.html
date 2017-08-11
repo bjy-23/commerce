@@ -1,0 +1,43 @@
+<div ng-if="rptType <=15 || rptType == 19">
+	<!--对外担保信息 16-2  列表展示-->
+
+	<div class="nianbiao-biaoti-tongyi" ng-click="isShowDuiwaidanbao =! isShowDuiwaidanbao">
+		<div class="col-xs-12 title">
+			对外提供保证担保信息
+		</div>
+		<div ng-show="isShowDuiwaidanbao">
+			<img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+		</div>
+		<div ng-show="!isShowDuiwaidanbao">
+			<img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+		</div>
+	</div>
+	<div ng-if=" isShowDuiwaidanbao && guaInfo && guaInfo.length !=0" ng-repeat="itemguaInfo in guaInfo">
+		<div ng-if="itemguaInfo.fwarnntSign">
+		<div class="row preview item-row vertical-middle">
+			<review-item-multi t-review-title="债权人" t-review-content="{{itemguaInfo.more}}"></review-item-multi>
+			<review-item-multi t-review-title="债务人" t-review-content="{{itemguaInfo.mortgagor}}"></review-item-multi>
+		</div>
+		<div class="row preview item-row vertical-middle">
+
+			<review-item-multi t-review-title="主债权种类" t-review-content="{{itemguaInfo.priClaSecKind}}"></review-item-multi>
+			<review-item-multi t-review-title="主债权数额" t-review-content="{{itemguaInfo.priClaSecAm}}"></review-item-multi>
+		</div>
+		<div class="row preview item-row vertical-middle">
+			<review-item-single t-review-title="履行债务的期限" t-review-content="{{itemguaInfo.pefPerForm+'--'+itemguaInfo.pefPerTo}}"></review-item-single>
+		</div>
+		<div class="row preview item-row vertical-middle">
+			<review-item-multi t-review-title="保证的期限" t-review-content="{{itemguaInfo.guaranperiod}}"></review-item-multi>
+			<review-item-multi t-review-title="保证方式" t-review-content="{{itemguaInfo.gaType}}"></review-item-multi>
+		</div>
+		<div class="list-fenggexian"></div>
+		</div>
+		<div ng-if="!itemguaInfo.fwarnntSign">
+		<div class="wushujutishi">企业不公示</div>
+	</div>
+	</div>
+	<div ng-if="isShowDuiwaidanbao && guaInfo && guaInfo.length ==0">
+		<div class="wushujutishi">暂无相关数据</div>
+	</div>
+	<div class="bottom-fenggexian"></div>
+</div>

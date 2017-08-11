@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh" ng-app="home">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!--手机浏览器调试时打开-->
+    <!--<script src="http://10.10.17.149:8081/target/target-script-min.js#anonymous"></script>-->
+
+    <script src="../static/lib/angular_1.5.10/angular.js"></script>
+    <script src="../static/lib/angular_ui_router_0.3.2/angular-ui-router.js"></script>
+    <script src="../static/lib/angular_ui_bootstrap_2.3.1/ui-bootstrap-tpls.min.js"></script>
+    <script src="../static/lib/ngDialog_0.4.0/ngDialog.js"></script>
+    <script src="../static/lib/angular_ui_switch/angular-ui-switch.min.js"></script>
+    <link href="../static/lib/bootstrap_3.3.7/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../static/lib/ngDialog_0.4.0/ngDialog.css" rel="stylesheet" type="text/css">
+    <link href="../static/lib/angular_ui_switch/angular-ui-switch.min.css" rel="stylesheet" type="text/css">
+    <!-- -->
+    <script src="../static/js/app.js"></script>
+    <script src="../static/js/url.js"></script>
+    <script src="../static/js/indexConfig.js"></script>
+
+    <!--企业信用信息搜索及结果列表-->
+    <script src="../static/js/entInfoQueryCtrl.js"></script>
+    <script src="../static/js/entInfoResultListCtrl.js"></script>
+    <!--企业总信息-->
+    <script src="../static/js/entInfoIndexCtrl.js"></script>
+    <!--清算信息-->
+    <script src="../static/js/qingsuanCtrl.js"></script>
+    <!--营业执照信息-->
+    <script src="../static/js/yingyezhizhaoCtrl.js"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=fjWEcf6acKgdVz39bquptxy0DxzxG0Q1"></script>
+    <script src="../static/js/entAddressPageCtrl.js"></script>
+    <!--基本信息--股东及出资信息-->
+    <script src="../static/js/gudongchuziCtrl.js"></script>
+    <!--基本信息--股东及出资详情信息-->
+    <script src="../static/js/gudongchuziDetailCtrl.js"></script>
+    <!--股权变更信息-->
+    <script src="../static/js/guquanbiangeng.js"></script>
+    <!--知识产权出质登记信息-->
+    <script src="../static/js/zhishichanquan.js"></script>
+    <!--知识产权出质登记信息-->
+    <script src="../static/js/zhishichanquanDetail.js"></script>
+    <!--行政许可信息-->
+    <script src="../static/js/xingzhengxuke.js"></script>
+    <!--行政许可详细信息-->
+    <script src="../static/js/xingzhengxukeDetail.js"></script>
+    <!--行政处罚信息-->
+    <script src="../static/js/xingzhengchufa.js"></script>
+    <!--股东修改-->
+    <script src="../static/js/gudongxiugai.js"></script>
+    <!--企业公示信息--股东出资及详情-->
+    <script src="../static/js/qi_gudongchuziCtrl.js"></script>
+    <script src="../static/js/qi_gudongchuziDetailCtrl.js"></script>
+
+    <link rel="stylesheet" href="../static/css/custom.css" type="text/css">
+    <script src="../static/js/fenzhijigouxinxiCtrl.js"></script>
+    <script src="../static/js/biangengxinxiCtrl.js"></script>
+    <script src="../static/js/dongchandiyadengjixinxiCtrl.js"></script>
+    <script src="../static/js/dongchandiyadengjixinxidetailCtrl.js"></script>
+    <script src="../static/js/guquanchuzhidengjixinxiCtrl.js"></script>
+    <script src="../static/js/guquanchuzhidengjixinxidetailCtrl.js"></script>
+    <script src="../static/js/zhishichanquanchuzhidengjixinxiCtrl.js"></script>
+    <script src="../static/js/zhishichanquanchuzhidengjixinxidetailCtrl.js"></script>
+    <script src="../static/js/chouchajianchajieguoxinxiCtrl.js"></script>
+    <script src="../static/js/xingzhengxukexinxiCtrl.js"></script>
+    <script src="../static/js/xingzhengxukexinxidetailCtrl.js"></script>
+    <script src="../static/js/xingzhengchufaxinxiCtrl.js"></script>
+    <script src="../static/js/xingzhengchufaxinxidetailCtrl.js"></script>
+    <script src="../static/js/xingzhengchufaxinxidetail2Ctrl.js"></script>
+    <link href="../static/css/common.css" rel="stylesheet" type="text/css">
+    <!--主要人员-->
+    <link href="../static/css/zhuyaorenyuan.css" rel="stylesheet" type="text/css">
+    <script src="../static/js/zhuyaorenyuanCtrl.js"></script>
+    <!--商标注册-->
+    <link href="../static/css/shangbiaozhuce.css" rel="stylesheet" type="text/css">
+    <script src="../static/js/shangbiaozhuceCtrl.js"></script>
+    <!--司法协助-->
+    <link href="../static/css/sifaxiezhu.css" rel="stylesheet" type="text/css">
+    <script src="../static/js/sifaxiezhuCtrl.js"></script>
+    <!--列入严重违法失信企业名单（黑名单）-->
+    <script src="../static/js/shixinqiyeCtrl.js"></script>
+    <!--企业信息-知识产权列表-->
+    <script src="../static/js/qi_xingzhengchufa.js"></script>
+    <!--企业年报-->
+    <script src="../static/js/reportInfo/report_qiyenianbao.js"></script>
+    <script src="../static/js/reportInfo/report_jibenxinxi.js"></script>
+    <link href="../static/css/qiyenianbao.css" rel="stylesheet" type="text/css">
+
+
+    <!--<link href="../staziranrencss/css/sifaxieziranrencss.css" rel="stylesheet" type="tziranrencss/css">-->
+    <!--投资人-->
+    <script src="../static/js/touzirenCtrl.js"></script>
+    <!--合伙人-->
+    <script src="../static/js/hehuorenCtrl.js"></script>
+    <!--主管部门-->
+    <script src="../static/js/zhuguanbumen.js"></script>
+    <!--经营异常-->
+    <script src="../static/js/jingyingyichangCtrl.js"></script>
+
+    <!--合作各方信息-->
+    <script src="../static/js/hezuogefangCtrl.js"></script>
+
+    <title>企业信用信息公示</title>
+</head>
+<body>
+<ui-view></ui-view>
+
+
+<script src="../static/js/directive.js"></script>
+<link href="../static/css/directive-style.css" rel="stylesheet" type="text/css">
+</body>
+</html>

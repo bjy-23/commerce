@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_mid_toolbar" />
+    <ScrollView
+        android:id="@+id/case_browse_ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标基本信息 start-->
+            <LinearLayout
+                android:id="@+id/llBaseInfoTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标基本信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivBaseInfo4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <LinearLayout
+                android:id="@+id/llbaseInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <include layout="@layout/view_trade_mark_base_info"/>
+            </LinearLayout>
+            <!--商标基本信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标主体信息 start-->
+            <LinearLayout
+                android:id="@+id/llEntityInfoTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标主体信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivEntityInfo4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <LinearLayout
+                android:id="@+id/llEntityInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <include layout="@layout/view_trade_mark_entity_info"/>
+            </LinearLayout>
+            <!--商标主体信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标申请人信息 start-->
+            <LinearLayout
+                android:id="@+id/llApplierInfoTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标申请人信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivApplierInfo4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <LinearLayout
+                android:id="@+id/llApplierInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <include layout="@layout/view_trade_mark_applier_info"/>
+            </LinearLayout>
+            <!--商标申请人信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标商品服务信息 start-->
+            <LinearLayout
+                android:id="@+id/llGoodsServiceTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标商品服务信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivGoodsService4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <ListView
+                android:id="@+id/lvGoodsService4TradeMarkDetail"
+                style="@style/ListBase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@color/background"
+                android:visibility="gone"
+                android:dividerHeight="1dp"/>
+            <!--商标商品服务信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标共有人信息 start-->
+            <LinearLayout
+                android:id="@+id/llCommonOwnerTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标共有人信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivCommonOwner4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <ListView
+                android:id="@+id/lvCommonOwner4TradeMarkDetail"
+                style="@style/ListBase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@color/background"
+                android:visibility="gone"
+                android:dividerHeight="1dp"/>
+            <!--商标共有人信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标代理人信息 start-->
+            <LinearLayout
+                android:id="@+id/llAgentTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标代理人信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivAgent4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <LinearLayout
+                android:id="@+id/llAgentInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <include layout="@layout/view_trade_mark_agent_info"/>
+            </LinearLayout>
+            <!--商标代理人信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标优先权信息 start-->
+            <LinearLayout
+                android:id="@+id/llPriorityTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标优先权信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivPriority4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <LinearLayout
+                android:id="@+id/llPriorityInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <include layout="@layout/view_trade_mark_priority_info"/>
+            </LinearLayout>
+            <!--商标优先权信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--国际注册信息 start-->
+            <LinearLayout
+                android:id="@+id/llInterRegTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="国际注册信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivInterReg4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <ListView
+                android:id="@+id/lvInterReg4TradeMarkDetail"
+                style="@style/ListBase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@color/background"
+                android:visibility="gone"
+                android:dividerHeight="1dp"/>
+            <!--国际注册信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标许可信息 start-->
+            <LinearLayout
+                android:id="@+id/llPermitTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标许可信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivPermit4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <ListView
+                android:id="@+id/lvPermit4TradeMarkDetail"
+                style="@style/ListBase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@color/background"
+                android:visibility="gone"
+                android:dividerHeight="1dp"/>
+            <!--商标许可信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标联络人信息 start-->
+            <LinearLayout
+                android:id="@+id/llContactor4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标联络人信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivContactor4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <ListView
+                android:id="@+id/lvContactor4TradeMarkDetail"
+                style="@style/ListBase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@color/background"
+                android:visibility="gone"
+                android:dividerHeight="1dp"/>
+            <!--商标联络人信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标质押信息 start-->
+            <LinearLayout
+                android:id="@+id/llPledgeTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标质押信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivPledge4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <ListView
+                android:id="@+id/lvPledge4TradeMarkDetail"
+                style="@style/ListBase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@color/background"
+                android:visibility="gone"
+                android:dividerHeight="1dp"/>
+            <!--商标质押信息 end-->
+            <LinearLayout style="@style/HorizontalWideLine"/>
+            <!--商标其他信息 start-->
+            <LinearLayout
+                android:id="@+id/llOtherInfoTitle4TradeMarkDetail"
+                style="@style/trade_mark_detail_title_linearlayout">
+                <TextView
+                    style="@style/trade_mark_title_textview"
+                    android:text="商标其他信息"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivOtherInfo4TradeMarkDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_more_down"
+                        android:layout_marginRight="10dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout style="@style/HorizontalLine"/>
+            <LinearLayout
+                android:id="@+id/llOtherInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <include layout="@layout/view_trade_mark_other_info"/>
+            </LinearLayout>
+            <!--商标其他信息 end-->
+            <LinearLayout style="@style/HorizontalLine"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

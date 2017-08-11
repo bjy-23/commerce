@@ -1,0 +1,39 @@
+.zyryContentView {
+    width: 50%;
+    height:50px;
+    float: left;
+    border-width: 0 0 1px 0;
+    border-color: #f0f0f0;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    padding-left: 20px
+}
+/*.zyryContentView:nth-child(odd) {*/
+    /*border-right-color: #f0f0f0;*/
+    /*border-right-style: solid;*/
+    /*border-right-width: 2px;*/
+/*}*/
+.zyrySeperator {
+    width: 1px;
+    height: 60%;
+    background-color: #f0f0f0;
+    margin-right: 0px;
+}
+.zyryNameLabel {
+    color: #3c3c3c;
+    font-size: 1.4rem;
+}
+.zyryNameContainer {
+    width: 40%;
+    float: left;
+}
+
+.zyryJobLabel {
+    color: #969696;
+    font-size: 1.4rem;
+}
+.zyryJobContainer {
+    width: 60%;
+    float: right;
+}

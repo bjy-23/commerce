@@ -1,0 +1,105 @@
+<ui-view>
+<div class="pageTitle">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">营业执照信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+
+<div class="pageBody" style="font-size: 1.3rem">
+    <div class="container">
+        <div class="row firstBorder yingyezhizhaoCell" >
+            <div class="col-xs-4" style="color: #666666">{{regNO}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.relatedNum}}</div>
+        </div>
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{entName}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.entName}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{entType}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.entType}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{leRep}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.leRep}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell" ng-show="ismebTotalCapShow">
+            <div class="col-xs-4" style="color: #666666">{{mebTotalCap}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.mebTotalCap}}</div>
+        </div>
+        <div class="row firstBorder yingyezhizhaoCell" ng-show="isRegCapShow">
+            <div class="col-xs-4" style="color: #666666">{{regCap}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.regCap}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{estDate}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.estDate}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell" ng-show="isOpFromShow">
+            <div class="col-xs-4" style="color: #666666">{{opFrom}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.opFrom}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell" ng-show="isOpTpShow">
+            <div class="col-xs-4" style="color: #666666">{{opTo}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.opTo}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{regOrg}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.regOrg}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{apprDate}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.apprDate}}</div>
+            </td>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{regState}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.regState}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{dom}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.dom}}</div>
+            <!--<div class="col-xs-1" style="padding: 0;" ng-click="goAddressPage()"><img src="../static/image/icon_locate.png" style="width: 15px;" ng-click="goAddressPage()" /></div>-->
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell" ng-show="isCanDateShow">
+            <div class="col-xs-4" style="color: #666666">{{canDate}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.canDate}}===</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell" ng-show="isRevDateShow">
+            <div class="col-xs-4" style="color: #666666">{{RevDate}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.revokeDate}}</div>
+        </div>
+
+        <div class="row firstBorder yingyezhizhaoCell" ng-show="isSconFormShow">
+            <div class="col-xs-4" style="color: #666666">{{sconForm}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.sconForm}}</div>
+        </div>
+        <div class="row firstBorder yingyezhizhaoCell">
+            <div class="col-xs-4" style="color: #666666">{{opScope}}</div>
+            <div class="col-xs-8" style="color: #333333">{{yingyezhizhao.opScope}}</div>
+        </div>
+
+    </div>
+</div>
+</ui-view>

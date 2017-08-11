@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="32dp"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:text="选择时间"/>
+    </RelativeLayout>
+    <DatePicker
+        android:id="@+id/dialog_picker"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false">
+
+    </DatePicker>
+    <TimePicker
+        android:visibility="gone"
+        android:id="@+id/dialog_time"
+        android:layout_width="match_parent"
+        android:layout_height="134dp"
+        android:timePickerMode="spinner"
+        android:calendarViewShown="false">
+
+    </TimePicker>
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="32dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/dialog_dismiss"
+            android:text="@android:string/cancel"
+            style="@style/ButtonSmall" />
+        <Button
+            android:id="@+id/dialog_ok"
+            android:text="@android:string/ok"
+            android:layout_marginLeft="53dp"
+            style="@style/ButtonSmall"/>
+    </LinearLayout>
+    <View
+        android:layout_width="320dp"
+        android:layout_height="10dp"/>
+
+</LinearLayout>

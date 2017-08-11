@@ -1,0 +1,30 @@
+<div ng-if="rptType==17">
+    <!-- 分支机构信息 15-1  列表展示-->
+
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowFenzhijigouxinxi=!isShowFenzhijigouxinxi">
+        <div class="col-xs-12 title">
+            分支机构信息
+        </div>
+        <div ng-show="isShowFenzhijigouxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowFenzhijigouxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowFenzhijigouxinxi && branchInfo && branchInfo.length !=0"
+         ng-repeat="itembranchInfo in branchInfo">
+        <div class="duiweitaozhi-liebiao">
+            <div class="duiwaitaozhi-liebiao-biaoti">{{itembranchInfo.branch}}</div>
+            <div class="duiwaitaozhi-liebiao-zhanghao" style="color: #122b40;">分支机构注册号</div>
+            <div class="duiwaitaozhi-liebiao-zhanghao">{{itembranchInfo.regNo}}</div>
+        </div>
+        <div class="list-fenggexian"></div>
+    </div>
+    <div ng-if="isShowFenzhijigouxinxi && branchInfo && branchInfo.length ==0">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/head2"/>
+
+    <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+
+           <TextView
+               style="@style/tv_fragment_base_info_0"
+               android:text="团员" />
+
+           <com.wondersgroup.commerce.fgdj.widget.InputUnit
+               android:id="@+id/input_name"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:need="true"
+               app:textName="姓名："/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+               android:id="@+id/select_gender"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="性别："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+               android:id="@+id/select_cert_type"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="证件类型："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.InputUnit
+               android:id="@+id/input_cert_num"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="证件号码："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+               android:id="@+id/select_nation"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:need="true"
+               app:textName="民族："/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.TimeUnit
+               android:id="@+id/time_birth"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="出生日期："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+               android:id="@+id/select_league_mem_type"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="类别："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.InputUnit
+               android:id="@+id/input_league_name"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="所属团组织："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.TimeUnit
+               android:id="@+id/time_join"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="入团时间："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+               android:id="@+id/select_league_position"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:need="true"
+               app:textName="团内职务："/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.InputUnit
+               android:id="@+id/input_job"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:need="true"
+               app:textName="工作职务："/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+               android:id="@+id/select_edu"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="学历："
+               app:need="true"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.InputUnit
+               android:id="@+id/input_tel"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="手机号码：" />
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <com.wondersgroup.commerce.fgdj.widget.InputUnit
+               android:id="@+id/input_tel_2"
+               android:layout_width="match_parent"
+               android:layout_height="42dp"
+               app:textName="固定号码："/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="100dp">
+
+               <TextView
+                   style="@style/tv_fragment_base_info_1"
+                   android:text="组织关系转接情况:"
+                   android:id="@+id/tv_name"/>
+
+               <com.wondersgroup.commerce.widget.ClearEditText
+                   android:id="@+id/et_detail"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:maxWidth="600dp"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="25dp"
+                   android:background="@null"
+                   android:textSize="14sp"
+                   android:textColor="@color/gray"
+                   android:hint="请输入"
+                   android:textColorHint="@color/gray"
+                   android:drawablePadding="5dp"/>
+
+           </RelativeLayout>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#E6E6E6"/>
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="20dp"/>
+
+       </LinearLayout>
+
+   </ScrollView>
+
+</LinearLayout>

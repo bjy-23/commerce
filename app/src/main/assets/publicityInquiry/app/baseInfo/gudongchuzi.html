@@ -1,0 +1,82 @@
+<ui-view>
+    <style type="text/css">
+        .gdczListHeader {
+            padding: 1rem 2rem;
+            color: red;
+            background-color: #f0f0f0;
+            font-size: 1.2rem;
+        }
+
+        .gdczListItem {
+            width: 100%;
+            background-color: white;
+        }
+
+        .gdczItemTitle {
+            width: 100%;
+            padding: 1rem 2rem;
+            font-size: 1.4rem;
+        }
+
+        .gdczItemContent {
+            padding: 0 2rem 1rem 2rem;
+            font-size: 1.2rem;
+            color: #999999;
+        }
+
+        .goDetail {
+            color: #1491F2;
+            font-size: 1.2rem;
+            padding: 0 2rem 1rem 0;
+            float: right;
+            background-color: inherit;
+            border: none;
+        }
+
+        .goDetail:hover {
+            text-decoration: none;
+            color: #1491F2;
+        }
+
+        .gdczCellFooter {
+            width: 100%;
+            height: .3rem;
+            background-color: #f0f0f0;
+        }
+    </style>
+    <div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">{{typeName}}及出资信息</span>
+        <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+    <div class="pageBody">
+        <div ng-show="!isEmpty">
+            <div ng-show="dataCompleted">
+                <div class="gdczListHeader">
+                    <span>{{typeName}}及出资信息截至2014年2月28日。2014年2月28日之后，工商只公示{{typeName}}姓名，其他出资信息由企业自行公示。</span>
+                </div>
+            </div>
+
+            <div ng-repeat="item in gdczInfoList">
+                <div class="gdczListItem">
+                    <div class="gdczItemTitle"><span>{{item.inv}}</span></div>
+                    <div class="gdczItemContent"><span>{{typeName}}类型：</span><span>{{item.invType}}</span></div>
+                    <div class="gdczItemContent"><span>证照/证件类型：</span><span>{{item.blicType}}</span></div>
+                    <div class="gdczItemContent"><span>证照/证件号码：</span><span>{{item.blicNO}}</span></div>
+                    <a class="goDetail" ng-click="goGDCZDetail(item.id,item.initiator)" ng-show="item.detail">查看详情</a>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="gdczCellFooter"></div>
+            </div>
+        </div>
+    </div>
+    <empty-page ng-show="isEmpty"></empty-page>
+</ui-view>

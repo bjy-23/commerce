@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_mid_toolbar" />
+
+    <RadioGroup
+        android:id="@+id/deal_type_radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <RadioButton
+            android:id="@+id/rb_deal_type_create_case"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/radio_group_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="立案信息"
+            android:textColor="@color/color_radiobutton"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/radio_group_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="现场检查"
+            android:textColor="@color/color_radiobutton"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@drawable/radio_group_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="询问笔录"
+            android:textColor="@color/color_radiobutton"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+    <ScrollView
+        android:id="@+id/case_info_ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:id="@+id/case_info_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/note_record_spot_ListView"
+            style="@style/ListBase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/add_record_Button"
+            android:background="@color/white"
+            android:divider="@color/background"
+            android:dividerHeight="1dp"
+            android:visibility="invisible" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/note_record_enquire_ListView"
+            style="@style/ListBase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/add_record_Button"
+            android:background="@color/white"
+            android:divider="@color/background"
+            android:dividerHeight="1dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/add_record_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="30px"
+            android:background="@color/tjcf"
+            android:text="新增"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</LinearLayout>

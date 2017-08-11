@@ -1,0 +1,42 @@
+<ui-view>
+    <div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">司法协助信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+    <div class="pageBody">
+        <div ng-show="!isEmpty">
+            <div ng-repeat="x in sifaxiezhuData">
+                <div class="sfxzContainerView">
+                    <div class="sfxzTitleContainer">
+                        <span class="sfxzTitleLabel">被执行人：{{x.judInv}}</span>
+                    </div>
+                    <div class="sfxzInfoContainer">
+                        <span class="sfxzInfoLabel">股权数额：{{x.judStoAm}}</span>
+                    </div>
+                    <div class="sfxzInfoContainer">
+                        <span class="sfxzInfoLabel">执行法院：{{x.judAuth}}</span>
+                    </div>
+                    <div class="sfxzInfoContainer">
+                        <span class="sfxzInfoLabel">执行通知书文号：{{x.judExecuteNo}}</span>
+                    </div>
+                    <div class="sfxzInfoContainer">
+                        <span class="sfxzInfoLabel">类型|状态：{{x.judState}}</span></span>
+                    </div>
+                    <a class="sfxzDetailButton" ng-click="goSFXZDetail(x.id)">查看详情</a>
+                    <!--<div class="sfxzDetailButton" onclick="goSFXZDetail()"><span>看看</span></div>-->
+                </div>
+            </div>
+        </div>
+        <empty-page ng-show="isEmpty"></empty-page>
+    </div>
+</ui-view>

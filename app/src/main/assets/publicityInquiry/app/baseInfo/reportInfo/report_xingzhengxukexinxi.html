@@ -1,0 +1,31 @@
+<div ng-if="rptType ==16 || rptType ==17">
+    <!--行政许可信息 16-16 列表展示-->
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowXingzhengxukexinxi =! isShowXingzhengxukexinxi">
+        <div class="col-xs-12 title">
+            行政许可信息
+        </div>
+        <div ng-show="isShowXingzhengxukexinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowXingzhengxukexinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowXingzhengxukexinxi && permitInfo && permitInfo.length !=0"
+         ng-repeat="itempermitInfo in permitInfo">
+            <div class="duiweitaozhi-liebiao">
+                <div class="duiwaitaozhi-liebiao-biaoti">许可文件名称</div>
+                <div class="duiwaitaozhi-liebiao-zhanghao">{{itempermitInfo.licName}}</div>
+                <div class="duiwaitaozhi-liebiao-biaoti">有效期至</div>
+                <div class="duiwaitaozhi-liebiao-zhanghao">{{itempermitInfo.valTo}}</div>
+            </div>
+            <div class="list-fenggexian"></div>
+        </div>
+
+    <div ng-if="isShowXingzhengxukexinxi && permitInfo && permitInfo.length ==0">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>

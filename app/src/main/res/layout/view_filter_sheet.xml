@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="160dp"
+    android:background="@color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/filter_type"
+        style="@style/TextSmall.DeeperBlue" />
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sheet_tabs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="42dp"
+        style="@style/SheetCustomTabLayout"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/filter_time"
+        style="@style/TextSmall.DeeperBlue" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="12dp">
+
+        <com.wondersgroup.commerce.ynwq.widget.TimeSqure
+            android:id="@+id/sheet_startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="11dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginRight="33dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white_gray"/>
+        <com.wondersgroup.commerce.ynwq.widget.TimeSqure
+            android:id="@+id/sheet_endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="48dp">
+        <Button
+            android:id="@+id/sheet_clear"
+            android:text="@string/clear"
+            style="@style/ButtonSmall.Larger" />
+        <Button
+            android:id="@+id/sheet_ok"
+            android:text="@string/ok"
+            style="@style/ButtonSmall.Larger"
+            android:layout_marginLeft="77dp"/>
+    </LinearLayout>
+</LinearLayout>

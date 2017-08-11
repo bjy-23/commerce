@@ -1,0 +1,57 @@
+<div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">行政处罚</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody">
+   <div ng-show="!isEmpty">
+       <div class="container" ng-model="xingzhengchufa">
+           <div class=" row xingzhengxukeDetailCell">
+               <div class="col-xs-5 xingzhengchufaItem1" >决定书文号</div>
+               <div class="col-xs-7" style="text-align: right">{{xingzhengchufa.penDecNo}}</div>
+           </div>
+           <div class="row xingzhengxukeDetailCell" >
+               <div class="col-xs-5 xingzhengchufaItem1" >违法行为类型</div>
+               <div class="col-xs-7" style="text-align: right">{{xingzhengchufa.illegActTypeName}}</div>
+           </div>
+           <div class="row xingzhengxukeDetailCell">
+               <div class="col-xs-5 xingzhengchufaItem1" >行政处罚内容</div>
+               <div class="col-xs-7" style="text-align: right">{{xingzhengchufa.punishContent}}</div>
+           </div>
+           <div class="row xingzhengxukeDetailCell" >
+               <div class="col-xs-5 xingzhengchufaItem1"> 决定机关名称</div>
+               <div class="col-xs-7" style="text-align: right">{{xingzhengchufa.judAuth}}</div>
+           </div>
+           <div class="row xingzhengxukeDetailCell" >
+               <div class="col-xs-5 xingzhengchufaItem1" >处罚决定日期</div>
+               <div class="col-xs-7" style="text-align: right">{{xingzhengchufa.penDecIssDate}}</div>
+           </div>
+           <div class="row xingzhengxukeDetailCell" >
+               <div class="col-xs-5 xingzhengchufaItem1" >公示日期</div>
+               <div class="col-xs-7" style="text-align: right">{{xingzhengchufa.noticeDate}}</div>
+           </div>
+           <div class="row xingzhengxukeDetailCell" >
+               <div class="col-xs-4 xingzhengchufaItem1" >备注</div>
+               <div class="col-xs-8" style="color: #333;text-align: right"> {{xingzhengchufa.remark}}</div>
+           </div>
+       </div>
+       <div class="container" ng-show="xingzhengchufa.altItems">
+           <div class="row changeStatus" style="background-color: #EEEEEE">
+               <div class="col-xs-12">变更情形</div>
+           </div>
+           <div class="row changeStatus" ng-repeat="i in xingzhengchufa.altItems">
+               <div class="col-xs-12">{{i}} </div>
+           </div>
+       </div>
+   </div>
+    <empty-page ng-show="isEmpty"></empty-page>
+</div>

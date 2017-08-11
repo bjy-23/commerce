@@ -1,0 +1,175 @@
+<div class="pageTitle">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">动产抵押登记信息详情</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody" style="font-family: SourceHanSansCN-Normal;">
+    <div class="nianbiao-biaoti-tongyi" ng-init="isShowdcdy = false"
+         ng-click="isShowdcdy =! isShowdcdy">
+        <div class="col-xs-12 title fonttitle">
+            动产抵押登记信息
+        </div>
+        <div ng-show="isShowdcdy">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowdcdy">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-show="isShowdcdy">
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-multi t-review-title="登记编号"
+                               t-review-content="{{dataArray.payInfo.morRegCNO}}"></review-item-multi>
+            <review-item-multi t-review-title="登记日期"
+                               t-review-content="{{dataArray.payInfo.regiDate}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="登记机关"
+                                t-review-content="{{dataArray.payInfo.regOrg}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="dataArray.payInfo.morRegCNO == null && dataArray.payInfo.regiDate == null
+    && dataArray.payInfo.regOrg == null && isShowdcdy">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+
+    <div class="nianbiao-biaoti-tongyi" ng-init="isShowdyqr = false"
+         ng-click="isShowdyqr =! isShowdyqr">
+        <div class="col-xs-12 title fonttitle">
+            抵押权人概况信息
+        </div>
+        <div ng-show="isShowdyqr">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowdyqr">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-repeat="x in dataArray.perInfo" ng-show="isShowdyqr">
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="抵押权人名称"
+                                t-review-content="{{x.more}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-multi t-review-title="抵押权人证照/证件类型"
+                               t-review-content="{{x.blicType}}"></review-item-multi>
+            <review-item-multi t-review-title="证照/证件号码"
+                               t-review-content="{{x.blicNO}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="住所地" t-review-content=""></review-item-single>
+        </div>
+    </div>
+    <div ng-if="(dataArray.perInfo == null || dataArray.perInfo.length === 0) && isShowdyqr">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+
+    <div class="nianbiao-biaoti-tongyi" ng-init="isShowbdbzq = false"
+         ng-click="isShowbdbzq =! isShowbdbzq">
+        <div class="col-xs-12 title fonttitle">
+            被担保债权概况信息
+        </div>
+        <div ng-show="isShowbdbzq">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowbdbzq">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-show="isShowbdbzq">
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-multi t-review-title="种类"
+                               t-review-content="{{dataArray.assInfo.priClaSecKind}}"></review-item-multi>
+            <review-item-multi t-review-title="数额"
+                               t-review-content="{{dataArray.assInfo.priClaSecAm}}万元"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="担保的范围"
+                                t-review-content="{{dataArray.assInfo.warCov}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="债务人履行债务的期限"
+                                t-review-content="{{dataArray.assInfo.pefPerForm}} ~ {{dataArray.assInfo.pefPerTo}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="备注"
+                                t-review-content="{{dataArray.assInfo.remark}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="dataArray.assInfo.priClaSecKind == null && dataArray.assInfo.priClaSecAm ==null
+    && dataArray.assInfo.warCov == null && dataArray.assInfo.pefPerTo == null &&
+    dataArray.assInfo.pefPerTo == null && dataArray.assInfo.remark == null && isShowbdbzq">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+
+
+    <div class="nianbiao-biaoti-tongyi" ng-init="isShowdyw = false"
+         ng-click="isShowdyw =! isShowdyw">
+        <div class="col-xs-12 title fonttitle">
+            抵押物概况信息
+        </div>
+        <div ng-show="isShowdyw">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowdyw">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-repeat="x in dataArray.pawnInfo" ng-show="isShowdyw">
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-multi t-review-title="名称"
+                               t-review-content="{{x.guaName}}"></review-item-multi>
+            <review-item-multi t-review-title="所有权或使用权归属"
+                               t-review-content="{{x.own}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="数量、质量、状况、所在地等情况"
+                                t-review-content="{{x.guaDes}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle fontbody">
+            <review-item-single t-review-title="备注"
+                                t-review-content="{{x.remark}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="(dataArray.pawnInfo == null || dataArray.pawnInfo.length === 0) && isShowdyw">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+
+
+    <div ng-if="dataArray.state == '2'">
+        <div class="nianbiao-biaoti-tongyi" ng-init="isShowzxxx = false"
+             ng-click="isShowzxxx =! isShowzxxx">
+            <div class="col-xs-12 title fonttitle">
+                注销信息
+            </div>
+            <div ng-show="isShowzxxx">
+                <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+            </div>
+            <div ng-show="!isShowzxxx">
+                <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+            </div>
+        </div>
+        <div ng-show="isShowzxxx">
+            <div class="row preview item-row vertical-middle fontbody">
+                <review-item-single t-review-title="注销日期"
+                                    t-review-content="{{dataArray.morCancel.canDate}}"></review-item-single>
+                <review-item-single t-review-title="注销原因"
+                                    t-review-content="{{dataArray.morCancel.morCanRea}}"></review-item-single>
+            </div>
+        </div>
+        <div ng-if="isShowzxxx && dataArray.morCancel.canDate == null && dataArray.morCancel.morCanRea == null">
+            <div class="wushujutishi">暂无相关数据</div>
+        </div>
+    </div>
+</div>
+
+</div>

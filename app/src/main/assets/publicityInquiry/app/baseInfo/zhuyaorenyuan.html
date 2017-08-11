@@ -1,0 +1,32 @@
+<div class="pageTitle  ">
+	<span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+	<span class="title-text">{{zyryTitle}}</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody">
+	<div ng-show="!isEmpty">
+		<div ng-repeat="x in zhuyaorenyuanData ">
+			<div class="zyryContentView">
+				<div class="zyryNameContainer">
+					<span class="zyryNameLabel">{{x.name}}</span>
+				</div>
+				<div class="zyryJobContainer">
+					<div ng-if="x.position">
+					<span class="zyryJobLabel">【{{x.position}}】</span>
+					</div>
+				</div>
+				<div class="zyrySeperator"></div>
+			</div>
+		</div>
+	</div>
+	<empty-page ng-show="isEmpty"></empty-page>
+</div>

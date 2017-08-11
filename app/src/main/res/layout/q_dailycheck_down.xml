@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="检查对象:" />
+
+    <EditText
+        android:id="@+id/checkedName"
+        style="@style/q_base_et_single"
+        android:hint="请填写检查对象" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="联系电话:" />
+
+    <EditText
+        android:id="@+id/checkedNumber"
+        style="@style/q_base_et_single"
+        android:hint="请填写检查对象联系电话"
+        android:inputType="phone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="存在问题:" />
+
+    <TextView
+        android:id="@+id/problem"
+        style="@style/q_base_tv_null"
+        android:hint="请选择存在的问题" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="处理方式:" />
+
+    <TextView
+        android:id="@+id/deal"
+        style="@style/q_base_tv_null"
+        android:hint="请选择处理方式" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="现场照片:" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:paddingBottom="2dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_corner_stroke">
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/imageview_background"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_corner_stroke">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/imageview_background"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_corner_stroke">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/imageview_background"
+                android:scaleType="centerCrop" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_gray_2">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="5"
+                android:gravity="center_vertical"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="登记事项信息"
+                android:textColor="@color/text_black3"
+                android:textSize="17dp" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@color/text_black7" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="检查事项信息"
+                android:textColor="@color/text_black3"
+                android:textSize="17dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <com.wondersgroup.commerce.teamwork.dailycheck.LinearLayoutForListView
+            android:id="@+id/demo_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:orientation="vertical"
+            android:scrollbars="none"></com.wondersgroup.commerce.teamwork.dailycheck.LinearLayoutForListView>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="变动记录:" />
+
+    <TextView
+        android:id="@+id/changeRecord"
+        style="@style/q_base_tv_null" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="经营范围:" />
+
+    <TextView
+        android:id="@+id/tradeScope"
+        style="@style/q_base_view" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="经营范围核查:" />
+
+    <EditText
+        android:id="@+id/trdScope"
+        style="@style/q_base_et_muti" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="工作人员:" />
+
+    <TextView
+        android:id="@+id/inspector"
+        style="@style/q_base_tv_null"
+        android:hint="请选择工作人员" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <TextView
+        style="@style/q_base_title"
+        android:text="备注:" />
+
+    <EditText
+        android:id="@+id/memo"
+        style="@style/q_base_et_muti"
+        android:hint="其他说明" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/text_black7" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/tempButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_four_corner_lightblue"
+            android:text="暂存"
+            android:textColor="@color/text_white"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/realButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_four_corner"
+            android:text="提交"
+            android:textColor="@color/text_white"
+            android:textSize="17dp" />
+    </LinearLayout>
+
+</LinearLayout>

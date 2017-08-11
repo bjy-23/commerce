@@ -1,0 +1,36 @@
+<ui-view>
+    <div class="pageTitle">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">知识产权出质登记信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+    <div class="pageBody" style="background-color: #f0f0f0; font-family: SourceHanSansCN-Normal;" ng-init="isEmpty = true" ng-show="!isEmpty">
+        <div ng-repeat="x in [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},] ">
+            <div class="dcdydjxx">
+                <div class="dcdydixx_num">
+                    <span style="color: #333333; font-size: 1.4rem">知识产权登记证号：9111000MA023819110</span>
+                    <span class="dcdydixx_youxiao">有效</span>
+                </div>
+                <div class="gqczdjxx_detail">
+                    <div>名称：福乐多</div>
+                    <div>种类：商标</div>
+                    <div>公示日期：2011年1月16日</div>
+                </div>
+                <div class="dcdydixx_check">
+                    <a ui-sref=".zhishichanquanchuzhidengjixinxidetail" type="button" class="dcdydixx_btn">查看详情
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <empty-page ng-show="isEmpty"></empty-page>
+</ui-view>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvName4ItemTradeMarkInquiryMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="专用权有效期"
+        android:textSize="13sp"
+        android:textColor="@color/deep_gray"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/llOptionNoLimit4ItemTradeMarkInquiryMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginRight="13dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/rounded_rect_grayfill">
+            <TextView
+                android:id="@+id/tvOptionNoLimit4ItemTradeMarkInquiryMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="不限"
+                android:textColor="@color/light_gray"
+                android:textSize="11sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llOptionYes4ItemTradeMarkInquiryMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/rounded_rect_grayfill">
+            <TextView
+                android:id="@+id/tvOptionYes4ItemTradeMarkInquiryMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是"
+                android:textColor="@color/light_gray"
+                android:textSize="11sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llOptionNo4ItemTradeMarkInquiryMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginRight="13dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/rounded_rect_grayfill">
+            <TextView
+                android:id="@+id/tvOptionNo4ItemTradeMarkInquiryMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="否"
+                android:textColor="@color/light_gray"
+                android:textSize="11sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

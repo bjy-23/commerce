@@ -1,0 +1,46 @@
+ <div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">股东及出资信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+ </div>
+<div class="pageBody" style="background-color: #EEEEEE;padding-top: 5px">
+    <div ng-show="!isEmpty">
+        <div class="container firstBorder" style="background-color: white" ng-repeat="item in gudongchuzi.list">
+            <div class="row yingyezhizhaoCell " style="padding-bottom: 0px" >
+                <div class="col-xs-12">
+                    {{item.inv}}
+                </div>
+            </div>
+            <div class="row yingyezhizhaoCell" style="color: #999999">
+                <div class="col-xs-12">
+                    认缴额（万元）:  {{item.liSubConAm}}
+                </div>
+            </div>
+            <div class="row yingyezhizhaoCell" style="color: #999999;padding-top: 0px">
+                <div class="col-xs-12">
+                    实缴额（万元）: {{item.liAcConAm}}
+                </div>
+            </div>
+            <div class="buttonDetail" ng-click="lookDetail(item)">
+                <a >查看详情</a>
+            </div>
+        </div>
+        <div class="container" style="padding-top: 15px">
+            <div class="row">
+                <div class="col-xs-12" >
+                    <a class="gudongLook" ng-click="changeClick()"> 查看修改记录 </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <empty-page ng-show="isEmpty"></empty-page>
+</div>

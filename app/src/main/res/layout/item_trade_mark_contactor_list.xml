@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+
+        <TextView
+            style="@style/trade_mark_tab_textview"
+            android:id="@+id/tvContactorNumber4ItemTradeMarkContactorList"
+            android:text="序号"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="联络人名称："/>
+        <TextView
+            android:id="@+id/tvName4ItemTradeMarkContactorList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="联络人电话："/>
+        <TextView
+            android:id="@+id/tvTelephone4ItemTradeMarkContactorList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="联络人手机："/>
+        <TextView
+            android:id="@+id/tvMobile4ItemTradeMarkContactorList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="联络人地址："/>
+        <TextView
+            android:id="@+id/tvAddress4ItemTradeMarkContactorList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+</LinearLayout>

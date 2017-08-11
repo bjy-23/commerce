@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:overScrollMode="never">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="@drawable/first_page_index_3" />
+
+                <ImageView
+                    android:id="@+id/img_mine"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:padding="5dp"
+                    android:src="@mipmap/mine_1"
+                    android:scaleType="centerInside"/>
+
+            </RelativeLayout>
+
+            <com.wondersgroup.commerce.widget.ExpandableRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:overScrollMode="never"
+                android:focusable="false"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="320dp"
+            android:layout_height="34dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="203dp"
+            android:background="@drawable/rect_corner_white_1">
+
+            <ImageView
+                android:id="@+id/img_horn"
+                android:layout_width="20dp"
+                android:layout_height="14dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/horn"/>
+
+            <TextView
+                android:id="@+id/tv_gg"
+                android:layout_width="wrap_content"
+                android:maxWidth="200dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/img_horn"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="暂无消息"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:padding="5dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:text="更多"
+                android:padding="5dp"/>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:layout_toLeftOf="@+id/tv_option"
+                android:layout_marginRight="10dp"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</ScrollView>

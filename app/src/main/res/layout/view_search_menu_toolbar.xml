@@ -1,0 +1,77 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mid_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="56dp"
+    android:background="@color/blue">
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="32dp"
+        android:orientation="horizontal"
+        android:background="@drawable/rounded_rect_bar"
+        android:layout_gravity="center"
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:background="@drawable/icon_search"
+            android:layout_marginLeft="10dp"/>
+        <com.wondersgroup.commerce.widget.NoEmojiEditText
+            android:id="@+id/toolbar_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="请输入企业名称或注册号"
+            android:textColorHint="@color/light_gray"
+            android:textSize="14sp"
+            android:textColor="@color/deep_gray"
+            android:background="@android:color/transparent"
+            android:layout_marginLeft="4dp"
+            android:imeOptions="actionSearch"
+            android:singleLine="true" />
+        <ImageView
+            android:id="@+id/toolbar_clear"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/icon_search_clean"
+            android:layout_marginRight="5dp"
+            android:padding="6dp"
+            android:visibility="invisible"/>
+    </LinearLayout>
+    <!--<TextView-->
+        <!--android:id="@+id/right_btn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:text="新增"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="14sp"-->
+        <!--android:layout_marginRight="14dp" />-->
+
+    <LinearLayout
+        android:layout_width="51dp"
+        android:layout_height="match_parent"
+        android:id="@+id/right_btn"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <ImageView
+
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/icon_screen"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="6dp"
+            android:text="扫一扫"
+            android:textColor="@color/white"
+            android:textSize="9sp"/>
+
+    </LinearLayout>
+    
+</android.support.v7.widget.Toolbar>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/listview_item_tab"
+            android:text="个体工商户注册号："/>
+        <TextView
+            android:id="@+id/tvRegisterNo"
+            style="@style/listview_item_value"
+            android:text="123456789"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/listview_item_tab"
+            android:text="个体工商户名称："/>
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/listview_item_value"
+            android:text="2016-01-01至2016-12-31"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/listview_item_tab"
+            android:text="法定代表人："/>
+        <TextView
+            android:id="@+id/tvPerson"
+            style="@style/listview_item_value"
+            android:text="2016-01-01至2016-12-31"/>
+    </LinearLayout>
+
+</LinearLayout>

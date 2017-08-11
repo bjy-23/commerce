@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/hn_gray"
+    tools:context=".fragment.FragmentSix">
+
+    <ImageView
+        android:id="@+id/fragment_six_img"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:src="@mipmap/index_banner_bg"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/index_logo"-->
+            <!--android:layout_marginTop="25dp"/>-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/index_title"
+            android:layout_marginTop="100dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/index_slogan"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+    
+    <ImageView
+        android:id="@+id/fragment_six_mine"
+        android:layout_width="22dp"
+        android:layout_height="23dp"
+        android:src="@mipmap/index_setting"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="17dp"
+        android:background="@android:color/transparent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_six_img">
+        <LinearLayout
+            android:id="@+id/layout_home_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+    </ScrollView>
+
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/line_height"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_below="@id/scro_menu"-->
+        <!--android:background="@color/hn_line" />-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginBottom="30dp">-->
+
+        <!--<View-->
+            <!--android:layout_width="77dp"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="@color/black" />-->
+        <!---->
+        <!--<TextView-->
+            <!--android:id="@+id/fragment_six_version"-->
+            <!--android:layout_width="74dp"-->
+            <!--android:layout_height="17dp"-->
+            <!--android:text="Version 1.0.0"-->
+            <!--android:textSize="9sp"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@color/system_font_bottom"/>-->
+        <!---->
+        <!--<View-->
+            <!--android:layout_width="77dp"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="@color/black" />-->
+        
+    <!--</LinearLayout>-->
+
+
+
+</RelativeLayout>

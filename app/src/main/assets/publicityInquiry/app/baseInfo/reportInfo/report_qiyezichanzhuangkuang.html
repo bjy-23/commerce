@@ -1,0 +1,42 @@
+<div ng-if="rptType ==1  || rptType ==3 || rptType ==5  || rptType ==7   || rptType ==10
+|| rptType ==12  || rptType ==15 ">
+    <!--企业资产状况信息-->
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowQiyezichanzhuankuangxinxi =!isShowQiyezichanzhuankuangxinxi">
+        <div class="col-xs-12 title">
+            企业资产状况信息
+        </div>
+        <div ng-show="isShowQiyezichanzhuankuangxinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowQiyezichanzhuankuangxinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-if="isShowQiyezichanzhuankuangxinxi &&  assetInfo ">
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="资产总额" t-review-content="{{assetInfo.assGro}}"></review-item-multi>
+            <review-item-multi t-review-title="所有者权益合计" t-review-content="{{assetInfo.totEqu}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="营业总收入" t-review-content="{{assetInfo.vendInc}}"></review-item-multi>
+            <review-item-multi t-review-title="纳税总额" t-review-content="{{assetInfo.ratGro}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="营业总收入中主营业务收入"
+                                t-review-content="{{assetInfo.maiBusInc}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="净利润" t-review-content="{{assetInfo.netInc}}"></review-item-multi>
+            <review-item-multi t-review-title="利润总额" t-review-content="{{assetInfo.proGro}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="负债总额" t-review-content="{{assetInfo.liaGro}}"></review-item-single>
+        </div>
+    </div>
+    <div ng-if="isShowQiyezichanzhuankuangxinxi &&  assetInfo ==null || assetInfo =='' ">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>

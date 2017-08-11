@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/system_background"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_mid_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dip"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:padding="5dip"
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ydjy_add_edit_frame"
+            android:drawableLeft="@drawable/qy_name"
+            android:drawablePadding="10dp"
+            android:hint="经营者"
+            android:paddingLeft="5dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:padding="5dip"
+            android:id="@+id/zch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ydjy_add_edit_frame"
+            android:drawableLeft="@drawable/zch"
+            android:drawablePadding="10dp"
+            android:hint="注册号"
+            android:paddingLeft="5dp"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_check"
+            android:layout_width="300dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/button_four_corner_lightblue"
+            android:text="查询" />
+    </LinearLayout>
+
+</LinearLayout>

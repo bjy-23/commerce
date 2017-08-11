@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+
+        <TextView
+            style="@style/trade_mark_tab_textview"
+            android:id="@+id/tvPledgor4ItemTradeMarkPledgeList"
+            android:text="序号"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="质权人 ："/>
+        <TextView
+            android:id="@+id/tvPawnee4ItemTradeMarkPledgeList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="质押原因："/>
+        <TextView
+            android:id="@+id/tvReason4ItemTradeMarkPledgeList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="质押期限："/>
+        <TextView
+            android:id="@+id/tvTime4ItemTradeMarkPledgeList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="质押公告日期："/>
+        <TextView
+            android:id="@+id/tvNotifyDate4ItemTradeMarkPledgeList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+</LinearLayout>

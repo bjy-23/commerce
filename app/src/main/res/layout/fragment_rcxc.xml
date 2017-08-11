@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/searchpage_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/rcxc_single_choose"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edit_frame"
+            android:drawableLeft="@drawable/search_1"
+            android:drawablePadding="10dp"
+            android:focusable="false"
+            android:longClickable="false"
+            android:focusableInTouchMode="false"
+            android:paddingLeft="5dp"
+            android:hint="请选择"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_frame"
+            android:drawableLeft="@drawable/search_2"
+            android:drawablePadding="10dp"
+            android:hint="企业名称"
+            android:paddingLeft="5dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/regNo_et"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_frame"
+            android:drawableLeft="@drawable/search_4"
+            android:drawablePadding="10dp"
+            android:hint="注册号"
+            android:paddingLeft="5dp"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/address_et"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_frame"
+            android:drawableLeft="@drawable/search_3"
+            android:drawablePadding="10dp"
+            android:hint="公司地址"
+            android:paddingLeft="5dp"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/commit_btn"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dip"
+                android:layout_height="45dp"
+                android:background="@drawable/serch_btn" />
+
+            <Button
+                android:id="@+id/clear_btn"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/clear_btn" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

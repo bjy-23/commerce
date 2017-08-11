@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:orientation="vertical">
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="中文名称"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="猛狮"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="外文名称"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="1015011"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="联系人"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="32"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="地址"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="否"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="手机号码"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="是"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="E_Mail"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="是"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="经济性质"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="580"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="证件编码"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="592"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="代理人状态"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="1995-02-09"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:orientation="vertical">
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="中文地址"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="猛狮"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="外文地址"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="1015011"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="邮编"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="32"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="电话"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="否"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="传真"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="是"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="代理人类型"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="是"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="证件名称"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="580"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="行政划区"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="592"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/trade_mark_tab_textview"
+            android:layout_marginLeft="20dp"
+            android:text="备注"/>
+    </LinearLayout>
+
+</LinearLayout>

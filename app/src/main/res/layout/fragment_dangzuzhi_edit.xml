@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="党组织信息" />
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="42dp"
+            app:need="true"
+            app:textName="党组织名称："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_super_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="42dp"
+            app:need="true"
+            app:textName="上级党组织名称："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+        <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+            android:id="@+id/select_party_level"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="党组织级别："
+            app:need="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <LinearLayout
+            android:id="@+id/layout_all_counts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.wondersgroup.commerce.fgdj.widget.InputUnit
+                android:id="@+id/input_all_counts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="42dp"
+                app:need="true"
+                app:textName="党总支数："/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E6E6E6"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_brunch_counts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.wondersgroup.commerce.fgdj.widget.InputUnit
+                android:id="@+id/input_brunch_counts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="42dp"
+                app:need="true"
+                app:textName="党支部数："/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E6E6E6"/>
+
+        </LinearLayout>
+
+        <com.wondersgroup.commerce.fgdj.widget.TimeUnit
+            android:id="@+id/time_es"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="组建时间："
+            app:need="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+            android:id="@+id/select_es_way"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="组建方式："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+            android:id="@+id/select_area"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="党组织所在区县："
+            app:need="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp"
+            app:need="true"
+            app:textName="办公详细地址："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp"
+            app:need="true"
+            app:textName="联系电话："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+            android:id="@+id/select_place"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="党组织活动场所："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+            android:id="@+id/select_funds"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="党建活动经费："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_secretary_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp"
+            app:need="true"
+            app:textName="党组书记姓名："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_secretary_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp"
+            app:need="true"
+            app:textName="书记手机号码："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_secretary_dept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp"
+            app:need="true"
+            app:textName="书记工作单位及职务："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

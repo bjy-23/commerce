@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+
+        <TextView
+            android:id="@+id/case_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/tjcf"
+            android:text="案件名称"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/listview_item_tab"
+            android:text="当事人："/>
+        <TextView
+            android:id="@+id/case_person_textview"
+            style="@style/listview_item_value"
+            android:text="123456789"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/listview_item_tab"
+            android:text="处罚日期："/>
+        <TextView
+            android:id="@+id/penalty_date_textview"
+            style="@style/listview_item_value"
+            android:text="2016-01-01至2016-12-31"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/listview_item_tab"
+            android:text="承办人："/>
+        <TextView
+            android:id="@+id/undertake_person_textview"
+            style="@style/listview_item_value"
+            android:text="2016-01-01至2016-12-31"/>
+    </LinearLayout>
+
+</LinearLayout>

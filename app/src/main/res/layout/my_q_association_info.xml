@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="入会时间:" />
+
+        <TextView
+            android:id="@+id/groupJoinTime"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="从业人数:" />
+
+        <TextView
+            android:id="@+id/groupScale"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="负责人政治面貌:" />
+
+        <TextView
+            android:id="@+id/groupChargeCharecter"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="建立党组织时间:" />
+
+        <TextView
+            android:id="@+id/groupPartyDate"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="党组织形式:" />
+
+        <TextView
+            android:id="@+id/groupPartyForm"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="党组织类型:" />
+
+        <TextView
+            android:id="@+id/groupPartyType"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="党员人数:" />
+
+        <TextView
+            android:id="@+id/groupPartyNumber"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="姓名:" />
+
+        <TextView
+            android:id="@+id/groupName"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="建立工会时间:" />
+
+        <TextView
+            android:id="@+id/groupUnionDate"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="建立共青团时间:" />
+
+        <TextView
+            android:id="@+id/groupYoungDate"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="建立妇联时间:" />
+
+        <TextView
+            android:id="@+id/groupWomenDate"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="协会开展工作事项" />
+
+        <TextView
+            android:id="@+id/groupActivityItems"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="开展具体工作说明" />
+
+        <TextView
+            android:id="@+id/groupActivityDetail"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="存在的困难或问题" />
+
+        <TextView
+            android:id="@+id/groupProblems"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="对协会的意见或建议" />
+
+        <TextView
+            android:id="@+id/groupSuggestions"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="服务对象:" />
+
+        <TextView
+            android:id="@+id/checkedName"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="联系电话:" />
+
+        <TextView
+            android:id="@+id/checkedNumber"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="现场照片" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/white_corner_stroke" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/imageview_background"
+                    android:scaleType="centerCrop" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/white_corner_stroke" >
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/imageview_background"
+                    android:scaleType="centerCrop" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/white_corner_stroke" >
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/imageview_background"
+                    android:scaleType="centerCrop" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_gray_2" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="5"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="登记事项信息"
+                    android:textColor="@color/text_black3"
+                    android:textSize="17dp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:background="@color/text_black7" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="3"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:text="变动记录"
+                    android:textColor="@color/text_black3"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <com.example.demo12315.qujin.dailycheck.LinearLayoutForListView
+                android:id="@+id/demo_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:divider="@null"
+                android:orientation="vertical"
+                android:scrollbars="none" >
+            </com.example.demo12315.qujin.dailycheck.LinearLayoutForListView>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="变动记录:" />
+
+        <TextView
+            android:id="@+id/changeRecord"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="经营范围:" />
+
+        <TextView
+            android:id="@+id/tradeScope"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="经营范围核查:" />
+
+        <TextView
+            android:id="@+id/trdScope"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="工作人员:" />
+
+        <TextView
+            android:id="@+id/inspector"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="备注:" />
+
+        <TextView
+            android:id="@+id/memo"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="提交人:" />
+
+        <TextView
+            android:id="@+id/submitUser"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="督查人:" />
+
+        <TextView
+            android:id="@+id/inspectUser"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="检查日期:" />
+
+        <TextView
+            android:id="@+id/checkDate"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="GPS信息:" />
+
+        <TextView
+            android:id="@+id/gpsInfo"
+            style="@style/q_base_view" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <TextView
+            style="@style/q_base_title"
+            android:text="督察意见:" />
+
+        <TextView
+            android:id="@+id/inspection_text"
+            style="@style/q_base_view"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/inspection"
+            style="@style/q_base_et_single"
+            android:hint="请填写督察意见" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/text_black7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/confirmButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_four_corner_lightblue"
+                android:text="确定"
+                android:textColor="@color/text_white"
+                android:textSize="17dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

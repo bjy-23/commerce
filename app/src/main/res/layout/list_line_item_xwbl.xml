@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/gray_light"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardElevation="@null">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                style="@style/listview_item_linearlayout">
+                <TextView
+                    android:id="@+id/enquired_person_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/tjcf"
+                    android:text="被询问人名称"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/listview_item_linearlayout">
+                <TextView
+                    style="@style/listview_item_tab"
+                    android:text="询问次数"/>
+                <TextView
+                    android:id="@+id/enquire_times_textview"
+                    style="@style/listview_item_value"
+                    android:text="123456789"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/listview_item_linearlayout">
+                <TextView
+                    style="@style/listview_item_tab"
+                    android:text="起始时间："/>
+                <TextView
+                    android:id="@+id/enquire_start_date_textview"
+                    style="@style/listview_item_value"
+                    android:text="2016-01-01至2016-12-31"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/listview_item_linearlayout">
+                <TextView
+                    style="@style/listview_item_tab"
+                    android:text="截止时间："/>
+                <TextView
+                    android:id="@+id/enquire_end_date_textview"
+                    style="@style/listview_item_value"
+                    android:text="2016-01-01至2016-12-31"/>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

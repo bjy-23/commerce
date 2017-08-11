@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/v_extra"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#30000000"/>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_date_picker_1"
+                android:id="@+id/tv_date_no"
+                android:text="取消"
+                android:textColor="#666666"
+                android:layout_marginLeft="15dp"/>
+
+            <TextView
+                style="@style/tv_date_picker_1"
+                android:id="@+id/tv_date_ok"
+                android:text="确定"
+                android:textColor="@color/blue"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="65dp">
+
+            <NumberPicker
+                android:id="@+id/picker_year"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                />
+
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/picker_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="年"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"/>
+
+            <NumberPicker
+                android:id="@+id/picker_month"
+                android:layout_centerHorizontal="true"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/picker_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="月"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"/>
+
+            <NumberPicker
+                android:id="@+id/picker_day"
+                android:layout_toLeftOf="@+id/tv_day"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_marginLeft="3dp"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

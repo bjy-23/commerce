@@ -1,0 +1,134 @@
+<ui-view>
+    <div class="pageTitle">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">行政处罚详情</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+    <div class="pageBody" style="font-family: SourceHanSansCN-Normal;">
+        <div class="fonttitle">
+            <div class="xzcfxxd_body" ng-if="dataArray.penFilePath">
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">行政处罚决定书文号</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.penDecNo}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">作出行政处罚机关名称</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.penOrgan}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">名称</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.illegPt}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">统一社会信用代码/注册号</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.regNo}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">法定代表人（负责人）</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.personName}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">作出行政处罚决定日期</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.penDecissDate}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">公示日期</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.noticeDate}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-4 xzcfxxd_spant">违法行为类型</span>
+                    <span class="col-xs-8 xzcfxxd_span"
+                          style="color: #333333; text-align: left">{{dataArray.illegAct}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-4 xzcfxxd_spant">行政处罚内容</span>
+                    <span class="col-xs-8 xzcfxxd_span" style="color: #333333; text-align: left">{{dataArray.penPunishCon}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+         <!--       	<div class="xzcfxxd_div" ui-sref=".xingzhengchufaxinxidetail2({penFilePath:dataArray.penFilePath})">-->
+                    <!--<span class="col-xs-6 xzcfxxd_spant" style="color: #197CEA">行政处罚决定书</span>-->
+            			<span class="col-xs-4 xzcfxxd_spant">行政处罚决定书</span>
+            			<div ng-if="dataArray.penFilePath">
+            			<span class="col-xs-8 xzcfxxd_span" style="color: #333333; text-align: left">App暂不支持预览，请至电脑端查看</span>
+            			</div>
+                    <!--<img  class=" xzcfxxd_image" src="../static/image/tri_skip_blue.png"></img>-->
+                </div>
+                <div ng-if="dataArray.altItems" class="fontbody">
+                    <div class="col-xs-12 xzcfxxd_changetitle" style="">变更详情</div>
+                    <div ng-repeat="x in dataArray.altItems">
+                        <div class="xzcfxxd_changedetail">{{x}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="xzcfxxd_body" ng-if="!dataArray.penFilePath">
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">行政处罚决定书文号</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.penDecNo}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">作出行政处罚机关名称</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.penAuthName}}</span>
+                </div>
+                <!--<div class="xzcfxxd_div">-->
+                <!--<span class="col-xs-6 xzcfxxd_spant">名称</span>-->
+                <!--<span class="col-xs-6 xzcfxxd_span">{{dataArray.illegPt}}</span>-->
+                <!--</div>-->
+                <!--<div class="xzcfxxd_div">-->
+                <!--<span class="col-xs-6 xzcfxxd_spant">统一社会信用代码/注册号</span>-->
+                <!--<span class="col-xs-6 xzcfxxd_span">{{dataArray.regNo}}</span>-->
+                <!--</div>-->
+                <!--<div class="xzcfxxd_div">-->
+                <!--<span class="col-xs-6 xzcfxxd_spant">法定代表人（负责人）</span>-->
+                <!--<span class="col-xs-6 xzcfxxd_span">{{dataArray.personName}}</span>-->
+                <!--</div>-->
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-6 xzcfxxd_spant">作出行政处罚决定日期</span>
+                    <span class="col-xs-6 xzcfxxd_span">{{dataArray.penDecissDate}}</span>
+                </div>
+                <!--<div class="xzcfxxd_div">-->
+                <!--<span class="col-xs-6 xzcfxxd_spant">公示日期</span>-->
+                <!--<span class="col-xs-6 xzcfxxd_span">{{dataArray.noticeDate}}</span>-->
+                <!--</div>-->
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-4 xzcfxxd_spant">违法行为类型</span>
+                    <span class="col-xs-8 xzcfxxd_span"
+                          style="color: #333333; text-align: left">{{dataArray.illegActType}}</span>
+                </div>
+                <div class="xzcfxxd_div">
+                    <span class="col-xs-4 xzcfxxd_spant">行政处罚内容</span>
+                    <span class="col-xs-8 xzcfxxd_span" style="color: #333333; text-align: left">{{dataArray.punishContent}}</span>
+                </div>
+                <!--<div class="xzcfxxd_div">-->
+                <!--<span class="col-xs-6 xzcfxxd_spant" style="color: #197CEA">行政处罚决定书</span>-->
+                <!--<span ui-sref=".xingzhengchufaxinxidetail2" class="col-xs-6 xzcfxxd_span">></span>-->
+                <!--</div>-->
+                <div ng-if="dataArray.altInfos" class="fontbody">
+                    <div class="col-xs-12 xzcfxxd_changetitle" >变更详情</div>
+                    <div ng-repeat="x in dataArray.altInfos">
+                        <div class="xzcfxxd_changedetail">
+                            <span class="col-xs-6 xzcfxxd_spant_change">变更日期</span>
+                            <span class="col-xs-6 xzcfxxd_span">{{x.altDate}}</span>
+                        </div>
+                        <div class="xzcfxxd_changedetail">
+                            <span class="col-xs-6 xzcfxxd_spant_change">变更内容</span>
+                            <span class="col-xs-6 xzcfxxd_span">{{x.altItem}}</span>
+                        </div>
+                        <div class="xzcfxxd_changedetail">
+                            <span class="col-xs-6 xzcfxxd_spant_change">变更机关</span>
+                            <span class="col-xs-6 xzcfxxd_span">{{x.decOrgan}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ui-view>

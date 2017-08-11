@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="252dp"
+    android:layout_height="32dp"
+    android:background="@drawable/rect_toolbar_serach">
+    <ImageView
+        android:id="@+id/search_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/app_search_selected"
+        />
+    <EditText
+        android:id="@+id/searh_text"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/search_icon"
+        android:background="@android:color/transparent"
+        android:hint="@string/serach_hint_yushen"
+        android:textSize="12sp"
+        />
+</RelativeLayout>

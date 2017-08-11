@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="314dp"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="案件阶段"
+        android:textSize="13sp"
+        android:textColor="@color/deep_gray"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="13dp" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawer_btn_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="27dp"
+        android:overScrollMode="never"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/whiter_gray"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="立案日期"
+        android:textSize="13sp"
+        android:textColor="@color/deep_gray"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="13dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp">
+        <LinearLayout
+            android:id="@+id/date1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/rounded_rect_grayfill">
+            <TextView
+                android:id="@+id/date1txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="起始日期"
+                android:textColor="@color/light_gray"
+                android:textSize="11sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+        <View
+            android:layout_width="13dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/gray_white"/>
+        <LinearLayout
+            android:id="@+id/date2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/rounded_rect_grayfill">
+            <TextView
+                android:id="@+id/date2txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="截止日期"
+                android:textColor="@color/light_gray"
+                android:textSize="11sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/whiter_gray"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp">
+        <Button
+            android:id="@+id/resetbtn"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_btn_blueline"
+            android:text="重置"
+            android:textColor="@color/blue"
+            android:textSize="13sp"/>
+        <Button
+            android:id="@+id/submitbtn"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_btn_bluefill"
+            android:layout_marginLeft="29dp"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="13sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

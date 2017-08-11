@@ -1,0 +1,37 @@
+<div ng-if="rptType <=17 || rptType == 19">
+
+    <!--修改日期 16-2-->
+    <div class="nianbiao-biaoti-tongyi" ng-click="isShowXiugaixinxi =! isShowXiugaixinxi">
+        <div class="col-xs-12 title">
+            修改信息
+        </div>
+        <div ng-show="isShowXiugaixinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowXiugaixinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowXiugaixinxi && altInfo && altInfo.length !=0" ng-repeat="itmealtInfo in altInfo">
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="修改事项"
+                                t-review-content="{{itmealtInfo.altItem}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="修改前" t-review-content="{{itmealtInfo.altBe}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="修改后" t-review-content="{{itmealtInfo.altAf}}"></review-item-single>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-single t-review-title="修改日期"
+                                t-review-content="{{itmealtInfo.altDate}}"></review-item-single>
+        </div>
+        <div class="list-fenggexian"></div>
+    </div>
+    <div ng-if="isShowXiugaixinxi && altInfo && altInfo.length ==0">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>

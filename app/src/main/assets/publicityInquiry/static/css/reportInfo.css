@@ -1,0 +1,23 @@
+
+
+.row.preview.item-row {
+    min-height: 60px;
+    border-bottom: none;
+}
+
+.row .preview.title {
+    min-height: 2.5rem;
+}
+
+.row .preview.content {
+    color: #b3b3b3;
+    word-break: break-all;
+}
+
+.row.head-row {
+    vertical-align: middle;
+    min-height: 2.5rem;
+    background: #eeeeee;
+    line-height: 2.5rem;
+    font-weight: bold;
+ }

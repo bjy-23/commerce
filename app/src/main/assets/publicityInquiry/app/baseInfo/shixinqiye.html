@@ -1,0 +1,88 @@
+<style type="text/css">
+    .sxqyOneRow {
+        padding: 0 1.6rem 0.8rem 1.6rem;
+    }
+
+    .sxqyTitle {
+        margin-top: 0.8rem;
+        color: #333333;
+        font-size: 1.4rem;
+    }
+
+    .sxqyContent {
+        margin-top: 0.5rem;
+        color: #999999;
+        font-size: 1.2rem;
+    }
+
+    .sxqyFengeLine {
+        background-color: #e6e6e6;
+        height: 0.4rem;
+    }
+</style>
+<div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">失信企业</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody">
+    <div ng-show="!isEmpty">
+        <div ng-repeat="item in sxqyInfoList">
+            <div class="sxqyOneRow">
+                <div class="sxqyTitle">
+                    <span>类别</span>
+                </div>
+                <div class="sxqyContent">
+                    <span>{{item.type}}</span>
+                </div>
+                <div class="sxqyTitle">
+                    <span>列入严重违法失信企业名单（黑名单）原因</span>
+                </div>
+                <div class="sxqyContent">
+                    <span>{{item.serIllRea}}</span>
+                </div>
+                <div class="sxqyTitle">
+                    <span>列入日期</span>
+                </div>
+                <div class="sxqyContent">
+                    <span>{{item.abnTime}}</span>
+                </div>
+                <div class="sxqyTitle">
+                    <span>作出决定机关（列入）</span>
+                </div>
+                <div class="sxqyContent">
+                    <span>{{item.abnOrgan}}</span>
+                </div>
+                <div class="sxqyTitle">
+                    <span>移出严重违法失信企业名单（黑名单）原因</span>
+                </div>
+                <div class="sxqyContent">
+                    <span>{{item.remExcpRes}}</span>
+                </div>
+                <div class="sxqyTitle">
+                    <span>移出日期</span>
+                </div>
+                <div class="sxqyContent">
+                    <span>{{item.remDate}}</span>
+                </div>
+                <div class="sxqyTitle">
+                    <span>作出决定机关（移出）</span>
+                </div>
+                <div class="sxqyContent">
+                    <span>{{item.remExcpRes}}</span>
+                </div>
+            </div>
+            <div class="sxqyFengeLine"></div>
+        </div>
+    </div>
+    <empty-page ng-show="isEmpty"></empty-page>
+</div>

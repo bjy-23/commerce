@@ -1,0 +1,234 @@
+<ui-view>
+    <style type="text/css">
+
+        #companyStatus1 {
+            margin: 1rem 0rem 0.5rem 1.6rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            color: #FFFFFF;
+            /*background-color: #1BCBF7;*/
+            float: left;
+            font-size: 1rem;
+            font-family: SourceHanSansCN-Normal;
+        }
+
+        .isCunxu {
+            background-color: #1BCBF7;
+        }
+
+        .isZhuxiao {
+            background-color: #656565;
+        }
+
+        .isDiaoxiao {
+            background-color: #F82220;
+        }
+
+        .isQianchu {
+            background-color: #0A6DCD;
+        }
+
+        .companyStatus2 {
+            margin: 1rem 0 0.5rem 1.6rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            color: #FFFFFF;
+            background-color: #FF5151;
+            float: left;
+            font-size: 1rem;
+        }
+
+        .baseInfoHeader {
+            padding: 0 1.6rem .3rem 1.6rem;
+            color: #333333;
+            font-size: 1.2rem;
+        }
+
+        .baseInfoHeader span {
+            line-height: 1.8rem;
+        }
+
+        .indexInfoDiv {
+            display: flex;
+            align-items: center;
+
+            display: -webkit-flex;
+            -webkit-align-items: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+
+            margin: 0.5rem 0;
+        }
+
+        .baseInfoImg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .indexInfoText {
+            margin: 0 0.8rem;
+            /*width: 35%;*/
+            display: inline-block;
+        }
+
+        .thinFengeLine {
+            clear: both;
+            height: 0.2rem;
+            background-color: #F0F0F0;
+        }
+
+        .thickFengeLine {
+            clear: both;
+            height: 0.6rem;
+            background-color: #F0F0F0;
+        }
+
+        /*基本信息*/
+        .indexSectionHeader {
+            border-top: 1px solid #f0f0f0;
+            padding: 1rem 1.6rem;
+            color: #333333;
+            font-size: 1.6rem;
+        }
+
+        .indexSectionHeader2 {
+            padding: 0.8rem;
+            border: 1px solid #f0f0f0;
+        }
+
+        .indexTextInfo {
+            background-color: #FFF8E7;
+            color: #B08957;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /*滚动条不显示*/
+        .pageBody::-webkit-scrollbar {
+            width: 0px
+        }
+    </style>
+    <div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="goHistoryPage()">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">{{entInfo.entName}}</span>
+        <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+    <div class="pageBody">
+        <div>
+            <div id="companyStatus1" ng-class="entStateCSSClass"><span>{{entInfo.opState}}</span></div>
+            <div class="companyStatus2" ng-show="entInfo.isExcept"><span>该企业被列入经营异常名录</span></div>
+            <div class="companyStatus2" ng-show="entInfo.isBlack"><span>该企业被列入严重违法失信企业名单</span></div>
+            <div class="companyStatus2" ng-show="entInfo.isSimreg"><span>该企业正在进行简易注销公告</span></div>
+            <div style="clear: both;"></div>
+
+            <div class="baseInfoHeader">
+                <div class="indexInfoDiv" ng-show="entInfo.uniScid && entInfo.uniScid != ''">
+                    <img class="baseInfoImg" src="../static/image/icon_zch.png">
+                    <div class="indexInfoText"><span>统一社会信用代码：{{entInfo.uniScid}}</span></div>
+                    <!--</span></div>-->
+                    <!--<div class="indexInfoText2"><span>-->
+                </div>
+                <div class="indexInfoDiv" ng-show="!entInfo.uniScid || entInfo.uniScid == ''">
+                    <img class="baseInfoImg" src="../static/image/icon_zch.png">
+                    <div class="indexInfoText"><span>注册号：{{entInfo.regNo}}</span></div>
+                </div>
+                <div class="indexInfoDiv">
+                    <img class="baseInfoImg" src="../static/image/icon_fddbr.png">
+                    <div class="indexInfoText"><span>{{lerepName}}：{{entInfo.lerep}}</span></div>
+                </div>
+                <!--除吊销注销之外的信息-->
+                <div class="indexInfoDiv"
+                     ng-show="entInfo.opStateId!='2'&&entInfo.opStateId!='3'&&entInfo.opStateId!='4'">
+                    <img class="baseInfoImg" src="../static/image/icon_djjg.png">
+                    <div class="indexInfoText"><span>登记机关：{{entInfo.regOrgan}}</span></div>
+                </div>
+                <div class="indexInfoDiv"
+                     ng-show="entInfo.opStateId!='2'&&entInfo.opStateId!='3'&&entInfo.opStateId!='4'">
+                    <img class="baseInfoImg" src="../static/image/icon_clrq.png">
+                    <div class="indexInfoText"><span>成立日期：{{entInfo.estDate}}</span></div>
+                </div>
+                <!--注销信息-->
+                <div class="indexInfoDiv" ng-show="entInfo.opStateId=='3'||entInfo.opStateId=='4'">
+                    <img class="baseInfoImg" src="../static/image/icon_djjg.png">
+                    <div class="indexInfoText"><span>注销原因：{{entInfo.repealRes}}</span></div>
+                </div>
+                <div class="indexInfoDiv" ng-show="entInfo.opStateId=='3'||entInfo.opStateId=='4'">
+                    <img class="baseInfoImg" src="../static/image/icon_clrq.png">
+                    <div class="indexInfoText"><span>注销日期：{{entInfo.canDate}}</span></div>
+                </div>
+                <!--吊销信息-->
+                <div class="indexInfoDiv" ng-show="entInfo.opStateId=='2'">
+                    <img class="baseInfoImg" src="../static/image/icon_djjg.png">
+                    <div class="indexInfoText"><span>吊销凭证：{{entInfo.revokeRes}}</span></div>
+                </div>
+                <div class="indexInfoDiv" ng-show="entInfo.opStateId=='2'">
+                    <img class="baseInfoImg" src="../static/image/icon_clrq.png">
+                    <div class="indexInfoText"><span>吊销日期：{{entInfo.revokeDate}}</span></div>
+                </div>
+                <div class="indexInfoDiv" style="position: relative;" ng-if="showAddressMap">
+                    <img class="baseInfoImg" src="../static/image/icon_qydz.png">
+                    <div class="indexInfoText" ng-click="goAddressPage();"
+                         style="line-height: 100%;width: 100%;padding-right: 10px;">
+                        <span style="width: 100%;display: block;">
+                            {{place}}：{{entInfo.dom}}
+                        </span>
+                    </div>
+                    <img style="height: 10px;position: absolute;right: 0;" src="../static/image/tri_skip_gray.png">
+                </div>
+                <div class="indexInfoDiv" style="margin-top: 1rem" ng-if="entInfo.isSimreg">
+                    <img class="baseInfoImg" src="../static/image/icon_hint.png">
+                    <div class="indexInfoText" style="line-height: 100%;width: 100%;">
+                        <span style="width: 100%;display: block;color: red;">
+                            正在进行简易注销公告，公告期：{{entInfo.simRegFrom}}-{{entInfo.simRegTo}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="thinFengeLine"></div>
+
+            <div>
+                <div class="indexSectionHeader"><span>基础信息</span></div>
+            </div>
+            <div ng-repeat="part in baseInfoPartsList track by $index">
+                <index-box item="part" go-page="openPage(aStateName)"></index-box>
+            </div>
+            <div style="clear: both;"></div>
+
+            <div class="indexSectionHeader2" ng-show="entShowPartsList && entShowPartsList.length > 0">
+                <div class="indexTextInfo">
+                    <span>以下信息由该企业提供，企业对其报送信息的真实性、合法性负责</span>
+                </div>
+            </div>
+            <div ng-repeat="part in entShowPartsList track by $index">
+                <index-box item="part" go-page="openPage(aStateName)"></index-box>
+            </div>
+            <div class="thickFengeLine"></div>
+
+            <div>
+                <div class="indexSectionHeader"><span>经营信息</span></div>
+            </div>
+            <div ng-repeat="part in jyxxPartsList track by $index">
+                <index-box item="part" go-page="openPage(aStateName)"></index-box>
+            </div>
+            <div class="thickFengeLine"></div>
+
+            <div>
+                <div class="indexSectionHeader"><span>风险信息</span></div>
+            </div>
+            <div ng-repeat="part in fxxxPartsList track by $index">
+                <index-box item="part" go-page="openPage(aStateName)"></index-box>
+            </div>
+            <div class="thickFengeLine"></div>
+
+        </div>
+    </div>
+</ui-view>

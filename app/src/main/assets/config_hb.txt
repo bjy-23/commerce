@@ -1,0 +1,44 @@
+﻿{
+    "version" : "河北",
+
+    "bottomMenu": [
+        {
+            "name": "首页"
+        },
+        {
+            "name": "业务"
+        },
+        {
+            "name": "查询统计"
+        },
+        {
+            "name": "辅助功能"
+        },
+        {
+            "name": "我的"
+        }
+
+],
+
+    "module": [
+        {
+            "function": "案件调查;案件查询;抽查检查待办;抽查检查查询"
+        },
+        {
+            "function": "案件调查;案件查询;抽查检查待办;抽查检查查询"
+        },
+        {
+            "function": "业务统计;统计"
+        },
+        {
+            "function": "备忘录;通讯录"
+        },
+        {
+            "function": ""
+        }
+    ],
+
+"theme" : "蓝色",
+
+"serverAddress" : "http://www.xxxxx"
+}

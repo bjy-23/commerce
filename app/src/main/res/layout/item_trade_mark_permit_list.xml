@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+
+        <TextView
+            style="@style/trade_mark_tab_textview"
+            android:id="@+id/tvPermitNumber4ItemTradeMarkPermitList"
+            android:text="序号"/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="被许可人："/>
+        <TextView
+            android:id="@+id/tvName4ItemTradeMarkPermitList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="许可类型："/>
+        <TextView
+            android:id="@+id/tvType4ItemTradeMarkPermitList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="许可使用商品："/>
+        <TextView
+            android:id="@+id/tvGoods4ItemTradeMarkPermitList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="许可期限（起）"/>
+        <TextView
+            android:id="@+id/tvStartDate4ItemTradeMarkPermitList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/listview_item_linearlayout">
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="许可期限（止）"/>
+        <TextView
+            android:id="@+id/tvEndDate4ItemTradeMarkPermitList"
+            style="@style/trade_mark_list_content_textview"
+            android:text=""/>
+    </LinearLayout>
+
+</LinearLayout>

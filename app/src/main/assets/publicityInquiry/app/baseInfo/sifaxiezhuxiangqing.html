@@ -1,0 +1,184 @@
+<div class="pageTitle  ">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">司法股权冻结详细信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody">
+    <div ng-if="changeData">
+        <div class="sfxzSectionContainerView">
+            <span class="sfxzSectionLabel">司法股东变更详细信息</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">执行法院</span>
+            <span class="sfxzSingleContent">{{changeData.judAuth}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">执行事项</span>
+            <span class="sfxzSingleContent">{{changeData.executeItem}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">执行裁定书文号</span>
+            <span class="sfxzSingleContent">{{changeData.froDocNo}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">执行通知书文号</span>
+            <span class="sfxzSingleContent">{{changeData.judExecuteNo}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">被执行人</span>
+            <span class="sfxzSingleContent">{{changeData.judInv}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">被执行人持有股权、其他投资权益的数额</span>
+            <span class="sfxzSingleContent">{{changeData.judStoAm}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">被执行人证照种类</span>
+            <span class="sfxzSingleContent">{{changeData.blicType}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">被执行人证照号码</span>
+            <span class="sfxzSingleContent">{{changeData.blicNo}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">受让人</span>
+            <span class="sfxzSingleContent">{{changeData.alien}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">协助执行日期</span>
+            <span class="sfxzSingleContent">{{changeData.executeDate}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">受让人证照种类</span>
+            <span class="sfxzSingleContent">{{changeData.alienBlicType}}</span>
+        </div>
+        <div class="sfxzSingleContainerView">
+            <span class="sfxzSingleTitle">受让人证照号码</span>
+            <span class="sfxzSingleContent">{{changeData.alienBlicNo}}</span>
+        </div>
+    </div>
+    <div ng-if="changeData == null || changeData == undefined">
+    <div ng-repeat="x in detailData">
+        <div ng-if="x.state == '1'">
+            <div class="sfxzSectionContainerView">
+                <span class="sfxzSectionLabel">股权冻结信息</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行法院</span>
+                <span class="sfxzSingleContent">{{x.judAuth}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行事项</span>
+                <span class="sfxzSingleContent">{{x.executeItem}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行裁定书文号</span>
+                <span class="sfxzSingleContent">{{x.froDocNo}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行通知书文号</span>
+                <span class="sfxzSingleContent">{{x.judExecuteNo}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人</span>
+                <span class="sfxzSingleContent">{{x.judInv}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人持有股权、其他投资权益的数额</span>
+                <span class="sfxzSingleContent">{{x.judStoAm}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人证照种类</span>
+                <span class="sfxzSingleContent">{{x.blicType}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人证照号码</span>
+                <span class="sfxzSingleContent">{{x.blicNo}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">冻结期限自</span>
+                <span class="sfxzSingleContent">{{x.froFrom}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">冻结期限至</span>
+                <span class="sfxzSingleContent">{{x.froTo}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">冻结期限</span>
+                <span class="sfxzSingleContent">{{x.frozDeadline}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">公示日期</span>
+                <span class="sfxzSingleContent">{{x.publicDate}}</span>
+            </div>
+        </div>
+        <div ng-if="x.state == '2'">
+            <div class="sfxzSectionContainerView">
+                <span class="sfxzSectionLabel">股权解冻信息</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行法院</span>
+                <span class="sfxzSingleContent">{{x.judAuth}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行事项</span>
+                <span class="sfxzSingleContent">{{x.executeItem}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行裁定书文号</span>
+                <span class="sfxzSingleContent">{{x.froDocNo}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">执行通知书文号</span>
+                <span class="sfxzSingleContent">{{x.judExecuteNo}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人</span>
+                <span class="sfxzSingleContent">{{x.judInv}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人持有股权、其他投资权益的数额</span>
+                <span class="sfxzSingleContent">{{x.judStoAm}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人证照种类</span>
+                <span class="sfxzSingleContent">{{x.blicType}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">被执行人证照号码</span>
+                <span class="sfxzSingleContent">{{x.blicNo}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">接触冻结期限</span>
+                <span class="sfxzSingleContent">{{x.thawDate}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">公示日期</span>
+                <span class="sfxzSingleContent">{{x.publicDate}}</span>
+            </div>
+        </div>
+        <div ng-if="x.state == '3'">
+            <div class="sfxzSectionContainerView">
+                <span class="sfxzSectionLabel">股权冻结失效信息</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">失效原因</span>
+                <span class="sfxzSingleContent">{{x.loseEffRes}}</span>
+            </div>
+            <div class="sfxzSingleContainerView">
+                <span class="sfxzSingleTitle">失效时间</span>
+                <span class="sfxzSingleContent">{{x.loseEffDate}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

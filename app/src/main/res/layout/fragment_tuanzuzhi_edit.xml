@@ -1,0 +1,274 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.wondersgroup.commerce.fgdj.fragment.BaseInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#E36660"
+            android:text="填报说明：1、不能重复录入团员信息。2、身份证号为唯一标识符。"/>
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="组织信息" />
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="团组织全称："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_short_name"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="团组织简称："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_super_name"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="上级团组织简称："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+            android:id="@+id/select_league_level"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="团组织级别："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_address"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="办公详细地址："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.TimeUnit
+            android:id="@+id/time_es"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="组建时间："
+            app:need="true"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.SelectUnit
+            android:id="@+id/select_es_way"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="组建方式："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_tel"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="联系电话："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_over_num"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="覆盖企业数（个）："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_aff_num"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="团务工作者人数："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_special_aff_num"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="专职团务工作者人数："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="人员信息" />
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_secretary_name"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="书记姓名："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_secretary_tel"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:need="true"
+            app:textName="书记手机号码："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_instructor_name"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="指导员姓名："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_instructor_tel"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="指导员手机号码："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_instructor_from"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="指导员派出单位："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="经费信息" />
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_budget_inv"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="财政经费投入（万元）："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_dues_inv"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="团费投入（万元）："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_ent_inv"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="企业投入（万元）："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <com.wondersgroup.commerce.fgdj.widget.InputUnit
+            android:id="@+id/input_other_inv"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:textName="其他投入（万元）："/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,29 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/view_mid_toolbar"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/qyxx_menu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            style="@style/BottomTabLayoutTheme"
+            android:background="@color/alter_checked_photo_overlay"
+            />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/qyxx_fragment">
+        </FrameLayout>
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

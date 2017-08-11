@@ -1,0 +1,404 @@
+:root {
+    --nav-height: 50px;
+    --bar-color: rgb(54, 182, 234);
+}
+
+html, body {
+    /*font-size: 18px;*/
+    font-size: 60%;
+}
+div{
+    word-break: break-all;
+}
+
+.vertical-middle {
+    display: -webkit-flex;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+
+    min-height: 20px;
+}
+
+.pageTitle {
+    font-size: 1.8rem;
+    color: black;
+    /*下面设置div内部的文字水平，竖直方向都居中*/
+    width: 100%;
+    position: relative;
+    background: rgb(49, 172, 253);
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+}
+.pageBody {
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+}
+
+/*滚动条不显示*/
+.pageBody::-webkit-scrollbar {
+    width: 0px;
+}
+
+.left-container {
+    position: absolute;
+    width: 6rem;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000; /*不知道被什么挡住了，响应不到返回事件，所以把z-index设大*/
+    /*justify-content: flex-start;*/
+}
+
+.left-btn {
+    width: 10px;
+    margin-left: 10px;
+}
+
+.title-text {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-right: 6rem;
+    margin-left: 6rem; /*放大一些，放置收藏和分享按钮*/
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.right-container {
+    position: absolute;
+    width: 6rem;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    /*justify-content: flex-end;*/
+}
+
+a {
+    display: block;
+}
+
+/*分支机构信息*/
+.fzjgxx {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+
+    padding: 1rem 2rem;
+    border-bottom: solid 0.4rem #f0f0f0;
+}
+
+.titleSpan {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.bodySpan {
+    color: #757575;
+    font-size: 1.2rem;
+    margin: 0 0 1rem 0;
+}
+
+/*变更信息*/
+.bgxx {
+    display: flex;
+    flex-direction: row;
+}
+
+/*.bgxx_left {*/
+/*display: flex;*/
+/*justify-content: center;*/
+/*width: 8%;*/
+/*padding-left: 1.25rem;*/
+/*}*/
+
+/*.line {*/
+/*width: 0.08rem;*/
+/*background-color: lightgrey;*/
+/*position: relative;*/
+/*z-index: 1000;*/
+/*}*/
+
+/*.circle_big {*/
+/*width: 1.25rem;*/
+/*height: 1.25rem;*/
+/*border-radius: 0.625rem;*/
+/*!*position: absolute;*!*/
+/*margin-top: 1.66rem;*/
+/*background-color: #237FE7;*/
+/*z-index: 1001;*/
+/*margin-left: 0.625rem;*/
+/*}*/
+
+/*.circle_small {*/
+/*width: 0.7rem;*/
+/*height: 0.7rem;*/
+/*border-radius: 0.35rem;*/
+/*!*position: absolute;*!*/
+/*margin-top: 4.58rem;*/
+/*background-color: #cccccc;*/
+/*z-index: 1001;*/
+/*margin-left: 0.975rem;*/
+/*}*/
+
+
+
+/*test*/
+
+.bgxx_left {
+    position: relative;
+    width: 15%;
+}
+
+.line {
+    width: 0.08rem;
+    background-color: lightgrey;
+    position: absolute;
+    left: calc(50% - 0.04rem);
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.circle_big {
+    width: 1.25rem;
+    height: 1.25rem;
+    position: absolute;
+    left: calc(50% - 0.625rem);
+
+    border-radius: 0.625rem;
+    margin-top: 1.66rem;
+    background-color: #237FE7;
+    z-index: 1001;
+}
+
+.circle_small {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 0.35rem;
+    position: absolute;
+    left: calc(50% - 0.35rem);
+    margin-top: 4.58rem;
+    background-color: #cccccc;
+    z-index: 1001;
+}
+/*test*/
+
+.bgxx_right {
+    padding: 1.66rem;
+    padding-left: 0;
+    width: 92%;
+}
+
+.bgxx_span {
+    display: block;
+    margin-bottom: 0.83rem;
+    font-size: 1.4rem;
+}
+
+.bgxx_title {
+    display: block;
+    margin-bottom: 0.83rem;
+    color: #9f9f9f;
+    font-size: 1.2rem;
+}
+
+.bgxx_money {
+    display: block;
+    margin-bottom: 0.83rem;
+    font-size: 1.2rem;
+}
+
+.bgxx_detail {
+    margin-top: 1.2rem;
+    background-color: #f4f4f4;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.bgxx_changeafter {
+    padding-left: 0.41rem;
+    border-left: solid 0.08rem #d3d3d3;
+    width: 50%;
+}
+
+.bgxx_changebefore {
+    width: 50%;
+}
+
+/*动产抵押登记信息*/
+.dcdydjxx {
+    background-color: #FFFFFF;
+    margin-top: 0.5rem;
+    padding: 1.33rem;
+}
+
+.dcdydixx_num {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dcdydixx_youxiao {
+    border: solid 1px #15D201;
+    padding: 0px 8px;
+    color: #15D201;
+    border-radius: 2px;
+    font-size: 1.2rem;
+}
+
+.dcdydixx_wuxiao {
+    border: solid 1px #666666;
+    padding: 0px 8px;
+    color: #666666;
+    border-radius: 2px;
+    font-size: 1.2rem;
+}
+
+.dcdydixx_detail {
+    margin-top: 1.58rem;
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #999999;
+    font-size: 1.2rem;
+}
+
+.dcdydixx_check {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dcdydixx_btn {
+    border: none;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: #1491F2;
+    font-size: 1.2rem;
+}
+
+.fonttitle {
+    font-size: 1.4rem;
+}
+
+.fontbody {
+    font-size: 1.2rem;
+}
+
+/*股权出质登记信息*/
+.gqczdjxx_detail {
+    margin-top: 1.58rem;
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #999999;
+    font-size: 1.2rem;
+}
+
+/*抽查检查结果信息*/
+.czjzjgxx {
+    height: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/*行政处罚信息*/
+.xzcfxx {
+    background-color: #FFFFFF;
+    margin-top: 0.5rem;
+    padding: 1.6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.xzcfxx_detail {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    /*height: 7.5rem;*/
+}
+
+.xzcdxx_body {
+    margin-bottom: 0.8rem;
+}
+
+.xzcfxx_span {
+    padding: 0px;
+}
+
+.xzcfxx_check {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-xs-8 {
+    color: #999999;
+}
+
+/*行政处罚信息详情*/
+.xzcfxxd_body {
+    display: flex;
+    flex-direction: column;
+}
+
+.xzcfxxd_div {
+    padding: 1.2rem 0;
+    border-bottom: solid 1px #E6E6E6;
+}
+
+.xzcfxxd_spant {
+    color: #999999;
+}
+
+.xzcfxxd_spant_change {
+    color: #FF0000;
+}
+
+.xzcfxxd_image {
+
+    height: 1.1rem;
+    float: right;
+    padding-right: 15px;
+}
+
+.xzcfxxd_span {
+    text-align: right;
+}
+
+.xzcfxxd_changedetail {
+    padding: 1.2rem 15px;
+    border-bottom: solid 1px #E6E6E6;
+    color: #FF0000;
+    float: left;
+    width: 100%;
+}
+
+.xzcfxxd_changetitle {
+    padding: 0.5rem 15px;
+    background-color: #EEEEEE;
+    color: #FF0000;
+}
+
+/*行政许可信息*/
+.xzxkxx_spant {
+    font-size: 1.4rem;
+}
+
+.xzxkxx_span {
+    color: #999999;
+}

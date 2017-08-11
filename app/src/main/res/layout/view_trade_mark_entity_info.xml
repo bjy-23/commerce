@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:orientation="vertical">
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="主体类型"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="猛狮"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="企业/个体名称"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="1015011"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="注册号"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="32"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="统一社会信用代码"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="否"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="联系人"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="是"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:orientation="vertical">
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="联系电话"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="猛狮"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="联系地址"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="1015011"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="邮编"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="32"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="登记机关"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="否"/>
+
+            <TextView
+                style="@style/trade_mark_tab_textview"
+                android:text="企业状态"/>
+            <TextView
+                style="@style/trade_mark_content_textview"
+                android:text="是"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

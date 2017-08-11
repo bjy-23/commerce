@@ -1,0 +1,34 @@
+<div ng-if="rptType==1 || rptType==3 || rptType ==9 || rptType ==10 ">
+    <!-- 对外投资信息 15-1  列表展示-->
+
+    <div class="nianbiao-biaoti-tongyi"
+         ng-click="isShowDuiwaitouzhi =! isShowDuiwaitouzhi">
+        <div class="col-xs-12 title">
+            对外投资信息
+        </div>
+        <div ng-show="isShowDuiwaitouzhi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowDuiwaitouzhi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+
+    <div ng-if="isShowDuiwaitouzhi && inveInfo && inveInfo.length !=0"
+         ng-repeat="iteminveInfo in inveInfo">
+        <div class="duiweitaozhi-liebiao">
+            <div class="duiwaitaozhi-liebiao-zhanghao" style="color: #0f0f0f"> {{iteminveInfo.entName}}</div>
+
+            <div class="duiwaitaozhi-liebiao-zhanghao" style="color: #0f0f0f">统一社会信用代码/注册号</div>
+            <div class="duiwaitaozhi-liebiao-zhanghao">
+                {{iteminveInfo.uniScid ? iteminveInfo.uniScid : iteminveInfo.regNO}}
+            </div>
+        </div>
+        <div class="list-fenggexian"></div>
+    </div>
+
+    <div ng-if="isShowDuiwaitouzhi && inveInfo && inveInfo.length ==0">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>

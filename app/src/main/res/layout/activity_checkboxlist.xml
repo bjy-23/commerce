@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_light">
+
+    <include layout="@layout/view_mid_toolbar" />
+    <LinearLayout
+        android:id="@+id/msg_manage_bottom_pane"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/blue"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/list_checkbox_select_all"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="全选"
+            android:textColor="@color/white"
+            android:background="@android:color/transparent"/>
+        <Button
+            android:id="@+id/list_checkbox_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="确认"
+            android:textColor="@color/white"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/msg_manage_bottom_pane"
+        android:layout_below="@+id/mid_toolbar"
+        android:layout_marginBottom="8dp">
+        <ListView
+            android:id="@+id/activity_peoplelist_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/list_item_divider"
+            android:dividerHeight="1px"
+            android:background="@android:color/transparent"
+            android:paddingLeft="8dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

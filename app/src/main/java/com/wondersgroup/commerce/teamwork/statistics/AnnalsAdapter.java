@@ -1,0 +1,70 @@
+package com.wondersgroup.commerce.teamwork.statistics;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.wondersgroup.commerce.R;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by root on 7/12/17.
+ */
+
+public class AnnalsAdapter extends RecyclerView.Adapter<AnnalsAdapter.ViewHolder> {
+    private Context context;
+    private ArrayList<String> type = new ArrayList<>();
+    private ArrayList<String> status = new ArrayList<>();
+
+    public AnnalsAdapter(Context context) {
+        this.context = context;
+    }
+
+    public void setType(ArrayList<String> type) {
+        this.type = type;
+    }
+
+    public void setStatus(ArrayList<String> status) {
+        this.status = status;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_annals, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.nbType.setText(type.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return type.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.nb_type)
+        TextView nbType;//年报类型
+        @Bind(R.id.y_nb)
+        TextView ynb;//应年报
+        @Bind(R.id.w_nb)
+        TextView wnb;//未年报
+        @Bind(R.id.yi_nb)
+        TextView yinb;//已年报
+        @Bind(R.id.l_nb)
+        TextView nbl;//年报率
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+}

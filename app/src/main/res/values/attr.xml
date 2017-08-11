@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectUnit">
+        <attr name="textName" format="string"/>
+        <attr name="need" format="boolean"/>
+        <attr name="selectId" format="integer"/>
+        <attr name="textHint" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="InfoSelectBar">
+        <attr name="content" format="string"/>
+    </declare-styleable>
+</resources>

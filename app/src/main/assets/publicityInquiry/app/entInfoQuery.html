@@ -1,0 +1,185 @@
+<style>
+    .pageTitle2 {
+        height: 50px;
+        background-color: rgb(54, 182, 234);
+    }
+
+    .searchBarDiv {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .searchImg {
+        width: 15px;
+        height: 15px;
+        margin: 0 -45px 0 20px;
+        z-index: 100;
+    }
+
+    .searchForm {
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+
+        width: 80%;
+        background: white;
+        height: 30px;
+        padding: 0 5px 0 30px; /*初始状态，不显示清除按钮，右边不用留太多位置，否则placeholder不好看*/
+        margin: 0 0 0 20px;
+    }
+
+    .searchKeyInput {
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .clearInputSearchKey {
+        /*display: none;*/
+        visibility: hidden;
+        width: 16px;
+        height: 16px;
+        margin: 0 0 0 -26px;
+        background: url(../static/image/input_del.png) no-repeat;
+        background-size: contain;
+        outline: none;
+        z-index: 101;
+    }
+
+    /*去除IE中输入框自带的清空按钮*/
+    .searchKeyInput::-ms-clear {
+        display: none;
+    }
+
+    /*当输入框有输入时，让清空按钮变得可见*/
+    .searchKeyInput:valid + .clearInputSearchKey {
+        display: inline;
+        visibility: visible;
+    }
+
+    /*当输入框有输入时，改变输入框的右边padding，留出显示清除按钮的位置*/
+    /*没有输入时，右边padding为5，让placeholder能够完全占满整个输入框*/
+    .searchKeyInput:valid {
+        padding-right: 30px;
+    }
+
+    .cancelSearchButton {
+        color: #FFFFFF;
+        font-size: 1.4rem;
+        /*width: 15%;*/
+        /*margin-left设定一个合适的带下，否则屏幕太小，剩下的位置不够显示两个文字*/
+        margin-left: 22px;
+        padding: 0;
+        border: none;
+        /*-webkit-tap-highlight-color:rgba(0,0,0,0);*/
+        background-color: inherit;
+    }
+
+    .cancelSearchButton:hover {
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+
+    .pageBody {
+        background-color: #F6F6F6;
+    }
+
+    .historyDiv {
+        background-color: #FFFFFF;
+        margin-top: 1rem;
+    }
+
+    .searchHeader {
+        color: #999999;
+        display: flex;
+        align-items: center; /*竖直方向居中*/
+        justify-content: space-between; /*内容分居两侧(内部两个控件时)*/
+        border-bottom: 1px solid #f0f0f0;
+        height: 35px;
+        font-size: 1.2rem;
+        padding: 0 20px;
+    }
+
+    .deleteHistory {
+        width: 14px;
+        height: 14px;
+        background: url("../static/image/icon_del_history.png") no-repeat;
+        background-size: contain;
+    }
+
+    .searchHisrotyContent {
+        padding: 10px 20px 20px 10px;
+        height: auto;
+    }
+
+    .searchHistoryItem {
+        background-color: #F6F6F6;
+        color: #666666;
+        padding: 5px 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        font-size: 1.4rem;
+        float: left;
+    }
+
+    .liulanHistoryItem {
+        padding: 15px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #666666;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+<div class="pageTitle2">
+    <div class="searchBarDiv">
+        <img class="searchImg" src="../static/image/input_search.png">
+        <form action="" class="searchForm" >
+            <input class="searchKeyInput" type="search" required ng-model="searchKey" ng-keyup="searchByKey($event)"
+                   placeholder="企业名称/统一社会信用代码/注册号">
+            <a class="clearInputSearchKey" ng-click="clearInputSearchKey()"></a>
+
+        </form>
+        <a class="cancelSearchButton" ng-click="cancelSearch();">取消</a>
+    </div>
+</div>
+<div class="pageBody">
+    <!--搜索历史-->
+    <div class="historyDiv">
+        <div class="searchHeader">
+            <div class="headerTitle"><span>搜索历史</span></div>
+            <a class="deleteHistory" ng-click="clearSearchHisroty()"></a>
+        </div>
+        <div class="searchHisrotyContent">
+            <div ng-repeat="item in searchHistoryList"
+                 ui-sref="entInfoResultList({inputedSearchKey:item, searchType:presentSearchType})">
+                <div class="searchHistoryItem"><span>{{item}}</span></div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    <!--浏览历史-->
+    <div class="historyDiv">
+        <div class="searchHeader">
+            <div class="headerTitle"><span>浏览历史</span></div>
+            <a class="deleteHistory" ng-click="clearLiulanHisroty()"></a>
+        </div>
+        <div class="liulanHisrotyContent">
+            <div ng-repeat="item in liulanHistoryList" ui-sref="home({entUUID:item.uuid, entType:item.entType})">
+                <div class="liulanHistoryItem">
+                    <img style="width: 12px; height: 12px;" src="../static/image/icon_history.png">
+                    <span>&nbsp;&nbsp;{{item.entName}}</span>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>

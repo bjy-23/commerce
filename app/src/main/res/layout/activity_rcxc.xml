@@ -1,0 +1,27 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/view_mid_toolbar" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/rcxc_menu_layout"
+            style="@style/BottomTabLayoutTheme"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/alter_checked_photo_overlay" />
+
+        <FrameLayout
+            android:id="@+id/rcxc_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></FrameLayout>
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

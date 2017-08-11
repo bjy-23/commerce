@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="党组织信息" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党组织名称："/>
+            <TextView
+                android:id="@+id/tv_full_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="上级党组织名称："/>
+            <TextView
+                android:id="@+id/tv_super_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党组织级别："/>
+            <TextView
+                android:id="@+id/tv_level"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_all_counts"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党总支数："/>
+            <TextView
+                android:id="@+id/tv_all_counts"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_brunch_counts"
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党支部数："/>
+            <TextView
+                android:id="@+id/tv_brunch_counts"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="组建时间："/>
+            <TextView
+                android:id="@+id/tv_es_date"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="组建方式："/>
+            <TextView
+                style="@style/tv_fragment_base_info_2"
+                android:id="@+id/tv_es_way"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="联系电话："/>
+            <TextView
+                style="@style/tv_fragment_base_info_2"
+                android:id="@+id/tv_tel"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党组织所在区县："/>
+            <TextView
+                android:id="@+id/tv_town"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="办公详细地址："/>
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党组织活动场所："/>
+            <TextView
+                android:id="@+id/tv_act_place"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党建活动经费："/>
+            <TextView
+                android:id="@+id/tv_act_funds"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="党组书记姓名："/>
+            <TextView
+                android:id="@+id/tv_secretary_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="书记手机号码："/>
+            <TextView
+                android:id="@+id/tv_secretary_tel"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="书记工作单位及职务："/>
+            <TextView
+                android:id="@+id/tv_secretary_dept"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6"/>
+    </LinearLayout>
+
+</ScrollView>

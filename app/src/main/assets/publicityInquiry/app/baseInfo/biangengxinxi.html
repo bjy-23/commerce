@@ -1,0 +1,40 @@
+<div class="pageTitle">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+    <span class="title-text">变更信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+</div>
+<div class="pageBody" ng-show="!isEmpty">
+    <div ng-repeat="x in dataArray ">
+        <div class="bgxx">
+            <div class="bgxx_left">
+                <div class="line"></div>
+                <div class="circle_big"></div>
+                <div class="circle_small"></div>
+            </div>
+            <div class="bgxx_right">
+                <span class="bgxx_span">{{x.altDate}}</span>
+                <span class="bgxx_span">{{x.altItem}}</span>
+                <div class="bgxx_detail">
+                    <div class="bgxx_changebefore">
+                        <span class="bgxx_title">变更前</span>
+                        <span class="bgxx_money">{{x.altBe}}</span>
+                    </div>
+                    <div class="bgxx_changeafter">
+                        <span class="bgxx_title">变更后</span>
+                        <span class="bgxx_money">{{x.altAf}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<empty-page ng-show="isEmpty"></empty-page>

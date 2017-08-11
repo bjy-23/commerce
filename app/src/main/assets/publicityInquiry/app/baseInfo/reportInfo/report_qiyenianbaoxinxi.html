@@ -1,0 +1,47 @@
+<ui-view>
+    <div class="pageTitle">
+	<span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">企业年报信息</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+
+    <div ng-if="reportList && reportList.length !=0">
+        <div class="pageBody">
+            <div class="tishis">
+                <div style="background: #faebcc; font-size: 1.0rem;">
+                    <div class="tishispan">以下信息由该企业提供，企业对其报送信息的真实性、合法性负责</div>
+                </div>
+            </div>
+
+            <div class="nianbao-liebao" ng-repeat="item in reportList">
+                <span class="nianbao-liebao-biaoti">{{item.anCheYear}}</span>
+
+                <div class="nianbao-liebao-btn" ng-show="item.reportMode =='1'">
+                    <button type="button" ui-sref="home.report.jibenxinxi({data:item.id})"
+                            class="nianbao-liebao-btn-yangshi" ng-click="chakan(item.anCheDate)">查看详情
+                    </button>
+                </div>
+                <div class="nianbao-liebao-btn" ng-show="item.reportMode =='2'">
+                    <button type="button"
+                            class="nianbao-liebao-btn-yangshi">该个体户已报送纸质年报
+                    </button>
+                </div>
+                <div>
+                    <span class="nianbao-liebao-riqi">公示日期: <span>{{item.anCheDate}}</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="reportList && reportList.length ==0">
+        <empty-page></empty-page>
+    </div>
+</ui-view>

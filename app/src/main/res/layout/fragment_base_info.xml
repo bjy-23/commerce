@@ -1,0 +1,506 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wondersgroup.commerce.fgdj.fragment.BaseInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="非公经济组织基本信息" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="名称：" />
+
+            <TextView
+                android:id="@+id/tv_ent_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="白石中和汇宾酒楼" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="类型：" />
+
+            <TextView
+                android:id="@+id/tv_ent_type"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="个体工商户" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="统一社会信用代码/注册号：" />
+
+            <TextView
+                android:id="@+id/tv_reg_no"
+                style="@style/tv_fragment_base_info_2"
+                android:maxWidth="120dp"
+                tools:text="522929600035395" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="成立日期：" />
+
+            <TextView
+                android:id="@+id/tv_es_date"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="2015-10-10" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="从业人员（人）：" />
+
+            <TextView
+                android:id="@+id/tv_enp_num"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="100" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="年营业收入（万元）：" />
+
+            <TextView
+                android:id="@+id/tv_vend_inc"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="1000" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="详细地址：" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/tv_fragment_base_info_2"
+                android:maxWidth="220dp"
+                tools:text="梁河县九保乡孟克村孟克村民小组" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="所属乡镇（街道）：" />
+
+            <TextView
+                android:id="@+id/tv_town"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="遮岛镇" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="是否组建党组织：" />
+
+            <TextView
+                android:id="@+id/tv_is_build_party"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="否" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="是否组建团组织：" />
+
+            <TextView
+                android:id="@+id/tv_is_build_league"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="否" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="是否组建工会：" />
+
+            <TextView
+                android:id="@+id/tv_is_build_labor"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="否" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="是否派遣党建指导员：" />
+
+            <TextView
+                android:id="@+id/tv_dispatch_instructor"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="否" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="是否组建妇联：" />
+
+            <TextView
+                android:id="@+id/tv_is_build_wf"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="否" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="是否经营场所在专业市场内：" />
+
+            <TextView
+                android:id="@+id/tv_is_market"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="否" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <TextView
+            style="@style/tv_fragment_base_info_0"
+            android:text="法定代表人（负责人）基本情况" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="姓名：" />
+
+            <TextView
+                android:id="@+id/tv_person_name"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="杨来奇" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="性别：" />
+
+            <TextView
+                android:id="@+id/tv_sex"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="男" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="证件类型：" />
+
+            <TextView
+                android:id="@+id/tv_cert_type"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="中华人民共和国居民身份证" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="证件号码：" />
+
+            <TextView
+                android:id="@+id/tv_cert_no"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="532929196505121110" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="联系电话：" />
+
+            <TextView
+                android:id="@+id/tv_tel"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="12366666666" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="主要社会职务：" />
+
+            <TextView
+                android:id="@+id/tv_social_duty"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="12366666666" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp">
+
+            <TextView
+                style="@style/tv_fragment_base_info_1"
+                android:text="政治面貌：" />
+
+            <TextView
+                android:id="@+id/tv_political_status"
+                style="@style/tv_fragment_base_info_2"
+                tools:text="12366666666" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <LinearLayout
+            android:id="@+id/layout_political_status_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:id="@+id/tv_is_secretary_name"
+                    style="@style/tv_fragment_base_info_1"
+                    android:text="是否党组织书记：" />
+
+                <TextView
+                    android:id="@+id/tv_is_secretary"
+                    style="@style/tv_fragment_base_info_2"
+                    tools:text="12366666666" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E6E6E6" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:id="@+id/tv_org_name"
+                    style="@style/tv_fragment_base_info_1"
+                    android:text="党组织名称：" />
+
+                <TextView
+                    android:id="@+id/tv_org"
+                    style="@style/tv_fragment_base_info_2"
+                    tools:text="12366666666" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E6E6E6" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E6E6E6" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wondersgroup.commerce.fgdj.activity.DjxxActivity">
+
+    <include layout="@layout/head2"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@color/blue">
+
+        <View
+            android:id="@+id/move_bg"
+            android:layout_width="64dp"
+            android:layout_height="28dp"
+            android:background="@color/white"
+            android:layout_alignLeft="@+id/layout_tab"
+            android:layout_alignTop="@+id/layout_tab"
+            android:visibility="gone"/>
+        
+        <android.support.design.widget.TabLayout
+            android:layout_centerInParent="true"
+            android:id="@+id/layout_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            app:tabMaxWidth="60dp"
+            app:tabMinWidth="60dp"
+            app:tabSelectedTextColor="@color/blue"
+            app:tabTextColor="@color/white"
+            app:tabIndicatorHeight="0dp"
+            app:tabIndicatorColor="@color/white"
+            app:tabBackground="@drawable/tab_item"
+            app:tabTextAppearance="@android:style/TextAppearance.Holo.Large"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

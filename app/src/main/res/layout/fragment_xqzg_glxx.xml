@@ -1,0 +1,386 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:padding="10dip"
+                android:text="分类基本信息"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/sl_iv_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dip"
+                android:background="@drawable/list_open" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/sl_ll_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="10dip"
+                    android:text="管理类别"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fragment_glxx_tv_gllb"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="10dip"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="#E0DFDF"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="10dip"
+                    android:text="信用分类"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fragment_glxx_tv_xyfl"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="10dip"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="#E0DFDF"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="10dip"
+                    android:text="是否为重点监管对象"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fragment_glxx_tv_zdjgdx"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="10dip"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="#E0DFDF"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="10dip"
+                    android:text="特殊标识"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fragment_glxx_tv_tsbs"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="10dip"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="#E0DFDF"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="10dip"
+                    android:text="所属热点行业"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fragment_glxx_tv_rdhy"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="10dip"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="#E0DFDF"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:padding="10dip"
+                    android:text="所属重点区域"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fragment_glxx_tv_zdqy"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:padding="10dip"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:padding="10dip"
+                android:text="监管记录"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/sl_iv_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dip"
+                android:background="@drawable/list_close" />
+        </RelativeLayout>
+
+        <com.wondersgroup.commerce.teamwork.myxqzgdq.MyListview
+            android:id="@+id/glxx_jgjl_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rl_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:padding="10dip"
+                android:text="年检情况"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/sl_iv_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dip"
+                android:background="@drawable/list_close" />
+        </RelativeLayout>
+
+        <com.wondersgroup.commerce.teamwork.myxqzgdq.MyListview
+            android:id="@+id/glxx_njqk_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rl_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:padding="10dip"
+                android:text="被监控状况"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/sl_iv_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dip"
+                android:background="@drawable/list_close" />
+        </RelativeLayout>
+
+        <com.wondersgroup.commerce.teamwork.myxqzgdq.MyListview
+            android:id="@+id/glxx_jkzk_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rl_five"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:padding="10dip"
+                android:text="违法违规情况"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/sl_iv_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dip"
+                android:background="@drawable/list_close" />
+        </RelativeLayout>
+
+        <com.wondersgroup.commerce.teamwork.myxqzgdq.MyListview
+            android:id="@+id/glxx_wfwg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rl_six"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:padding="10dip"
+                android:text="法人代表监控(国家局)"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/sl_iv_six"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dip"
+                android:background="@drawable/list_close" />
+        </RelativeLayout>
+
+        <com.wondersgroup.commerce.teamwork.myxqzgdq.MyListview
+            android:id="@+id/glxx_frdbgj_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/rl_seven"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#dddddd"
+                android:padding="10dip"
+                android:text="法人代表监控(上海)"
+                android:textColor="#2196F3"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/sl_iv_seven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dip"
+                android:background="@drawable/list_close" />
+        </RelativeLayout>
+
+        <com.wondersgroup.commerce.teamwork.myxqzgdq.MyListview
+            android:id="@+id/glxx_frdbsh_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+</ScrollView>

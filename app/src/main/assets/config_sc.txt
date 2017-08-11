@@ -1,0 +1,12 @@
+﻿{
+    "version" : "四川",
+
+    "bottomMenu": [
+        {
+            "name": "首页"
+        }
+    ],
+    "theme" : "蓝色",
+
+    "serverAddress" : "http://www.xxxxx"
+}

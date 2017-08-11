@@ -1,0 +1,69 @@
+<ui-view>
+    <div class="pageTitle">
+    <span class="left-container vertical-middle" ng-click="$state.go('^')">
+        <img class="left-btn " src="../static/image/Back.png">
+    </span>
+        <span class="title-text">行政处罚</span>
+
+    <!--<span class="right-container vertical-middle">
+        <img src="../static/image/icon_share.png" style="width: 2rem;margin-left: 5px;"/>
+        <img ng-if="!isCollected" ng-click="collectEntInfo();" src="../static/image/icon_collectEnt.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+        <img ng-if="isCollected" ng-click="cancelCollectEntInfo()" src="../static/image/icon_collect_s.png"
+                 style="width: 2rem;margin-left: 1rem;"/>
+    </span>-->
+    </div>
+    <div class="pageBody" style="background-color: #f0f0f0; font-family: SourceHanSansCN-Normal;font-size: 1.2rem" ng-show="!isEmpty">
+        <div ng-repeat="x in dataArray">
+            <div class="xzcfxx">
+                <div class="xzcfxx_detail">
+                    <div class="xzcdxx_body">
+                        <span class="col-xs-4 xzcfxx_span">决定文书号：</span>
+                        <span class="col-xs-8 xzcfxx_span">{{x.penDecNo}}</span>
+                    </div>
+                    <div class="xzcdxx_body">
+                        <span class="col-xs-4 xzcfxx_span">违法行为类型：</span>
+                        <span class="col-xs-8 xzcfxx_span">{{x.illegActType}}</span>
+                    </div>
+                    <div class="xzcdxx_body">
+                        <span class="col-xs-4 xzcfxx_span">公示日期：</span>
+                        <span class="col-xs-8 xzcfxx_span">{{x.penDecIssDate}}</span>
+                    </div>
+                </div>
+                <div class="xzcfxx_check">
+                    <div ng-if="x.isChange" style="color: #FF0000">（有变更情形）</div>
+                    <div></div>
+                    <a ui-sref=".xingzhengchufaxinxidetail({detailUrl:x.detailUrl,id:x.id})"
+                            type="button" class="dcdydixx_btn">查看详情
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div ng-repeat="x in entPunInfos">
+            <div class="xzcfxx">
+                <div class="xzcfxx_detail">
+                    <div class="xzcdxx_body">
+                        <span class="col-xs-4 xzcfxx_span">决定文书号：</span>
+                        <span class="col-xs-8 xzcfxx_span">{{x.penDecNo}}</span>
+                    </div>
+                    <div class="xzcdxx_body">
+                        <span class="col-xs-4 xzcfxx_span">违法行为类型：</span>
+                        <span class="col-xs-8 xzcfxx_span">{{x.illegActType}}</span>
+                    </div>
+                    <div class="xzcdxx_body">
+                        <span class="col-xs-4 xzcfxx_span">公示日期：</span>
+                        <span class="col-xs-8 xzcfxx_span">{{x.noticeDate}}</span>
+                    </div>
+                </div>
+                <div class="xzcfxx_check">
+                    <div ng-if="x.isChange" style="color: #FF0000">（有变更情形）</div>
+                    <div></div>
+                    <a ui-sref=".xingzhengchufaxinxidetail({detailUrl:x.detailUrl,id:x.id})"
+                            type="button" class="dcdydixx_btn">查看详情
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <empty-page ng-show="isEmpty"></empty-page>
+</ui-view>

@@ -1,0 +1,190 @@
+/* 投诉举报页面的每个section头*/
+.sectionTitle {
+    color: #666666;
+}
+
+.td-custom {
+    height: 48px;
+    line-height: 48px;
+}
+
+.td-line {
+    border-right: 1px solid #EEEEEE;
+}
+
+.tr-custom {
+    background-color: #EEEEEE;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /*height: 44px;*/
+}
+.div-custom {
+    padding:0px;
+    /*font-size: 18px;*/
+}
+
+.cell {
+    height: 38px;
+    border-right: 1px solid #EEEEEE;
+    padding: 0px;
+    border-collapse:collapse;
+    text-indent: 15px;
+}
+.cellFatehr {
+    padding: 0px;
+    height: 44px;
+    margin-top: 5px;
+    border-bottom: 1px solid #EEEEEE
+}
+.gudongchuziContainer {
+    background: #FFFFFF ;
+    padding: 15px;
+    border-bottom:solid 5px #EEEEEE;
+}
+.gudongchuziCell {
+    padding-top: 5px;
+    font-size: 1.3rem;
+    color: #666666;
+}
+.gudongchuziCellFather {
+    padding: 0px ;
+    color: #999999;
+    font-size: 1.5rem
+}
+.detailButton{
+    text-align: right;
+    font-size: 1.3rem;
+    color: #1491F2;
+    padding: 0px
+}
+/*.detailButton :active{*/
+    /*color: white;*/
+/*}*/
+.gudongchuziDetailHeader {
+    color: #1491F2;
+    font-size: 1.3rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.gudongchuziDetailCellFather {
+    background-color: white;
+}
+.yingyezhizhaoCell {
+    font-size: 1.4rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.gudongchuziDetailCell {
+    font-size: 1.4rem;
+    /*background-color: white;*/
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.firstBorder {
+    border-bottom:solid 1px #EEEEEE;
+}
+.thirdBorder {
+    border-bottom: solid 5px #EEEEEE;;
+}
+.css2 {
+    overflow: hidden; /*自动隐藏文字*/
+    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+    white-space: nowrap;/*强制不换行*/
+    /*width: 20em;!*不允许出现半汉字截断*!*/
+    width: 80%;
+}
+.customCss {
+    overflow: hidden; /*自动隐藏文字*/
+    text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+    white-space: nowrap;/*强制不换行*/
+}
+.vaild {
+    text-align: center;
+    width: 50px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: .5px solid #15D201;
+    border-radius: 3px;
+    color: #15D201;
+}
+.unvaild {
+    text-align: center;
+    width: 50px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: .5px solid #666666;
+    border-radius: 3px;
+    color: #666666;
+}
+.xingzhengxukeDetailCell {
+    font-size: 1.4rem;
+    background-color: white;
+    border-bottom: 1px solid #EEEEEE;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+}
+.xingzhengchufaItem1 {
+    white-space: nowrap;
+    color: #999999
+}
+.xingzhengchufaItem2 {
+    padding-left: 3rem;color: #999999;font-size: 1.3rem
+}
+.changeCell {
+    padding-top: 10px;color: red;font-size: 1.3rem
+}
+.xingzhengchufaCell {
+    background-color: white;
+    padding-top: 15px;
+    border-bottom: 3px solid #EEEEEE;
+}
+
+.cusomtChange {
+    width: 100% ;
+    padding-left: 0px;
+    padding-top: 10px;
+    font-size: 1.2rem;
+    color: red;
+}
+/*查看详情按钮*/
+.buttonDetail {
+    width: 100% ;
+    text-align: right;
+    color: #1491F2;
+    padding-top: -10px;
+    font-size: 1.2rem;
+}
+.buttonDetail :active {
+    color: white;
+}
+.changeStatus {
+    font-size: 1.2rem;
+    border-bottom: 1px solid #EEEEEE;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: red;
+}
+.cellBackground {
+    background-color: white;
+}
+.gudongOutHeader {
+    border-bottom: 1px solid white;
+    border-top: solid 1px white;
+}
+.gudongLook {
+    color: white;
+    width: 100%;
+    background-color: #197CEA;
+    font-size: 1.4rem;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 3px;
+
+}
+.gudongLook :hover {
+    color: black;
+}

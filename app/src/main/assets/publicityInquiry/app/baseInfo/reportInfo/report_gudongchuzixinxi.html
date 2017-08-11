@@ -1,0 +1,41 @@
+<!--股东及出资信息 15-1-->
+<div ng-if="rptType==1 || rptType==10"
+>
+    <div class="nianbiao-biaoti-tongyi" ng-click="isShowGudongjichuzhixinxi =! isShowGudongjichuzhixinxi"
+    >
+        <div class="col-xs-12 title">
+            股东及出资信息
+        </div>
+        <div ng-show="isShowGudongjichuzhixinxi">
+            <img src="../static/image/tri_nb_2.png" alt="" class="biaoti-tubiao">
+        </div>
+        <div ng-show="!isShowGudongjichuzhixinxi">
+            <img src="../static/image/tri_nb_1.png" alt="" class="biaoti-tubiao">
+        </div>
+    </div>
+    <div ng-if="isShowGudongjichuzhixinxi && payInfo && payInfo.length !=0" ng-repeat="itemPayInfo in payInfo">
+        <div class="gudongmingzi">{{itemPayInfo.inv}}</div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="认缴出资额(万元)"
+                               t-review-content="{{itemPayInfo.liSubConAm}}"></review-item-multi>
+            <review-item-multi t-review-title="认缴出资时间" t-review-content="{{itemPayInfo.conDate}}"></review-item-multi>
+        </div>
+
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="认缴出资方式" t-review-content="{{itemPayInfo.conForm}}"></review-item-multi>
+            <review-item-multi t-review-title="实缴出资额(万元)"
+                               t-review-content="{{itemPayInfo.liAcConAm}}"></review-item-multi>
+        </div>
+        <div class="row preview item-row vertical-middle">
+            <review-item-multi t-review-title="实缴出资时间"
+                               t-review-content="{{itemPayInfo.liAcConDate}} "></review-item-multi>
+            <review-item-multi t-review-title="实缴出资方式"
+                               t-review-content="{{itemPayInfo.liAcConForm}}"></review-item-multi>
+        </div>
+        <div class="list-fenggexian"></div>
+    </div>
+    <div ng-if="isShowGudongjichuzhixinxi && payInfo && payInfo.length ==0">
+        <div class="wushujutishi">暂无相关数据</div>
+    </div>
+    <div class="bottom-fenggexian"></div>
+</div>
