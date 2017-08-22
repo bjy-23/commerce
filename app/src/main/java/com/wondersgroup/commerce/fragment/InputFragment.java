@@ -19,6 +19,7 @@ import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.interface_.Data;
 import com.wondersgroup.commerce.model.FwTypeBean;
+import com.wondersgroup.commerce.model.GwjsCondition;
 import com.wondersgroup.commerce.model.SwTypeBean;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
@@ -192,23 +193,19 @@ public class InputFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), RecyclerActivity.class);
                     intent.putExtra("doctype", "收文管理");
-                    JSONObject object = new JSONObject();
-                    try {
-                        if (!"".equals(titleView.getContent())) {
-                            object.put("title", titleView.getContent());
-                        }
-                        if (!"".equals(orginView.getContent())) {
-                            object.put("draftdept", orginView.getContent());
-                        }
-                    object.put("doctype", typeStr);
-                    object.put("createtimeStartStr", dateView.getMultiOne());
-                    object.put("createtimeEndStr", dateView.getMultiTwo());
-                        object.put("pageNo", "1");
-                        object.put("pageSize", "50");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    GwjsCondition gwjsCondition = new GwjsCondition();
+                    if (!"".equals(titleView.getContent())) {
+                        gwjsCondition.setTitle(titleView.getContent());
                     }
-                    intent.putExtra("json", object.toString());
+                    if (!"".equals(orginView.getContent())) {
+                        gwjsCondition.setDraftdept(orginView.getContent());
+                    }
+                    gwjsCondition.setDoctype(typeStr);
+                    gwjsCondition.setCreatetimeStartStr(dateView.getMultiOne());
+                    gwjsCondition.setCreatetimeEndStr(dateView.getMultiTwo());
+                    gwjsCondition.setPageNo("1");
+                    gwjsCondition.setPageSize("50");
+                    Hawk.put("gwCondition", gwjsCondition);
                     startActivity(intent);
                 }
             });
@@ -331,26 +328,22 @@ public class InputFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), RecyclerActivity.class);
                     intent.putExtra("doctype", "发文管理");
-                    JSONObject object = new JSONObject();
-                    try {
-                        if (!"".equals(titleView.getContent())) {
-                            object.put("title", titleView.getContent());
-                        }
-                        if (!"".equals(peoView.getContent())) {
-                            object.put("drafter", peoView.getContent());
-                        }
-                    object.put("doctype", typeStr);
-                    object.put("docclass", lbStr);
-                    object.put("opentype", optionStr);
-                    object.put("draftdeptname", deptStr);
-                    object.put("createtimeStartStr", dateView.getMultiOne());
-                    object.put("createtimeEndStr", dateView.getMultiTwo());
-                        object.put("pageNo", "1");
-                        object.put("pageSize", "50");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    GwjsCondition gwjsCondition = new GwjsCondition();
+                    if (!"".equals(titleView.getContent())) {
+                        gwjsCondition.setTitle(titleView.getContent());
                     }
-                    intent.putExtra("json", object.toString());
+                    if (!"".equals(peoView.getContent())) {
+                        gwjsCondition.setDrafter(peoView.getContent());
+                    }
+                    gwjsCondition.setDoctype(typeStr);
+                    gwjsCondition.setDocclass(lbStr);
+                    gwjsCondition.setOpentype(optionStr);
+                    gwjsCondition.setDraftdeptname(deptStr);
+                    gwjsCondition.setCreatetimeStartStr(dateView.getMultiOne());
+                    gwjsCondition.setCreatetimeEndStr(dateView.getMultiTwo());
+                    gwjsCondition.setPageNo("1");
+                    gwjsCondition.setPageSize("50");
+                    Hawk.put("gwCondition", gwjsCondition);
                     startActivity(intent);
                 }
             });

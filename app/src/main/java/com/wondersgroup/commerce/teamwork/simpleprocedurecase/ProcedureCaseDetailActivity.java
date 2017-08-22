@@ -180,6 +180,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
     private List<ProcedureCaseAttachMentVo> caseAttachList;
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
     private Boolean bCanNotModify = false;  //当前登录人员不是办案人员，不能修改案件信息时 bCanNotModify = true
+    private String defaultCasePerson = null;    //默认办案人员
+    private String subCasePerson = null;        //选择的办案人员
 //    private ImageTableView fj;
 
 
@@ -214,7 +216,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("deptId", deptId);
         Call<ProcedureCaseDetail> call;
         ApiManager.getInstance().unitTestInit();
-        call = ApiManager.caseModule.getProcedureCaseDetail(map);
+        call = ApiManager.caseApi.getProcedureCaseDetail(map);
         call.enqueue(new Callback<ProcedureCaseDetail>() {
             @Override
             public void onResponse(Response<ProcedureCaseDetail> response, Retrofit retrofit) {
@@ -226,6 +228,10 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "获取简易案件详情数据错误", Toast.LENGTH_SHORT).show();
                         return;
                     } else {//添加动态控件
+                        if(caseDetail.getResult().getmCaseDetail().getUserIdSubName()!=null)
+                            defaultCasePerson = caseDetail.getResult().getmCaseDetail().getUserIdSubName();
+                        if(caseDetail.getResult().getmCaseDetail().getUserIdMainName()!=null)
+                            subCasePerson = caseDetail.getResult().getmCaseDetail().getUserIdMainName();
                         dicVo = caseDetail.getResult().getmDicVo();
                         submitPunishVo = caseDetail.getResult().getmPunishVo();
                         if(bCanNotModify == false)
@@ -291,7 +297,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("cedistrictId", firstSpotItem);
 
         Call<ProcedureCaseIllegalSmalTypeResultObject> call;
-        call = ApiManager.caseModule.getCaseDistrictsType(map);
+        call = ApiManager.caseApi.getCaseDistrictsType(map);
         call.enqueue(new Callback<ProcedureCaseIllegalSmalTypeResultObject>() {
             @Override
             public void onResponse(Response<ProcedureCaseIllegalSmalTypeResultObject> response, Retrofit retrofit) {
@@ -331,7 +337,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("entityId", entityId);
 
         Call<ProcedureCaseQueryPersonSelectedResultObject> call;
-        call = ApiManager.caseModule.queryPersonSelected(map);
+        call = ApiManager.caseApi.queryPersonSelected(map);
 
         call.enqueue(new Callback<ProcedureCaseQueryPersonSelectedResultObject>() {
             @Override
@@ -374,7 +380,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("entityId", entityId);
 
         Call<ProcedureCaseQueryCompanySelectedResultObject> call;
-        call = ApiManager.caseModule.queryEtpsSelected(map);
+        call = ApiManager.caseApi.queryEtpsSelected(map);
 
         call.enqueue(new Callback<ProcedureCaseQueryCompanySelectedResultObject>() {
             @Override
@@ -412,7 +418,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("topItems", topItems);
 
         Call<ProcedureCaseIllegalSmalTypeResultObject> call;
-        call = ApiManager.caseModule.getProcedureCaseIllegalSmallType(map);
+        call = ApiManager.caseApi.getProcedureCaseIllegalSmallType(map);
         call.enqueue(new Callback<ProcedureCaseIllegalSmalTypeResultObject>() {
             @Override
             public void onResponse(Response<ProcedureCaseIllegalSmalTypeResultObject> response, Retrofit retrofit) {
@@ -452,7 +458,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("subItems", subItems);
 
         Call<ProcedureCaseIllegalSmalTypeResultObject> call;
-        call = ApiManager.caseModule.getProcedureCaseIllegalCode(map);
+        call = ApiManager.caseApi.getProcedureCaseIllegalCode(map);
         call.enqueue(new Callback<ProcedureCaseIllegalSmalTypeResultObject>() {
             @Override
             public void onResponse(Response<ProcedureCaseIllegalSmalTypeResultObject> response, Retrofit retrofit) {
@@ -493,7 +499,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("ilglActId", subItems);
 
         Call<ProcedureCaseIllegalCodeResultObject> call;
-        call = ApiManager.caseModule.getProcedureCaseIllegalLaw(map);
+        call = ApiManager.caseApi.getProcedureCaseIllegalLaw(map);
         call.enqueue(new Callback<ProcedureCaseIllegalCodeResultObject>() {
             @Override
             public void onResponse(Response<ProcedureCaseIllegalCodeResultObject> response, Retrofit retrofit) {
@@ -558,7 +564,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010102");
 
         Call<ProcedureCaseDetail> call;
-        call = ApiManager.caseModule.getProcedureCaseVols(map);
+        call = ApiManager.caseApi.getProcedureCaseVols(map);
         call.enqueue(new Callback<ProcedureCaseDetail>() {
             @Override
             public void onResponse(Response<ProcedureCaseDetail> response, Retrofit retrofit) {
@@ -600,7 +606,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010023");
         map.put("attachId", picId);
         Call<ProcedureCaseAttachResultObject> call;
-        call = ApiManager.caseModule.procedureCaseDownLoadAttchment(map);
+        call = ApiManager.caseApi.procedureCaseDownLoadAttchment(map);
         call.enqueue(new Callback<ProcedureCaseAttachResultObject>() {
             @Override
             public void onResponse(Response<ProcedureCaseAttachResultObject> response, Retrofit retrofit) {
@@ -694,7 +700,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         addAdditionalFile(map);
 
         Call<ProcedureCaseDetail> call;
-        call = ApiManager.caseModule.submitProcedureCase(map);
+        call = ApiManager.caseApi.submitProcedureCase(map);
         call.enqueue(new Callback<ProcedureCaseDetail>() {
             @Override
             public void onResponse(Response<ProcedureCaseDetail> response, Retrofit retrofit) {
@@ -721,11 +727,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
     private void addAdditionalFile(Map<String, String> map) {
 
-        if (picOneName == null) {
-//            Log.d(TAG, "addAdditionalFile()-------------- picOneName = null");
+        if (picOneName == null)
             return;
-        } else
-            Log.d(TAG, "addAdditionalFile()----- picOneName = " + picOneName);
 
         String additional1 = null;
         String additional2 = null;
@@ -850,6 +853,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 Toast.makeText(ProcedureCaseDetailActivity.this, "当前登录人员不是办案人员，不能修改案件信息！", Toast.LENGTH_SHORT).show();
             }
         } else {
+            defaultCasePerson = loginBean.getResult().getUserName();
             addBaseView();
             getVolumesList();
         }
@@ -1189,7 +1193,11 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                     .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                                         @Override
                                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                            handlePersonRow.setTvContent(personStringArray[which]);
+                                            if(defaultCasePerson!=null && personStringArray[which].equals(defaultCasePerson)){
+                                                Toast.makeText(ProcedureCaseDetailActivity.this, "该人员已经是办案人员！", Toast.LENGTH_SHORT).show();
+                                                return true;
+                                            }
+                                            handlePersonRow.setTvContent(defaultCasePerson+","+personStringArray[which]);
                                             return true;
                                         }
                                     })
@@ -1201,8 +1209,10 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 })
                 .build();
         caseBrowseLinearlayout.addView(handlePersonRow);
-        if (caseDetail != null && dicVo != null && dicVo.getUserIdMainMap() != null) {
-            handlePersonRow.setTvContent(dicVo.getUserIdMainMap().get(caseDetail.getResult().getmCaseDetail().getUserIdMainName()));
+        if (caseDetail != null && dicVo != null && dicVo.getUserIdMainMap() != null && subCasePerson!=null) {
+            handlePersonRow.setTvContent(defaultCasePerson+","+dicVo.getUserIdMainMap().get(subCasePerson));
+        }else{//新增时默认的办案人员
+            handlePersonRow.setTvContent(defaultCasePerson);
         }
 
 
@@ -1330,6 +1340,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             if (ilglActId != null && !ilglActId.equals("")) {
                 getIllegalType(ilglActId.substring(0, 2));
                 getIllegalCode(ilglActId.substring(0, 4));
+                getIllegalLaw(ilglActId);
             }
         }
 
@@ -1346,7 +1357,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
-                        if (referenceBasisesList == null || referenceBasisesList.size() < 2) {
+                        if (referenceBasisesList == null || referenceBasisesList.size() < 1) {
                             Toast.makeText(ProcedureCaseDetailActivity.this, "定性依据字典为空！", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
@@ -1373,7 +1384,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
-                        if (publishBasisesList == null || publishBasisesList.size() < 2) {
+                        if (publishBasisesList == null || publishBasisesList.size() < 1) {
                             Toast.makeText(ProcedureCaseDetailActivity.this, "定性依据字典为空！", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
@@ -1613,8 +1624,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .msgWithTitle("")
                 .build();
         caseBrowseLinearlayout.addView(handlePersonRow);
-        if (caseDetail != null && dicVo != null && dicVo.getUserIdMainMap() != null) {
-            String persons = loginBean.getResult().getUserName() + "、" + dicVo.getUserIdMainMap().get(caseDetail.getResult().getmCaseDetail().getUserIdMainName());
+        if (caseDetail != null && dicVo != null && dicVo.getUserIdMainMap() != null && subCasePerson!=null) {
+            String persons = defaultCasePerson +"," + dicVo.getUserIdMainMap().get(subCasePerson);
             handlePersonRow.setContent(persons);
         }
 
@@ -2365,7 +2376,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                         @Override
                                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                                             String code = illegalCodeArray[which];
-                                            illegalCodeRow.setContent(code);
+                                            illegalCodeRow.setContent(code.substring(0,6));
                                             illegalBehaviorType.setContent(code.substring(6, code.length()));
                                             for (Map.Entry<String, String> entry : illegalCodeMap.entrySet())
                                                 if (illegalCodeArray[which].equals(entry.getValue())) {
@@ -2388,7 +2399,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         illegalCodeLinearLayout.addView(illegalCodeRow);
         String ilglActId = submitPunishVo.getIlglActId();
         if (caseDetail != null && illegalCodeMap != null && ilglActId != null && !ilglActId.equals("")) {
-            illegalCodeRow.setContent(illegalCodeMap.get(ilglActId));
+            illegalCodeRow.setContent(illegalCodeMap.get(ilglActId).substring(0,6));
         }
 
     }
@@ -2969,7 +2980,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         continue;
                     }
                 } else if (widget.getTitle().equals("办案人员*")) {
-                    if (isSelectTextEmpty(widget)) {
+                    if (subCasePerson == null) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请选择办案人员", Toast.LENGTH_SHORT).show();
                         return false;
                     } else {

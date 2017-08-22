@@ -18,6 +18,7 @@
                 android:text="中文名称"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvChineseName4TradeMarkAgent"
                 android:text="猛狮"/>
 
             <TextView
@@ -25,6 +26,7 @@
                 android:text="外文名称"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvEnglishName4TradeMarkAgent"
                 android:text="1015011"/>
 
             <TextView
@@ -32,6 +34,7 @@
                 android:text="联系人"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvContactor4TradeMarkAgent"
                 android:text="32"/>
 
             <TextView
@@ -39,6 +42,7 @@
                 android:text="地址"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvAddress4TradeMarkAgent"
                 android:text="否"/>
 
             <TextView
@@ -46,6 +50,7 @@
                 android:text="手机号码"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvMobile4TradeMarkAgent"
                 android:text="是"/>
 
             <TextView
@@ -53,6 +58,7 @@
                 android:text="E_Mail"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvEMail4TradeMarkAgent"
                 android:text="是"/>
 
             <TextView
@@ -60,6 +66,7 @@
                 android:text="经济性质"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvEconemyState4TradeMarkAgent"
                 android:text="580"/>
 
             <TextView
@@ -67,6 +74,7 @@
                 android:text="证件编码"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvCreditCode4TradeMarkAgent"
                 android:text="592"/>
 
             <TextView
@@ -74,6 +82,7 @@
                 android:text="代理人状态"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvState4TradeMarkAgent"
                 android:text="1995-02-09"/>
 
         </LinearLayout>
@@ -88,6 +97,7 @@
                 android:text="中文地址"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvChineseAddress4TradeMarkAgent"
                 android:text="猛狮"/>
 
             <TextView
@@ -95,6 +105,7 @@
                 android:text="外文地址"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvEnglishAddress4TradeMarkAgent"
                 android:text="1015011"/>
 
             <TextView
@@ -102,6 +113,7 @@
                 android:text="邮编"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvPostCode4TradeMarkAgent"
                 android:text="32"/>
 
             <TextView
@@ -109,6 +121,7 @@
                 android:text="电话"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvTelephone4TradeMarkAgent"
                 android:text="否"/>
 
             <TextView
@@ -116,6 +129,7 @@
                 android:text="传真"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvFex4TradeMarkAgent"
                 android:text="是"/>
 
             <TextView
@@ -123,6 +137,7 @@
                 android:text="代理人类型"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvAgentStates4TradeMarkAgent"
                 android:text="是"/>
 
             <TextView
@@ -130,6 +145,7 @@
                 android:text="证件名称"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvCertificateName4TradeMarkAgent"
                 android:text="580"/>
 
             <TextView
@@ -137,6 +153,7 @@
                 android:text="行政划区"/>
             <TextView
                 style="@style/trade_mark_content_textview"
+                android:id="@+id/tvDistrict4TradeMarkAgent"
                 android:text="592"/>
 
         </LinearLayout>
@@ -149,6 +166,10 @@
             style="@style/trade_mark_tab_textview"
             android:layout_marginLeft="20dp"
             android:text="备注"/>
+        <TextView
+            style="@style/trade_mark_content_textview"
+            android:id="@+id/tvComment4TradeMarkAgent"
+            android:text="592"/>
     </LinearLayout>
 
 </LinearLayout>

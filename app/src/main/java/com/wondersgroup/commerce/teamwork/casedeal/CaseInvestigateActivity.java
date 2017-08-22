@@ -117,7 +117,6 @@ public class CaseInvestigateActivity extends AppCompatActivity {
     private int pageNo = 1, pageMax = 1, totalRecord;
     private int loadType = Constants.LOAD_REFRESH;
     private boolean isLoaded;//true:如果正在加载中：取消滑动加载更多
-    private int type = 1;   //1:执法-案件；  2：三合一-案件；
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -360,7 +359,7 @@ public class CaseInvestigateActivity extends AppCompatActivity {
             map.put("regCaseDate2", endDate);
 
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.INVESTIGATE_CASE_LIST;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.INVESTIGATE_CASE_LIST;
@@ -407,15 +406,14 @@ public class CaseInvestigateActivity extends AppCompatActivity {
 
     //案件条件查询
     private void getQueryMyCase(int page) {
-        String userId = loginBean.getResult().getUserId();
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("userId", userId);
-        map.put("userId", "00005859");
+        map.put("userId", loginBean.getResult().getUserId());
+//        map.put("userId", "00005859");
         map.put("wsCodeReq", "03010003");
         conditionMap.put("\"" + "currentPage" + "\"", "\"" + String.valueOf(page) + "\"");
         map.put("condition", conditionMap.toString());
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_MY_CASE;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_QUERY_MY_CASE;

@@ -1,12 +1,47 @@
-﻿{
-    "version" : "四川",
-
-    "bottomMenu": [
+﻿    [
         {
-            "name": "首页"
+            "menuName":"案件调查",
+            "authId":"03010033"
+        },
+        {
+            "menuName":"我的案件查询",
+            "authId":"03010009"
+        },
+        {
+            "menuName":"简易程序处理",
+            "authId":"08011007"
+        },
+        {
+            "menuName":"双随机结果录入",
+            "authId":"333333"
+        },
+        {
+            "menuName":"双随机结果查询",
+            "authId":"222222"
+        },
+        {
+            "menuName":"公文批阅",
+            "authId":"08011003"
+        },
+        {
+            "menuName":"公文检索",
+            "authId":"08011004"
+        },
+        {
+            "menuName":"企业信用公示
+                        信息查询",
+            "authId":"08012001"
+        },
+        {
+            "menuName":"注册商标查询",
+            "authId":"02077110"
+        },
+        {
+            "menuName":"通知公告",
+            "authId":"08013003"
+        },
+        {
+            "menuName":"通讯录",
+            "authId":"08013001"
         }
-    ],
-    "theme" : "蓝色",
-
-    "serverAddress" : "http://www.xxxxx"
-}
+    ]

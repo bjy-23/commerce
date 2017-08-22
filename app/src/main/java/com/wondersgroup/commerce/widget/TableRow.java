@@ -335,7 +335,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         Context context = mBuilder.mContext;
         View view = new View(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        params.setMargins((int) DWZH.dp2pt(context, 5), 0, (int) DWZH.dp2pt(context, 5), 0);
+        params.setMargins(DWZH.dp(5), 0, DWZH.dp(5), 0);
         view.setLayoutParams(params);
         view.setBackgroundColor(ContextCompat.getColor(context, R.color.linecolor));
         this.addView(view);
@@ -685,7 +685,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         public Builder(Context mContext) {
             this.mContext = mContext;
             marginH = DWZH.dp(15);
-            marginV = DWZH.dp(15);
+            marginV = DWZH.dp(10);
             titleW = DWZH.dp(145);
             textSize = 14;
             titleColor = ContextCompat.getColor(getContext(), R.color.gray);

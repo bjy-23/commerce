@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.BackResultObject;
 import com.wondersgroup.commerce.model.CaseInvestigateDetail;
 import com.wondersgroup.commerce.model.CaseInvestigateTitle;
@@ -41,6 +42,7 @@ import com.wondersgroup.commerce.model.NoteRecordEnquire;
 import com.wondersgroup.commerce.model.NoteRecordSpot;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.CaseApi;
+import com.wondersgroup.commerce.utils.DWZH;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 import com.wondersgroup.commerce.widget.TableRow;
 
@@ -97,7 +99,6 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
     private int requestCode;
     private RootAppcation app;
     private String clueNo;
-    private int type = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,23 +124,24 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
         caseInvestigateTitle = (CaseInvestigateTitle) getIntent().getExtras().getSerializable("CaseInvestigateTitle");
         clueNo = caseInvestigateTitle.getClueNo();
         initView();
+
         //立案信息
         initData();
 
+        //现场检查、询问笔录
         getNoteRecordsList();
     }
 
     private void initData() {
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "03010005");
         map.put("clueNo", clueNo);
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.INVESTIGATE_CASE_DETAIL;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.INVESTIGATE_CASE_DETAIL;
-        Call<CaseInvestigateDetail> call = ApiManager.caseApi.getCaseRegDetail(url,map);
+        Call<CaseInvestigateDetail> call = ApiManager.caseApi.getCaseRegDetail(url, map);
         call.enqueue(new Callback<CaseInvestigateDetail>() {
             @Override
             public void onResponse(Response<CaseInvestigateDetail> response, Retrofit retrofit) {
@@ -169,15 +171,17 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
                     }
 
                     //当事人基本情况
-                    if (caseDetail.getResult().getSimLitigtList() != null
-                            && caseDetail.getResult().getSimLitigtList().size() != 0){
+                    if (ApiManager.caseType == 2 && caseDetail.getResult().getSimLitigtList() != null
+                            && caseDetail.getResult().getSimLitigtList().size() != 0) {
                         TableRow title = new TableRow.Builder(CaseDetailActivity.this)
                                 .asTitle("当事人基本情况")
                                 .build();
                         caseInfoLinearLayout.addView(title);
+                        int size = caseDetail.getResult().getSimLitigtList().size();
 
-                        for (final CaseInvestigateDetail.Result.LitigtVolume litigtVolume : caseDetail.getResult().getSimLitigtList()){
-                            View view = View.inflate(CaseDetailActivity.this,R.layout.item_litigt,null);
+                        for (int i = 0; i < caseDetail.getResult().getSimLitigtList().size(); i++) {
+                            final CaseInvestigateDetail.Result.LitigtVolume litigtVolume = caseDetail.getResult().getSimLitigtList().get(i);
+                            View view = View.inflate(CaseDetailActivity.this, R.layout.item_litigt, null);
                             TextView tvType = (TextView) view.findViewById(R.id.tv_type);
                             tvType.setText(litigtVolume.getAssort());
                             TextView tvName = (TextView) view.findViewById(R.id.tv_name);
@@ -188,16 +192,63 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
                             tvLook.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    if (litigtVolume.getLitigantId() != null && !TextUtils.isEmpty(litigtVolume.getLitigantId()))
-                                        queryDetail(litigtVolume.getLitigantId());
+                                    if (!TextUtils.isEmpty(litigtVolume.getLitigantId())) {
+                                        Intent intent = new Intent(CaseDetailActivity.this, LitigtDetailActivity.class);
+                                        intent.putExtra("clueNo",clueNo);
+                                        intent.putExtra("litigtId",litigtVolume.getLitigantId());
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(CaseDetailActivity.this, "无法查看！", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                             caseInfoLinearLayout.addView(view);
-                        }
 
+                            //添加分割线
+                            if (i < size - 1) {
+                                View line = new View(CaseDetailActivity.this);
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+                                lp.setMargins(DWZH.dp(5), 0, DWZH.dp(5), 0);
+                                line.setLayoutParams(lp);
+                                line.setBackgroundResource(R.color.linecolor);
+                                caseInfoLinearLayout.addView(line);
+                            }
+                        }
                     }
 
                     //承办人情况
+                    if (ApiManager.caseType == 2 && caseDetail.getResult().getExtendPersonVoList() != null &&
+                            caseDetail.getResult().getExtendPersonVoList().size() != 0) {
+                        TableRow title = new TableRow.Builder(CaseDetailActivity.this)
+                                .asTitle("承办人情况")
+                                .build();
+                        caseInfoLinearLayout.addView(title);
+                        int size = caseDetail.getResult().getExtendPersonVoList().size();
+
+                        for (int i = 0; i < caseDetail.getResult().getExtendPersonVoList().size(); i++) {
+                            CaseInvestigateDetail.Result.ExtendPerson extendPerson = caseDetail.getResult().getExtendPersonVoList().get(i);
+                            View view = View.inflate(CaseDetailActivity.this, R.layout.item_extend_person, null);
+                            TextView tvPerson = (TextView) view.findViewById(R.id.tv_person);
+                            tvPerson.setText(extendPerson.getUserName());
+                            TextView tvDept = (TextView) view.findViewById(R.id.tv_dept);
+                            tvDept.setText(extendPerson.getDeptName());
+                            caseInfoLinearLayout.addView(view);
+
+                            //添加分割线
+                            if (i < size - 1) {
+                                View line = new View(CaseDetailActivity.this);
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+                                lp.setMargins(DWZH.dp(5), 0, DWZH.dp(5), 0);
+                                line.setLayoutParams(lp);
+                                line.setBackgroundResource(R.color.linecolor);
+                                caseInfoLinearLayout.addView(line);
+                            }
+                        }
+                    }
+
+
+                    //4个理由、意见
+                    addOpinions();
 
                 } else {
                     Toast.makeText(CaseDetailActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
@@ -211,15 +262,6 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
         });
     }
 
-    public void queryDetail(String litigtId){
-        String url = CaseApi.URL_CASE_2 + CaseApi.GET_LITIGT_DETAIL;
-        HashMap map = new HashMap();
-        map.put("wsCodeReq", "03010017");
-        map.put("clueNo", clueNo);
-        map.put("litigtId",litigtId);
-        Call call = ApiManager.caseApi.getLitigtDetail(url,map);
-    }
-
     //获取现场检查、询问笔录列表
     private void getNoteRecordsList() {
 
@@ -227,11 +269,11 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
         map.put("wsCodeReq", "03010006");
         map.put("clueNo", clueNo);
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.NOTE_RECORD_LIST;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.NOTE_RECORD_LIST;
-        Call<NoteRecordBean> call = ApiManager.caseApi.queryInvestigateList(url,map);
+        Call<NoteRecordBean> call = ApiManager.caseApi.queryInvestigateList(url, map);
         call.enqueue(new Callback<NoteRecordBean>() {
             @Override
             public void onResponse(Response<NoteRecordBean> response, Retrofit retrofit) {
@@ -365,6 +407,24 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
 
     //添加基本信息
     private void addBaseView() {
+        TableRow title = new TableRow.Builder(this)
+                .asTitle("案件基本信息")
+                .build();
+        caseInfoLinearLayout.addView(title);
+
+        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())) {
+            TableRow primeType = new TableRow.Builder(this)
+                    .title("主要案件类型")
+                    .content(caseDetail.getResult().getCaseType())
+                    .build();
+            caseInfoLinearLayout.addView(primeType);
+
+            TableRow secondType = new TableRow.Builder(this)
+                    .title("次要案件类型")
+                    .content(caseDetail.getResult().getSecondaryCaseType())
+                    .build();
+            caseInfoLinearLayout.addView(secondType);
+        }
 
         TableRow caseName = new TableRow.Builder(this)
                 .title("案件名称")
@@ -376,24 +436,12 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
                 .content(caseDetail.getResult().getCaseCedistrict())
                 .build();
         caseInfoLinearLayout.addView(caseDistrict);
-        if (caseDetail.getResult().getCaseSpot() != null && !"".equals(caseDetail.getResult().getCaseSpot())) {
-            TableRow caseSpot = new TableRow.Builder(this)
-                    .title("案发地点")
-                    .content(caseDetail.getResult().getCaseSpot())
-                    .onSelect(new TableRow.SelectCallBack() {
-                        @Override
-                        public void onSelect(TableRow row, int which) {
-                        }
-                    })
-                    .build();
-            caseInfoLinearLayout.addView(caseSpot);
-        } else {
-            TableRow caseSpot = new TableRow.Builder(this)
-                    .title("案发地点")
-                    .content(caseDetail.getResult().getCaseSpot())
-                    .build();
-            caseInfoLinearLayout.addView(caseSpot);
-        }
+        TableRow caseSpot = new TableRow.Builder(this)
+                .title("案发地点")
+                .content(caseDetail.getResult().getCaseSpot())
+                .build();
+        caseInfoLinearLayout.addView(caseSpot);
+
         TableRow caseTime = new TableRow.Builder(this)
                 .title("案发时间")
                 .content(caseDetail.getResult().getCaseTime())
@@ -404,22 +452,95 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
                 .content(caseDetail.getResult().getClueType())
                 .build();
         caseInfoLinearLayout.addView(clueType);
+    }
+
+    public void addOpinions(){
+        TableRow title1 = new TableRow.Builder(this)
+                .asTitle("核查情况及立案(不予立案)理由")
+                .build();
+        caseInfoLinearLayout.addView(title1);
         TableRow caseReason = new TableRow.Builder(this)
-                .title("核查情况及立案(不予立案)理由")
+                .title("理由")
                 .content(caseDetail.getResult().getCaseReason())
                 .build();
         caseInfoLinearLayout.addView(caseReason);
+        TableRow p1 = new TableRow.Builder(this)
+                .title("申请人")
+                .content(caseDetail.getResult().getAppPerson())
+                .build();
+        caseInfoLinearLayout.addView(p1);
+        TableRow t1 = new TableRow.Builder(this)
+                .title("申请日期")
+                .content(caseDetail.getResult().getAppDate())
+                .build();
+        caseInfoLinearLayout.addView(t1);
+
+        TableRow title2 = new TableRow.Builder(this)
+                .asTitle("办案机构负责人意见")
+                .build();
+        caseInfoLinearLayout.addView(title2);
         TableRow deptOpi = new TableRow.Builder(this)
-                .title("办案机构负责人意见")
+                .title("意见")
                 .content(caseDetail.getResult().getDepOpi())
                 .build();
         caseInfoLinearLayout.addView(deptOpi);
+        TableRow p2 = new TableRow.Builder(this)
+                .title("承办人")
+                .content(caseDetail.getResult().getUndertakeName())
+                .build();
+        caseInfoLinearLayout.addView(p2);
+        TableRow p22 = new TableRow.Builder(this)
+                .title("审核人")
+                .content(caseDetail.getResult().getUserIdToexa())
+                .build();
+        caseInfoLinearLayout.addView(p22);
+        TableRow t2 = new TableRow.Builder(this)
+                .title("审核日期")
+                .content(caseDetail.getResult().getToexaDate())
+                .build();
+        caseInfoLinearLayout.addView(t2);
+
+        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())) {
+            TableRow title3 = new TableRow.Builder(this)
+                    .asTitle("法制机构审核意见")
+                    .build();
+            caseInfoLinearLayout.addView(title3);
+            TableRow shengHe = new TableRow.Builder(this)
+                    .title("意见")
+                    .content(caseDetail.getResult().getVerchdepopi())
+                    .build();
+            caseInfoLinearLayout.addView(shengHe);
+            TableRow p3 = new TableRow.Builder(this)
+                    .title("审核人")
+                    .content(caseDetail.getResult().getVerifyUserName())
+                    .build();
+            caseInfoLinearLayout.addView(p3);
+            TableRow t3 = new TableRow.Builder(this)
+                    .title("时间")
+                    .content(caseDetail.getResult().getVerchdate())
+                    .build();
+            caseInfoLinearLayout.addView(t3);
+        }
+
+        TableRow title4 = new TableRow.Builder(this)
+                .asTitle("机关负责人意见")
+                .build();
+        caseInfoLinearLayout.addView(title4);
         TableRow organOpi = new TableRow.Builder(this)
-                .title("机关负责人意见")
+                .title("意见")
                 .content(caseDetail.getResult().getOrganOpi())
                 .build();
         caseInfoLinearLayout.addView(organOpi);
-
+        TableRow p4 = new TableRow.Builder(this)
+                .title("审批人")
+                .content(caseDetail.getResult().getExaPer())
+                .build();
+        caseInfoLinearLayout.addView(p4);
+        TableRow t4 = new TableRow.Builder(this)
+                .title("审批日期")
+                .content(caseDetail.getResult().getExaDate())
+                .build();
+        caseInfoLinearLayout.addView(t4);
     }
 
     //删除现场检查/询问笔录 记录
@@ -430,20 +551,20 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
             map.put("wsCodeReq", "03010009");
             map.put("serialNo", spotRecordList.get(this.deleteInspectIndex).getSerialNo());
             String url = "";
-            if (type == 1)
+            if (ApiManager.caseType == 1)
                 url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_DELETE;
             else
                 url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_DELETE;
-            call = ApiManager.caseApi.deleteInspect(url,map);
+            call = ApiManager.caseApi.deleteInspect(url, map);
         } else {//询问笔录（删除--询问笔录）
             map.put("wsCodeReq", "03010009");
             map.put("serialNo", enquireRecordList.get(this.deleteEnquireIndex).getSerialNo());
             String url = "";
-            if (type == 1)
+            if (ApiManager.caseType == 1)
                 url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_DELETE;
             else
                 url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_DELETE;
-            call = ApiManager.caseApi.deleteEnquire(url,map);
+            call = ApiManager.caseApi.deleteEnquire(url, map);
         }
 
 

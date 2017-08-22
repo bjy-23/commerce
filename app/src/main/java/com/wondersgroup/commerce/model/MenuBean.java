@@ -18,6 +18,11 @@ public class MenuBean extends Data{
     private String number;
     private String[] menuIdList;
 
+    public MenuBean(String menuId,int type){
+        this.menuId = menuId;
+        this.type = type;
+    }
+
     public MenuBean(String menuName, String menuId, int resId,String number) {
         this.menuName = menuName;
         this.menuId = menuId;

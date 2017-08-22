@@ -107,14 +107,14 @@ public class DominationSelectActivity extends RootActivity implements View.OnCli
         backBtn.setOnClickListener(this);
 
         lv = (ListView) findViewById(R.id.lv);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(context, DominationDeptActivity.class);
-                intent.putExtra("levelNo", "2");
-                startActivityForResult(intent, 2);
-            }
-        });
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(context, DominationDeptActivity.class);
+//                intent.putExtra("levelNo", "2");
+//                startActivityForResult(intent, 2);
+//            }
+//        });
         dataAdapter = new ChoiceListAdapter();
         lv.setAdapter(dataAdapter);
     }
@@ -253,7 +253,24 @@ public class DominationSelectActivity extends RootActivity implements View.OnCli
                 more.setVisibility(View.VISIBLE);
             }
 
-            select.setVisibility(View.GONE);
+            select.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("DominationName", lvData.get(position).getValue());
+                    setResult(1, intent);
+                    finish();
+                }
+            });
+
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DominationDeptActivity.class);
+                    intent.putExtra("levelNo", "2");
+                    startActivityForResult(intent, 2);
+                }
+            });
 
             return convertView;
         }

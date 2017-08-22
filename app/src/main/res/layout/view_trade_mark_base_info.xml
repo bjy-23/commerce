@@ -17,6 +17,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="商标名称"/>
             <TextView
+                android:id="@+id/tvTradeName4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -24,6 +25,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="商标注册证号"/>
             <TextView
+                android:id="@+id/tvRegisterNo4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -31,6 +33,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="商标类别"/>
             <TextView
+                android:id="@+id/tvType4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="32"/>
 
@@ -38,6 +41,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否共有商标"/>
             <TextView
+                android:id="@+id/tvComTrade4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="否"/>
 
@@ -45,6 +49,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否地理标志商标"/>
             <TextView
+                android:id="@+id/tvGeoGraphyTrade4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 
@@ -52,6 +57,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否知名著名商标"/>
             <TextView
+                android:id="@+id/tvFamousTrade4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 
@@ -59,6 +65,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="初审公告期号"/>
             <TextView
+                android:id="@+id/tvExameNotifyNo4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="580"/>
 
@@ -66,6 +73,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="注册公告期号"/>
             <TextView
+                android:id="@+id/tvRegisterNotifyNo4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="592"/>
 
@@ -73,6 +81,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="申请日期"/>
             <TextView
+                android:id="@+id/tvApplyDate4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="1995-02-09"/>
 
@@ -80,6 +89,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="指定颜色说明"/>
             <TextView
+                android:id="@+id/tvColorSet4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="非颜色组合商标"/>
 
@@ -87,6 +97,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="放弃专用权说明"/>
             <TextView
+                android:id="@+id/tvGiveUpAuthority4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
         </LinearLayout>
@@ -100,6 +111,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="商标名称意译"/>
             <TextView
+                android:id="@+id/tvTransLateName4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -107,6 +119,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="商标类型"/>
             <TextView
+                android:id="@+id/tvClassic4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -114,6 +127,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="商标形式类型"/>
             <TextView
+                android:id="@+id/tvFormType4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="32"/>
 
@@ -121,6 +135,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否立体商标"/>
             <TextView
+                android:id="@+id/tv3DTrade4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="否"/>
 
@@ -128,6 +143,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="商标状态"/>
             <TextView
+                android:id="@+id/tvTradestate4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 
@@ -135,6 +151,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否驰名商标"/>
             <TextView
+                android:id="@+id/tvWellKnownTrade4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 
@@ -142,6 +159,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="初审公告日期"/>
             <TextView
+                android:id="@+id/tvExameNotifyDate4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="580"/>
 
@@ -149,6 +167,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="注册公告日期"/>
             <TextView
+                android:id="@+id/tvRegisterNotifyDate4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="592"/>
 
@@ -156,6 +175,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="专用权有效期"/>
             <TextView
+                android:id="@+id/tvPrivateRightDate4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="1995-02-09"/>
 
@@ -163,6 +183,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="组合颜色数量"/>
             <TextView
+                android:id="@+id/tvColorNum4TradeMarkDetail"
                 style="@style/trade_mark_content_textview"
                 android:text="非颜色组合商标"/>
 
@@ -176,6 +197,10 @@
             style="@style/trade_mark_tab_textview"
             android:layout_marginLeft="20dp"
             android:text="备注"/>
+        <TextView
+            style="@style/trade_mark_content_textview"
+            android:id="@+id/tvComments4TradeMarkDetail"
+            android:text="非颜色组合德尔福个"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

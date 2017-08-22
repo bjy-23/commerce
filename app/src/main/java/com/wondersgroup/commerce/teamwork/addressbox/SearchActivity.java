@@ -1,5 +1,6 @@
 package com.wondersgroup.commerce.teamwork.addressbox;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import com.wondersgroup.commerce.R;
@@ -17,6 +19,7 @@ import java.util.List;
 
 /**
  * Created by bjy on 2017/4/5.
+ * Updated by yclli on 2017/8/15
  */
 
 public class SearchActivity extends AppCompatActivity implements TextWatcher{
@@ -43,6 +46,17 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         adapter = new SearchAdapter(data2,this);
         recyclerView.setAdapter(adapter);
+        adapter.setOnClickListener(new SearchAdapter.OnClickListener() {
+            @Override
+            public void OnItemClick(View view, int position) {
+                Intent intent = new Intent(SearchActivity.this, TxlDetailActivity.class);
+
+                intent.putExtra("userId", data2.get(position).getAddlistId());
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

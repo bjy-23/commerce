@@ -17,6 +17,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="优先权日期"/>
             <TextView
+                android:id="@+id/tvDate4TradeMarkPriority"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -24,6 +25,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="优先权商品"/>
             <TextView
+                android:id="@+id/tvGoods4TradeMarkPriority"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -38,6 +40,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="优先权种类"/>
             <TextView
+                android:id="@+id/tvType4TradeMarkPriority"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -45,6 +48,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="优先权国家"/>
             <TextView
+                android:id="@+id/tvCountry4TradeMarkPriority"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -52,6 +56,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否有效"/>
             <TextView
+                android:id="@+id/tvIsValide4TradeMarkPriority"
                 style="@style/trade_mark_content_textview"
                 android:text="32"/>
 

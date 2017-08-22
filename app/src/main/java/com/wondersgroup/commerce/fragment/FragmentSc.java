@@ -71,23 +71,9 @@ public class FragmentSc extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
 
         loginBean = Hawk.get(Constants.LOGIN_BEAN);
-        data = new ArrayList<>();
-        ArrayList<MenuBean> arrayList = Hawk.get(Constants.AUTH_MENU);
-        ArrayList<MenuBean> menus = (ArrayList<MenuBean>) RootAppcation.getInstance().getScMenuInfos();
-
-//        if (arrayList != null) {
-//            for (MenuBean menuBean : arrayList) {
-//                String menuId = menuBean.getMenuId();
-//                for (MenuBean bean : menus) {
-//                    if (bean.getMenuId().equals(menuId)) {
-//                        menuBean.setResId(bean.getResId());
-//                        data.add(menuBean);
-//                        break;
-//                    }
-//                }
-//            }
-//        } else
-            data.addAll(menus);
+        data = Hawk.get(Constants.MENU_SC);
+        if (data == null)
+            data = new ArrayList<>();
 
         adapter = new FirstPageAdapter(getActivity(), data, 2);
         recyclerView.setAdapter(adapter);

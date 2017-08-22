@@ -227,7 +227,7 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
             map.put("status", "1");
 
         Call<ProcedureCaseAICRequiryResultObject> call;
-        call = ApiManager.caseModule.queryProcedureCaseAICInquiryPerson(map);
+        call = ApiManager.caseApi.queryProcedureCaseAICInquiryPerson(map);
 
         call.enqueue(new Callback<ProcedureCaseAICRequiryResultObject>() {
             @Override
@@ -245,14 +245,12 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
                     caseListView.setAdapter(legalBasisAdapter);
 
                 } else {
-                    Log.d(TAG, "AICRegisterInquireListActivity --------------- 5");
                     Toast.makeText(AICRegisterInquireListActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d(TAG, "myCaseToInvestigate --------------- 5t.getMessage() = " + t.getMessage());
                 Toast.makeText(AICRegisterInquireListActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
         });
@@ -282,7 +280,7 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
             map.put("status", "1");
 
         Call<ProcedureCaseAICRequiryComResultObject> call;
-        call = ApiManager.caseModule.queryProcedureCaseAICInquiryCompany(map);
+        call = ApiManager.caseApi.queryProcedureCaseAICInquiryCompany(map);
 
         call.enqueue(new Callback<ProcedureCaseAICRequiryComResultObject>() {
             @Override
@@ -300,14 +298,12 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
                     caseListView.setAdapter(legalBasisAdapter);
 
                 } else {
-                    Log.d(TAG, "AICRegisterInquireListActivity --------------- 5");
                     Toast.makeText(AICRegisterInquireListActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d(TAG, "myCaseToInvestigate --------------- 5t.getMessage() = " + t.getMessage());
                 Toast.makeText(AICRegisterInquireListActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
         });

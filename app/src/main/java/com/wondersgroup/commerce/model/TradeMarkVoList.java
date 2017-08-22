@@ -7,67 +7,67 @@ package com.wondersgroup.commerce.model;
 
 public class TradeMarkVoList {
 
-    private String markName;      //商标名称
-    private String markId;          //商标id
-    private String registerNo;      //注册证号码
-    private String markOwner;       //权利人名称
-    private String ownerAddress;    //权利人地址
-    private String dominationName;  //管辖机关名称
-    private boolean isClaimed;      //是否认领
+    private String brandName;      //	商标名称
+    private String isAccept;      //	认领状态
+    private String regNo;      //	注册证号
+    private String registerName;      //	权利人名称
+    private String chProposerAddr;      //	权利人地址
+    private String areaOrganId;      //	管辖机关
+    private String tmId;      //	商标id
 
-    public boolean isClaimed() {
-        return isClaimed;
+    public String getAreaOrganId() {
+        return areaOrganId;
     }
 
-    public void setClaimed(boolean claimed) {
-        isClaimed = claimed;
+    public void setAreaOrganId(String areaOrganId) {
+        this.areaOrganId = areaOrganId;
     }
 
-    public String getDominationName() {
-        return dominationName;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setDominationName(String dominationName) {
-        this.dominationName = dominationName;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
-    public String getMarkId() {
-        return markId;
+    public String getChProposerAddr() {
+        return chProposerAddr;
     }
 
-    public void setMarkId(String markId) {
-        this.markId = markId;
+    public void setChProposerAddr(String chProposerAddr) {
+        this.chProposerAddr = chProposerAddr;
     }
 
-    public String getMarkName() {
-        return markName;
+    public String getIsAccept() {
+        return isAccept;
     }
 
-    public void setMarkName(String markName) {
-        this.markName = markName;
+    public void setIsAccept(String isAccept) {
+        this.isAccept = isAccept;
     }
 
-    public String getMarkOwner() {
-        return markOwner;
+    public String getRegisterName() {
+        return registerName;
     }
 
-    public void setMarkOwner(String markOwner) {
-        this.markOwner = markOwner;
+    public void setRegisterName(String registerName) {
+        this.registerName = registerName;
     }
 
-    public String getOwnerAddress() {
-        return ownerAddress;
+    public String getRegNo() {
+        return regNo;
     }
 
-    public void setOwnerAddress(String ownerAddress) {
-        this.ownerAddress = ownerAddress;
+    public void setRegNo(String regNo) {
+        this.regNo = regNo;
     }
 
-    public String getRegisterNo() {
-        return registerNo;
+    public String getTmId() {
+        return tmId;
     }
 
-    public void setRegisterNo(String registerNo) {
-        this.registerNo = registerNo;
+    public void setTmId(String tmId) {
+        this.tmId = tmId;
     }
 }

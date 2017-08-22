@@ -71,7 +71,6 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
 
     private CaseInvestigateDetail caseDetail;           //立案信息对象
     private String clueNo;
-    private int type = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +107,7 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010005");
         map.put("clueNo", clueNo);
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.INVESTIGATE_CASE_DETAIL;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.INVESTIGATE_CASE_DETAIL;
@@ -162,7 +161,7 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010004");
         map.put("clueNo", clueNo);
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_GENERAL_DETAIL;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_GENERAL_DETAIL;

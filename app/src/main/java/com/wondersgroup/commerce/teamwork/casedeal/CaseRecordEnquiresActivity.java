@@ -112,7 +112,6 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
     private static String picThreeName;
     private ArrayList<AttachmentDTO> attachList;        //附件列表
     private TotalLoginBean loginBean;
-    private int type = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +138,7 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
             map.put("serialNo", serialNo);
 
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_EDIT;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_EDIT;
@@ -254,7 +253,7 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010015");
         map.put("attachId", picId);
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.DOWNLAODER_ATTACH;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.DOWNLAODER_ATTACH;
@@ -472,8 +471,7 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
             map.put("clueNo", "");
         }
 
-        final String userId = loginBean.getResult().getUserId() ;
-        map.put("userId", userId);
+        map.put("userId", loginBean.getResult().getUserId());
         for(int i=0; i<componentObjectsList.size(); i++){
             if(tableRowUtils.getContent(i)!=null && !"".equals(tableRowUtils.getContent(i))) {
                 if("2".equals(componentObjectsList.get(i).getType())){
@@ -516,7 +514,7 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
 
         Log.d(TAG, "map = " + map.toString());
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_SAVE;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_SAVE;

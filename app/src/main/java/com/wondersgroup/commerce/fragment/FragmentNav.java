@@ -73,17 +73,6 @@ public class FragmentNav extends RootFragment {
         View view = View.inflate(getActivity(), R.layout.fragment_nav, null);
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.linearlayout);
 
-        //设置背景主题颜色
-        if (appcation.getMyTheme().equals("白色")) {
-            linearLayout.setBackgroundResource(R.color.white);
-        } else if (appcation.getMyTheme().equals("蓝色")) {
-            linearLayout.setBackgroundResource(R.color.system_background);
-        } else if (appcation.getMyTheme().equals("黄色")) {
-            linearLayout.setBackgroundResource(R.color.yellow);
-        } else if (appcation.getMyTheme().equals("灰色")) {
-            linearLayout.setBackgroundResource(R.color.system_background);
-        }
-
         //动态生成页面内菜单
         View menu = null;
         for (int i = 0; i < functionList.size(); i++) {

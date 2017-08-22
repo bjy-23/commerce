@@ -12,13 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.AttachmentDTO;
 import com.wondersgroup.commerce.model.BackResultObject;
 import com.wondersgroup.commerce.model.CaseInvestigateTitle;
 import com.wondersgroup.commerce.model.DataVolume;
 import com.wondersgroup.commerce.model.DynamicComponentObject;
+import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.CaseApi;
 import com.wondersgroup.commerce.utils.DataShared;
@@ -60,8 +63,6 @@ public class CaseInspectActivity  extends AppCompatActivity {
     private DynamicWidgetUtils dynamicWidgetUtils;      //动态加载控件对象
 
     private int resultCode = 0;
-    private RootAppcation app;
-    private int type = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,6 @@ public class CaseInspectActivity  extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        app = (RootAppcation) getApplication();
 
         initView();
         initData();
@@ -89,7 +89,7 @@ public class CaseInspectActivity  extends AppCompatActivity {
 
         Log.d(TAG, "map.toString() = " + map.toString());
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_EDIT;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_EDIT;
@@ -175,10 +175,8 @@ public class CaseInspectActivity  extends AppCompatActivity {
             map.put("serialNo", serialNo);
             map.put("clueNo", "");
         }
-
-        DataShared dataShared = new DataShared(this);
-        final String userId = (String) dataShared.get("userId", "");
-        map.put("userId", userId);
+        TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
+        map.put("userId", loginBean.getResult().getUserId());
 
         for(int i=0; i<componentObjectsList.size(); i++){
             Log.d(TAG,"componentObjectsList.get("+i+").getName() : "+componentObjectsList.get(i).getName()+" = "+arrayedittext.get(i).getText().toString());
@@ -214,7 +212,7 @@ public class CaseInspectActivity  extends AppCompatActivity {
 
         Log.d(TAG, "map = " + map.toString());
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_SAVE;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_SAVE;

@@ -1,12 +1,25 @@
 package com.wondersgroup.commerce.constant;
 
+import com.wondersgroup.commerce.R;
+
+import java.util.HashMap;
+
 /**
  * Created by yclli on 2015/12/1.
  */
 public class Constants {
 
     public final static String SC = "四川";
-    public final static String DEPT = "省工商行政管理局";
+    public final static String YN = "云南";
+    public final static String MODE_1 = "release";
+    public final static String MODE_2 = "debug";
+
+    public final static String VERSION = YN;
+    public final static String MODE = MODE_2;
+
+    public static HashMap<String,Integer> firstColorMap;
+    public static HashMap<String,Integer> menuIconMapYN;
+    public static HashMap<String,Integer> menuIconMapSC;
 
     /*
     * 提示语
@@ -27,8 +40,6 @@ public class Constants {
     public final static String TITLE = "title";
     public final static String POSITION = "position";
 
-
-
     /*
     * 通用操作符
     * */
@@ -43,6 +54,7 @@ public class Constants {
     public final static String FIRST_PAGE_MENU = "firstPageMenu";
     public final static String YWBL_MNEUINFO = "ywblMenuInfo";
     public final static String MESSAGE_MENUINFO = "messageMenuInfo";
+    public final static String MENU_SC = "menuSC";
 
 
     /*
@@ -50,6 +62,7 @@ public class Constants {
     * */
 
     public final static String ADD_CHS = "添加";
+    public final static String DEPT = "省工商行政管理局";
 
 
     /*
@@ -57,93 +70,18 @@ public class Constants {
     * */
     public final static String SDHC = "实地核查";
 
-    public static final int TYPE_DAIBAN = 0;
-    public static final int TYPE_DAIYUE = 1;
-
-    public static final int DOCTYPE_SEND = 0;
-    public static final int DOCTYPE_RECEIVE = 1;
-    //移动门户参数
-    public static final int OPERATE_TIME = 9;
-    public static final int COMPANY_BASE_INFORMATION = 4;
-    public static final int COMPANY_MANAGE_INFORMATION = 5;
-
-    public final static String NOR_URL_1 = "http://www.sgs.gov.cn/ydjgformal/";
-    public final static String CHG_URL = NOR_URL_1;
-    // 检查预警
-    public static String URL_OPERATE_TIME = CHG_URL
-            + "preRegister!doEndDateQueryForMobile.action?unitType=02";
-    public static String URL_COMPANY_BASE = CHG_URL
-            + "detail!toQueryForMobile.action?entityTypeId=02";
-    public static String URL_COMPANY_MANAGE = CHG_URL
-            + "CMInfo!toMangeInfoForMobile.action?entityTypeId=02";
-
-
     //输入限制
     public static final int inputMinCount   =   3;
     public static final int inputMaxCount   =   50;
 
+    public static final String SY = "首页";
+    public static final String YWBL = "业务办理";
+    public static final String XXCX = "查询统计";
+    public static final String WD = "设置";
 
-    // 河北工商
-    public static final String HB_TEST_URL = "/10.1.8.133";
-    public static final String HB_TEST_URL_ROOT = "http://10.10.17.158:8080/deliver/services/ws";
-
-
-    /**
-     * 正式服务器地址
-     */
-    // 河北工商
-    public static final String HB_NORMAL_URL_ROOT = "http://127.0.0.1:8080/deliver/services/ws";
-    public static final String HB_NORMAL_URL = "/192.168.83.113:8080/deliver/services";
-    // 上海工商
-    public final static String SH_NORMAL_URL_ROOT = "http://www.sgs.gov.cn/ydjgformal";
-
-
-//    //收发文
-//    public static final String URL_1 = TEST_URL +":8013/hboa/services/mobileDoc";
-//    //登录&消息
-//    public static final String URL_2 = TEST_URL +":8001/hebgs/services/mobile";
-//    //其他
-//    public static final String URL_3 = TEST_URL +":8013/hboa/services/mobile";
-
-//    //收发文
-//    public static final String URL_1 = NORMAL_URL+"/mobileDoc";
-//    //登录&消息
-//    public static final String URL_2 = NORMAL_URL+"/mobile";
-//    //其他
-//    public static final String URL_3 = NORMAL_URL+"/mobile";
-
-    //收发文
-    public static final String URL_1 = "hboa/services/mobileDoc";
-    //登录&消息
-    public static final String URL_2 = "hebgs/services/mobile";
-    //其他
-    public static final String URL_3 = "hboa/services/mobile";
-
-
-    //统计地址,测试环境
-//    public static final String TEST_TJ_ROOT = "http://10.10.17.158:8080/deliver/services/html/";
-//    public static final String TJ_URL_1 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_2 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f2%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_3 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f3%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f3&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_4 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f1%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_5 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f2%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_6 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f4%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f4&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_7 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%92%a8%e8%af%a2%ef%bc%88%e6%9d%83%e9%99%90%ef%bc%89%27%5d%2freport%5b%40name%3d%27%e6%b6%88%e8%b4%b9%e7%bb%b4%e6%9d%83%e5%92%a8%e8%af%a2%e8%8c%83%e5%9b%b4%e7%9a%84%e5%92%a8%e8%af%a2%e6%83%85%e5%86%b5%27%5d&ui.name=%e6%b6%88%e8%b4%b9%e7%bb%b4%e6%9d%83%e5%92%a8%e8%af%a2%e8%8c%83%e5%9b%b4%e7%9a%84%e5%92%a8%e8%af%a2%e6%83%85%e5%86%b5&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_8 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%9c%ac%e6%9c%9f%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e5%95%86%e5%93%81%27%5d&ui.name=%e6%9c%ac%e6%9c%9f%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e5%95%86%e5%93%81&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_9 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%9c%ac%e6%9c%9f%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e6%9c%8d%e5%8a%a1%27%5d&ui.name=%e6%9c%ac%e6%9c%9f%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e6%9c%8d%e5%8a%a1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_10 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e8%b6%8b%e5%8a%bf%27%5d&ui.name=%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e8%b6%8b%e5%8a%bf&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_11 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a1%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_12 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a2%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_13 = TEST_TJ_ROOT + "cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a3%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a3&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-
-    public static final String sy = "首页";
-    public static final String ywbl = "业务办理";
-    public static final String xxcx = "查询统计";
-    public static final String wd = "设置";
-
-    public static final String[] CCJCLR_ID_LIST = {"05021530","05022530","05023530","05024530"};
+    public static final String CCJCLR_ID = "05021530,05022530,05023530,05024530";
     public static final String CCJCLR_NAME = "抽查检查录入\n(实地核查)";
-    public static final String[] CCJCCX_ID_LIST = {"05021580","05022580","05023580","05024580"};
+    public static final String CCJCCX_ID = "05021580,05022580,05023580,05024580";
     public static final String CCJCCX_NAME = "抽查检查查询";
     public static final String AJDC_ID = "03010033";
     public static final String AJDC_NAME = "案件调查";
@@ -154,6 +92,8 @@ public class Constants {
     public static final String AJDC_NAME_2 = "案件调查";
     public static final String AJCX_ID_2 = "03040033";
     public static final String AJCX_NAME_2 = "我的案件查询";
+    public static final String AJCX_ID_3 = "999999";
+    public static final String AJCX_NAME_3 = "案件查询";
     public static final String JYCX_ID = "08011007";
     public static final String JYCX_NAME = "简易程序处理";
     public static final String TSJBCL_ID = "02050141";
@@ -169,10 +109,13 @@ public class Constants {
     public static final String GSXX_ID = "08012001";
     public static final String GSXX_NAME = "公示信息查询";
     public static final String QYGSXX_NAME = "企业信用公示\n信息查询";
+    public static final String XYGS_DJ_NAME = "双随机结果录入";
     public static final String XYGS_DJ_ID = "333333";
+    public static final String XYGS_JL_NAME = "双随机结果查询";
     public static final String XYGS_JL_ID = "222222";
-    public static final String SBCX_ID = "111111";
-    public static final String FLFG_ID = "03010033";
+    public static final String SBCX_ID = "02077110";
+    public static final String SBCX_NAME = "注册商标查询";
+    public static final String FLFG_ID = "0301003303010033";//法律法规的权限和案件调查保持一致，id随机设置个不同的,方便图标的处理
     public static final String FLFG_NAME = "法律法规查询";
     public static final String CXTJ_ID = "03010502";
     public static final String CXTJ_NAME = "统计分析";
@@ -184,7 +127,6 @@ public class Constants {
     public static final String GWPY_NAME = "公文批阅";
     public static final String GWJS_ID = "08011004";
     public static final String GWJS_NAME = "公文检索";
-
 
     public final static String REMIND = "消息提醒";
     public final static String ABOUT_US = "关于我们";
@@ -279,38 +221,6 @@ public class Constants {
     public final static String TJ_YN_GTGSH_LINK_6 ="http://172.28.129.51:80/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e4%b8%aa%e4%bd%93%e5%b7%a5%e5%95%86%e6%88%b7%27%5d%2freport%5b%40name%3d%277.2016-2017%e5%b9%b4%e4%b8%aa%e4%bd%93%e5%90%8c%e6%af%94%e6%8a%98%e7%ba%bf%e5%9b%be%ef%bc%88%e6%8c%89%e6%9c%88%e4%bb%bd%ef%bc%89%27%5d&ui.name=7.2016-2017%e5%b9%b4%e4%b8%aa%e4%bd%93%e5%90%8c%e6%af%94%e6%8a%98%e7%ba%bf%e5%9b%be%ef%bc%88%e6%8c%89%e6%9c%88%e4%bb%bd%ef%bc%89&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
     public final static String TJ_YN_GTGSH_LINK_7 ="http://172.28.129.51:80/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e4%b8%aa%e4%bd%93%e5%b7%a5%e5%95%86%e6%88%b7%27%5d%2freport%5b%40name%3d%278.%e4%b8%aa%e4%bd%93%e7%bb%8f%e8%90%a5%e8%80%85%e5%b9%b4%e9%be%84%e6%ae%b5%e5%8d%a0%e6%af%94%e5%9b%be%27%5d&ui.name=8.%e4%b8%aa%e4%bd%93%e7%bb%8f%e8%90%a5%e8%80%85%e5%b9%b4%e9%be%84%e6%ae%b5%e5%8d%a0%e6%af%94%e5%9b%be&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
     public final static String TJ_YN_GTGSH_LINK_8 ="http://172.28.129.51:80/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e4%b8%aa%e4%bd%93%e5%b7%a5%e5%95%86%e6%88%b7%27%5d%2freport%5b%40name%3d%279.%e4%b8%aa%e4%bd%93%e7%bb%8f%e8%90%a5%e8%80%85%e5%90%84%e5%b9%b4%e9%be%84%e6%ae%b5%e5%8d%a0%e5%89%8d%e5%8d%81%e8%a1%8c%e4%b8%9a%e6%95%b0%e9%87%8f%27%5d&ui.name=9.%e4%b8%aa%e4%bd%93%e7%bb%8f%e8%90%a5%e8%80%85%e5%90%84%e5%b9%b4%e9%be%84%e6%ae%b5%e5%8d%a0%e5%89%8d%e5%8d%81%e8%a1%8c%e4%b8%9a%e6%95%b0%e9%87%8f&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-    //统计地址，正式环境
-//    public static final String TJ_URL1 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL2 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f2%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL3 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f3%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f3&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL4 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f1%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL5 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f2%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL6 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f4%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f4&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL7 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%92%a8%e8%af%a2%ef%bc%88%e6%9d%83%e9%99%90%ef%bc%89%27%5d%2freport%5b%40name%3d%27%e6%b6%88%e8%b4%b9%e7%bb%b4%e6%9d%83%e5%92%a8%e8%af%a2%e8%8c%83%e5%9b%b4%e7%9a%84%e5%92%a8%e8%af%a2%e6%83%85%e5%86%b5%27%5d&ui.name=%e6%b6%88%e8%b4%b9%e7%bb%b4%e6%9d%83%e5%92%a8%e8%af%a2%e8%8c%83%e5%9b%b4%e7%9a%84%e5%92%a8%e8%af%a2%e6%83%85%e5%86%b5&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL8 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e5%95%86%e5%93%81%27%5d&ui.name=%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e5%95%86%e5%93%81&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL9 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e6%9c%8d%e5%8a%a1%27%5d&ui.name=%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e6%9c%8d%e5%8a%a1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL10 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e8%b6%8b%e5%8a%bf%27%5d&ui.name=%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e8%b6%8b%e5%8a%bf&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL11 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a1%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL12 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a2%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL13 ="http://32.32.99.16/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a3%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a3&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-
-
-//    //统计地址，正式环境
-//    public static final String NORMAL_TJ_ROOT = "http://127.0.0.1:8080/deliver/services/html/";
-//    public static final String TJ_URL_1 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_2 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f2%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_3 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f3%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f3&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_4 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f1%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_5 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f2%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_6 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f4%27%5d&ui.name=%e5%a4%96%e8%b5%84%e6%9c%ac%e6%9c%9f4&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_7 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%92%a8%e8%af%a2%ef%bc%88%e6%9d%83%e9%99%90%ef%bc%89%27%5d%2freport%5b%40name%3d%27%e6%b6%88%e8%b4%b9%e7%bb%b4%e6%9d%83%e5%92%a8%e8%af%a2%e8%8c%83%e5%9b%b4%e7%9a%84%e5%92%a8%e8%af%a2%e6%83%85%e5%86%b5%27%5d&ui.name=%e6%b6%88%e8%b4%b9%e7%bb%b4%e6%9d%83%e5%92%a8%e8%af%a2%e8%8c%83%e5%9b%b4%e7%9a%84%e5%92%a8%e8%af%a2%e6%83%85%e5%86%b5&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_8 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e5%95%86%e5%93%81%27%5d&ui.name=%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e5%95%86%e5%93%81&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_9 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e6%9c%8d%e5%8a%a1%27%5d&ui.name=%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e7%99%bb%e8%ae%b0%e7%83%ad%e7%82%b9%e6%9c%8d%e5%8a%a1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_10 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%2712315%27%5d%2freport%5b%40name%3d%27%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e8%b6%8b%e5%8a%bf%27%5d&ui.name=%e6%8a%95%e8%af%89%e4%b8%be%e6%8a%a5%e8%b6%8b%e5%8a%bf&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_11 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a1%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_12 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a2%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a2&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-//    public static final String TJ_URL_13 =NORMAL_TJ_ROOT+"cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a%27%5d%2freport%5b%40name%3d%27%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a3%27%5d&ui.name=%e8%a1%8c%e6%94%bf%e5%a4%84%e7%bd%9a3&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";
-
 
     /*
     * 非公党建
@@ -434,4 +344,67 @@ public class Constants {
     public final static String ADD_CLOCK = "添加闹钟提醒";
     public final static String MEMO_CONTENT = "memoContent";
     public final static String TIME_CLOCK = "timeClock";
+
+
+    /*
+    * 首页图标颜色设置-云南
+    * */
+
+    public static HashMap<String,Integer> firstColorMap(){
+        if (firstColorMap == null){
+            firstColorMap = new HashMap<>();
+            firstColorMap.put(Constants.TSJBCL_ID, R.drawable.circle_blue);
+            firstColorMap.put(Constants.CCJCLR_ID, R.drawable.circle_yellow);
+            firstColorMap.put(Constants.WQCB_ID, R.drawable.circle_green);
+        }
+
+        return firstColorMap;
+    }
+
+    /*
+    * 菜单图标配置-云南
+    * */
+
+    public static HashMap<String, Integer> menuIconMapYN(){
+        if (menuIconMapYN == null){
+            menuIconMapYN = new HashMap<>();
+            menuIconMapYN.put(Constants.AJDC_ID,R.mipmap.icon_ajdc);
+            menuIconMapYN.put(Constants.AJCX_ID,R.mipmap.icon_ajcx);
+            menuIconMapYN.put(Constants.AJDC_ID_2,R.mipmap.icon_ajdc);
+            menuIconMapYN.put(Constants.AJCX_ID_2,R.mipmap.icon_ajcx);
+            menuIconMapYN.put(Constants.CCJCLR_ID,R.mipmap.icon_cclr);
+            menuIconMapYN.put(Constants.CCJCCX_ID,R.mipmap.icon_cccx);
+            menuIconMapYN.put(Constants.TSJBCL_ID,R.mipmap.icon_tsjbcl);
+            menuIconMapYN.put(Constants.TSJBCX_ID,R.mipmap.icon_tsjbcx);
+            menuIconMapYN.put(Constants.FGDJGL_ID,R.mipmap.icon_djgl);
+            menuIconMapYN.put(Constants.FGDJCX_ID,R.mipmap.icon_djcx);
+            menuIconMapYN.put(Constants.WQCB_ID,R.mipmap.icon_cbcs);
+            menuIconMapYN.put(Constants.GSXX_ID,R.mipmap.icon_gsxx);
+            menuIconMapYN.put(Constants.FLFG_ID,R.mipmap.icon_flfg);
+            menuIconMapYN.put(Constants.CXTJ_ID,R.mipmap.cxtj);
+        }
+        return menuIconMapYN;
+    }
+
+    /*
+   * 菜单图标配置-四川
+   * */
+    public static HashMap<String,Integer> menuIconMapSC(){
+        if (menuIconMapSC == null){
+            menuIconMapSC = new HashMap<>();
+            menuIconMapSC.put(Constants.AJDC_ID,R.mipmap.ajdc_sc);
+            menuIconMapSC.put(Constants.AJCX_ID,R.mipmap.ajcx_sc);
+            menuIconMapSC.put(Constants.JYCX_ID,R.mipmap.jycx_sc);
+            menuIconMapSC.put(Constants.XYGS_DJ_ID,R.mipmap.xygs_dj);
+            menuIconMapSC.put(Constants.XYGS_JL_ID,R.mipmap.xygs_jl);
+            menuIconMapSC.put(Constants.GWPY_ID,R.mipmap.txl_sc);
+            menuIconMapSC.put(Constants.GWJS_ID,R.mipmap.txl_sc);
+            menuIconMapSC.put(Constants.GSXX_ID,R.mipmap.qyxyxx);
+            menuIconMapSC.put(Constants.SBCX_ID,R.mipmap.sbcx);
+            menuIconMapSC.put(Constants.TZGG_ID,R.mipmap.tzgg_sc);
+            menuIconMapSC.put(Constants.TXL_ID,R.mipmap.txl_sc);
+        }
+
+        return menuIconMapSC;
+    }
 }

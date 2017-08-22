@@ -90,7 +90,6 @@ public class DynamicWidgetUtils extends RootActivity {
     private ImageView deletePictureImageView;
     private TextView pictureName;
     private ImageShowDialog imgDialog;
-    private int type = 1;
 
     public DynamicWidgetUtils(Context context, List<DataVolume> dataList, ArrayList<EditText> widgetList) {
 
@@ -571,7 +570,7 @@ public class DynamicWidgetUtils extends RootActivity {
         map.put("wsCodeReq", "03010015");
         map.put("attachId", attachId);
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.DOWNLAODER_ATTACH;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.DOWNLAODER_ATTACH;

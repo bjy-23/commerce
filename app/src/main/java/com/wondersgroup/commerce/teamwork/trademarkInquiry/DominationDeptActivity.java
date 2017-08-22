@@ -43,7 +43,6 @@ public class DominationDeptActivity extends RootActivity {
     private LinearLayout backBtn;
     private TextView titleTv;
     private ListView oneLv;
-    private Button confirmBtn;
 
     private Context context;
 
@@ -112,9 +111,6 @@ public class DominationDeptActivity extends RootActivity {
         }
         oneAdapter = new ChoiceListAdapter();
 
-        confirmBtn = (Button) findViewById(R.id.btn_confirm);
-        confirmBtn.setVisibility(View.GONE);
-
         backBtn = (LinearLayout) findViewById(R.id.ll_back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,24 +123,24 @@ public class DominationDeptActivity extends RootActivity {
 
         oneLv = (ListView) findViewById(R.id.lv_first);
         oneLv.setAdapter(oneAdapter);
-        oneLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                         @Override
-                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                             selectItem = -1;
-                                             if(organList.get(position).isEndValue()==true){
-                                                 Intent intent = new Intent();
-                                                 intent.putExtra("DominationName", organList.get(position).getValue());
-                                                 setResult(levelNo, intent);
-                                                 finish();
-                                             }else{
-                                                 int nextLevel = levelNo+1;
-                                                 Intent intent = new Intent(context, DominationDeptActivity.class);
-                                                 intent.putExtra("levelNo", String.valueOf(nextLevel));
-                                                 startActivityForResult(intent, nextLevel);
-                                             }
-                                         }
-                                     }
-        );
+//        oneLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                                         @Override
+//                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                             selectItem = -1;
+//                                             if(organList.get(position).isEndValue()==true){
+//                                                 Intent intent = new Intent();
+//                                                 intent.putExtra("DominationName", organList.get(position).getValue());
+//                                                 setResult(levelNo, intent);
+//                                                 finish();
+//                                             }else{
+//                                                 int nextLevel = levelNo+1;
+//                                                 Intent intent = new Intent(context, DominationDeptActivity.class);
+//                                                 intent.putExtra("levelNo", String.valueOf(nextLevel));
+//                                                 startActivityForResult(intent, nextLevel);
+//                                             }
+//                                         }
+//                                     }
+//        );
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -243,7 +239,32 @@ public class DominationDeptActivity extends RootActivity {
                 more.setVisibility(View.VISIBLE);
             }
 
-            select.setVisibility(View.GONE);
+            select.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("DominationName", organList.get(position).getValue());
+                    setResult(levelNo, intent);
+                    finish();
+                }
+            });
+
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(organList.get(position).isEndValue()==true){
+                        Intent intent = new Intent();
+                        intent.putExtra("DominationName", organList.get(position).getValue());
+                        setResult(levelNo, intent);
+                        finish();
+                    }else{
+                        int nextLevel = levelNo+1;
+                        Intent intent = new Intent(context, DominationDeptActivity.class);
+                        intent.putExtra("levelNo", String.valueOf(nextLevel));
+                        startActivityForResult(intent, nextLevel);
+                    }
+                }
+            });
 
             return convertView;
         }

@@ -313,7 +313,6 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
@@ -449,7 +448,8 @@
             android:name=".teamwork.statistics.QueryActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".fgdj.activity.MemInfoActivity" />
-        <activity android:name=".activity.DownloadListActivity"></activity>
+        <activity android:name=".activity.DownloadListActivity" />
+        <activity android:name=".teamwork.casedeal.LitigtDetailActivity"></activity>
     </application>
 
 </manifest>

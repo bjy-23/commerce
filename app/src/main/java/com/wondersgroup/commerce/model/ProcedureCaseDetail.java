@@ -100,7 +100,11 @@ public class ProcedureCaseDetail {
             private String casesou;             //	案件来源
             private String caseVal;             //	案值估计
             private String caseReason;          //	案由(G)
+            private String userIdSubName;       //  办案人员（默认）
 
+            public String getUserIdSubName() {
+                return userIdSubName;
+            }
 
             public String getCeCity() {
                 return ceCity;

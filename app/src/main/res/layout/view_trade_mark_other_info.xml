@@ -17,6 +17,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否名牌产品"/>
             <TextView
+                android:id="@+id/tvIsFamousMark4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -24,6 +25,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否地标产品"/>
             <TextView
+                android:id="@+id/tvIsNewGoods4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -31,6 +33,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否高新技术企业"/>
             <TextView
+                android:id="@+id/tvIsHighTech4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="32"/>
 
@@ -38,6 +41,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否中华老字号"/>
             <TextView
+                android:id="@+id/tvIsOldMark4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="否"/>
 
@@ -45,6 +49,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否**省/市老字号"/>
             <TextView
+                android:id="@+id/tvIsProvinceMark4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 
@@ -52,6 +57,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="是否园区企业"/>
             <TextView
+                android:id="@+id/tvIsZoneCompany4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
         </LinearLayout>
@@ -65,6 +71,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="获得年份"/>
             <TextView
+                android:id="@+id/tvFamousMarkDate4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -72,6 +79,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="获得年份"/>
             <TextView
+                android:id="@+id/tvGetLandMarkDate4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -79,6 +87,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="获得年份"/>
             <TextView
+                android:id="@+id/tvGetHighTec4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="32"/>
 
@@ -86,6 +95,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="获得年份"/>
             <TextView
+                android:id="@+id/tvGetOldMarkDate4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="否"/>
 
@@ -93,6 +103,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="获得年份"/>
             <TextView
+                android:id="@+id/tvGetProvinceMarkDate4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 
@@ -100,6 +111,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="园区名称"/>
             <TextView
+                android:id="@+id/tvZoneName4TradeMarkOtherInfo"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 
@@ -113,6 +125,10 @@
             style="@style/trade_mark_tab_textview"
             android:layout_marginLeft="20dp"
             android:text="备注"/>
+        <TextView
+            style="@style/trade_mark_content_textview"
+            android:id="@+id/tvComments4TradeMarkOtherInfo"
+            android:text=""/>
     </LinearLayout>
 
 

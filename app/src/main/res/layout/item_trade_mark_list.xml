@@ -14,6 +14,17 @@
             android:layout_height="match_parent"
             android:textColor="@color/tjcf"
             android:text="商标名称"/>
+
+        <TextView
+            android:id="@+id/tvMarkAcceptState4ItemTradeMarkList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/white"
+            android:background="@color/accept_green"
+            android:text="已认领"/>
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +50,8 @@
     </LinearLayout>
 
     <LinearLayout
-        style="@style/listview_item_linearlayout">
+        style="@style/listview_item_linearlayout"
+        android:layout_height="wrap_content">
         <TextView
             style="@style/listview_item_tab"
             android:text="权利人地址："/>

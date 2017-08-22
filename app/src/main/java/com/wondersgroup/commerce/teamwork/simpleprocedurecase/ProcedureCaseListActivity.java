@@ -25,9 +25,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.model.sampleCaseVoList;
 import com.wondersgroup.commerce.model.ProcedureCaseItemListBean;
 import com.wondersgroup.commerce.model.ProcedureCaseQueryResult;
@@ -82,16 +84,13 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
     TextView tvTitle;
     @Bind(R.id.tv_option)
     TextView tvOption;
-//    private EditText caseNameEdit;
-//    private EditText userIdMainNameEdit;
-//    private EditText litigtNameEdit;
     private CaseInvestigateAdapter caseInvestigateAdapter;
     private List<sampleCaseVoList> dataList = new ArrayList<>();
-    private DataShared dataShared;
     private String activityType = null;
     Map<String, String> conditionMap = new HashMap<String, String>();
     private int page = 1;
     private RootAppcation app;
+    private String userId;
 
     private boolean isDate1null = true;
     private boolean isDate2null = true;
@@ -100,16 +99,15 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_procedure_case_list);
-//        caseNameEdit = (EditText) this.findViewById(R.id.editCaseName);
-//        userIdMainNameEdit = (EditText) this.findViewById(R.id.editUserIdMainName);
-//        litigtNameEdit = (EditText) this.findViewById(R.id.editLitigtName);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
         app = (RootAppcation) getApplication();
-
+        TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
+        userId = loginBean.getResult().getUserId();
+        ApiManager.getInstance().unitTestInit();
         initView();
         initData();
     }
@@ -133,18 +131,6 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
                 mIntent.putExtra("clueNo", data.getClueNo());
                 mIntent.putExtra("status", data.getStatus());
                 startActivity(mIntent);
-//                testInterface(data.getClueNo());
-//                Bundle args = new Bundle();
-//                args.putSerializable("CaseInvestigateTitle", data);
-//                if(activityType.equals(ApiManager.hbApi.INVESTIGATE_CASE_LIST)){
-//                    Intent mIntent = new Intent(ProcedureCaseListActivity.this, CaseDetailActivity.class);
-//                    mIntent.putExtras(args);
-//                    startActivity(mIntent);
-//                }else{
-//                    Intent mIntent = new Intent(ProcedureCaseListActivity.this, CaseQueryDetailActivity.class);
-//                    mIntent.putExtras(args);
-//                    startActivity(mIntent);
-//                }
             }
         });
         caseListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -196,33 +182,8 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
             searchBar.setVisibility(View.GONE);
             final SerializableMap serializableMap = (SerializableMap) bundle.getSerializable("conditionMap");
             conditionMap = serializableMap.getMap();
-//            getQueryMyCase(1);
+            getQueryMyCase(1);
         }
-        initDataWithoutNet();
-
-    }
-
-    //本地调试数据
-    private void initDataWithoutNet() {
-//        ProceduceCaseItem data = new ProceduceCaseItem();
-//        data.setName("对张三超市违法行为的处罚 ");
-//        data.setCasePerson("张三");
-//        data.setPenaltyDate("2016-09-20 ");
-//        data.setUndertakePerson("系统运维组 ");
-//        dataList.add(data);
-//        ProceduceCaseItem data2 = new ProceduceCaseItem();
-//        data2.setName("对张三超市违法行为的处罚 ");
-//        data2.setCasePerson("张三");
-//        data2.setPenaltyDate("2016-09-20 ");
-//        data2.setUndertakePerson("系统运维组 ");
-//        dataList.add(data2);
-//        ProceduceCaseItem data3 = new ProceduceCaseItem();
-//        data3.setName("对张三超市违法行为的处罚 ");
-//        data3.setCasePerson("张三");
-//        data3.setPenaltyDate("2016-09-20 ");
-//        data3.setUndertakePerson("系统运维组 ");
-//        dataList.add(data3);
-//        caseInvestigateAdapter.notifyDataSetChanged();
     }
 
     @OnClick({R.id.cleanBtn, R.id.filterbtn, R.id.date1, R.id.date2, R.id.resetbtn, R.id.submitbtn, R.id.tv_option})
@@ -284,7 +245,6 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
                 resetBtns();
                 break;
             case R.id.submitbtn:
-//                Toast.makeText(this, "bbbbb", Toast.LENGTH_SHORT).show();
                 page = 1;
                 dataList.clear();
                 getProcedureCastList(page);
@@ -302,15 +262,8 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
         getProcedureCastList(1);
     }
 
-    //筛选查询
-    private void searchByPeriod() {
-
-
-    }
-
     //重置各按钮状态
     private void resetBtns() {
-
         //时间按钮
         if (!isDate1null) {
             startDateLayout.setBackgroundResource(R.drawable.rounded_rect_grayfill);
@@ -329,10 +282,6 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
 
     //获取待调查案件列表
     private void getProcedureCastList(final int page) {
-
-        dataShared = new DataShared(this);
-        String userId = (String) dataShared.get("userId", "");
-
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
         map.put("currentPage", String.valueOf(page));
@@ -356,9 +305,8 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
             map.put("endCasefiDate", endDateTxt.getText().toString().trim());
         }
 
-        ApiManager.getInstance().unitTestInit();
         Call<ProcedureCaseItemListBean> call;
-        call = ApiManager.caseModule.getProcedureCaseList(map);
+        call = ApiManager.caseApi.getProcedureCaseList(map);
 //        if("湖南".equals(app.getVersion())) {
 //            call = ApiManager.hnApi.getProcedureCaseList(map);
 //        }else {
@@ -377,14 +325,17 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
                         return;
                     }
                     if ("已经没有下一页了".equals(caseList.getMessage())) {
+                        if(page == 1){
+                            dataList.clear();
+                            caseInvestigateAdapter.notifyDataSetChanged();
+                            Toast.makeText(ProcedureCaseListActivity.this, "搜索结果为空！", Toast.LENGTH_SHORT).show();
+                        }
                         ProcedureCaseListActivity.this.page = -1;
                         return;
                     }
 
                     if (null != caseList.getResult().getList()) {
                         dataList.addAll(caseList.getResult().getList());
-                        for (sampleCaseVoList data : dataList) {
-                        }
                         caseInvestigateAdapter.notifyDataSetChanged();
                     }
 
@@ -403,9 +354,6 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
 
     //案件条件查询
     private void getQueryMyCase(int page) {
-
-        dataShared = new DataShared(this);
-        String userId = (String) dataShared.get("userId", "");
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
         //map.put("currentPage", String.valueOf(page));

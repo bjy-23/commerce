@@ -59,10 +59,10 @@ public class FragmentMenu extends Fragment {
         tvTitle.setText(title);
 
         data = new ArrayList<>();
-        if (Constants.ywbl.equals(title) && Hawk.get(Constants.YWBL_MNEUINFO) != null){
+        if (Constants.YWBL.equals(title) && Hawk.get(Constants.YWBL_MNEUINFO) != null){
             data = Hawk.get(Constants.YWBL_MNEUINFO);
 //            data = RootAppcation.getInstance().getYwblMenuInfos();
-        }else if (Constants.xxcx.equals(title) && Hawk.get(Constants.MESSAGE_MENUINFO) != null){
+        }else if (Constants.XXCX.equals(title) && Hawk.get(Constants.MESSAGE_MENUINFO) != null){
             data = Hawk.get(Constants.MESSAGE_MENUINFO);
         }
 
@@ -74,73 +74,5 @@ public class FragmentMenu extends Fragment {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void makeData(MenuBean menuBean, String menuId, List<MenuBean> list){
-        for (MenuBean bean : list){
-            if (menuId.equals(bean.getMenuId())){
-                boolean isHave = false;
-                int index = 0;
-                String title = "";
-                switch (menuBean.getMenuName()){
-                    case Constants.AJDC_NAME:
-                    case Constants.AJCX_NAME:
-                        title = "执法办案";
-                        break;
-                    case Constants.CCJCLR_NAME:
-                    case Constants.CCJCCX_NAME:
-                        title = "公示抽查检查";
-                        break;
-                    case Constants.TSJBCL_NAME:
-                    case Constants.TSJBCX_NAME:
-                        title = "消费维权";
-                        break;
-                    case Constants.FGDJGL_NAME:
-                    case Constants.FGDJCX_NAME:
-                        title = "非公党建";
-                        break;
-                    case Constants.WQCB_NAME:
-                        title = "小微企业扶持";
-                        break;
-                    case Constants.GSXX_NAME:
-                    case Constants.FLFG_NAME:
-                        title = "查询";
-                        break;
-                    case Constants.CXTJ_NAME:
-                        title = "统计";
-                        break;
-                }
-                for (int i=0;i<data.size();i++){
-                    if (data.get(i).getTitle().equals(title)){
-                        isHave = true;
-                        index = i;
-                        break;
-                    }
-                }
-                if (isHave){
-                    List<MenuBean> beanList = data.get(index).getMenus();
-                    boolean have = false;
-                    for (MenuBean bean1 : beanList){
-                        if (bean1.getMenuName().equals(menuBean.getMenuName())){
-                            have = true;
-                            break;
-                        }
-                    }
-                    if (!have){
-                        data.get(index).getMenus().add(menuBean);
-                    }
-
-                }else {
-                    MenuInfo menuInfo1 = new MenuInfo();
-                    menuInfo1.setTitle(title);
-                    ArrayList<MenuBean> arrayList1 = new ArrayList<>();
-                    arrayList1.add(menuBean);
-                    menuInfo1.setMenus(arrayList1);
-                    data.add(menuInfo1);
-                }
-
-                break;
-            }
-        }
     }
 }

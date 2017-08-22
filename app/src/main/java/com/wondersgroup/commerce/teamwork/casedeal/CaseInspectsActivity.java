@@ -119,7 +119,6 @@ public class CaseInspectsActivity extends AppCompatActivity {
     private static String picTwoName;
     private static String picThreeName;
     private ArrayList<AttachmentDTO> attachList;        //附件列表
-    private int type = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +146,7 @@ public class CaseInspectsActivity extends AppCompatActivity {
 
         Log.d(TAG, "map.toString() = " + map.toString());
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_EDIT;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_EDIT;
@@ -254,7 +253,7 @@ public class CaseInspectsActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010015");
         map.put("attachId", picId);
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.DOWNLAODER_ATTACH;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.DOWNLAODER_ATTACH;
@@ -475,8 +474,7 @@ public class CaseInspectsActivity extends AppCompatActivity {
             map.put("clueNo", "");
         }
         TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
-        String userId = loginBean.getResult().getUserId();
-        map.put("userId", userId);
+        map.put("userId", loginBean.getResult().getUserId());
 
         for (int i = 0; i < componentObjectsList.size(); i++) {
             //Log.d(TAG,"componentObjectsList.get("+i+").getName() : "+componentObjectsList.get(i).getName()+" = "+arrayedittext.get(i).getText().toString());
@@ -516,7 +514,7 @@ public class CaseInspectsActivity extends AppCompatActivity {
         //Log.d(TAG, "map = " + map.toString());
 
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_SAVE;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_SAVE;

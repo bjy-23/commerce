@@ -63,9 +63,7 @@ public class CaseRecordEnquireActivity extends AppCompatActivity {
     private ArrayList<EditText> arrayedittext = new ArrayList<EditText>();
     private DynamicWidgetUtils dynamicWidgetUtils;      //动态加载控件对象
     private int resultCode = 1;
-    private RootAppcation app;
     private TotalLoginBean loginBean;
-    private int type = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +74,6 @@ public class CaseRecordEnquireActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        app = (RootAppcation) getApplication();
 
         initView();
         initData();
@@ -93,7 +90,7 @@ public class CaseRecordEnquireActivity extends AppCompatActivity {
             map.put("serialNo", serialNo);
 
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_EDIT;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_EDIT;
@@ -180,9 +177,7 @@ public class CaseRecordEnquireActivity extends AppCompatActivity {
             map.put("serialNo", serialNo);
             map.put("clueNo", "");
         }
-
-        final String userId = loginBean.getResult().getUserId();
-        map.put("userId", userId);
+        map.put("userId", loginBean.getResult().getUserId());
 
         for(int i=0; i<componentObjectsList.size(); i++){
             Log.d(TAG,"componentObjectsList.get("+i+").getName() : "+componentObjectsList.get(i).getName()+" = "+arrayedittext.get(i).getText().toString());
@@ -228,7 +223,7 @@ public class CaseRecordEnquireActivity extends AppCompatActivity {
 
         Log.d(TAG, "map = " + map.toString());
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_SAVE;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_SAVE;

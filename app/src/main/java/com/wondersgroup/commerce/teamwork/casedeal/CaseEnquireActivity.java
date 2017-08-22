@@ -74,9 +74,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     private ArrayList<EditText> arrayedittext = new ArrayList<EditText>();
     private DynamicWidgetUtils dynamicWidgetUtils;      //动态加载控件对象
     private Map<String, String> conditionMap;           //查询条件，要传递到下一个activity页面中去的map
-    private RootAppcation app;
     private TableRowUtils tableRowUtils;
-    private int type = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +86,6 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
         title.setText("我的案件查询");
-        app = (RootAppcation) getApplication();
 
         initView();
         initData();
@@ -97,7 +94,6 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (requestCode == 100 && permissions[0] == Manifest.permission.CAMERA && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Intent intent = new Intent(this, CaptureActivity.class);
             startActivityForResult(intent, 101);
@@ -127,25 +123,8 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
-        quieryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkValue() == true)
-                    queryRecord();
-            }
-        });
-
-
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                for (int i = 0; i < componentObjectsList.size(); i++) {
-                    tableRowUtils.setContent(i, "");
-                }
-            }
-        });
-
+        quieryButton.setOnClickListener(this);
+        clearButton.setOnClickListener(this);
         if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
             imageScan.setVisibility(View.VISIBLE);
             imageScan.setOnClickListener(this);
@@ -158,7 +137,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         map.put("wsCodeReq", "03010001");
 
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_CONDITION;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_QUERY_CONDITION;
@@ -234,9 +213,8 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "03010003");
-        final String userId = loginBean.getResult().getUserId();
-//        map.put("userId", userId);
-        map.put("userId", "00005859");
+        map.put("userId", loginBean.getResult().getUserId());
+//        map.put("userId", "00005859");
 
         conditionMap = new HashMap<String, String>();
 
@@ -260,7 +238,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
         Log.d(TAG, "map = " + map.toString());
         String url = "";
-        if (type == 1)
+        if (ApiManager.caseType == 1)
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_MY_CASE;
         else
             url = CaseApi.URL_CASE_2 + CaseApi.CASE_QUERY_MY_CASE;
@@ -315,6 +293,15 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.img_scan:
                 scan();
+                break;
+            case R.id.query_button:
+                if (checkValue() == true)
+                    queryRecord();
+                break;
+            case R.id.clear_btn:
+                for (int i = 0; i < componentObjectsList.size(); i++) {
+                    tableRowUtils.setContent(i, "");
+                }
                 break;
         }
     }

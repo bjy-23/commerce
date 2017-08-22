@@ -70,11 +70,37 @@
             </LinearLayout>
             <LinearLayout style="@style/HorizontalLine"/>
             <LinearLayout
-                android:id="@+id/llEntityInfo4TradeMarkDetail"
+                android:id="@+id/llType12EntityInfo4TradeMarkDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone">
-                <include layout="@layout/view_trade_mark_entity_info"/>
+                <include layout="@layout/view_trade_mark_entity_info_type_1_2"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llType345EntityInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <include layout="@layout/view_trade_mark_entity_info_type_3_4_5"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llTypeNullEntityInfo4TradeMarkDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:orientation="vertical">
+                    <TextView
+                        style="@style/trade_mark_tab_textview"
+                        android:text="权利人名称"/>
+                    <TextView
+                        android:id="@+id/tvObligeeName4TradeMarkEntityType5"
+                        style="@style/trade_mark_content_textview"
+                        android:text="1015011"/>
+                </LinearLayout>
             </LinearLayout>
             <!--商标主体信息 end-->
             <LinearLayout style="@style/HorizontalWideLine"/>

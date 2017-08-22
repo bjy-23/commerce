@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/head1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <FrameLayout
+            android:id="@+id/layout_search_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#eee6e6e6"
+            android:visibility="gone"
+            android:clickable="true">
+
+            <LinearLayout
+                android:id="@+id/layout_search_item"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rect_corner_blue"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:background="@mipmap/search_white"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="搜索："
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_search_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <include layout="@layout/error_1"
+            android:id="@+id/layout_error"
+            android:visibility="gone"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -97,7 +97,8 @@ public class TZTGActivity extends AppCompatActivity {
                     MyProgressDialog.dismiss();
                     Ggcx ggcx = response.body();
 
-                    if ((null == ggcx) || (null == ggcx.getResult())) {
+                    if ((null == ggcx) || (null == ggcx.getResult()) ||
+                            (ggcx.getResult().getBulletinInfo() == null)) {
                         layoutError.setVisibility(View.VISIBLE);
                         return;
                     }
@@ -113,8 +114,6 @@ public class TZTGActivity extends AppCompatActivity {
                     adapter = new InfoItemListAdapter(TZTGActivity.this, datalist);
                     list.setAdapter(adapter);
                     }
-                    adapter = new InfoItemListAdapter(TZTGActivity.this, datalist);
-                    list.setAdapter(adapter);
                 } else {
                     layoutError.setVisibility(View.VISIBLE);
                 }

@@ -74,8 +74,8 @@ public class FragmentFirstPage extends Fragment {
         for (int i=0;i<data.size();i++ ){
             MenuBean menuBean = data.get(i);
             final int index = i;
-            switch (menuBean.getMenuName()){
-                case Constants.TSJBCL_NAME:
+            switch (menuBean.getMenuId()){
+                case Constants.TSJBCL_ID:
                     Call<ToDoBean> callTS = ApiManager.ynApi.getTodo("1", loginBean.getResult().getUserId(), loginBean.getResult().getOrganId()
                             , loginBean.getResult().getDeptId(), "1", "25");
                     callTS.enqueue(new Callback<ToDoBean>() {
@@ -118,7 +118,7 @@ public class FragmentFirstPage extends Fragment {
                         }
                     });
                     break;
-                case Constants.AJDC_NAME:
+                case Constants.AJDC_ID:
                     map = new HashMap<String, String>();
                     map.put("userId", loginBean.getResult().getUserId());
                     map.put("currentPage", "1");
@@ -141,7 +141,7 @@ public class FragmentFirstPage extends Fragment {
                         }
                     });
                     break;
-                case Constants.CCJCLR_NAME:
+                case Constants.CCJCLR_ID:
                     map = new HashMap<>();
                     map.put("wsCodeReq","000201");
                     map.put("pageNo","0");
@@ -163,7 +163,7 @@ public class FragmentFirstPage extends Fragment {
                         }
                     });
                     break;
-                case Constants.WQCB_NAME:
+                case Constants.WQCB_ID:
                     map = new HashMap<>();
                     map.put("wsCodeReq","01100001");
                     map.put("deptId",loginBean.getResult().getDeptId());
@@ -187,24 +187,6 @@ public class FragmentFirstPage extends Fragment {
                         }
                     });
                     break;
-            }
-        }
-    }
-
-    public void makeData(MenuBean menuBean,String menuId,List<MenuBean> arrayList){
-        for (MenuBean bean : arrayList){
-            if (menuId.equals(bean.getMenuId())){
-                boolean isHave = false;
-                for (MenuBean beanData : data) {
-                    if (beanData.getMenuName().equals(menuBean.getMenuName())) {
-                        isHave = true;
-                        break;
-                    }
-                }
-                if (!isHave){
-                    data.add(menuBean);
-                }
-                break;
             }
         }
     }

@@ -17,6 +17,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="主体类型"/>
             <TextView
+                android:id="@+id/tvEntityType4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -24,6 +25,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="企业/个体名称"/>
             <TextView
+                android:id="@+id/tvCompanyName4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -31,6 +33,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="注册号"/>
             <TextView
+                android:id="@+id/tvRegisterNo4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="32"/>
 
@@ -38,6 +41,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="统一社会信用代码"/>
             <TextView
+                android:id="@+id/tvCreditCode4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="否"/>
 
@@ -45,6 +49,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="联系人"/>
             <TextView
+                android:id="@+id/tvContactor4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
         </LinearLayout>
@@ -58,6 +63,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="联系电话"/>
             <TextView
+                android:id="@+id/tvTel4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="猛狮"/>
 
@@ -65,6 +71,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="联系地址"/>
             <TextView
+                android:id="@+id/tvAddress4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="1015011"/>
 
@@ -72,6 +79,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="邮编"/>
             <TextView
+                android:id="@+id/tvPostCode4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="32"/>
 
@@ -79,6 +87,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="登记机关"/>
             <TextView
+                android:id="@+id/tvRegisterDepartment4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="否"/>
 
@@ -86,6 +95,7 @@
                 style="@style/trade_mark_tab_textview"
                 android:text="企业状态"/>
             <TextView
+                android:id="@+id/tvCompanyState4TradeMarkEntity"
                 style="@style/trade_mark_content_textview"
                 android:text="是"/>
 

@@ -56,6 +56,7 @@ public class RootAppcation extends MultiDexApplication {
     private ArrayList<MenuModel> menuBtnList = new ArrayList<>();
     private String myTheme;
     private String version;
+    private ArrayList<String> bottomMenus;
     private Map<String, Integer> meduleMap;
 
     private TotalLoginBean totalLoginBean;
@@ -228,7 +229,7 @@ public class RootAppcation extends MultiDexApplication {
         firstPageMenu.add(bean_first_1);
 //        MenuBean bean_first_2 = new MenuBean("案件调查","08011005",R.drawable.circle_violet,"0");
 //        firstPageMenu.add(bean_first_2);
-        MenuBean bean_first_3 = new MenuBean(Constants.CCJCLR_NAME,Constants.CCJCLR_ID_LIST,R.drawable.circle_yellow,"0");
+        MenuBean bean_first_3 = new MenuBean(Constants.CCJCLR_NAME,Constants.CCJCLR_ID,R.drawable.circle_yellow,"0");
         firstPageMenu.add(bean_first_3);
         MenuBean bean_first_4 = new MenuBean(Constants.WQCB_NAME,Constants.WQCB_ID,R.drawable.circle_green,"0");
         firstPageMenu.add(bean_first_4);
@@ -257,9 +258,9 @@ public class RootAppcation extends MultiDexApplication {
         MenuInfo menuInfo_ywbl_2 = new MenuInfo();
         menuInfo_ywbl_2.setTitle("公示抽查检查");
         ArrayList<MenuBean> arrayList_ywbl_2 = new ArrayList<>();
-        MenuBean bean_ywbl_3 = new MenuBean(Constants.CCJCLR_NAME,Constants.CCJCLR_ID_LIST,R.mipmap.icon_cclr);
+        MenuBean bean_ywbl_3 = new MenuBean(Constants.CCJCLR_NAME,Constants.CCJCLR_ID,R.mipmap.icon_cclr);
         arrayList_ywbl_2.add(bean_ywbl_3);
-        MenuBean bean_ywbl_4 = new MenuBean(Constants.CCJCCX_NAME,Constants.CCJCCX_ID_LIST,R.mipmap.icon_cccx);
+        MenuBean bean_ywbl_4 = new MenuBean(Constants.CCJCCX_NAME,Constants.CCJCCX_ID,R.mipmap.icon_cccx);
         arrayList_ywbl_2.add(bean_ywbl_4);
         menuInfo_ywbl_2.setMenus(arrayList_ywbl_2);
         ywblMenuInfos.add(menuInfo_ywbl_2);
@@ -303,27 +304,29 @@ public class RootAppcation extends MultiDexApplication {
         menuInfo_message_1.setMenus(arrayList_message_1);
         messageMenuInfos.add(menuInfo_message_1);
 
-//        MenuInfo menuInfo_message_2 = new MenuInfo();
-//        menuInfo_message_2.setTitle("统计");
-//        ArrayList<MenuBean> arrayList_message_2 = new ArrayList<>();
-//        MenuBean bean_message_3 = new MenuBean(Constants.CXTJ_NAME,Constants.CXTJ_ID,R.mipmap.cxtj);
-//        arrayList_message_2.add(bean_message_3);
-//        menuInfo_message_2.setMenus(arrayList_message_2);
-//        messageMenuInfos.add(menuInfo_message_2);
+        MenuInfo menuInfo_message_2 = new MenuInfo();
+        menuInfo_message_2.setTitle("统计");
+        ArrayList<MenuBean> arrayList_message_2 = new ArrayList<>();
+        MenuBean bean_message_3 = new MenuBean(Constants.CXTJ_NAME,Constants.CXTJ_ID,R.mipmap.cxtj);
+        arrayList_message_2.add(bean_message_3);
+        menuInfo_message_2.setMenus(arrayList_message_2);
+        messageMenuInfos.add(menuInfo_message_2);
     }
 
     public void makeMenuSC(){
         scMenuInfos = new ArrayList<>();
         MenuBean bean_5 = new MenuBean("案件调查",Constants.AJDC_ID,R.mipmap.ajdc_sc);
         scMenuInfos.add(bean_5);
-        MenuBean bean_6 = new MenuBean("案件查询",Constants.AJCX_ID,R.mipmap.ajcx_sc);
+        MenuBean bean_6 = new MenuBean(Constants.AJCX_NAME,Constants.AJCX_ID,R.mipmap.ajcx_sc);
         scMenuInfos.add(bean_6);
+//        MenuBean bean_12 = new MenuBean(Constants.AJCX_NAME_3,Constants.AJCX_ID_3,R.mipmap.ajcx_sc);
+//        scMenuInfos.add(bean_12);
         MenuBean bean_7 = new MenuBean("简易程序处理",Constants.JYCX_ID,R.mipmap.jycx_sc);
         scMenuInfos.add(bean_7);
 
-        MenuBean bean_3 = new MenuBean("双随机结果录入",Constants.XYGS_DJ_ID,R.mipmap.xygs_dj);
+        MenuBean bean_3 = new MenuBean(Constants.XYGS_DJ_NAME,Constants.XYGS_DJ_ID,R.mipmap.xygs_dj);
         scMenuInfos.add(bean_3);
-        MenuBean bean_4 = new MenuBean("双随机结果查询",Constants.XYGS_JL_ID,R.mipmap.xygs_jl);
+        MenuBean bean_4 = new MenuBean(Constants.XYGS_JL_NAME,Constants.XYGS_JL_ID,R.mipmap.xygs_jl);
         scMenuInfos.add(bean_4);
 
         MenuBean bean_11 = new MenuBean("公文批阅",Constants.GWPY_ID,R.mipmap.txl_sc);
@@ -333,14 +336,13 @@ public class RootAppcation extends MultiDexApplication {
 
         MenuBean bean_1 = new MenuBean("企业信用公示\n信息查询",Constants.GSXX_ID,R.mipmap.qyxyxx);
         scMenuInfos.add(bean_1);
-        MenuBean bean_2 = new MenuBean("商标查询",Constants.SBCX_ID,R.mipmap.sbcx);
+        MenuBean bean_2 = new MenuBean(Constants.SBCX_NAME,Constants.SBCX_ID,R.mipmap.sbcx);
         scMenuInfos.add(bean_2);
 
         MenuBean bean_8 = new MenuBean("通知公告",Constants.TZGG_ID,R.mipmap.tzgg_sc);
         scMenuInfos.add(bean_8);
         MenuBean bean_9 = new MenuBean("通讯录",Constants.TXL_ID,R.mipmap.txl_sc);
         scMenuInfos.add(bean_9);
-
     }
 
     public void imgPickerConfig(){
@@ -526,6 +528,14 @@ public class RootAppcation extends MultiDexApplication {
 
     public List<MenuBean> getFirstPageMenu() {
         return firstPageMenu;
+    }
+
+    public ArrayList<String> getBottomMenus() {
+        return bottomMenus;
+    }
+
+    public void setBottomMenus(ArrayList<String> bottomMenus) {
+        this.bottomMenus = bottomMenus;
     }
 
     public void setFirstPageMenu(List<MenuBean> firstPageMenu) {

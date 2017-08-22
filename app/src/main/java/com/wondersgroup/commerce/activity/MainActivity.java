@@ -56,50 +56,54 @@ public class MainActivity extends RootActivity {
         addPermission();
 
         // 底部菜单配置
-        if(appcation.getMenuBtnList().size() != 1) {
-            for (int i = 0; i < appcation.getMenuBtnList().size(); i++) {
+        if(appcation.getBottomMenus().size() != 1) {
+            for (int i = 0; i < appcation.getBottomMenus().size(); i++) {
                 View view = View.inflate(this, R.layout.custom_tab, null);
-                view.setTag(appcation.getMenuBtnList().get(i).getName());
+                view.setTag(appcation.getBottomMenus().get(i));
                 TextView nameTv = (TextView) view.findViewById(R.id.tv_menu);
 
-                nameTv.setText(appcation.getMenuBtnList().get(i).getName());
+                nameTv.setText(appcation.getBottomMenus().get(i));
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.weight = 1;
                 view.setLayoutParams(params);
 
                 //设置图标
-                if (appcation.getMenuBtnList().get(i).getName().equals(Constants.sy)) {
-                    homeImg = (ImageView) view.findViewById(R.id.icon);
-                    homeImg.setBackgroundResource(R.drawable.sy_icons);
-                } else if (appcation.getMenuBtnList().get(i).getName().equals(Constants.ywbl)){
-                    infoImg = (ImageView) view.findViewById(R.id.icon);
-                    infoImg.setBackgroundResource(R.drawable.ywbl_icons);
-                } else if (appcation.getMenuBtnList().get(i).getName().equals(Constants.xxcx)){
-                    infoImg = (ImageView) view.findViewById(R.id.icon);
-                    infoImg.setBackgroundResource(R.drawable.info_icons);
-                } else if (appcation.getMenuBtnList().get(i).getName().equals(Constants.wd)) {
-                    mineImg = (ImageView) view.findViewById(R.id.icon);
-                    mineImg.setBackgroundResource(R.drawable.mine_icons);
+                switch (appcation.getBottomMenus().get(i)) {
+                    case Constants.SY:
+                        homeImg = (ImageView) view.findViewById(R.id.icon);
+                        homeImg.setBackgroundResource(R.drawable.sy_icons);
+                        break;
+                    case Constants.YWBL:
+                        infoImg = (ImageView) view.findViewById(R.id.icon);
+                        infoImg.setBackgroundResource(R.drawable.ywbl_icons);
+                        break;
+                    case Constants.XXCX:
+                        infoImg = (ImageView) view.findViewById(R.id.icon);
+                        infoImg.setBackgroundResource(R.drawable.info_icons);
+                        break;
+                    case Constants.WD:
+                        mineImg = (ImageView) view.findViewById(R.id.icon);
+                        mineImg.setBackgroundResource(R.drawable.mine_icons);
+                        break;
                 }
-
                 menuLayout.addTab(menuLayout.newTab().setCustomView(view));
             }
             menuLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
-                    if (tab.getCustomView().getTag().equals(Constants.sy)) {
+                    if (tab.getCustomView().getTag().equals(Constants.SY)) {
                         FragmentFirstPage fragmentFirstPage = new FragmentFirstPage();
                         FragmentHelper.replaceFragmentNoBack(fm,fragmentFirstPage,tab.getCustomView().getTag() + "",null,R.id.layout_fragment);
-                    }else if (tab.getCustomView().getTag().equals(Constants.ywbl)){
+                    }else if (tab.getCustomView().getTag().equals(Constants.YWBL)){
                         FragmentMenu fragmentMenu = new FragmentMenu();
-                        fragmentMenu.setTitle(Constants.ywbl);
+                        fragmentMenu.setTitle(Constants.YWBL);
                         FragmentHelper.replaceFragmentNoBack(fm, fragmentMenu,tab.getCustomView().getTag() + "", null, R.id.layout_fragment);
-                    } else if (tab.getCustomView().getTag().equals(Constants.xxcx)){
+                    } else if (tab.getCustomView().getTag().equals(Constants.XXCX)){
                         FragmentMenu fragmentMenu = new FragmentMenu();
-                        fragmentMenu.setTitle(Constants.xxcx);
+                        fragmentMenu.setTitle(Constants.XXCX);
                         FragmentHelper.replaceFragmentNoBack(fm, fragmentMenu,tab.getCustomView().getTag() + "", null, R.id.layout_fragment);
-                    } else if (tab.getCustomView().getTag().equals(Constants.wd)) {
+                    } else if (tab.getCustomView().getTag().equals(Constants.WD)) {
                         FragmentSetting fragmentSetting = new FragmentSetting();
                         FragmentHelper.replaceFragmentNoBack(fm, fragmentSetting, tab.getCustomView().getTag() + "", null, R.id.layout_fragment);
                     }
@@ -119,13 +123,10 @@ public class MainActivity extends RootActivity {
             menuLayout.setVisibility(View.GONE);
         }
 
-        if("湖南".equals(appcation.getVersion())){
-            FragmentSix fSix = new FragmentSix();
-            FragmentHelper.replaceFragmentNoBack(fm, fSix, "首页", null, R.id.layout_fragment);
-        }else if ("四川".equals(appcation.getVersion())){
+        if (Constants.SC.equals(appcation.getVersion())){
             FragmentSc fragmentSc = new FragmentSc();
             FragmentHelper.replaceFragmentNoBack(fm,fragmentSc,"",null,R.id.layout_fragment);
-        }else{
+        }else if (Constants.YN.equals(appcation.getVersion())){
             FragmentOne fOne = new FragmentOne();
             FragmentHelper.replaceFragmentNoBack(fm, fOne, "首页", null, R.id.layout_fragment);
         }

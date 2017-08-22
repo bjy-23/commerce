@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_ent_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="小胡汽车电器"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:maxWidth="225dp"/>
+
+        <TextView
+            android:id="@+id/tv_ent_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="  (企业)"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_alignTop="@+id/img_stattus"
+            android:layout_toRightOf="@+id/tv_ent_name"
+            android:layout_toEndOf="@+id/tv_ent_name" />
+
+        <ImageView
+            android:id="@+id/img_stattus"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fgdj_list_ent_status"/>
+
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册号/统一社会信用代码："
+            android:textSize="11sp"/>
+
+        <TextView
+            android:id="@+id/tv_ent_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="533325600030512"
+            android:textSize="11sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更新日期："
+            android:textSize="11sp"/>
+
+        <TextView
+            android:id="@+id/tv_oper_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2017-04-20"
+            android:textSize="11sp"/>
+
+    </LinearLayout>
+    
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#E6E6E6"/>
+
+    <LinearLayout
+        android:id="@+id/layout_operation"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_operation_1"
+            style="@style/tv_item_list_info"
+            android:text="退回" />
+
+        <View
+            android:layout_gravity="center"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#E6E6E6"/>
+
+        <TextView
+            android:id="@+id/tv_operation_2"
+            style="@style/tv_item_list_info"
+            android:text="编辑"/>
+
+        <View
+            android:layout_gravity="center"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#E6E6E6"/>
+
+        <TextView
+            android:id="@+id/tv_operation_3"
+            style="@style/tv_item_list_info"
+            android:text="查看"/>
+
+    </LinearLayout>
+
+</LinearLayout>

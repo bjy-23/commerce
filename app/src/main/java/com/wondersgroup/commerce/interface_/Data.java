@@ -5,7 +5,7 @@ package com.wondersgroup.commerce.interface_;
  */
 
 public class Data {
-    private int type;
+    protected int type;
 
     public int getType() {
         return type;

@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.adapter.TextWpicAdapter;
@@ -21,6 +23,7 @@ import com.wondersgroup.commerce.adapter.Title4RowAdapter;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.GwjsBean;
+import com.wondersgroup.commerce.model.GwjsCondition;
 import com.wondersgroup.commerce.model.TextWpicItem;
 import com.wondersgroup.commerce.model.Title4RowItem;
 import com.wondersgroup.commerce.model.TotalLoginBean;
@@ -71,7 +74,7 @@ public class RecyclerActivity extends AppCompatActivity {
     TextView tvError;
 
     private String doctype;
-    private String json;
+    private GwjsCondition condition;
     private String type;
     private TextWpicAdapter textWpicAdapter;
     private Title4RowAdapter title4RowAdapter;
@@ -138,6 +141,8 @@ public class RecyclerActivity extends AppCompatActivity {
                         getCCJCCX();
                     }else if ("CCJCDB".equals(type)){
                         getCCJCDB();
+                    }else if ("GWJS".equals(type)){
+                        getGWJSDataList();
                     }
                 }
             }
@@ -173,8 +178,7 @@ public class RecyclerActivity extends AppCompatActivity {
         if("GWJS".equals(type)) {
             searchBar.setVisibility(View.GONE);
             doctype = getIntent().getStringExtra("doctype");
-            json = getIntent().getStringExtra("json");
-
+            condition = Hawk.get("gwCondition");
             dataList = new ArrayList<>();
             textWpicItems = new ArrayList<>();
             textWpicAdapter = new TextWpicAdapter(textWpicItems);
@@ -466,19 +470,17 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     public void getGWJSDataList(){
-        int curSize = textWpicItems.size();
-        textWpicItems.clear();
-        textWpicAdapter.notifyItemRangeRemoved(0, curSize);
+//        int curSize = textWpicItems.size();
+//        textWpicItems.clear();
+//        textWpicAdapter.notifyItemRangeRemoved(0, curSize);
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "07010008");
         map.put("userId", userId);
         map.put("deptId", deptId);
         map.put("organId", organId);
-        if (json.equals("")){
-            map.put("condition", "{}");
-        }else{
-            map.put("condition", json);
-        }
+        Gson gson = new GsonBuilder().create();
+        condition.setPageNo((pageNo+1)+"");
+        map.put("condition", gson.toJson(condition));
         if("收文管理".equals(doctype)) {
             map.put("businessType", "2");
         }else if("发文管理".equals(doctype)) {
@@ -489,20 +491,21 @@ public class RecyclerActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<GwjsBean> response, Retrofit retrofit) {
                 if(response.body()!=null) {
-                    if (response.body().getResult() != null) {
-                        dataList = response.body().getResult().getResult();
+                    if ("200".equals(response.body().getCode()) && response.body().getResult() != null) {
+                        isLoaded = true;
+                        List<GwjsBean.Result.Result_> temp = response.body().getResult().getResult();
+                        pageMax = response.body().getResult().getPageCount();
                         totalRecord = response.body().getResult().getTotalRecord();
-                        if(dataList!=null) {
-                            for (int i = 0; i < dataList.size(); i++) {
-                                TextWpicItem item = new TextWpicItem();
-                                item.setTitle(dataList.get(i).getTitle());
-                                item.setRowTwoText(dataList.get(i).getCreateAt());
-                                item.setPicId(R.mipmap.icons_normal);
-                                item.setPicText(dataList.get(i).getType());
-                                textWpicItems.add(item);
-                            }
-                            textWpicAdapter.notifyItemRangeInserted(0,textWpicItems.size());
+                        for (int i = 0; i < temp.size(); i++) {
+                            TextWpicItem item = new TextWpicItem();
+                            item.setTitle(temp.get(i).getTitle());
+                            item.setRowTwoText(temp.get(i).getCreateAt());
+                            item.setPicId(R.mipmap.icons_normal);
+                            item.setPicText(temp.get(i).getType());
+                            textWpicItems.add(item);
                         }
+                        textWpicAdapter.notifyItemRangeInserted(dataList.size(),temp.size());
+                        dataList.addAll(temp);
                     }else{
                         Toast.makeText(RecyclerActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }

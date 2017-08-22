@@ -73,6 +73,69 @@ public class CaseInvestigateDetail {
         String workunit;
         List<LitigtVolume> simLitigtList;       //当事人基本情况
         List<ExtendPerson> extendPersonVoList;          //承办人情况
+        String caseType;    //主要案件类型
+        String secondaryCaseType;   //次要案件类型
+        String topicName;   //专项工作
+        String verchdepopi;     //法制机构审核意见
+        String verifyUserName;  //法治审核人员
+        String verchdate;   //法治审核日期
+        String undertakeName;//承办人
+
+        public String getUndertakeName() {
+            return undertakeName;
+        }
+
+        public void setUndertakeName(String undertakeName) {
+            this.undertakeName = undertakeName;
+        }
+
+        public String getCaseType() {
+            return caseType;
+        }
+
+        public void setCaseType(String caseType) {
+            this.caseType = caseType;
+        }
+
+        public String getSecondaryCaseType() {
+            return secondaryCaseType;
+        }
+
+        public void setSecondaryCaseType(String secondaryCaseType) {
+            this.secondaryCaseType = secondaryCaseType;
+        }
+
+        public String getTopicName() {
+            return topicName;
+        }
+
+        public void setTopicName(String topicName) {
+            this.topicName = topicName;
+        }
+
+        public String getVerchdepopi() {
+            return verchdepopi;
+        }
+
+        public void setVerchdepopi(String verchdepopi) {
+            this.verchdepopi = verchdepopi;
+        }
+
+        public String getVerifyUserName() {
+            return verifyUserName;
+        }
+
+        public void setVerifyUserName(String verifyUserName) {
+            this.verifyUserName = verifyUserName;
+        }
+
+        public String getVerchdate() {
+            return verchdate;
+        }
+
+        public void setVerchdate(String verchdate) {
+            this.verchdate = verchdate;
+        }
 
         public List<LitigtVolume> getSimLitigtList() {
             return simLitigtList;

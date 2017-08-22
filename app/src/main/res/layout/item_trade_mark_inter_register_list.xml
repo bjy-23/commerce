@@ -7,7 +7,9 @@
     android:paddingRight="15dp">
     <LinearLayout
         style="@style/listview_item_linearlayout">
-
+        <TextView
+            style="@style/trade_mark_list_content_textview"
+            android:text="序号："/>
         <TextView
             style="@style/trade_mark_tab_textview"
             android:id="@+id/tvRegNumber4ItemTradeMarkInterRegList"

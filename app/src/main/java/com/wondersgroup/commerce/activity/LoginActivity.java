@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.logger.Logger;
 import com.squareup.okhttp.ResponseBody;
@@ -39,6 +41,7 @@ import com.wondersgroup.commerce.service.Result;
 import com.wondersgroup.commerce.teamwork.dailycheck.ImgFirstBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.LoginUserInfo;
 import com.wondersgroup.commerce.utils.DataShared;
+import com.wondersgroup.commerce.utils.FileHelper;
 import com.wondersgroup.commerce.utils.LogHelper;
 import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.ynwq.bean.LoginResult;
@@ -46,6 +49,7 @@ import com.wondersgroup.commerce.ynwq.bean.UserResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,9 +96,6 @@ public class LoginActivity extends RootActivity {
     private List<ShLoginDeptBean.Values> deptValueList;
     private List<String> detpList;
     private String loginName,password;
-    private List<MenuBean> firstPageMenu;
-    private List<MenuInfo> ywblMenuInfos;
-    private List<MenuInfo> messageMenuInfos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,6 +172,8 @@ public class LoginActivity extends RootActivity {
                     case "云南":
                     case "四川":
                         gsythLoginNet("1");
+                        //免登陆测试
+//                        makeMenu(new ArrayList<MenuBean>(),false);
 //                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         break;
                     case "上海":
@@ -217,7 +220,6 @@ public class LoginActivity extends RootActivity {
         map.put("deptId", deptId);
         map.put("loginName", loginName);
         map.put("password", password);
-
 
         Call<TotalLoginBean> call = ApiManager.hbApi.login(map);
         call.enqueue(new Callback<TotalLoginBean>() {
@@ -269,7 +271,7 @@ public class LoginActivity extends RootActivity {
                 if (response.body()!=null){
                     List<MenuBean> menus = response.body().getObject().getMenus();
                     if(menus != null)
-                        makeMenu(menus);
+                        makeMenu(menus,true);
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                     dialog.dismiss();
@@ -284,159 +286,150 @@ public class LoginActivity extends RootActivity {
         });
     }
 
-    //配置首页、业务办理、信息查询、统计分析中的菜单
-    public void makeMenu(List<MenuBean> menus){
-        //首页
-        List<MenuBean> menu1 = RootAppcation.getInstance().getFirstPageMenu();
-        firstPageMenu = new ArrayList<>();
-        for (MenuBean menuBean : menu1){
-            if (menuBean.getType() == 0){
-                makeData(menuBean,menuBean.getMenuId(),menus);
-            }else {
-                for (String menuId : menuBean.getMenuIdList()){
-                    makeData(menuBean,menuId,menus);
+    //配置首页、业务办理、信息查询、统计分析中的菜单、四川的菜单
+    public void makeMenu(List<MenuBean> menus,boolean checkable){
+        Gson gson = new Gson();
+        //读取本地配置的menu
+        if (Constants.YN.equals(RootAppcation.getInstance().getVersion())){
+            String result = FileHelper.getFromAssets("config_yn.txt", this);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                //底部菜单栏
+                ArrayList<String> bottom = new ArrayList<>();
+                JSONArray bottomMenu = new JSONArray(jsonObject.getString("bottomMenu"));
+                for (int i=0; i<bottomMenu.length(); i++){
+                    bottom.add(bottomMenu.getJSONObject(i).getString("name"));
                 }
-            }
-        }
-        Hawk.put(Constants.FIRST_PAGE_MENU,firstPageMenu);
-        //业务办理
-        ywblMenuInfos = new ArrayList<>();
-        List<MenuInfo> menu2 = RootAppcation.getInstance().getYwblMenuInfos();
-        for (MenuInfo menuInfo : menu2){
-            List<MenuBean> beans = menuInfo.getMenus();
-            for (MenuBean bean : beans){
-                if (bean.getType() == 0){
-                    makeData2(bean,bean.getMenuId(),menus,ywblMenuInfos);
-                }else {
-                    for (String menuId : bean.getMenuIdList()){
-                        makeData2(bean,menuId,menus,ywblMenuInfos);
+                RootAppcation.getInstance().setBottomMenus(bottom);
+
+                //首页菜单
+                ArrayList<MenuBean> firstMenus = gson.fromJson(jsonObject.getString("firstMenus"),new TypeToken<ArrayList<MenuBean>>(){}.getType());
+                //根据权限按需加载
+                if (checkable)
+                    remakeMenus(firstMenus,menus);
+                //设置颜色
+                for(MenuBean menuBean : firstMenus){
+                    menuBean.setResId(Constants.firstColorMap().get(menuBean.getMenuId()));
+                }
+                Hawk.put(Constants.FIRST_PAGE_MENU,firstMenus);
+
+                //业务办理
+                ArrayList<MenuInfo> ywblMenus = gson.fromJson(jsonObject.getString("ywblMenus"), new TypeToken<ArrayList<MenuInfo>>() {
+                }.getType());
+                //根据权限按需加载
+                if (checkable)
+                    for (MenuInfo menuInfo : ywblMenus) {
+                        remakeMenus(menuInfo.getMenus(), menus);
+                    }
+                //删除子项menus为空的对象
+                for (int i=0; i<ywblMenus.size(); i++){
+                    if (ywblMenus.get(i).getMenus().size() == 0) {
+                        ywblMenus.remove(i);
+                        i--;
                     }
                 }
-            }
-        }
-        Hawk.put(Constants.YWBL_MNEUINFO,ywblMenuInfos);
-
-        //信息查询
-        messageMenuInfos = new ArrayList<>();
-        //公示信息对所有用户放开
-        MenuInfo menuInfo_message_1 = new MenuInfo();
-        menuInfo_message_1.setTitle("查询");
-        ArrayList<MenuBean> arrayList_message_1 = new ArrayList<>();
-        MenuBean bean_message_1 = new MenuBean(Constants.GSXX_NAME,Constants.GSXX_ID,R.mipmap.icon_gsxx);
-        arrayList_message_1.add(bean_message_1);
-        menuInfo_message_1.setMenus(arrayList_message_1);
-        messageMenuInfos.add(menuInfo_message_1);
-
-        List<MenuInfo> menu3 = RootAppcation.getInstance().getMessageMenuInfos();
-        for (MenuInfo menuInfo : menu3){
-            List<MenuBean> beans = menuInfo.getMenus();
-            for (MenuBean bean : beans){
-                if (bean.getType() == 0){
-                    makeData2(bean,bean.getMenuId(),menus,messageMenuInfos);
-                }else {
-                    for (String menuId : bean.getMenuIdList()){
-                        makeData2(bean,menuId,menus,messageMenuInfos);
+                //配置图标
+                for (MenuInfo menuInfo : ywblMenus){
+                    for (MenuBean menuBean : menuInfo.getMenus()){
+                        menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId()));
                     }
                 }
-            }
-        }
+                Hawk.put(Constants.YWBL_MNEUINFO,ywblMenus);
 
-        //统计分析对所有用户放开
-        MenuInfo menuInfo = new MenuInfo();
-        menuInfo.setTitle("统计");
-        ArrayList<MenuBean> list = new ArrayList<>();
-        MenuBean menuBean = new MenuBean(Constants.CXTJ_NAME,Constants.CXTJ_ID,R.mipmap.cxtj);
-        list.add(menuBean);
-        menuInfo.setMenus(list);
-        messageMenuInfos.add(menuInfo);
-        Hawk.put(Constants.MESSAGE_MENUINFO,messageMenuInfos);
+                //查询统计
+                ArrayList<MenuInfo> tongjiMenus = gson.fromJson(jsonObject.getString("tongjiMenus"),new TypeToken<ArrayList<MenuInfo>>(){}.getType());
+                //公示信息、统计分析两个模块对所有用户放开
+                ArrayList<MenuBean> menusTemp = new ArrayList<>();
+                //公示信息
+                MenuBean bean1 = new MenuBean(Constants.GSXX_ID,0);
+                menusTemp.add(bean1);
+                //统计分析
+                MenuBean bean2 = new MenuBean(Constants.CXTJ_ID,0);
+                menusTemp.add(bean2);
+                //法律法规的权限和案件调查保持一致
+                boolean isHave = false;
+                loop1:for (MenuInfo menuInfo : ywblMenus){
+                    loop2:for (MenuBean bean : menuInfo.getMenus()){
+                                if (Constants.AJDC_ID.equals(bean.getMenuId())){
+                                    isHave = true;
+                                    break loop1;
+                                }
+                    }
+                }
+                //法律法规
+                if (isHave){
+                    MenuBean bean3 = new MenuBean(Constants.FLFG_ID,0);
+                    menusTemp.add(bean3);
+                }
+
+                menusTemp.addAll(menus);
+                //根据权限按需加载
+                if (checkable)
+                    for (MenuInfo menuInfo : tongjiMenus) {
+                        remakeMenus(menuInfo.getMenus(), menusTemp);
+                    }
+                //删除子项menus为空的对象
+                for (int i=0; i<tongjiMenus.size(); i++){
+                    if (tongjiMenus.get(i).getMenus().size() == 0){
+                        tongjiMenus.remove(i);
+                        i--;
+                    }
+                }
+                //配置图标
+                for (MenuInfo menuInfo : tongjiMenus){
+                    for (MenuBean menuBean : menuInfo.getMenus()){
+                        menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId()));
+                    }
+                }
+                Hawk.put(Constants.MESSAGE_MENUINFO,tongjiMenus);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
+            String result = FileHelper.getFromAssets("config_sc.txt", this);
+            ArrayList<MenuBean> menuList = gson.fromJson(result,new TypeToken<ArrayList<MenuBean>>(){}.getType());
+            remakeMenus(menuList,menus);
+            //配置图标
+            for (MenuBean menuBean : menuList){
+                menuBean.setResId(Constants.menuIconMapSC().get(menuBean.getMenuId()));
+            }
+            Hawk.put(Constants.MENU_SC,menuList);
+            RootAppcation.getInstance().setBottomMenus(new ArrayList<String>());
+        }
     }
 
-    public void makeData(MenuBean menuBean,String menuId,List<MenuBean> arrayList){
-        for (MenuBean bean : arrayList){
-            if (menuId.equals(bean.getMenuId())){
+    public void remakeMenus(List<MenuBean> menuBeans,List<MenuBean> menus){
+        for (int i=0; i<menuBeans.size(); i++){
+            MenuBean menuBean = menuBeans.get(i);
+            if (menuBean.getType() == 0){
+                String menuId = menuBean.getMenuId();
                 boolean isHave = false;
-                for (MenuBean beanData : firstPageMenu) {
-                    if (beanData.getMenuName().equals(menuBean.getMenuName())) {
+                for (MenuBean bean : menus){
+                    if (menuId.equals(bean.getMenuId())){
                         isHave = true;
                         break;
                     }
                 }
                 if (!isHave){
-                    firstPageMenu.add(menuBean);
+                    menuBeans.remove(i);
+                    i--;
                 }
-                break;
-            }
-        }
-    }
-
-    public void makeData2(MenuBean menuBean, String menuId, List<MenuBean> list,List<MenuInfo> data){
-        for (MenuBean bean : list){
-            if (menuId.equals(bean.getMenuId())){
+            }else {
+                String[] menuIds = menuBean.getMenuId().split(",");
                 boolean isHave = false;
-                int index = 0;
-                String title = "";
-                switch (menuBean.getMenuName()){
-                    case Constants.AJDC_NAME:
-                    case Constants.AJCX_NAME:
-                        if(Constants.AJDC_ID.equals(menuId) || Constants.AJCX_ID.equals(menuId))
-                            title = "执法办案 (工商行政执法系统)";
-                        else
-                            title = "执法办案 (市场监督管理局行政执法系统)";
-                        break;
-                    case Constants.CCJCLR_NAME:
-                    case Constants.CCJCCX_NAME:
-                        title = "公示抽查检查";
-                        break;
-                    case Constants.TSJBCL_NAME:
-                    case Constants.TSJBCX_NAME:
-                        title = "消费维权";
-                        break;
-                    case Constants.FGDJGL_NAME:
-                    case Constants.FGDJCX_NAME:
-                        title = "非公党建";
-                        break;
-                    case Constants.WQCB_NAME:
-                        title = "小微企业扶持";
-                        break;
-                    case Constants.GSXX_NAME:
-                    case Constants.FLFG_NAME:
-                        title = "查询";
-                        break;
-                    case Constants.CXTJ_NAME:
-                        title = "统计";
-                        break;
-                }
-                for (int i=0;i<data.size();i++){
-                    if (data.get(i).getTitle().equals(title)){
-                        isHave = true;
-                        index = i;
-                        break;
-                    }
-                }
-                if (isHave){
-                    List<MenuBean> beanList = data.get(index).getMenus();
-                    boolean have = false;
-                    for (MenuBean bean1 : beanList){
-                        if (bean1.getMenuName().equals(menuBean.getMenuName())){
-                            have = true;
-                            break;
+                loop1:for (String menuId : menuIds){
+                    loop2:for (MenuBean bean : menus){
+                        if (menuId.equals(bean.getMenuId())){
+                            isHave = true;
+                            break loop1;
                         }
                     }
-                    if (!have){
-                        data.get(index).getMenus().add(menuBean);
-                    }
-
-                }else {
-                    MenuInfo menuInfo1 = new MenuInfo();
-                    menuInfo1.setTitle(title);
-                    ArrayList<MenuBean> arrayList1 = new ArrayList<>();
-                    arrayList1.add(menuBean);
-                    menuInfo1.setMenus(arrayList1);
-                    data.add(menuInfo1);
                 }
-
-                break;
+                if (!isHave){
+                    menuBeans.remove(i);
+                    i--;
+                }
             }
         }
     }
@@ -476,72 +469,6 @@ public class LoginActivity extends RootActivity {
         });
     }
 
-
-    /**
-     * 河北工商登陆二次网络请求
-     */
-    private void hbLoginNet2() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
-//        myApplication.setVersion("河北");
-        Map<String, String> body = new HashMap<>();
-        final String name = nameText.getText().toString().trim();
-        final String pwd = pwdText.getText().toString().trim();
-
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "00000001");
-        map.put("loginName", name);
-        map.put("password", pwd);
-        //map.put("password", DigestUtil.md5Hex4String(pwd));
-        map.put("deptId", detpList.get(organFlag).split(",")[0]);
-
-//        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        Call<TotalLoginBean> call = ApiManager.hbApi.login(map);
-        call.enqueue(new Callback<TotalLoginBean>() {
-            @Override
-            public void onResponse(Response<TotalLoginBean> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-
-                    TotalLoginBean login = response.body();
-
-                    if ((null == login) || (null == login.getResult()) || !(null == login.getResult().getErrorMsg())) {
-                        Toast.makeText(LoginActivity.this, "用户名密码错误", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                        return;
-                    }else{
-                        Log.d("LoginAcitivity", "save info userId = "+login.getResult().getUserId()+"  deptId = "+login.getResult().getDeptId()
-                                +"  organId = "+login.getResult().getOrganId());
-                        DataShared dataShared = new DataShared(LoginActivity.this);
-                        dataShared.put("name", name);
-                        dataShared.put("pwd", pwd);
-                        dataShared.put("userId",login.getResult().getUserId());
-                        dataShared.put("deptId",login.getResult().getDeptId());
-                        dataShared.put("organId",login.getResult().getOrganId());
-                        dataShared.put("userName",login.getResult().getUserName());
-                        dataShared.put("deptName",login.getResult().getDeptName());
-                        dataShared.put("organName",login.getResult().getOrganName());
-                    }
-
-                    myApplication.setTotalLoginBean(login);
-                    myApplication.setTotalDeptList(detpList);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                } else {
-
-                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
-                }
-
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if(dialog.isShowing())dialog.dismiss();
-                Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     /**
      * 部门选择dialog

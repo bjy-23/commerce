@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.MenuModel;
 import com.wondersgroup.commerce.model.UpdateBean;
 import com.wondersgroup.commerce.model.yn.Version;
@@ -49,6 +51,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
     private TextView tvSpeed, tvProgress, tvTotal,tvVersion;
     private ProgressBar progressBar;
     @Bind(R.id.view_bg)
-    View viewBg;
+    ImageView viewBg;
     private int size, sum;
     Handler handler = new Handler() {
         @Override
@@ -95,26 +98,19 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = RootAppcation.getInstance();
-        configUrl();
+        app.setVersion(Constants.VERSION);
+        ApiManager.getInstance().init("", this);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         switch (app.getVersion()) {
             case "四川":
-                viewBg.setBackgroundResource(R.drawable.splash_sc);
+                viewBg.setImageResource(R.drawable.splash_sc);
                 break;
             case "云南":
-                viewBg.setBackgroundResource(R.drawable.boot_yunnan);
+                viewBg.setImageResource(R.drawable.boot_yunnan);
                 break;
         }
-//        update();
-//        showUpdateDialog();
-//        if("湖南".equals(app.getVersion())) {
-//            hnUpdate();
-//        }else {
-//            hbUpdate();
-//        }
         ynUpdate();
-//        handler.postDelayed(new splashhandler(), 1500);
     }
 
     class splashhandler implements Runnable {
@@ -122,33 +118,6 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
-        }
-    }
-
-    public void configUrl() {
-        try {
-            //打开assets文件夹下的config.txt文件
-            String result = FileHelper.getFromAssets("config_sc.txt", this);
-
-            JSONObject jsonObject = new JSONObject(result);
-            JSONArray bottomList = jsonObject.getJSONArray("bottomMenu");
-            String theme = jsonObject.getString("theme");
-            String version = jsonObject.getString("version");
-
-            app.getMenuBtnList().clear();
-
-            for (int i = 0; i < bottomList.length(); i++) {
-                MenuModel menuModel = new MenuModel();
-                menuModel.setName(bottomList.getJSONObject(i).getString("name"));
-                app.getMenuBtnList().add(menuModel);
-            }
-
-            app.setMyTheme(theme);
-            app.setVersion(version);
-            ApiManager.getInstance().init("", this);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 

@@ -90,38 +90,38 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
         MenuBean bean = (MenuBean) v.getTag();
         Intent intent;
         Bundle bundle;
-        switch (bean.getMenuName()){
-            case Constants.TSJBCL_NAME:
+        switch (bean.getMenuId()){
+            case Constants.TSJBCL_ID:
                 intent = new Intent(context, ViewPagerActivity.class);
                 intent.putExtra("type", "TSJBCL");
                 context.startActivity(intent);
                 break;
-            case Constants.AJDC_NAME:
+            case Constants.AJDC_ID:
                 bundle = new Bundle();
                 bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
                 intent = new Intent(context, CaseInvestigateActivity.class);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
                 break;
-            case Constants.CASECX_NAME:
+            case Constants.AJCX_ID:
                 intent = new Intent(context, CaseEnquireActivity.class);
                 context.startActivity(intent);
                 break;
-            case Constants.JYCX_NAME:
+            case Constants.JYCX_ID:
                 bundle = new Bundle();
                 bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
                 intent = new Intent(context, ProcedureCaseListActivity.class);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
                 break;
-            case Constants.CCJCLR_NAME:
+            case Constants.CCJCLR_ID:
                 ApiManager.getInstance().ccInit();
                 intent=new Intent(context,RecyclerActivity.class);
                 intent.putExtra("type","CCJCDB");
                 intent.putExtra("title",Constants.ccjcdb);
                 context.startActivity(intent);
                 break;
-            case Constants.WQCB_NAME:
+            case Constants.WQCB_ID:
                 TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
                 HashMap<String, String> body = new HashMap<>();
                 body.put("userId",loginBean.getResult().getUserId());
@@ -134,36 +134,38 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                 intent.putExtra("body",body);
                 context.startActivity(intent);
                 break;
-            case Constants.TXL_NAME:
+            case Constants.TXL_ID:
                 intent = new Intent(context, TXLActivity.class);
                 context.startActivity(intent);
                 break;
-            case Constants.TZGG_NAME:
+            case Constants.TZGG_ID:
                 intent = new Intent(context, TZTGActivity.class);
                 context.startActivity(intent);
                 break;
             //公示信息
-            case Constants.QYGSXX_NAME:
+            case Constants.GSXX_ID:
                 intent = new Intent(context, GSActivity.class);
                 context.startActivity(intent);
                 break;
-            case Constants.GWPY_NAME:
+            case Constants.GWPY_ID:
                 intent = new Intent(context, ViewPagerActivity.class);
                 intent.putExtra("title", "公文批阅");
                 intent.putExtra("type", "GWPY");
                 context.startActivity(intent);
                 break;
-            case Constants.GWJS_NAME:
+            case Constants.GWJS_ID:
                 intent = new Intent(context, ViewPagerActivity.class);
                 intent.putExtra("title", "公文检索");
                 intent.putExtra("type", "GWJS");
                 context.startActivity(intent);
                 break;
-            case Constants.XYGS_DJ_ID:
-            case Constants.XYGS_JL_ID:
             case Constants.SBCX_ID:
                 intent = new Intent(context, TradeMarksListActivity.class);
                 context.startActivity(intent);
+                break;
+            case Constants.XYGS_DJ_ID:
+            case Constants.XYGS_JL_ID:
+                Toast.makeText(context,"功能正在开发中",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

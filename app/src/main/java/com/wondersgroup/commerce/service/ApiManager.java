@@ -25,7 +25,7 @@ import retrofit.Retrofit;
 public class ApiManager {
    private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
     private static final String BASE_URL_2 = "http://172.28.129.42/";//云南内网正式
-    private static final String BASE_URL = BASE_URL_2;//注意TJAPI修改；注意修改公示信息js配置;注意版本更新
+    private static final String BASE_URL = BASE_URL_1;//注意TJAPI修改；注意修改公示信息js配置;注意版本更新;应用名称；
 //    public String API_TJ  = BASE_URL + "mds/";//测试
     public String API_TJ = BASE_URL + "mds2/";//正式
 
@@ -44,7 +44,7 @@ public class ApiManager {
 
     private static final String API_CASE_1 = "http://10.1.8.130:8006/";//案件;130,云南、205,四川
     private static final String API_CASE_2 = "http://10.1.192.40:8006/";
-    private static final String API_CASE_3 = "http://10.2.18.107:8080/";
+    private static final String API_CASE_3 = "http://10.2.102.166:8080/";
     private static final String API_OA_1 = "http://10.1.192.40:8013/oa/";
     private static final String API_OA_2 = "http://10.1.8.205:8013/oa/";
     private static final String API_HB_ROOT_1 = "http://10.1.8.130:8001/";//工商一体化
@@ -69,6 +69,7 @@ public class ApiManager {
     //private static final String API_HN_ROOT = "http://10.1.8.133:8023/deliver/services/ws/";        //----公司根地址
     //private static final String API_HN_ROOT = "http://172.25.130.61:8023/deliver/services/ws/";
     private static final String API_TEST = "http://10.1.192.40:8006/case/";
+    private static final String TRADEMARK_API_TEST = "http://10.1.192.40:8008/tm/";
     private static final String API_SH_ROOT = "";
 
     public static String RESULT_SUCCESS = "200";    //code="200"表示请求执行成功
@@ -83,11 +84,13 @@ public class ApiManager {
     public static YnWqApi ynWqApi;
     public static CCJCApi ccjcApi;
     public static CaseModule caseModule;
+    public static TradeMarkApi tradeMarkApi;
     public static FGDJApi fgdjApi;
     public static LawApi lawApi;
     private static Retrofit retrofit;
     public static OkHttpClient httpClient;
     private static String token = "";
+    public static int caseType = 1;//1:工商行政执法系统;2:市场监督管理局行政执法系统
 
     public static ApiManager getInstance() {
         if (instance == null) {
@@ -426,7 +429,8 @@ public class ApiManager {
 
     private void testServiceInit() {//调试服务器初始化
         getInstance().token = token;
-        if (caseModule == null) {
+//        if (caseModule == null) {
+        if(tradeMarkApi == null){
         httpClient = new OkHttpClient();
         httpClient.interceptors().add(new Interceptor() {
             @Override
@@ -446,11 +450,13 @@ public class ApiManager {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClient.interceptors().add(interceptor);
         retrofit = new Retrofit.Builder()
-                .baseUrl(API_TEST)
+                //.baseUrl(API_TEST)
+                .baseUrl(TRADEMARK_API_TEST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();
-        caseModule = retrofit.create(CaseModule.class);
+//        caseModule = retrofit.create(CaseModule.class);
+        tradeMarkApi = retrofit.create(TradeMarkApi.class);
         }
     }
 
