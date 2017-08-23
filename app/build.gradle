@@ -66,8 +66,8 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
         transitive = true
     }
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
     compile files('libs/zxing.jar')
+    compile 'commons-codec:commons-codec:1.10'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'

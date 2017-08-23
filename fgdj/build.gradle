@@ -1,8 +1,8 @@
 boolean isBuildModule = true;
 
-if(isBuildModule){
+if (isBuildModule) {
     apply plugin: 'com.android.application'
-}else {
+} else {
     apply plugin: 'com.android.library'
 }
 

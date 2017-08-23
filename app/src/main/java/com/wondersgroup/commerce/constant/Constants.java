@@ -85,15 +85,14 @@ public class Constants {
     public static final String CCJCCX_NAME = "抽查检查查询";
     public static final String AJDC_ID = "03010033";
     public static final String AJDC_NAME = "案件调查";
+    public static final String WDAJCX_ID = "03010033";
+    public static final String WDAJCX_NAME = "我的案件查询";
     public static final String AJCX_ID = "03010009";
-    public static final String AJCX_NAME = "我的案件查询";
-    public static final String CASECX_NAME = "案件查询";
-    public static final String AJDC_ID_2 = "03040101";
+    public static final String AJCX_NAME = "案件查询";
+    public static final String AJDC_ID_2 = "03040033";
     public static final String AJDC_NAME_2 = "案件调查";
-    public static final String AJCX_ID_2 = "03040033";
-    public static final String AJCX_NAME_2 = "我的案件查询";
-    public static final String AJCX_ID_3 = "999999";
-    public static final String AJCX_NAME_3 = "案件查询";
+    public static final String WDAJCX_ID_2 = "03040033";
+    public static final String WDAJCX_NAME_2 = "我的案件查询";
     public static final String JYCX_ID = "08011007";
     public static final String JYCX_NAME = "简易程序处理";
     public static final String TSJBCL_ID = "02050141";
@@ -115,7 +114,7 @@ public class Constants {
     public static final String XYGS_JL_ID = "222222";
     public static final String SBCX_ID = "02077110";
     public static final String SBCX_NAME = "注册商标查询";
-    public static final String FLFG_ID = "0301003303010033";//法律法规的权限和案件调查保持一致，id随机设置个不同的,方便图标的处理
+    public static final String FLFG_ID = "03010033";//法律法规的权限和案件调查保持一致
     public static final String FLFG_NAME = "法律法规查询";
     public static final String CXTJ_ID = "03010502";
     public static final String CXTJ_NAME = "统计分析";
@@ -368,20 +367,21 @@ public class Constants {
     public static HashMap<String, Integer> menuIconMapYN(){
         if (menuIconMapYN == null){
             menuIconMapYN = new HashMap<>();
-            menuIconMapYN.put(Constants.AJDC_ID,R.mipmap.icon_ajdc);
-            menuIconMapYN.put(Constants.AJCX_ID,R.mipmap.icon_ajcx);
-            menuIconMapYN.put(Constants.AJDC_ID_2,R.mipmap.icon_ajdc);
-            menuIconMapYN.put(Constants.AJCX_ID_2,R.mipmap.icon_ajcx);
-            menuIconMapYN.put(Constants.CCJCLR_ID,R.mipmap.icon_cclr);
-            menuIconMapYN.put(Constants.CCJCCX_ID,R.mipmap.icon_cccx);
-            menuIconMapYN.put(Constants.TSJBCL_ID,R.mipmap.icon_tsjbcl);
-            menuIconMapYN.put(Constants.TSJBCX_ID,R.mipmap.icon_tsjbcx);
-            menuIconMapYN.put(Constants.FGDJGL_ID,R.mipmap.icon_djgl);
-            menuIconMapYN.put(Constants.FGDJCX_ID,R.mipmap.icon_djcx);
-            menuIconMapYN.put(Constants.WQCB_ID,R.mipmap.icon_cbcs);
-            menuIconMapYN.put(Constants.GSXX_ID,R.mipmap.icon_gsxx);
-            menuIconMapYN.put(Constants.FLFG_ID,R.mipmap.icon_flfg);
-            menuIconMapYN.put(Constants.CXTJ_ID,R.mipmap.cxtj);
+            menuIconMapYN.put(Constants.AJDC_ID + Constants.AJDC_NAME,R.mipmap.icon_ajdc);
+            menuIconMapYN.put(Constants.WDAJCX_ID + Constants.WDAJCX_NAME,R.mipmap.icon_wdajcx);
+            menuIconMapYN.put(Constants.AJCX_ID + Constants.AJCX_NAME,R.mipmap.icon_ajcx);
+            menuIconMapYN.put(Constants.AJDC_ID_2 + Constants.AJDC_NAME_2,R.mipmap.icon_ajdc);
+            menuIconMapYN.put(Constants.WDAJCX_ID_2 + Constants.WDAJCX_NAME_2,R.mipmap.icon_wdajcx);
+            menuIconMapYN.put(Constants.CCJCLR_ID + Constants.CCJCLR_NAME,R.mipmap.icon_cclr);
+            menuIconMapYN.put(Constants.CCJCCX_ID + Constants.CCJCCX_NAME,R.mipmap.icon_cccx);
+            menuIconMapYN.put(Constants.TSJBCL_ID + Constants.TSJBCL_NAME,R.mipmap.icon_tsjbcl);
+            menuIconMapYN.put(Constants.TSJBCX_ID + Constants.TSJBCX_NAME,R.mipmap.icon_tsjbcx);
+            menuIconMapYN.put(Constants.FGDJGL_ID + Constants.FGDJGL_NAME,R.mipmap.icon_djgl);
+            menuIconMapYN.put(Constants.FGDJCX_ID + Constants.FGDJCX_NAME,R.mipmap.icon_djcx);
+            menuIconMapYN.put(Constants.WQCB_ID + Constants.WQCB_NAME,R.mipmap.icon_cbcs);
+            menuIconMapYN.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.icon_gsxx);
+            menuIconMapYN.put(Constants.FLFG_ID + Constants.FLFG_NAME,R.mipmap.icon_flfg);
+            menuIconMapYN.put(Constants.CXTJ_ID + Constants.CXTJ_NAME,R.mipmap.cxtj);
         }
         return menuIconMapYN;
     }
@@ -392,17 +392,17 @@ public class Constants {
     public static HashMap<String,Integer> menuIconMapSC(){
         if (menuIconMapSC == null){
             menuIconMapSC = new HashMap<>();
-            menuIconMapSC.put(Constants.AJDC_ID,R.mipmap.ajdc_sc);
-            menuIconMapSC.put(Constants.AJCX_ID,R.mipmap.ajcx_sc);
-            menuIconMapSC.put(Constants.JYCX_ID,R.mipmap.jycx_sc);
-            menuIconMapSC.put(Constants.XYGS_DJ_ID,R.mipmap.xygs_dj);
-            menuIconMapSC.put(Constants.XYGS_JL_ID,R.mipmap.xygs_jl);
-            menuIconMapSC.put(Constants.GWPY_ID,R.mipmap.txl_sc);
-            menuIconMapSC.put(Constants.GWJS_ID,R.mipmap.txl_sc);
-            menuIconMapSC.put(Constants.GSXX_ID,R.mipmap.qyxyxx);
-            menuIconMapSC.put(Constants.SBCX_ID,R.mipmap.sbcx);
-            menuIconMapSC.put(Constants.TZGG_ID,R.mipmap.tzgg_sc);
-            menuIconMapSC.put(Constants.TXL_ID,R.mipmap.txl_sc);
+            menuIconMapSC.put(Constants.AJDC_ID + Constants.AJDC_NAME,R.mipmap.ajdc_sc);
+            menuIconMapSC.put(Constants.WDAJCX_ID + Constants.WDAJCX_NAME,R.mipmap.ajcx_sc);
+            menuIconMapSC.put(Constants.JYCX_ID + Constants.JYCX_NAME,R.mipmap.jycx_sc);
+            menuIconMapSC.put(Constants.XYGS_DJ_ID + Constants.XYGS_DJ_NAME,R.mipmap.xygs_dj);
+            menuIconMapSC.put(Constants.XYGS_JL_ID + Constants.XYGS_JL_NAME,R.mipmap.xygs_jl);
+            menuIconMapSC.put(Constants.GWPY_ID + Constants.GWPY_NAME,R.mipmap.txl_sc);
+            menuIconMapSC.put(Constants.GWJS_ID + Constants.GWJS_NAME,R.mipmap.txl_sc);
+            menuIconMapSC.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.qyxyxx);
+            menuIconMapSC.put(Constants.SBCX_ID + Constants.SBCX_NAME,R.mipmap.sbcx);
+            menuIconMapSC.put(Constants.TZGG_ID + Constants.TZGG_NAME,R.mipmap.tzgg_sc);
+            menuIconMapSC.put(Constants.TXL_ID + Constants.TXL_NAME,R.mipmap.txl_sc);
         }
 
         return menuIconMapSC;

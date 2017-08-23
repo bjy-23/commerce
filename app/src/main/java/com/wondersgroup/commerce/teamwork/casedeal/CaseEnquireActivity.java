@@ -31,10 +31,12 @@ import com.wondersgroup.commerce.model.SerializableMap;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.CaseApi;
+import com.wondersgroup.commerce.teamwork.dailycheck.ImgFirstBean;
 import com.wondersgroup.commerce.utils.CodeUtils;
 import com.wondersgroup.commerce.utils.DynamicWidgetUtils;
 import com.wondersgroup.commerce.utils.TableRowUtils;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
+import com.wondersgroup.commerce.widget.TableRow;
 import com.wondersgroup.commerce.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;
@@ -51,7 +53,7 @@ import retrofit.Retrofit;
 
 /**
  * Created by Lee on 2016/2/29.
- * 案件查询页面
+ * 我的案件查询、案件查询
  */
 public class CaseEnquireActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -85,10 +87,14 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("我的案件查询");
 
-        initView();
-        initData();
+        String type = getIntent().getStringExtra(Constants.TYPE);
+        if (Constants.WDAJCX_ID.equals(type) || Constants.WDAJCX_ID_2.equals(type)){
+            initView();
+            initData();
+        }else if (Constants.AJCX_ID.equals(type)){
+            initView2();
+        }
     }
 
     @Override
@@ -123,6 +129,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initView() {
+        title.setText("我的案件查询");
         quieryButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
         if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
@@ -177,6 +184,12 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
+    public void initView2(){
+        title.setText("案件查询");
+
+
+
+    }
     /**
      * 添加全部项
      */

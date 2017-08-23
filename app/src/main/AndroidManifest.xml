@@ -449,7 +449,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".fgdj.activity.MemInfoActivity" />
         <activity android:name=".activity.DownloadListActivity" />
-        <activity android:name=".teamwork.casedeal.LitigtDetailActivity"></activity>
+        <activity android:name=".teamwork.casedeal.LitigtDetailActivity" />
+        <activity android:name=".teamwork.casedeal.CaseQueryActivity"></activity>
     </application>
 
 </manifest>

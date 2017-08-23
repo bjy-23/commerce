@@ -117,34 +117,54 @@ public class MenuAdapter extends RecyclerView.Adapter {
         switch (bean.getMenuId()) {
             default:
                 break;
-            //案件调查
+            //我的案件
             case Constants.AJDC_ID:
                 ApiManager.caseType = 1;
-                bundle = new Bundle();
-                bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
-                intent = new Intent(context, CaseInvestigateActivity.class);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+                if (Constants.AJDC_NAME.equals(bean.getMenuName())){
+                    //案件调查
+                    bundle = new Bundle();
+                    bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
+                    intent = new Intent(context, CaseInvestigateActivity.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }else if (Constants.WDAJCX_NAME.equals(bean.getMenuName())){
+                    //我的案件查询
+                    intent = new Intent(context, CaseEnquireActivity.class);
+                    intent.putExtra(Constants.TYPE,Constants.WDAJCX_ID);
+                    context.startActivity(intent);
+                }else if(Constants.FLFG_NAME.equals(bean.getMenuName())){
+                    //法律法规
+                    intent = new Intent(context, LawQueryActivity.class);
+                    intent.putExtra(Constants.TYPE, Constants.TYPE);
+                    context.startActivity(intent);
+                }
+
                 break;
             case Constants.AJDC_ID_2:
                 ApiManager.caseType = 2;
-                bundle = new Bundle();
-                bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
-                intent = new Intent(context, CaseInvestigateActivity.class);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+                if (Constants.AJDC_NAME_2.equals(bean.getMenuName())){
+                    //案件调查
+                    bundle = new Bundle();
+                    bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
+                    intent = new Intent(context, CaseInvestigateActivity.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }else {
+                    //我的案件查询
+                    intent = new Intent(context, CaseEnquireActivity.class);
+                    intent.putExtra(Constants.TYPE,Constants.WDAJCX_ID_2);
+                    context.startActivity(intent);
+                }
+
                 break;
             //案件查询
             case Constants.AJCX_ID:
-                ApiManager.caseType = 1;
+                //案件查询
                 intent = new Intent(context, CaseEnquireActivity.class);
+                intent.putExtra(Constants.TYPE,Constants.AJCX_ID);
                 context.startActivity(intent);
                 break;
-            case Constants.AJCX_ID_2:
-                ApiManager.caseType = 2;
-                intent = new Intent(context, CaseEnquireActivity.class);
-                context.startActivity(intent);
-                break;
+
             //微企财补初审
             case Constants.WQCB_ID:
                 TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
@@ -202,13 +222,9 @@ public class MenuAdapter extends RecyclerView.Adapter {
                 intent = new Intent(context, ListInfoActivity.class);
                 intent.putExtra(Constants.TYPE, Constants.GUAN_LI);
                 context.startActivity(intent);
-
-                break;
-            //法律法规
-            case Constants.FLFG_ID:
-                intent = new Intent(context, LawQueryActivity.class);
-                intent.putExtra(Constants.TYPE, Constants.TYPE);
-                context.startActivity(intent);
+//                intent = new Intent(context, com.example.fgdj.ExampleActivity.class);
+//                intent.putExtra(Constants.TYPE, Constants.GUAN_LI);
+//                context.startActivity(intent);
 
                 break;
             //公示信息

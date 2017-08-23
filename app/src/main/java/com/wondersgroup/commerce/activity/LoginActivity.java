@@ -172,7 +172,7 @@ public class LoginActivity extends RootActivity {
                     case "云南":
                     case "四川":
                         gsythLoginNet("1");
-                        //免登陆测试
+//                        //免登陆测试
 //                        makeMenu(new ArrayList<MenuBean>(),false);
 //                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         break;
@@ -331,7 +331,7 @@ public class LoginActivity extends RootActivity {
                 //配置图标
                 for (MenuInfo menuInfo : ywblMenus){
                     for (MenuBean menuBean : menuInfo.getMenus()){
-                        menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId()));
+                        menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId() + menuBean.getMenuName()));
                     }
                 }
                 Hawk.put(Constants.YWBL_MNEUINFO,ywblMenus);
@@ -346,21 +346,21 @@ public class LoginActivity extends RootActivity {
                 //统计分析
                 MenuBean bean2 = new MenuBean(Constants.CXTJ_ID,0);
                 menusTemp.add(bean2);
-                //法律法规的权限和案件调查保持一致
-                boolean isHave = false;
-                loop1:for (MenuInfo menuInfo : ywblMenus){
-                    loop2:for (MenuBean bean : menuInfo.getMenus()){
-                                if (Constants.AJDC_ID.equals(bean.getMenuId())){
-                                    isHave = true;
-                                    break loop1;
-                                }
-                    }
-                }
-                //法律法规
-                if (isHave){
-                    MenuBean bean3 = new MenuBean(Constants.FLFG_ID,0);
-                    menusTemp.add(bean3);
-                }
+//                //法律法规的权限和案件调查保持一致
+//                boolean isHave = false;
+//                loop1:for (MenuInfo menuInfo : ywblMenus){
+//                    loop2:for (MenuBean bean : menuInfo.getMenus()){
+//                                if (Constants.AJDC_ID.equals(bean.getMenuId())){
+//                                    isHave = true;
+//                                    break loop1;
+//                                }
+//                    }
+//                }
+//                //法律法规
+//                if (isHave){
+//                    MenuBean bean3 = new MenuBean(Constants.FLFG_ID,0);
+//                    menusTemp.add(bean3);
+//                }
 
                 menusTemp.addAll(menus);
                 //根据权限按需加载
@@ -378,7 +378,7 @@ public class LoginActivity extends RootActivity {
                 //配置图标
                 for (MenuInfo menuInfo : tongjiMenus){
                     for (MenuBean menuBean : menuInfo.getMenus()){
-                        menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId()));
+                        menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId() + menuBean.getMenuName()));
                     }
                 }
                 Hawk.put(Constants.MESSAGE_MENUINFO,tongjiMenus);
@@ -392,7 +392,7 @@ public class LoginActivity extends RootActivity {
             remakeMenus(menuList,menus);
             //配置图标
             for (MenuBean menuBean : menuList){
-                menuBean.setResId(Constants.menuIconMapSC().get(menuBean.getMenuId()));
+                menuBean.setResId(Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName()));
             }
             Hawk.put(Constants.MENU_SC,menuList);
             RootAppcation.getInstance().setBottomMenus(new ArrayList<String>());

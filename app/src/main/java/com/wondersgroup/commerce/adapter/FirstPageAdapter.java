@@ -97,15 +97,18 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                 context.startActivity(intent);
                 break;
             case Constants.AJDC_ID:
-                bundle = new Bundle();
-                bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
-                intent = new Intent(context, CaseInvestigateActivity.class);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-                break;
-            case Constants.AJCX_ID:
-                intent = new Intent(context, CaseEnquireActivity.class);
-                context.startActivity(intent);
+                ApiManager.caseType = 1;
+                if (Constants.AJDC_NAME.equals(bean.getMenuName())){
+                    bundle = new Bundle();
+                    bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
+                    intent = new Intent(context, CaseInvestigateActivity.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }else if (Constants.WDAJCX_NAME.equals(bean.getMenuName())){
+                    intent = new Intent(context, CaseEnquireActivity.class);
+                    context.startActivity(intent);
+                }
+
                 break;
             case Constants.JYCX_ID:
                 bundle = new Bundle();
