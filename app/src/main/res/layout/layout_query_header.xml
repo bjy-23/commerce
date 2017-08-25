@@ -22,75 +22,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="13dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center_vertical|right"
             android:orientation="horizontal">
 
             <View
-                android:layout_width="25dp"
+                android:layout_width="35dp"
                 android:layout_height="12dp"
                 android:layout_marginRight="8dp"
-                android:background="#5193FF" />
+                android:background="#E5E5E5" />
 
             <TextView
-                android:id="@+id/legend1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="存续"
-                android:textColor="#333333"
-                android:textSize="9sp" />
+                android:text="未年报" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center_vertical|left"
             android:orientation="horizontal">
 
             <View
-                android:layout_width="25dp"
+                android:layout_width="35dp"
                 android:layout_height="12dp"
                 android:layout_marginRight="8dp"
-                android:background="#005184" />
+                android:background="#76B7FF" />
 
             <TextView
-                android:id="@+id/legend2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="吊销、未注销"
-                android:textColor="#333333"
-                android:textSize="9sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="25dp"
-                android:layout_height="12dp"
-                android:layout_marginRight="8dp"
-                android:background="#70EEB7" />
-
-            <TextView
-                android:id="@+id/legend3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="迁出"
-                android:textColor="#333333"
-                android:textSize="9sp" />
+                android:text="已年报" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

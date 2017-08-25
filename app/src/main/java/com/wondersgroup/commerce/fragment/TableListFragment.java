@@ -1377,7 +1377,8 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
     private void addProcess(CnProcess cnProcess,CnAccuse cnAccuse){
         if(cnProcess!=null) {
             String accType = "";
-            if(!"".equals(cnAccuse.getAcceptTypeOri().trim())){
+            if(!TextUtils.isEmpty(cnAccuse.getAcceptTypeOri()) && RootAppcation.getInstance().getAllDic() != null
+                    && RootAppcation.getInstance().getAllDic().getAcceptTypeReMap() != null){
                 accType = RootAppcation.getInstance().getAllDic().getAcceptTypeReMap().get(cnAccuse.getAcceptTypeOri().trim());
             }
             TableRow acceptType = new TableRow.Builder(getContext())
@@ -1596,13 +1597,7 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
 
             blbm=new TableRow.Builder(getContext())
                     .title("办理部门")
-                    .select(loginBean.getResult().getDeptName())
-                    .onSelect(new TableRow.SelectCallBack() {
-                        @Override
-                        public void onSelect(TableRow row, int which) {
-
-                        }
-                    })
+                    .content(loginBean.getResult().getDeptName())
                     .build();
 
 
@@ -1727,13 +1722,7 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
 
             blbm=new TableRow.Builder(getContext())
                     .title("办理部门")
-                    .select(loginBean.getResult().getDeptName())
-                    .onSelect(new TableRow.SelectCallBack() {
-                        @Override
-                        public void onSelect(TableRow row, int which) {
-
-                        }
-                    })
+                    .content(loginBean.getResult().getDeptName())
                     .build();
 
             jbr=new TableRow.Builder(getContext())

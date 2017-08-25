@@ -460,6 +460,12 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         return "";
     }
 
+    public String changeValue(String value){
+        if (value == null)
+            return "";
+        return value.toString();
+    }
+
     public interface FragmentListener{
         void addParty();
         void delParty();
@@ -483,8 +489,19 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         else
             tvSex.setText("女");
 
-        if (leaderInfo.getCertype()!=null)
-            tvCertType.setText(dicBean.getCertType().get(leaderInfo.getCertype()).toString());
+        if (dicBean != null){
+            if (leaderInfo.getCertype()!=null && dicBean.getCertType() != null){
+                tvCertType.setText(changeValue(dicBean.getCertType().get(leaderInfo.getCertype())));
+            }
+
+            if (leaderInfo.getSocialDuty()!=null && dicBean.getMapSocialDuty() != null){
+                selectSocialDuty.tvSelected.setText(changeValue(dicBean.getMapSocialDuty().get(leaderInfo.getSocialDuty())));
+            }
+
+            if (leaderInfo.getPoliticalStatus()!=null && dicBean.getPoliticalStatus() != null){
+                selectPoliticalStatus.tvSelected.setText(changeValue(dicBean.getPoliticalStatus().get(leaderInfo.getPoliticalStatus())));
+            }
+        }
 
         inputEnpNum.etInput.setText(entBaseInfo.getEnpNum());
         inputVendInc.etInput.setText(entBaseInfo.getVendInc());
@@ -495,11 +512,6 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         selectWF.tvSelected.setText(changeCode(entBaseInfo.getIsBuildWf()));
         selectUnion.tvSelected.setText(changeCode(entBaseInfo.getIsBuildLabor()));
         inputTel.etInput.setText(leaderInfo.getTel());
-        if (leaderInfo.getSocialDuty()!=null)
-            selectSocialDuty.tvSelected.setText(dicBean.getMapSocialDuty().get(leaderInfo.getSocialDuty()).toString());
-
-        if (leaderInfo.getPoliticalStatus()!=null)
-            selectPoliticalStatus.tvSelected.setText(dicBean.getPoliticalStatus().get(leaderInfo.getPoliticalStatus()).toString());
 
         if ("01".equals(leaderInfo.getPoliticalStatus())){
             layoutPoliticalStatusAdd.setVisibility(View.VISIBLE);

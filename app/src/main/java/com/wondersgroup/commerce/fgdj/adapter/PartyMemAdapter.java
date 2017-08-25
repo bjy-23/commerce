@@ -12,6 +12,7 @@ import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.fgdj.bean.DicBean;
 import com.wondersgroup.commerce.fgdj.bean.PartyMem;
+import com.wondersgroup.commerce.utils.StringUtil;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,20 +44,23 @@ public class PartyMemAdapter extends RecyclerView.Adapter {
         DangyuanViewHolder viewHolder = (DangyuanViewHolder) holder;
         PartyMem partyMem = data.get(position);
         viewHolder.tvName.setText(partyMem.getName());
-        if (partyMem.getSex() != null){
-            LinkedHashMap hashMap = dicBean.getGender();
-            viewHolder.tvSex.setText("(" + hashMap.get(partyMem.getSex()).toString() + ")");
-        }
-        if (partyMem.getType()!=null){
-            LinkedHashMap hashMap = dicBean.getPartyMemType();
-            viewHolder.tvType.setText(hashMap.get(partyMem.getType()).toString());
+
+        if (dicBean != null){
+            if (partyMem.getSex() != null && dicBean.getGender() != null){
+                viewHolder.tvSex.setText("(" + StringUtil.changeNull(dicBean.getGender().get(partyMem.getSex())) + ")");
+            }
+
+            if (partyMem.getType()!=null && dicBean.getPartyMemType() != null){
+                viewHolder.tvType.setText(StringUtil.changeNull(dicBean.getPartyMemType().get(partyMem.getType())));
+            }
+
+            if (partyMem.getPartyPositon() != null && dicBean.getPartyPosition() != null){
+                viewHolder.tvPosition.setText(StringUtil.changeNull(dicBean.getPartyPosition().get(partyMem.getPartyPositon())));
+            }
+
         }
         viewHolder.tvCertNo.setText(partyMem.getCerno());
         viewHolder.tvJoinDate.setText(partyMem.getJoinDate());
-        if (partyMem.getPartyPositon() != null){
-            LinkedHashMap hashMap = dicBean.getPartyPosition();
-            viewHolder.tvPosition.setText(hashMap.get(partyMem.getPartyPositon()).toString());
-        }
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

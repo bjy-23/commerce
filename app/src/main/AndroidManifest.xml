@@ -442,12 +442,21 @@
             android:name=".teamwork.statistics.BanLiActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".teamwork.statistics.InOutActivity"
+            android:name=".teamwork.statistics.InActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".teamwork.statistics.OutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".teamwork.statistics.QueryActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".fgdj.activity.MemInfoActivity" />
+        <activity
+            android:name=".teamwork.statistics.AgrAnnalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".teamwork.statistics.ReasonActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.DownloadListActivity" />
         <activity android:name=".teamwork.casedeal.LitigtDetailActivity" />
         <activity android:name=".teamwork.casedeal.CaseQueryActivity"></activity>

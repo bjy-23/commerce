@@ -76,6 +76,11 @@ public class TableRowUtils {
                 if ("1".equals(data.getRequired()))
                     builder.required();
                 break;
+            case "3":
+                builder.title(data.getName())
+                        .content(data.getValue())
+                        .multiSelect2(new ArrayList<String>());
+                break;
             case "7":
                 builder.title(data.getName())
                         .content(data.getValue())

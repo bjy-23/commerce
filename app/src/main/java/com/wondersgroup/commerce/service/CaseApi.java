@@ -37,7 +37,7 @@ import retrofit.http.Url;
 public interface CaseApi {
     public static final String URL_CASE_1 = "case/services/mobile/";
 //    public static final String URL_CASE_1 = "sccase/services/mobile/";
-    public static final String URL_CASE_2 = "casen_yn/services/mobile/";
+    public static final String URL_CASE_2 = "scjd/services/mobile/";
     public static final String INVESTIGATE_CASE_LIST = "myCaseToInvestigate";       //案件调查列表
     public static final String INVESTIGATE_CASE_DETAIL = "getCaseRegDetail";        //立案信息
     public static final String NOTE_RECORD_LIST = "queryInvestigateList";           //现场笔录和询问笔录列表

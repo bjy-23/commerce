@@ -1,42 +1,42 @@
 [
     {
-        "name":"查询类型"，
+        "name":"查询类型",
         "value":"",
         "type":"2"
     },
     {
-        "name":"立案机关"，
+        "name":"立案机关",
         "value":"",
         "type":"2"
     },
     {
-        "name":"办案机构"，
+        "name":"办案机构",
         "value":"",
         "type":"2"
     },
     {
-        "name":"适用程序"，
+        "name":"适用程序",
         "value":"",
         "type":"2"
     },
     {
-        "name":"案件阶段"，
+        "name":"案件阶段",
         "value":"",
         "type":"2"
     },
     {
-        "name":"案件名称"，
+        "name":"案件名称",
         "value":"",
         "type":"1"
     },
     {
-        "name":"当事人名称"，
+        "name":"当事人名称",
         "value":"",
         "type":"1"
     },
     {
-        "name":"公示情况"，
+        "name":"公示情况",
         "value":"",
-        "type":"2"
+        "type":"3"
     }
 ]

@@ -91,9 +91,6 @@ public class LoginActivity extends RootActivity {
     EditText deptEdit;
     @Bind(R.id.dept_choose_clear)
     Button deptClearBtn;
-
-    private int organFlag;
-    private List<ShLoginDeptBean.Values> deptValueList;
     private List<String> detpList;
     private String loginName,password;
 
@@ -172,7 +169,8 @@ public class LoginActivity extends RootActivity {
                     case "云南":
                     case "四川":
                         gsythLoginNet("1");
-//                        //免登陆测试
+
+//                        免登陆测试
 //                        makeMenu(new ArrayList<MenuBean>(),false);
 //                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         break;
@@ -487,7 +485,6 @@ public class LoginActivity extends RootActivity {
                     .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                         @Override
                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            organFlag = which;
                             gsythLoginNet(detpList.get(which).split(",")[0]);
                             return true;
                         }

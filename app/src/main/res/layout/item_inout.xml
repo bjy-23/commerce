@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <View
@@ -35,6 +36,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/relative"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -48,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
                 android:layout_marginTop="34dp"
-                android:text="本期列入经营异常\n名录户数" />
+                android:text="本期%s经营异常\n名录户数" />
 
             <TextView
                 android:id="@+id/totalNum"
@@ -74,6 +76,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relative_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -87,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
                 android:layout_marginTop="34dp"
-                android:text="本期列入经营异常\n名录条数" />
+                android:text="本期%s经营异常\n名录条数" />
 
             <TextView
                 android:id="@+id/totalNum1"
@@ -120,6 +123,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/relative_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -133,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
                 android:layout_marginTop="34dp"
-                android:text="本期列入经营异常\n名录户数" />
+                android:text="累计%s经营异常\n名录户数" />
 
             <TextView
                 android:id="@+id/totalNum2"
@@ -159,6 +163,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/relative_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -172,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
                 android:layout_marginTop="34dp"
-                android:text="本期列入经营异常\n名录条数" />
+                android:text="累计%s经营异常\n名录条数" />
 
             <TextView
                 android:id="@+id/totalNum3"

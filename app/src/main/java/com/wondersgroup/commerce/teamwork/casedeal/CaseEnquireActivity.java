@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
@@ -34,6 +36,7 @@ import com.wondersgroup.commerce.service.CaseApi;
 import com.wondersgroup.commerce.teamwork.dailycheck.ImgFirstBean;
 import com.wondersgroup.commerce.utils.CodeUtils;
 import com.wondersgroup.commerce.utils.DynamicWidgetUtils;
+import com.wondersgroup.commerce.utils.FileHelper;
 import com.wondersgroup.commerce.utils.TableRowUtils;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 import com.wondersgroup.commerce.widget.TableRow;
@@ -187,8 +190,11 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     public void initView2(){
         title.setText("案件查询");
 
-
-
+        Gson gson = new Gson();
+        String result = FileHelper.getFromAssets("caseEnquire.txt",this);
+        ArrayList<DataVolume> list = gson.fromJson(result,new TypeToken<ArrayList<DataVolume>>(){}.getType());
+        TableRowUtils tableRowUtils = new TableRowUtils(this,componentsLinearLayout,list);
+        tableRowUtils.build();
     }
     /**
      * 添加全部项

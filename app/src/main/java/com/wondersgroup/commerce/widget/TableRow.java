@@ -3,7 +3,9 @@ package com.wondersgroup.commerce.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
@@ -25,6 +27,10 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.utils.DWZH;
+
+import java.util.List;
+
+import lecho.lib.hellocharts.model.Line;
 
 /**
  * Created by 薛定猫 on 2016/3/10.
@@ -50,6 +56,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         TITLE,
         MULTIINPUT,
         MULTISELECT,
+        MULTI_SELECT_2,
         MAP,
         SELECT_WITH_ARROW,
         INPUT_WITH_ARROW,
@@ -95,6 +102,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
                 this.addTitle();
                 this.addContent();
+                this.addIndex();
                 this.content.setInputType(InputType.TYPE_NULL);
                 this.content.setHint(mBuilder.selectHint);
                 this.content.setSingleLine(false);
@@ -147,6 +155,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.content2.setEllipsize(TextUtils.TruncateAt.END);
                 this.content.setOnClickListener(this);
                 this.content2.setOnClickListener(this);
+                break;
+            case MULTI_SELECT_2:
+                this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
+                this.addTitle();
+                this.addMulti2();
                 break;
             case MAP:
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
@@ -239,6 +252,18 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         content.setHintTextColor(mBuilder.hintColor);
         this.content.setText(mBuilder.contentString);
         contentLayout.addView(content);
+    }
+
+    private void addIndex(){
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(DWZH.dp(10), DWZH.dp(10));
+        lp.addRule(RelativeLayout.CENTER_VERTICAL);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_END);
+        lp.setMargins(0,0,DWZH.dp(15),0);
+        ImageView imageView = new ImageView(mBuilder.mContext);
+        imageView.setLayoutParams(lp);
+        imageView.setImageResource(R.drawable.right_arrow);
+
+        contentLayout.addView(imageView);
     }
 
     private void addClearEdit() {
@@ -391,6 +416,59 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         contentLayout.addView(root);
     }
+
+    private void addMulti2() {
+        LinearLayout root = new LinearLayout(mBuilder.mContext);
+        root.setOrientation(LinearLayout.VERTICAL);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins((int) mBuilder.titleW, 0, 0, 0);
+        root.setLayoutParams(lp);
+
+        int size = mBuilder.multiHints.size();
+        //textView的参数
+        RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        lp1.setMargins(0,0,DWZH.dp(25),0);
+        //分割线的参数
+        LinearLayout.LayoutParams lp2 = new LayoutParams(LayoutParams.MATCH_PARENT,1);
+        lp2.setMargins(0, 0, DWZH.dp(10), 0);
+        RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        //索引图标参数
+        RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(DWZH.dp(10),DWZH.dp(10));
+        lp4.addRule(RelativeLayout.CENTER_VERTICAL);
+        lp4.addRule(RelativeLayout.ALIGN_PARENT_END);
+        lp4.setMargins(0, 0, DWZH.dp(15), 0);
+        for (int i=0; i<size; i++){
+            RelativeLayout layout = new RelativeLayout(mBuilder.mContext);
+            layout.setLayoutParams(lp3);
+
+            TextView textView = new TextView(mBuilder.mContext);
+            textView.setLayoutParams(lp1);
+            textView.setText(mBuilder.multiHints.get(i));
+            textView.setTextColor(mBuilder.textColor);
+            textView.setTextSize(mBuilder.textSize);
+            textView.setPadding(0, (int) mBuilder.marginV, 0, (int) mBuilder.marginV);
+            layout.addView(textView);
+
+            //添加索引图标
+            ImageView index = new ImageView(mBuilder.mContext);
+            index.setLayoutParams(lp4);
+            index.setImageResource(R.drawable.right_arrow);
+            layout.addView(index);
+
+            root.addView(layout);
+
+            //添加分割线
+            if (i <size -1){
+                View line = new View(mBuilder.mContext);
+                line.setLayoutParams(lp2);
+                line.setBackgroundResource(R.color.linecolor);
+                root.addView(line);
+            }
+        }
+
+        contentLayout.addView(root);
+    }
+
 
     @TargetApi(17)
     private void addContentWithImg() {
@@ -680,11 +758,12 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         private String inputHint;
         private String multiHintOne;
         private String multiHintTwo;
+        private List<String> multiHints;
         private String seperator;
 
         public Builder(Context mContext) {
             this.mContext = mContext;
-            marginH = DWZH.dp(15);
+            marginH = DWZH.dp(25);
             marginV = DWZH.dp(10);
             titleW = DWZH.dp(145);
             textSize = 14;
@@ -789,6 +868,12 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             this.multiHintOne = hintOne;
             this.multiHintTwo = hintTwo;
             this.mType = Type.MULTISELECT;
+            return this;
+        }
+
+        public Builder multiSelect2(List<String> data) {
+            this.multiHints = data;
+            this.mType = Type.MULTI_SELECT_2;
             return this;
         }
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
-
+import com.wondersgroup.commerce.teamwork.statistics.bean.Annals;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,30 +36,26 @@ public class HeaderBottomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context mContext;
     private int mHeaderCount = 1;//头部View个数
     private int mBottomCount = 0;//底部View个数
-    private ArrayList<String> type = new ArrayList<>();
-    private ArrayList<String> status = new ArrayList<>();
     private boolean hasAxes = true;
     private boolean hasAxesNames = true;
     private boolean hasLabels = false;
     private boolean hasLabelForSelected = false;
     private ColumnChartData data;
+    private List<Annals.AnnalsResult> items = new ArrayList<>();
 
-    public HeaderBottomAdapter(Context context) {
+    public HeaderBottomAdapter(Context context, List<Annals.AnnalsResult> item) {
         mContext = context;
+        if (null != item) this.items = item;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public void setType(ArrayList<String> type) {
-        this.type = type;
-    }
-
-    public void setStatus(ArrayList<String> status) {
-        this.status = status;
+    public void setItems(List<Annals.AnnalsResult> item) {
+        if (null != item) this.items = item;
     }
 
     //内容长度
     public int getContentItemCount() {
-        return type.size();
+        return items.size();
     }
 
     //判断当前item是否是HeadView
@@ -109,12 +105,6 @@ public class HeaderBottomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     //头部 ViewHolder
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.legend1)
-        TextView legend1;
-        @Bind(R.id.legend2)
-        TextView legend2;
-        @Bind(R.id.legend3)
-        TextView legend3;
         @Bind(R.id.column_chart)
         ColumnChartView chart;
 
@@ -147,7 +137,11 @@ public class HeaderBottomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof HeaderViewHolder) {
             generateDefaultData(((HeaderViewHolder) holder));
         } else if (holder instanceof ContentViewHolder) {
-            ((ContentViewHolder) holder).nbType.setText(type.get(position - mHeaderCount));
+            ((ContentViewHolder) holder).nbType.setText(items.get(position - mHeaderCount).getName());
+            ((ContentViewHolder) holder).ynb.setText(items.get(position - mHeaderCount).getYgnb() + "件");
+            ((ContentViewHolder) holder).yinb.setText(items.get(position - mHeaderCount).getYnb() + "件");
+            ((ContentViewHolder) holder).wnb.setText(items.get(position - mHeaderCount).getWnb() + "件");
+            ((ContentViewHolder) holder).nbl.setText(items.get(position - mHeaderCount).getNbl() + "%");
         } else if (holder instanceof BottomViewHolder) {
         }
     }
@@ -158,20 +152,13 @@ public class HeaderBottomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void generateDefaultData(HeaderViewHolder holder) {
-        holder.legend1.setText(status.get(0));
-        holder.legend2.setText(status.get(1));
-        holder.legend3.setText(status.get(2));
-        int numSubcolumns = 2;
-        int numColumns = 8;
         // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
-        for (int i = 0; i < type.size(); ++i) {
-
+        for (int i = 0; i < items.size(); ++i) {
             values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue((float) Math.random() * 50f + 5, Color.parseColor("#70EEB7")));
-            values.add(new SubcolumnValue((float) Math.random() * 50f + 5, Color.parseColor("#005184")));
-            values.add(new SubcolumnValue((float) Math.random() * 50f + 5, Color.parseColor("#5193FF")));
+            values.add(new SubcolumnValue((float) Integer.valueOf(items.get(i).getYnb()), Color.parseColor("#76B7FF")));
+            values.add(new SubcolumnValue((float) Integer.valueOf(items.get(i).getWnb()), Color.parseColor("#E5E5E5")));
             Column column = new Column(values);
             column.setHasLabels(hasLabels);
             column.setHasLabelsOnlyForSelected(hasLabelForSelected);
@@ -179,14 +166,13 @@ public class HeaderBottomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         data = new ColumnChartData(columns);
-        data.setFillRatio(0.5f);
         data.setStacked(true);
 
         if (hasAxes) {
             List<AxisValue> axisValues = new ArrayList<AxisValue>();
-            for (int i = 0; i < type.size(); i++) {
+            for (int i = 0; i < items.size(); i++) {
                 AxisValue value = new AxisValue(i);
-                value.setLabel(type.get(i));
+                value.setLabel(items.get(i).getName());
                 axisValues.add(value);
             }
             Axis axisX = new Axis(axisValues);
@@ -203,6 +189,5 @@ public class HeaderBottomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             data.setAxisYLeft(null);
         }
         holder.chart.setColumnChartData(data);
-        holder.chart.invalidate();
     }
 }

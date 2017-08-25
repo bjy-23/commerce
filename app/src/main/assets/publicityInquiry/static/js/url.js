@@ -7,9 +7,9 @@
 //var publicSearchBaseUrl = 'http://sc.gsxt.gov.cn/notice/ws';
 //var publicSearchBaseUrl = 'http://10.1.8.18:9102/notice/ws';
 //云南
-//var publicSearchBaseUrl = 'http://220.163.27.42:8021/notice/ws';
+var publicSearchBaseUrl = 'http://220.163.27.42:8021/notice/ws';
 //var publicSearchBaseUrl = 'http://10.1.8.18:9102/notice/ws';
-var publicSearchBaseUrl = 'http://gsxt.ynaic.gov.cn/notice/ws';
+//var publicSearchBaseUrl = 'http://gsxt.ynaic.gov.cn/notice/ws';
 
 var PublicSearchUrl = {
     /**

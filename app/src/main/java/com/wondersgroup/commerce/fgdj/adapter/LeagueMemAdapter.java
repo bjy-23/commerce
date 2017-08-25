@@ -12,6 +12,7 @@ import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.fgdj.bean.DicBean;
 import com.wondersgroup.commerce.fgdj.bean.LeagueMem;
+import com.wondersgroup.commerce.utils.StringUtil;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,20 +44,24 @@ public class LeagueMemAdapter extends RecyclerView.Adapter {
         TuanYuanViewHolder viewHolder = (TuanYuanViewHolder) holder;
         LeagueMem leagueMem = data.get(position);
         viewHolder.tvName.setText(leagueMem.getName());
-        if (leagueMem.getSex() != null){
-            LinkedHashMap hashMap = dicBean.getGender();
-            viewHolder.tvSex.setText("(" + hashMap.get(leagueMem.getSex()).toString() + ")");
+
+        if (dicBean !=null){
+
+            if (leagueMem.getSex() != null && dicBean.getGender() != null){
+                viewHolder.tvSex.setText("(" + StringUtil.changeNull(dicBean.getGender().get(leagueMem.getSex())) + ")");
+            }
+
+            if (leagueMem.getType() != null && dicBean.getLeagueMemType() != null){
+                viewHolder.tvType.setText(StringUtil.changeNull(dicBean.getLeagueMemType().get(leagueMem.getType())));
+            }
+
+            if (leagueMem.getLeaguePositon() != null && dicBean.getLeaguePosition() != null){
+                viewHolder.tvPosition.setText(StringUtil.changeNull(dicBean.getLeaguePosition().get(leagueMem.getLeaguePositon())));
+            }
         }
-        if (leagueMem.getType() != null){
-            LinkedHashMap hashMap = dicBean.getLeagueMemType();
-            viewHolder.tvType.setText(hashMap.get(leagueMem.getType()).toString());
-        }
+
         viewHolder.tvCertNo.setText(leagueMem.getCerno());
         viewHolder.tvJoinDate.setText(leagueMem.getJoinDate());
-        if (leagueMem.getLeaguePositon() != null){
-            LinkedHashMap hashMap = dicBean.getLeaguePosition();
-            viewHolder.tvPosition.setText(hashMap.get(leagueMem.getLeaguePositon()).toString());
-        }
         viewHolder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

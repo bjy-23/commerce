@@ -308,6 +308,8 @@ public class ListInfoActivity extends AppCompatActivity implements View.OnClickL
             public void onFailure(Throwable t) {
                 if (loadingDialog.isShowing())
                     loadingDialog.dismiss();
+
+                layoutError.setVisibility(View.VISIBLE);
             }
         });
     }

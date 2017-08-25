@@ -23,16 +23,20 @@ import retrofit.Retrofit;
  * Created by kangrenhui on 2016/1/27.
  */
 public class ApiManager {
+    /*注意TJAPI修改；
+    注意修改公示信息js配置;
+    注意版本更新;
+    应用名称；*/
    private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
     private static final String BASE_URL_2 = "http://172.28.129.42/";//云南内网正式
-    private static final String BASE_URL = BASE_URL_1;//注意TJAPI修改；注意修改公示信息js配置;注意版本更新;应用名称；
-//    public String API_TJ  = BASE_URL + "mds/";//测试
-    public String API_TJ = BASE_URL + "mds2/";//正式
+    private static final String BASE_URL = BASE_URL_1;
+    public String API_TJ  = BASE_URL + "mds/";//测试
+//    public String API_TJ = BASE_URL + "mds2/";//正式
 
     //版本更新
     public static String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试
     public static String VERSION_URL_2 = "http://172.28.129.42/zfMobileService/";//正式
-    public static String VERSION_URL = VERSION_URL_2;
+    public static String VERSION_URL = VERSION_URL_1;
     private String API_CASE;//案件
     private String API_OA;
     private String API_HB_ROOT;
