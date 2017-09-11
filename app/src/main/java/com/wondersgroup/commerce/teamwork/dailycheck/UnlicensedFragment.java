@@ -24,16 +24,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.google.gson.Gson;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
-
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -49,7 +44,6 @@ public class UnlicensedFragment extends Fragment {
 
 	private AppCompatActivity activity;
 	private TextView abbuseDate;
-	// private List<CnApp> complainCnApps = new ArrayList<CnApp>();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
 	public static final int SHOW_ERROR_DIALOG = 4;
@@ -81,28 +75,17 @@ public class UnlicensedFragment extends Fragment {
 	private TextView abbuseValue;
 	private TextView abbuseScale;
 	private TextView abbuseIllegal;
-//	private TextView checkedName;
-//	private TextView checkedNumber;
 	private TextView inspector;
 	private TextView memo;
 
 	private Button tempButton;
 	private Button realButton;
 	private SaveCheckBean saveCheckBean = new SaveCheckBean();
-	private List<AppRecordDetail> appRecordDetail = new ArrayList<AppRecordDetail>();
 	private Gson gson = new Gson();
-
-	// new
-	// private String gpsString = "获取gps信息失败";
-	// public LocationClient mLocationClient = null;
-	// private TextView gpsInfo;
-
-	// new
 	private int imageFlag = 0;
 	private ImageView imageView1;
 	private ImageView imageView2;
 	private ImageView imageView3;
-	private List<ImageView> imageViews;
 	private Bitmap bitmap1;
 	private Bitmap bitmap2;
 	private Bitmap bitmap3;
@@ -118,24 +101,19 @@ public class UnlicensedFragment extends Fragment {
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.q_unlicensed, container, false);
 		activity = (AppCompatActivity) getActivity();
-		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
+		TextView title = (TextView) view.findViewById(R.id.tv_title);
 		title.setText("新增无照经营信息");
+		ImageView imageBack = (ImageView) view.findViewById(R.id.img_back);
+        imageBack.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UnlicensedFragment.this.getFragmentManager().popBackStack();
+            }
+        });
 
 		application = (RootAppcation) activity.getApplication();
 		abbuseDate = (TextView) view.findViewById(R.id.abbuseDate);
 		abbuseDate.setOnTouchListener(new DateOnTouch(activity, abbuseDate));
-		// new
-		// mLocationClient = application.mLocationClient;
-		// mLocationClient.registerLocationListener(new BDLocationListener() {
-		//
-		// @Override
-		// public void onReceiveLocation(BDLocation arg0) {
-		// gpsString = "(" + arg0.getLatitude() + ","
-		// + arg0.getLongitude() + ");" + arg0.getAddrStr();
-		// Log.e("gpsString", gpsString);
-		// gpsInfo.setText(gpsString);
-		// }
-		// });
 		imageView1 = (ImageView) view.findViewById(R.id.imageView1);
 		imageView2 = (ImageView) view.findViewById(R.id.imageView2);
 		imageView3 = (ImageView) view.findViewById(R.id.imageView3);
@@ -618,14 +596,13 @@ public class UnlicensedFragment extends Fragment {
 
 		List<BookBean> users = application.getBigBean().getUserList();
 		List<KeyValue> inspectorKeyValues = new ArrayList<KeyValue>();
-		for (int i = 0; i < users.size(); i++) {
-			KeyValue keyValue = new KeyValue();
-			keyValue.setKey(users.get(i).getUserId());
-			keyValue.setValue(users.get(i).getName());
-			inspectorKeyValues.add(keyValue);
-		}
-		// inspector.setTag(application.getLoginUserInfo().getUserId());
-		// inspector.setText(application.getLoginUserInfo().getUserName());
+        if (users != null)
+            for (int i = 0; i < users.size(); i++) {
+                KeyValue keyValue = new KeyValue();
+                keyValue.setKey(users.get(i).getUserId());
+                keyValue.setValue(users.get(i).getName());
+                inspectorKeyValues.add(keyValue);
+            }
 		inspector.setOnClickListener(new ShowMutiDialogListListener(
 				inspectorKeyValues, activity, inspector));
 
@@ -882,8 +859,8 @@ public class UnlicensedFragment extends Fragment {
 
 	@Override
 	public void onDestroy() {
-		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
-		title.setText("日常检查");
+//		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
+//		title.setText("日常检查");
 		super.onDestroy();
 	}
 }

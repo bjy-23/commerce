@@ -22,8 +22,6 @@ import com.wondersgroup.commerce.model.GgDetails;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.utils.CustomApplication;
-import com.wondersgroup.commerce.utils.DataShared;
-import com.wondersgroup.commerce.teamwork.wywork.FileUtils;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import java.util.ArrayList;
@@ -57,7 +55,6 @@ public class GGDetailActivity extends AppCompatActivity {
     private final String TAG = "GGDetailActivity";
     private String bulletinId;
     private CustomApplication app;
-    private FileUtils fileUtils;
     private BaseAdapter adapter;
     private ArrayList<GgDetails.DocAttachVoList> docAttachVoList;
     private TotalLoginBean loginBean;
@@ -69,7 +66,6 @@ public class GGDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         loginBean = Hawk.get(Constants.LOGIN_BEAN);
-        fileUtils = new FileUtils();
 //        app = (CustomApplication) getApplication();
         Intent intent = getIntent();
         bulletinId = intent.getStringExtra("bulletinId");
@@ -151,7 +147,7 @@ public class GGDetailActivity extends AppCompatActivity {
                             try {
                                 String cachePath = getApplicationContext().getExternalCacheDir().toString();
                                 Log.d(TAG, "cachePath = " + cachePath);
-                                fileUtils.decoderBase64File(GGDetailActivity.this, abc, cachePath + "/" + fileBean.getResult().getAttachFile().getAttachName());
+//                                fileUtils.decoderBase64File(GGDetailActivity.this, abc, cachePath + "/" + fileBean.getResult().getAttachFile().getAttachName());
 //                                fileUtils.decoderBase64File(GGDetailActivity.this, abc, app.getCachePath() + "/" + fileBean.getAttachFile().getAttachName());
                             } catch (Exception e) {
                                 e.printStackTrace();

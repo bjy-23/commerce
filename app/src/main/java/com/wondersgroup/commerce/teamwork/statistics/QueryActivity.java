@@ -36,6 +36,7 @@ import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import retrofit.Callback;
 import retrofit.Response;
@@ -381,9 +382,9 @@ public class QueryActivity extends AppCompatActivity {
         for (int i = 0; i < chartData.size(); ++i) {
 
             values = new ArrayList<SubcolumnValue>();
-            values.add(new SubcolumnValue((float) Integer.valueOf(chartData.get(i).getFst()), Color.parseColor("#70EEB7")));
+            values.add(new SubcolumnValue((float) Integer.valueOf(chartData.get(i).getFst()), Color.parseColor("#5193FF")));
             values.add(new SubcolumnValue((float) Integer.valueOf(chartData.get(i).getSnd()), Color.parseColor("#005184")));
-            values.add(new SubcolumnValue((float) Integer.valueOf(chartData.get(i).getTrd()), Color.parseColor("#5193FF")));
+            values.add(new SubcolumnValue((float) Integer.valueOf(chartData.get(i).getTrd()), Color.parseColor("#70EEB7")));
             Column column = new Column(values);
             column.setHasLabels(hasLabels);
             column.setHasLabelsOnlyForSelected(hasLabelForSelected);

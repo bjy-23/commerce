@@ -21,9 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsAdapter;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.InfoBean;
@@ -52,7 +54,6 @@ public class SpecialListSearchFragment extends Fragment {
 	private Gson gson = new Gson();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
-	private Dialog progressDialog;
 	private RootAppcation application;
 
 	// selfList
@@ -61,6 +62,7 @@ public class SpecialListSearchFragment extends Fragment {
 	private List<EtpsBean> etpsBeans = new ArrayList<EtpsBean>();
 	private ListView listView;
 	private InfoBean infoBean = new InfoBean();
+	private TotalLoginBean loginBean;
 
 	// new
 	private String recordId = "";
@@ -70,6 +72,7 @@ public class SpecialListSearchFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.mode_searchandlist, null);
+        loginBean = Hawk.get(Constants.LOGIN_BEAN);
 		activity = (AppCompatActivity) getActivity();
 		application = (RootAppcation) activity.getApplication();
 //		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
@@ -95,7 +98,6 @@ public class SpecialListSearchFragment extends Fragment {
 						searchWord.setError("输入字数不得少于"+Constants.inputMinCount);
 					}
 				} else {
-//					progressDialog.show();
 					MyProgressDialog.show(activity);
 					String keyWord = "";
 					try {
@@ -107,8 +109,9 @@ public class SpecialListSearchFragment extends Fragment {
 					}
 
 					String address = Url.QJ_IN_USE + "getEtpsList/"
-							+ application.getLoginUserInfo().getOrganId() + "/"
+							+ loginBean.getResult().getOrganId() + "/"
 							+ keyWord;
+					Log.e("address",address);
 					HttpClientUtil.callWebServiceForGet(address,
 							new HttpCallbackListener() {
 
@@ -146,11 +149,9 @@ public class SpecialListSearchFragment extends Fragment {
 		try {
 			jsonObject.put("checkType", "3");
 
-			jsonObject.put("organId", application.getLoginUserInfo()
-					.getOrganId());
+			jsonObject.put("organId", loginBean.getResult().getOrganId());
 			jsonObject.put("tmpFlag", 1);
-			jsonObject.put("submitUser", application.getLoginUserInfo()
-					.getUserId());
+			jsonObject.put("submitUser", loginBean.getResult().getUserId());
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -181,12 +182,12 @@ public class SpecialListSearchFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-//				progressDialog.show();
 				MyProgressDialog.show(activity);
 				recordId = etpsBeans.get(position).getRecordId();
 				String netAddress = Url.QJ_IN_USE + "getRecordInfo/2/"
-						+ application.getLoginUserInfo().getDeptId() + "/"
+						+ loginBean.getResult().getDeptId() + "/"
 						+ recordId;
+				Log.e("netAddress", netAddress);
 				HttpClientUtil.callWebServiceForGet(netAddress,
 						new HttpCallbackListener() {
 
@@ -215,21 +216,7 @@ public class SpecialListSearchFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-
-		// // noinspection SimplifiableIfStatement
-		// if (id == R.id.register) {
-		// Toast.makeText(LoginActivity.this, "注册", Toast.LENGTH_SHORT).show();
-		// return true;
-		// }
-		// if (id == R.id.forget_passwd) {
-		// Toast.makeText(LoginActivity.this, "忘记密码",
-		// Toast.LENGTH_SHORT).show();
-		// return true;
-		// }
 		if (id == android.R.id.home) {
 			activity.finish();
 			return true;
@@ -242,9 +229,6 @@ public class SpecialListSearchFragment extends Fragment {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case SHOW_RESPONSE:
-//				if(progressDialog.isShowing()){
-//					progressDialog.cancel();
-//				}
 				MyProgressDialog.dismiss();
 				EtpsFirstBean firstBean = gson.fromJson(msg.obj.toString(),
 						EtpsFirstBean.class);

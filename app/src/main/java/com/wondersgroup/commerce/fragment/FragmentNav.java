@@ -31,18 +31,11 @@ import com.wondersgroup.commerce.teamwork.addressbox.TXLActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseEnquireActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseInvestigateActivity;
 import com.wondersgroup.commerce.teamwork.dailycheck.DailyCheckActivity;
-import com.wondersgroup.commerce.teamwork.keysuperrise.KeySuperviseActivity;
 import com.wondersgroup.commerce.teamwork.memorandum.MemoActivity;
-import com.wondersgroup.commerce.teamwork.myhwggdq.HwggdqActivity;
 import com.wondersgroup.commerce.teamwork.myrcxc.RCXCActivity;
 import com.wondersgroup.commerce.teamwork.myspecialcheck.SpecialCheckActivity;
-import com.wondersgroup.commerce.teamwork.mysupervision.SupervisionActivity;
 import com.wondersgroup.commerce.teamwork.myxqzgdq.XqzgdqActivity;
 import com.wondersgroup.commerce.teamwork.simpleprocedurecase.ProcedureCaseListActivity;
-import com.wondersgroup.commerce.teamwork.wywork.SumIndexActivity;
-import com.wondersgroup.commerce.teamwork.wywork.fwqy.EntServiceActivity;
-import com.wondersgroup.commerce.teamwork.wywork.jcjgno.JCJGBZCActivity;
-import com.wondersgroup.commerce.teamwork.wywork.jyqx.JYQXDQActivity;
 import com.wondersgroup.commerce.teamwork.wywork.ydjyxz.YDJYXZActivity;
 import com.wondersgroup.commerce.teamwork.ztxxcx.InputActivity;
 import com.wondersgroup.commerce.ynwq.activity.ToDoActivity;
@@ -260,13 +253,13 @@ public class FragmentNav extends RootFragment {
 
                 //户外广告到期
                 case Constants.hwggdq:
-                    menuLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), HwggdqActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+//                    menuLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getActivity(), HwggdqActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
                     break;
 
                 //业务系统
@@ -305,13 +298,13 @@ public class FragmentNav extends RootFragment {
 
                 //业务统计
                 case Constants.ywtj:
-                    menuLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(mContext, SumIndexActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+//                    menuLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(mContext, SumIndexActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
                     break;
 
                 //统计
@@ -327,14 +320,14 @@ public class FragmentNav extends RootFragment {
 
                 //监督管理
                 case Constants.jdgl:
-                    menuLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), SupervisionActivity.class);
-
-                            startActivity(intent);
-                        }
-                    });
+//                    menuLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getActivity(), SupervisionActivity.class);
+//
+//                            startActivity(intent);
+//                        }
+//                    });
                     break;
 
                 //日常巡查
@@ -362,14 +355,14 @@ public class FragmentNav extends RootFragment {
                     break;
                 //企业服务
                 case Constants.fwqy:
-                    menuLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), EntServiceActivity.class);
-
-                            startActivity(intent);
-                        }
-                    });
+//                    menuLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getActivity(), EntServiceActivity.class);
+//
+//                            startActivity(intent);
+//                        }
+//                    });
                     break;
                 //图片裁剪
                 case Constants.tpcj:
@@ -384,23 +377,23 @@ public class FragmentNav extends RootFragment {
 
                 //经营期限到期
                 case Constants.jyqxdq:
-                    menuLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), JYQXDQActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+//                    menuLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getActivity(), JYQXDQActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
                     break;
                 //检查结果不正常
                 case Constants.jcjgno:
-                    menuLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), JCJGBZCActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+//                    menuLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getActivity(), JCJGBZCActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
                     break;
 
                 //投诉举报处理
@@ -437,13 +430,13 @@ public class FragmentNav extends RootFragment {
 
                 //重点监管
                 case Constants.zdjg:
-                    menuLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), KeySuperviseActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+//                    menuLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getActivity(), KeySuperviseActivity.class);
+//                            startActivity(intent);
+//                        }
+//                    });
 
                     break;
 

@@ -79,7 +79,7 @@ public class FragmentSc extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
 
-        getTZGG();
+//        getTZGG();
         tvOption.setOnClickListener(this);
         imgMine.setOnClickListener(this);
     }

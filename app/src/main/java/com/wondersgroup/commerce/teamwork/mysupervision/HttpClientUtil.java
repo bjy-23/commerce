@@ -116,7 +116,7 @@ public class HttpClientUtil {
 				GetMethod getMethod = new GetMethod(address);
 				// 设置POST方法请求超时
 				getMethod.getParams().setParameter(HttpMethodParams.SO_TIMEOUT,
-						8000);
+						80000);
 
 				try {
 
@@ -127,7 +127,7 @@ public class HttpClientUtil {
 					HttpConnectionManagerParams managerParams = httpClient
 							.getHttpConnectionManager().getParams();
 					// 设置连接超时时间(单位毫秒)
-					managerParams.setConnectionTimeout(8000);
+					managerParams.setConnectionTimeout(80000);
 					// 设置读数据超时时间(单位毫秒)
 					managerParams.setSoTimeout(600000);
 

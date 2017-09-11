@@ -3,23 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_gray"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:id="@+id/content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/addButton"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@color/system_tab"
-            android:text="添加无照经营记录"
-            android:textColor="@color/white"
-            android:textSize="17dp" />
-    </LinearLayout>
+    <include layout="@layout/head2"/>
 
     <View
         android:layout_width="match_parent"

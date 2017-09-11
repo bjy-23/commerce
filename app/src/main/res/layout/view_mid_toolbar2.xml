@@ -23,7 +23,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:layout_width="32dip"
-            android:layout_height="32dip"
-            android:id="@+id/toolbar_image"/>
+            android:layout_height="32dip" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

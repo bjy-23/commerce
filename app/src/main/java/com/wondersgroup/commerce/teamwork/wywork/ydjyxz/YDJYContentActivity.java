@@ -25,8 +25,6 @@ public class YDJYContentActivity extends AppCompatActivity{
     Toolbar toolbar;
     @Bind(R.id.toolbar_title)
     TextView toolTitle;
-    @Bind(R.id.toolbar_image)
-    ImageView toolAdd;
 
     @Bind(R.id.ydjy_name1)
     TextView tvName1;
@@ -81,7 +79,6 @@ public class YDJYContentActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        toolAdd.setImageResource(R.drawable.toolbar_add);
         toolTitle.setText(list.get(0));
 
         init();
@@ -102,15 +99,15 @@ public class YDJYContentActivity extends AppCompatActivity{
         }
 
 
-        toolAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext,YDJYAddActivity.class);
-                intent.putExtra("type",type);
-                intent.putExtra("entityId",entityId);
-                startActivity(intent);
-            }
-        });
+//        toolAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext,YDJYAddActivity.class);
+//                intent.putExtra("type",type);
+//                intent.putExtra("entityId",entityId);
+//                startActivity(intent);
+//            }
+//        });
     }
 
 

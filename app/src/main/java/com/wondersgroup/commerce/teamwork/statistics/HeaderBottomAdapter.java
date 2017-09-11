@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.teamwork.statistics.bean.Annals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,6 +167,7 @@ public class HeaderBottomAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         data = new ColumnChartData(columns);
+        data.setFillRatio(0.5f);
         data.setStacked(true);
 
         if (hasAxes) {

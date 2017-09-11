@@ -519,15 +519,14 @@ public class SpecialFragment extends Fragment {
 
 		List<BookBean> users = application.getBigBean().getUserList();
 		List<KeyValue> inspectorKeyValues = new ArrayList<KeyValue>();
-		for (int i = 0; i < users.size(); i++) {
-			KeyValue keyValue = new KeyValue();
-			keyValue.setKey(users.get(i).getUserId());
-			keyValue.setValue(users.get(i).getName());
-			inspectorKeyValues.add(keyValue);
-		}
-		inspector = (TextView) view.findViewById(R.id.inspector);
-		// inspector.setTag(application.getLoginUserInfo().getUserId());
-		// inspector.setText(application.getLoginUserInfo().getUserName());
+        if (users != null)
+            for (int i = 0; i < users.size(); i++) {
+                KeyValue keyValue = new KeyValue();
+                keyValue.setKey(users.get(i).getUserId());
+                keyValue.setValue(users.get(i).getName());
+                inspectorKeyValues.add(keyValue);
+            }
+        inspector = (TextView) view.findViewById(R.id.inspector);
 		inspector.setOnClickListener(new ShowMutiDialogListListener(
 				inspectorKeyValues, activity, inspector));
 		inspector.setTag("");

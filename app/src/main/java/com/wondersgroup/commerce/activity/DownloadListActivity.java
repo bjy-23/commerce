@@ -20,7 +20,6 @@ import com.wondersgroup.commerce.model.FileBean;
 import com.wondersgroup.commerce.model.ReceiveDetailBean;
 import com.wondersgroup.commerce.model.SendDetailBean;
 import com.wondersgroup.commerce.service.ApiManager;
-import com.wondersgroup.commerce.teamwork.wywork.FileUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -144,15 +143,15 @@ public class DownloadListActivity extends AppCompatActivity {
             public void onResponse(Response<FileBean> response, Retrofit retrofit) {
                 if(response!=null && response.body()!=null){
                     if("200".equals(response.body().getCode())){
-                        FileUtils fileUtils = new FileUtils();
-                        try {
-                            fileUtils.decoderBase64File(DownloadListActivity.this,
-                                    response.body().getResult().getAttachFile().getAttachFileStr(),
-                                    DownloadListActivity.this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//                        FileUtils fileUtils = new FileUtils();
+//                        try {
+//                            fileUtils.decoderBase64File(DownloadListActivity.this,
+//                                    response.body().getResult().getAttachFile().getAttachFileStr(),
+//                                    DownloadListActivity.this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+//                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
                     }else{
                         Toast.makeText(DownloadListActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
                     }

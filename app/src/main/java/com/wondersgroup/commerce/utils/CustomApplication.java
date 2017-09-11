@@ -2,8 +2,6 @@ package com.wondersgroup.commerce.utils;
 
 import android.app.Application;
 import android.telephony.TelephonyManager;
-
-import com.wondersgroup.commerce.teamwork.wywork.FileUtils;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import java.io.File;

@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.service.ApiManager;
-import com.wondersgroup.commerce.teamwork.dailycheck.UtilForFragment;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import java.util.HashMap;
@@ -90,7 +89,6 @@ public class DetailJGJLActivity extends AppCompatActivity {
                     checkJGJLBean = response.body();
                     DetailJGJLActivity.setCheckJGJLBean(checkJGJLBean);
                     Toast.makeText(context, checkJGJLBean.getMsg(), Toast.LENGTH_SHORT).show();
-                    UtilForFragment.switchContent(context, new DetailJGJLFragment(), R.id.content);
 
                 } else {
                     MyProgressDialog.dismiss();

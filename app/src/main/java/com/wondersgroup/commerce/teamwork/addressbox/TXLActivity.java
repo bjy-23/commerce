@@ -3,6 +3,7 @@ package com.wondersgroup.commerce.teamwork.addressbox;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,14 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
         findView();
 
         getDataWithNet("1", "");
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.e("TXLActivity","onDestroy");
+        indexView.clean();
+
+        super.onDestroy();
     }
 
     private void findView() {
@@ -249,8 +258,7 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
 
                     dialog.dismiss();
                 } else {
-                    getResources().getString(R.string.error_data);
-
+                    Toast.makeText(mContext, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             }

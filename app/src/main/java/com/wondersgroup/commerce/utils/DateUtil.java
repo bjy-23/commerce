@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,11 +23,33 @@ import java.util.Date;
 
 public class DateUtil {
     private static final String FORMATE_YMD = "yyyy-MM-dd";
+    private static final String FORMATE_YMDHM = "yyyy年MM月dd日  HH时mm分";
+    private static final String FORMATE_YMDHMS = "yyyy-MM-dd HH:mm:ss";
 
     public static String getYMD(Date date){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMATE_YMD);
 
         return simpleDateFormat.format(date);
+    }
+
+    public static String getYMDHM(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMATE_YMDHM);
+
+        return simpleDateFormat.format(date);
+    }
+
+    public static String getYMDHM(String time){
+        SimpleDateFormat format1 = new SimpleDateFormat(FORMATE_YMDHMS);
+        Date date = null;
+        try {
+            date = format1.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat format2 = new SimpleDateFormat(FORMATE_YMDHM);
+
+        return format2.format(date);
     }
 
     public static int getNowYear(){

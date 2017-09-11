@@ -114,7 +114,7 @@ public class DailyFragment extends Fragment {
 //				"loading");
 
 		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
-		title.setText(application.getBigBean().getEtpsInfoVo().get("etpsName"));
+//		title.setText(application.getBigBean().getEtpsInfoVo().get("etpsName"));
 
 		// mLocationClient = application.mLocationClient;
 		// mLocationClient.registerLocationListener(new BDLocationListener() {
@@ -190,7 +190,7 @@ public class DailyFragment extends Fragment {
 
 	private void initExpandableList() {
 
-		fathers = application.getBigBean().getCheckMatters();
+//		fathers = application.getBigBean().getCheckMatters();
 		newFathers = new ArrayList<Father>();
 		for (int i = 0; i < fathers.size(); i++) {
 			if (fathers.get(i).getParentMatterId() == null) {
@@ -254,17 +254,17 @@ public class DailyFragment extends Fragment {
 		changeRecord = (TextView) footView.findViewById(R.id.changeRecord);
 		trdScope = (TextView) footView.findViewById(R.id.trdScope);
 		tradeScope = (TextView) footView.findViewById(R.id.tradeScope);
-		tradeScope.setText(application.getBigBean().getTradeScope());
+//		tradeScope.setText(application.getBigBean().getTradeScope());
 		tempButton = (Button) footView.findViewById(R.id.tempButton);
 		realButton = (Button) footView.findViewById(R.id.realButton);
 		checkedName = (TextView) footView.findViewById(R.id.checkedName);
 		checkedNumber = (TextView) footView.findViewById(R.id.checkedNumber);
 		CheckUtil.checkInputPhone(checkedNumber);
 		CheckUtil.limitCheckMaxCount(checkedName, Constants.inputMaxCount);
-		checkedName.setText(application.getBigBean().getEtpsInfoVo()
-				.get("leader"));
-		checkedNumber.setText(application.getBigBean().getEtpsInfoVo()
-				.get("telephone"));
+//		checkedName.setText(application.getBigBean().getEtpsInfoVo()
+//				.get("leader"));
+//		checkedNumber.setText(application.getBigBean().getEtpsInfoVo()
+//				.get("telephone"));
 		memo = (TextView) footView.findViewById(R.id.memo);
 
 		tempButton.setOnClickListener(new OnClickListener() {
@@ -290,23 +290,23 @@ public class DailyFragment extends Fragment {
 						problem.getTag().toString());
 
 				// new
-				saveCheckBean.getAppCheckInfo().setSubmitUser(
-						application.getLoginUserInfo().getUserId());
+//				saveCheckBean.getAppCheckInfo().setSubmitUser(
+//						application.getLoginUserInfo().getUserId());
 				saveCheckBean.setTrdScope(trdScope.getText().toString());
 				saveCheckBean.setAppRecordDetail(appRecordDetails);
 				saveCheckBean.setAppEntInfo(adapter.getChangeMap());
 				saveCheckBean.getAppCheckInfo().setCheckType("1");
 				saveCheckBean.getAppCheckInfo().setGpsInfo(
 						application.getGpsInfoString());
-				saveCheckBean.getAppCheckInfo().setEtpsId(
-						application.getBigBean().getEtpsId());
+//				saveCheckBean.getAppCheckInfo().setEtpsId(
+//						application.getBigBean().getEtpsId());
 				saveCheckBean.getAppCheckInfo().setPhonenumber(
 						checkedNumber.getText() + "");
 				saveCheckBean.getAppCheckInfo().setMemo(memo.getText() + "");
-				saveCheckBean.getAppCheckInfo().setOrganId(
-						application.getLoginUserInfo().getOrganId());
-				saveCheckBean.getAppCheckInfo().setDeptId(
-						application.getLoginUserInfo().getDeptId());
+//				saveCheckBean.getAppCheckInfo().setOrganId(
+//						application.getLoginUserInfo().getOrganId());
+//				saveCheckBean.getAppCheckInfo().setDeptId(
+//						application.getLoginUserInfo().getDeptId());
 
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 				String checkDate = df.format(new Date());// new Date()为获取当前系统时间
@@ -415,24 +415,24 @@ public class DailyFragment extends Fragment {
 				// new
 				saveCheckBean.getAppRecordContent().setProblem(
 						problem.getTag().toString());
-				saveCheckBean.getAppCheckInfo().setSubmitUser(
-						application.getLoginUserInfo().getUserId());
+//				saveCheckBean.getAppCheckInfo().setSubmitUser(
+//						application.getLoginUserInfo().getUserId());
 				saveCheckBean.setTrdScope(trdScope.getText().toString());
 				saveCheckBean.setAppRecordDetail(appRecordDetails);
 				saveCheckBean.setAppEntInfo(adapter.getChangeMap());
 				saveCheckBean.getAppCheckInfo().setCheckType("1");
 				saveCheckBean.getAppCheckInfo().setGpsInfo(
 						application.getGpsInfoString());
-				saveCheckBean.getAppCheckInfo().setEtpsId(
-						application.getBigBean().getEtpsId());
+//				saveCheckBean.getAppCheckInfo().setEtpsId(
+//						application.getBigBean().getEtpsId());
 				saveCheckBean.getAppCheckInfo().setPhonenumber(
 						checkedNumber.getText() + "");
 				saveCheckBean.getAppCheckInfo().setMemo(memo.getText() + "");
 
-				saveCheckBean.getAppCheckInfo().setOrganId(
-						application.getLoginUserInfo().getOrganId());
-				saveCheckBean.getAppCheckInfo().setDeptId(
-						application.getLoginUserInfo().getDeptId());
+//				saveCheckBean.getAppCheckInfo().setOrganId(
+//						application.getLoginUserInfo().getOrganId());
+//				saveCheckBean.getAppCheckInfo().setDeptId(
+//						application.getLoginUserInfo().getDeptId());
 
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 				String checkDate = df.format(new Date());// new Date()为获取当前系统时间
@@ -524,43 +524,43 @@ public class DailyFragment extends Fragment {
 
 	private void initKeyValue() {
 
-		Map<String, String> dealMap = application.getBigBean().getDeal();
-		MapToListUtil dealUtil = new MapToListUtil(dealMap);
-		List<KeyValue> dealKeyValues = dealUtil.mapToKeyValues();
-
-		deal.setOnClickListener(new ShowMutiDialogListListener(dealKeyValues,
-				activity, deal));
-
-		List<BookBean> users = application.getBigBean().getUserList();
-		List<KeyValue> inspectorKeyValues = new ArrayList<KeyValue>();
-		for (int i = 0; i < users.size(); i++) {
-			KeyValue keyValue = new KeyValue();
-			keyValue.setKey(users.get(i).getUserId());
-			keyValue.setValue(users.get(i).getName());
-			inspectorKeyValues.add(keyValue);
-		}
-
-		// inspector.setTag(application.getLoginUserInfo().getUserId());
-		// inspector.setText(application.getLoginUserInfo().getUserName());
-		inspector.setOnClickListener(new ShowMutiDialogListListener(
-				inspectorKeyValues, activity, inspector));
+//		Map<String, String> dealMap = application.getBigBean().getDeal();
+//		MapToListUtil dealUtil = new MapToListUtil(dealMap);
+//		List<KeyValue> dealKeyValues = dealUtil.mapToKeyValues();
+//
+//		deal.setOnClickListener(new ShowMutiDialogListListener(dealKeyValues,
+//				activity, deal));
+//
+//		List<BookBean> users = application.getBigBean().getUserList();
+//		List<KeyValue> inspectorKeyValues = new ArrayList<KeyValue>();
+//		for (int i = 0; i < users.size(); i++) {
+//			KeyValue keyValue = new KeyValue();
+//			keyValue.setKey(users.get(i).getUserId());
+//			keyValue.setValue(users.get(i).getName());
+//			inspectorKeyValues.add(keyValue);
+//		}
+//
+//		// inspector.setTag(application.getLoginUserInfo().getUserId());
+//		// inspector.setText(application.getLoginUserInfo().getUserName());
+//		inspector.setOnClickListener(new ShowMutiDialogListListener(
+//				inspectorKeyValues, activity, inspector));
 
 	}
 
 	public void initCheckList() {
-		if (application.getBigBean() != null) {
-			LinkedHashMap<String, String> map = application.getBigBean()
-					.getEtpsInfoVo();
-			MapToListUtil mapToListUtil = new MapToListUtil(map);
-			List<EtpsInfoBean> etpsInfoBeans = mapToListUtil.mapToEtpsInfoS();
-
-			dailyList = (LinearLayoutForListView) view
-					.findViewById(R.id.demo_list);
-			adapter = new EtpsInfoRadioButtonAdapter(activity,
-					R.layout.radio_buton_list_item, etpsInfoBeans,
-					changeRecord, new LinkedHashMap<String, String>());
-			dailyList.setAdapter(adapter);
-		}
+//		if (application.getBigBean() != null) {
+//			LinkedHashMap<String, String> map = application.getBigBean()
+//					.getEtpsInfoVo();
+//			MapToListUtil mapToListUtil = new MapToListUtil(map);
+//			List<EtpsInfoBean> etpsInfoBeans = mapToListUtil.mapToEtpsInfoS();
+//
+//			dailyList = (LinearLayoutForListView) view
+//					.findViewById(R.id.demo_list);
+//			adapter = new EtpsInfoRadioButtonAdapter(activity,
+//					R.layout.radio_buton_list_item, etpsInfoBeans,
+//					changeRecord, new LinkedHashMap<String, String>());
+//			dailyList.setAdapter(adapter);
+//		}
 	}
 
 	private void showCleanDialog() {

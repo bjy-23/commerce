@@ -1,5 +1,6 @@
 package com.wondersgroup.commerce.service;
 
+import com.squareup.okhttp.ResponseBody;
 import com.wondersgroup.commerce.model.Address;
 import com.wondersgroup.commerce.model.AddressDetail;
 import com.wondersgroup.commerce.model.BacklogListBean;
@@ -14,6 +15,8 @@ import com.wondersgroup.commerce.model.NextPeoListBean;
 import com.wondersgroup.commerce.model.ReceiveDetailBean;
 import com.wondersgroup.commerce.model.SendDetailBean;
 import com.wondersgroup.commerce.model.SwTypeBean;
+import com.wondersgroup.commerce.teamwork.email.EmailDetailResult;
+import com.wondersgroup.commerce.teamwork.email.EmailResult;
 
 import java.util.Map;
 
@@ -112,7 +115,6 @@ public interface OaApi {
     String API_ADDRESS_DEPT_DETAIL = URL_3 + "getAddListPersonnalDetail";
     String GET_BULLETIN_LIST =  URL_3 + "getBulletinList";           //获取公告列表
     String GET_BULLETIN_DETAIL =  URL_3 + "getBulletinDetail";        //公告详情获取
-
     String DOWNLOAD_ATTCHMENT = URL_ATTACHMENT + "downloadFileByPost";           //附件下载
 
 
@@ -207,4 +209,19 @@ public interface OaApi {
     @FormUrlEncoded
     @POST(DOWNLOAD_ATTCHMENT)
     public Call<FileBean> downloadAttachment(@FieldMap Map<String, String> body);
+
+
+    /*
+    * 收件箱
+    * */
+    public static final String GET_MAIL_LIST_WITH_PAGE = URL_1 + "getMailListWithPage";
+    public static final String GET_MAIL_DETAIL = URL_1 + "getMailDetail";
+
+    @FormUrlEncoded
+    @POST(GET_MAIL_LIST_WITH_PAGE)
+    public Call<Result<EmailResult>> getEmail(@FieldMap Map map);
+
+    @FormUrlEncoded
+    @POST(GET_MAIL_DETAIL)
+    public Call<Result<EmailDetailResult>> getEmailDetail(@FieldMap Map map);
 }

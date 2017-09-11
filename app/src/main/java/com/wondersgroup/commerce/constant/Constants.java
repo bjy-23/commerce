@@ -8,14 +8,13 @@ import java.util.HashMap;
  * Created by yclli on 2015/12/1.
  */
 public class Constants {
-
     public final static String SC = "四川";
     public final static String YN = "云南";
     public final static String MODE_1 = "release";
     public final static String MODE_2 = "debug";
 
-    public final static String VERSION = YN;
-    public final static String MODE = MODE_2;
+    public final static String VERSION = SC;
+    public final static String MODE = MODE_1;
 
     public static HashMap<String,Integer> firstColorMap;
     public static HashMap<String,Integer> menuIconMapYN;
@@ -79,6 +78,10 @@ public class Constants {
     public static final String XXCX = "查询统计";
     public static final String WD = "设置";
 
+    public static final String COMMON_ID = "999";//通用Id,用此Id的模块必须显示
+    public static final String ZXZZ_NAME = "专项整治";
+    public static final String WZJY_NAME = "无证经营";
+    public static final String EMAIL_NAME = "收件箱";
     public static final String CCJCLR_ID = "05021530,05022530,05023530,05024530";
     public static final String CCJCLR_NAME = "抽查检查录入\n(实地核查)";
     public static final String CCJCCX_ID = "05021580,05022580,05023580,05024580";
@@ -107,7 +110,6 @@ public class Constants {
     public static final String WQCB_NAME = "微企财补初审";
     public static final String GSXX_ID = "08012001";
     public static final String GSXX_NAME = "公示信息查询";
-    public static final String QYGSXX_NAME = "企业信用公示\n信息查询";
     public static final String XYGS_DJ_NAME = "双随机结果录入";
     public static final String XYGS_DJ_ID = "333333";
     public static final String XYGS_JL_NAME = "双随机结果查询";
@@ -403,6 +405,9 @@ public class Constants {
             menuIconMapSC.put(Constants.SBCX_ID + Constants.SBCX_NAME,R.mipmap.sbcx);
             menuIconMapSC.put(Constants.TZGG_ID + Constants.TZGG_NAME,R.mipmap.tzgg_sc);
             menuIconMapSC.put(Constants.TXL_ID + Constants.TXL_NAME,R.mipmap.txl_sc);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.WZJY_NAME,R.mipmap.xygs_dj);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.ZXZZ_NAME,R.mipmap.xygs_jl);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.EMAIL_NAME,R.mipmap.xygs_jl);
         }
 
         return menuIconMapSC;

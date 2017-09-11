@@ -276,7 +276,7 @@ public class FragmentSetting extends Fragment implements View.OnClickListener {
                         showUpdateDialog();
                     }
                 } else {
-
+                    Toast.makeText(app, "当前已是最新版本！", Toast.LENGTH_SHORT).show();
                 }
             }
 

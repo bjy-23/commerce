@@ -2,6 +2,7 @@ package com.wondersgroup.commerce.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +17,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
+import com.squareup.okhttp.ResponseBody;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.adapter.TextWpicAdapter;
 import com.wondersgroup.commerce.adapter.Title3RowAdapter;
 import com.wondersgroup.commerce.adapter.Title4RowAdapter;
-import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.teamwork.email.EmailBean;
 import com.wondersgroup.commerce.model.GwjsBean;
 import com.wondersgroup.commerce.model.GwjsCondition;
 import com.wondersgroup.commerce.model.TextWpicItem;
@@ -32,8 +34,11 @@ import com.wondersgroup.commerce.model.ccjc.CCToDoResult;
 import com.wondersgroup.commerce.model.yn.CaseInfo;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.Result;
-import com.wondersgroup.commerce.utils.EndlessRecyclerViewScrollListener;
+import com.wondersgroup.commerce.teamwork.email.EmailDetailsActivity;
+import com.wondersgroup.commerce.teamwork.email.EmailResult;
+import com.wondersgroup.commerce.utils.DividerItemDecoration;
 import com.wondersgroup.commerce.widget.LoadingDialog;
+import com.wondersgroup.commerce.adapter.CommonAdapter;
 import com.wondersgroup.commerce.ynwq.widget.CountBar;
 
 import java.util.ArrayList;
@@ -53,7 +58,7 @@ import retrofit.Retrofit;
 /**
  * Created by yclli on 2016/3/16.
  *
- * 抽查检查录入、公文检索结果
+ * 抽查检查录入、公文检索结果、收件箱
  */
 public class RecyclerActivity extends AppCompatActivity {
     @Bind(R.id.mid_toolbar)
@@ -83,6 +88,8 @@ public class RecyclerActivity extends AppCompatActivity {
     private List<Title4RowItem> title3RowItems;
     private List<TextWpicItem> textWpicItems;
     private List<GwjsBean.Result.Result_> dataList;
+    private List<EmailBean> emailBeanList;
+    private CommonAdapter adapter;
     private String userId;
     private String organId;
     private String deptId;
@@ -90,7 +97,6 @@ public class RecyclerActivity extends AppCompatActivity {
     private List<String> checkIds;
     private List<String> entIds;
     private List<String> onlyLocals;
-    private RootAppcation app;
     private CountBar countBar;
     private int pageNo = 0, pageMax = 0, totalRecord = 0;
     private boolean isLoaded = false;
@@ -109,13 +115,14 @@ public class RecyclerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        app = (RootAppcation) getApplication();
 
-        String titleString = getIntent().getStringExtra("title");
-        if (titleString == null) titleString = "公文检索结果";
-        type=getIntent().getStringExtra("type");
-        if(type==null)type="GWJS";
+        String titleString = getIntent().getStringExtra(Constants.TITLE);
+        if (titleString == null)
+            titleString = "公文检索结果";
         title.setText(titleString);
+        type=getIntent().getStringExtra(Constants.TYPE);
+        if(type==null)
+            type="GWJS";
         final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         recycler.setLayoutManager(linearLayoutManager);
         recycler.setItemAnimator(new DefaultItemAnimator());
@@ -175,7 +182,34 @@ public class RecyclerActivity extends AppCompatActivity {
         checkIds=new ArrayList<>();
         entIds=new ArrayList<>();
         onlyLocals = new ArrayList<>();
-        if("GWJS".equals(type)) {
+        if ("email".equals(type)){
+            emailBeanList = new ArrayList<>();
+            adapter = new CommonAdapter(this,emailBeanList);
+            adapter.setItemClick(new CommonAdapter.ItemClick() {
+
+                @Override
+                public void onClick(int position) {
+                    Intent intent = new Intent(RecyclerActivity.this, EmailDetailsActivity.class);
+                    intent.putExtra(Constants.POSITION, position);
+                    intent.putParcelableArrayListExtra("emailBeanList", (ArrayList) emailBeanList);
+                    startActivity(intent);
+                }
+            });
+            recycler.setAdapter(adapter);
+            recycler.clearOnScrollListeners();
+            recycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+
+            body.put("wsCodeReq", "07010016");
+            body.put(Constants.USER_ID, userId);
+            body.put(Constants.USER_ID, "2c9b02065901bba4015914a4e7b20002");
+            body.put(Constants.DEPT_ID, deptId);
+            body.put(Constants.DEPT_ID, "51000000099");
+            body.put("businessType", "1");
+            pageNo = 1;
+            body.put("condition", String.format("{pageNo:%d,pageSize:%d}",pageNo,10) );
+            state = Constants.LOAD_REFRESH;
+            getEmail();
+        } else if("GWJS".equals(type)) {
             searchBar.setVisibility(View.GONE);
             doctype = getIntent().getStringExtra("doctype");
             condition = Hawk.get("gwCondition");
@@ -515,6 +549,42 @@ public class RecyclerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 Toast.makeText(RecyclerActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void getEmail(){
+        Call<Result<EmailResult>> call = ApiManager.oaApi.getEmail(body);
+        call.enqueue(new Callback<Result<EmailResult>>() {
+            @Override
+            public void onResponse(Response<Result<EmailResult>> response, Retrofit retrofit) {
+                if (response.body() != null
+                        && response.body().getObject() != null
+                        && response.body().getObject().getEmailList() != null
+                        && response.body().getObject().getEmailList().size() != 0){
+                    if (state == Constants.LOAD_REFRESH){
+                        emailBeanList.clear();
+                        emailBeanList.addAll(response.body().getObject().getEmailList());
+                        adapter.notifyDataSetChanged();
+                    }else if (state == Constants.LOAD_MORE){
+                        emailBeanList.addAll(response.body().getObject().getEmailList());
+                        adapter.notifyDataSetChanged();
+                    }
+                }else {
+                    if (emailBeanList.size() == 0)
+                        viewError.setVisibility(View.VISIBLE);
+                    else
+                        viewError.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                if (emailBeanList.size() == 0)
+                    viewError.setVisibility(View.VISIBLE);
+                else
+                    viewError.setVisibility(View.GONE);
             }
         });
 

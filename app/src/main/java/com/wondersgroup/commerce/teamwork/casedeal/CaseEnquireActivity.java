@@ -33,7 +33,6 @@ import com.wondersgroup.commerce.model.SerializableMap;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.CaseApi;
-import com.wondersgroup.commerce.teamwork.dailycheck.ImgFirstBean;
 import com.wondersgroup.commerce.utils.CodeUtils;
 import com.wondersgroup.commerce.utils.DynamicWidgetUtils;
 import com.wondersgroup.commerce.utils.FileHelper;
@@ -69,7 +68,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     @Bind(R.id.components_LinearLayout)
     LinearLayout componentsLinearLayout;        //控件显示部分（动态添加控件）
     @Bind(R.id.query_button)
-    Button quieryButton;                        //查询按钮
+    Button queryButton;                        //查询按钮
     @Bind(R.id.clear_btn)
     Button clearButton;//清空按钮
     @Bind(R.id.img_scan)
@@ -133,12 +132,8 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
     private void initView() {
         title.setText("我的案件查询");
-        quieryButton.setOnClickListener(this);
+        queryButton.setOnClickListener(this);
         clearButton.setOnClickListener(this);
-        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
-            imageScan.setVisibility(View.VISIBLE);
-            imageScan.setOnClickListener(this);
-        }
     }
 
     private void initData() {
@@ -189,6 +184,10 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
     public void initView2(){
         title.setText("案件查询");
+        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
+            imageScan.setVisibility(View.VISIBLE);
+            imageScan.setOnClickListener(this);
+        }
 
         Gson gson = new Gson();
         String result = FileHelper.getFromAssets("caseEnquire.txt",this);

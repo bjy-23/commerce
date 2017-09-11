@@ -15,6 +15,7 @@ import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.activity.GSActivity;
 import com.wondersgroup.commerce.activity.RecyclerActivity;
+import com.wondersgroup.commerce.activity.RouterActivity;
 import com.wondersgroup.commerce.activity.ViewPagerActivity;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.MenuBean;
@@ -23,6 +24,7 @@ import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.addressbox.TXLActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseEnquireActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseInvestigateActivity;
+import com.wondersgroup.commerce.teamwork.myspecialcheck.SpecialCheckActivity;
 import com.wondersgroup.commerce.teamwork.simpleprocedurecase.ProcedureCaseListActivity;
 import com.wondersgroup.commerce.teamwork.trademarkInquiry.TradeMarksListActivity;
 import com.wondersgroup.commerce.teamwork.tztg.TZTGActivity;
@@ -91,6 +93,25 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
         Intent intent;
         Bundle bundle;
         switch (bean.getMenuId()){
+            case Constants.COMMON_ID:
+                switch (bean.getMenuName()){
+                    case Constants.ZXZZ_NAME:
+                        intent = new Intent(context, SpecialCheckActivity.class);
+                        context.startActivity(intent);
+                        break;
+                    case Constants.WZJY_NAME:
+                        intent = new Intent(context, RouterActivity.class);
+                        context.startActivity(intent);
+                        break;
+                    case Constants.EMAIL_NAME:
+                        intent = new Intent(context, RecyclerActivity.class);
+                        intent.putExtra(Constants.TITLE, Constants.EMAIL_NAME);
+                        intent.putExtra(Constants.TYPE, "email");
+                        context.startActivity(intent);
+                        break;
+                }
+
+                break;
             case Constants.TSJBCL_ID:
                 intent = new Intent(context, ViewPagerActivity.class);
                 intent.putExtra("type", "TSJBCL");
@@ -106,6 +127,7 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                     context.startActivity(intent);
                 }else if (Constants.WDAJCX_NAME.equals(bean.getMenuName())){
                     intent = new Intent(context, CaseEnquireActivity.class);
+                    intent.putExtra(Constants.TYPE,Constants.WDAJCX_ID);
                     context.startActivity(intent);
                 }
 

@@ -99,7 +99,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         app = RootAppcation.getInstance();
         app.setVersion(Constants.VERSION);
-        ApiManager.getInstance().init("", this);
+        ApiManager.getInstance().init();
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
         switch (app.getVersion()) {

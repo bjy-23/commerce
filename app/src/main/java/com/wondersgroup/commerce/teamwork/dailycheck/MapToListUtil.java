@@ -76,16 +76,17 @@ public class MapToListUtil {
 
     public List<KeyValue> mapToKeyValues() {
         List<KeyValue> list = new ArrayList<KeyValue>();
-        Iterator<String> it = map.keySet().iterator();
-        while (it.hasNext()) {
-            KeyValue keyValue = new KeyValue();
-            String key = it.next().toString();
-            String value = map.get(key);
-            keyValue.setKey(key);
-            keyValue.setValue(value);
-            list.add(keyValue);
+        if (map != null){
+            Iterator<String> it = map.keySet().iterator();
+            while (it.hasNext()) {
+                KeyValue keyValue = new KeyValue();
+                String key = it.next().toString();
+                String value = map.get(key);
+                keyValue.setKey(key);
+                keyValue.setValue(value);
+                list.add(keyValue);
+            }
         }
-
         return list;
 
     }

@@ -3,66 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\fgdj\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\fgdj\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_a3c33297dd2b06433cddb94c917f3d5d64a0b574\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="331553e5d766cfcd40db916a11d3904bb8d10378">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_3cb2b4f077f291d21a6e7ff9d27c112dcf22c202\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpmime-4.1.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="ed8b5ee0167cb27dea55851259eb34b609f31df0">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpmime-4.1.2_9f84bc003fd2606b149625635563aee85e656816\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="E:\Android\AndroidProjects\company\commerce\app\libs\zxing.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="6fe22c135f19470d05b0816d5996c442ef67da3f">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\2\zxing_51a5cbf6f31f88531777d87ee6a6f4b31e6813bd\classes.dex" />
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\zxing_51a5cbf6f31f88531777d87ee6a6f4b31e6813bd\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpclient-4.2.5.jar"
+        jar="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\incremental-classes\SC\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="3bfeb9062b12d5b340445336790dbc14c59c2d79">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpclient-4.2.5_b419597c3cb03425db16c9425de1a432fc879e24\classes.dex" />
+        sha1="1da7da2e23b807ccf2685da76d4570c8bf945a8f">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\10000\instant-run-bootstrap_375cbe8c4536e9e51ba18997af02d55b4d2998be\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpcore-4.2.4.jar"
+        jar="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\incremental-runtime-classes\SC\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="3b7f38df6de5dd8b500e602ae8c2dd5ee446f883">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpcore-4.2.4_8e6b840b4ede129ba4d783cf9e173f9c82c4571d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\fgdj\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="acbf75ef8fe01cf9a7481056a21fc3e43cdf4d1a">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\fgdj\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_16e8cd539dc68b3fe612cd57fa80045ef9e38ea6\classes.dex" />
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\10000\instant-run_de5e82806f58a29d4d0c4635be69d1118c2603c9\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -71,16 +35,7 @@
         optimize="true"
         revision="25.0.1"
         sha1="cae920cb0610ee5d81aa45280e940437462afb17">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\2\commons-httpclient-3.1-alpha1_7c641aeb7254966b75b853463815021c8adbb2f4\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_10c7d8ce6ce788f702ddc498b65a5f114a056ffb\classes.dex" />
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\commons-httpclient-3.1-alpha1_7c641aeb7254966b75b853463815021c8adbb2f4\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -89,7 +44,34 @@
         optimize="true"
         revision="25.0.1"
         sha1="fad60eea64007823d74948fc6708371dee57fe36">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\debug\folders\1000\2\jpush-android-2.1.3_795dff626eca68249d217901951902fab8b650b7\classes.dex" />
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\jpush-android-2.1.3_795dff626eca68249d217901951902fab8b650b7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpmime-4.1.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ed8b5ee0167cb27dea55851259eb34b609f31df0">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpmime-4.1.2_9f84bc003fd2606b149625635563aee85e656816\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpclient-4.2.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3bfeb9062b12d5b340445336790dbc14c59c2d79">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpclient-4.2.5_b419597c3cb03425db16c9425de1a432fc879e24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpcore-4.2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3b7f38df6de5dd8b500e602ae8c2dd5ee446f883">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpcore-4.2.4_8e6b840b4ede129ba4d783cf9e173f9c82c4571d\classes.dex" />
     </item>
 
 </items>

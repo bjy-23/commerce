@@ -13,13 +13,17 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import org.json.JSONException;
@@ -31,7 +35,7 @@ import java.util.List;
 public class UnlicensedAddFragment extends Fragment {
 
 	private View view;
-	private Button addButton;
+	private TextView tvAdd, tvTitle;
 	private AppCompatActivity activity;
 	private RootAppcation application;
 	private Gson gson = new Gson();
@@ -43,31 +47,37 @@ public class UnlicensedAddFragment extends Fragment {
 	public static final int SHOW_RESPONSE_INFO = 4;
 	private List<EtpsBean> etpsBeans = new ArrayList<EtpsBean>();
 	private ListView listView;
-	private InfoBean infoBean = new InfoBean();
-
 	private String recordId = "";
+	private TotalLoginBean loginBean;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		loginBean = Hawk.get(Constants.LOGIN_BEAN);
 		view = inflater.inflate(R.layout.mode_addandlist, null);
 		activity = (AppCompatActivity) getActivity();
 		application = (RootAppcation) activity.getApplication();
-//		ActionBar actionBar = activity.getSupportActionBar();
-//		actionBar.setDisplayShowTitleEnabled(true);
-//		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("日常检查");
 
-		addButton = (Button) view.findViewById(R.id.addButton);
-		addButton.setOnClickListener(new OnClickListener() {
+        ImageView imgBack = (ImageView) view.findViewById(R.id.img_back);
+        imgBack.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UnlicensedAddFragment.this.getFragmentManager().popBackStack();
+                getActivity().finish();
+            }
+        });
+        tvTitle = (TextView) view.findViewById(R.id.tv_title);
+        tvTitle.setText(Constants.WZJY_NAME);
+		tvAdd = (TextView) view.findViewById(R.id.tv_save);
+        tvAdd.setText("添加");
+        tvAdd.setVisibility(View.VISIBLE);
+        tvAdd.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
 				// 河北接口
-
 				String hebeiAddress = Url.QJ_IN_USE + "doCheck/%20/4/"
-						+ application.getLoginUserInfo().getDeptId();
+						+ loginBean.getResult().getDeptId();
 				HttpClientUtil.callWebServiceForGet(hebeiAddress,
 						new HttpCallbackListener() {
 
@@ -101,12 +111,9 @@ public class UnlicensedAddFragment extends Fragment {
 		String address = Url.QJ_IN_USE + "searchList";
 		JSONObject jsonObject = new JSONObject();
 		try {
-			jsonObject.put("submitUser", application.getLoginUserInfo()
-					.getUserId());
+			jsonObject.put("submitUser", loginBean.getResult().getUserId());
 			jsonObject.put("checkType", "4");
-
-			jsonObject.put("organId", application.getLoginUserInfo()
-					.getOrganId());
+			jsonObject.put("organId", loginBean.getResult().getOrganId());
 			jsonObject.put("tmpFlag", 1);
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
@@ -142,8 +149,9 @@ public class UnlicensedAddFragment extends Fragment {
 				MyProgressDialog.show(activity);
 				recordId = etpsBeans.get(position).getRecordId();
 				String netAddress = Url.QJ_IN_USE + "getRecordInfo/4/"
-						+ application.getLoginUserInfo().getDeptId() + "/"
+						+ loginBean.getResult().getDeptId() + "/"
 						+ recordId;
+				Log.e("netAddress", netAddress);
 				HttpClientUtil.callWebServiceForGet(netAddress,
 						new HttpCallbackListener() {
 
@@ -174,21 +182,7 @@ public class UnlicensedAddFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-
-		// // noinspection SimplifiableIfStatement
-		// if (id == R.id.register) {
-		// Toast.makeText(LoginActivity.this, "注册", Toast.LENGTH_SHORT).show();
-		// return true;
-		// }
-		// if (id == R.id.forget_passwd) {
-		// Toast.makeText(LoginActivity.this, "忘记密码",
-		// Toast.LENGTH_SHORT).show();
-		// return true;
-		// }
 		if (id == android.R.id.home) {
 			activity.finish();
 			return true;
@@ -201,37 +195,14 @@ public class UnlicensedAddFragment extends Fragment {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case SHOW_RESPONSE:
-				// JSONObject caseInfo = null;
-				// try {
-				// caseInfo = new JSONObject(msg.obj.toString());
-				// } catch (JSONException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-				// }
-				// String code = "";
-				// try {
-				// code = caseInfo.getString("code");
-				// } catch (JSONException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-				// }
-				// String result = null;
-				// try {
-				// result = caseInfo.getString("result");
-				// } catch (JSONException e) {
-				// // TODO Auto-generated catch block
-				// e.printStackTrace();
-				// }
-
-
 				FirstBean firstBean = gson.fromJson(msg.obj.toString(),
 						FirstBean.class);
 				if (firstBean.getCode() == 200) {
 					// BigBean bigBean = gson.fromJson(result, BigBean.class);
-					application.setBigBean(firstBean.getResult());
+//					application.setBigBean(firstBean.getResult());
 
 					UtilForFragment.switchContentWithStack(activity,
-							new UnlicensedFragment(), R.id.content);
+							new UnlicensedFragment(), R.id.parent);
 
 				} else {
 
@@ -268,9 +239,6 @@ public class UnlicensedAddFragment extends Fragment {
 						InfoFirstBean.class);
 
 				if (infoFirstBean.getCode() == 200) {
-
-					infoBean = infoFirstBean.getResult();
-					application.setInfoBean(infoBean);
 					application.setRecordId(recordId);
 					UtilForFragment.switchContentWithStack(activity,
 							new UnlicensedTempFragment(), R.id.content);

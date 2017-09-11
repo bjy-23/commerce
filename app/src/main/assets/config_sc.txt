@@ -28,8 +28,7 @@
             "authId":"08011004"
         },
         {
-            "menuName":"企业信用公示
-                        信息查询",
+            "menuName":"公示信息查询",
             "authId":"08012001"
         },
         {
@@ -43,5 +42,17 @@
         {
             "menuName":"通讯录",
             "authId":"08013001"
+        },
+        {
+            "menuName":"专项整治",
+            "authId":"999"
+        },
+        {
+            "menuName":"无证经营",
+            "authId":"999"
+        },
+        {
+            "menuName":"收件箱",
+            "authId":"999"
         }
     ]

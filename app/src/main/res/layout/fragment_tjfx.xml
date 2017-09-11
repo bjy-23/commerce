@@ -138,48 +138,6 @@
                     android:background="@color/white"
                     app:content="市场监督管理局案件系统办理案件统计" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/ztnb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:content="企业年报进度统计" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtnb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:content="个体年报进度统计" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/djhs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:content="登记户数统计" />
-
             </LinearLayout>
 
             <LinearLayout

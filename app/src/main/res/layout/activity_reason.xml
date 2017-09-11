@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="21dp"
-            android:text="列入原因"
             android:textColor="#333333" />
     </LinearLayout>
 

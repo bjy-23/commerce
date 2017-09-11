@@ -1,577 +1,585 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <include layout="@layout/head2"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="案件来源" />
-
-        <TextView
-            android:id="@+id/caseFrom"
-            style="@style/q_base_tv_null"
-            android:hint="请选择案件来源" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_big_title"
-            android:background="@color/bg_gray_2"
-            android:text="自然人及个体私营企业信息" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="姓名" />
-
-        <EditText
-            android:id="@+id/abbusePerson"
-            style="@style/q_base_et_single"
-            android:hint="请填写姓名" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="性别" />
-
-        <TextView
-            android:id="@+id/abbuseSex"
-            style="@style/q_base_tv_null"
-            android:hint="请选择性别" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="年龄" />
-
-        <EditText
-            android:id="@+id/abbuseAge"
-            style="@style/q_base_et_single"
-            android:hint="请填写年龄" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="工作单位" />
-
-        <EditText
-            android:id="@+id/abbuseCompany"
-            style="@style/q_base_et_single"
-            android:hint="请填写工作单位" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="职业" />
-
-        <EditText
-            android:id="@+id/abbuseOccupation"
-            style="@style/q_base_et_single"
-            android:hint="请填写职业" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="名称/字号" />
-
-        <EditText
-            android:id="@+id/abbuseName"
-            style="@style/q_base_et_single"
-            android:hint="请填写名称/字号" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="联系电话" />
-
-        <EditText
-             android:inputType="phone"
-            android:id="@+id/abbuseNumber"
-            style="@style/q_base_et_single"
-            android:hint="请填写联系电话" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="证件类型" />
-
-        <TextView
-            android:id="@+id/cardType"
-            style="@style/q_base_tv_null"
-            android:hint="请选择证件类型" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="证件号码" />
-
-        <EditText
-            android:id="@+id/abbuseIdNumber"
-            style="@style/q_base_et_single"
-            android:hint="请填写证件号码" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="住所/地址" />
-
-        <EditText
-            android:id="@+id/abbuseAddress"
-            style="@style/q_base_et_single"
-            android:hint="请填写住所/地址" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_big_title"
-            android:background="@color/bg_gray_2"
-            android:text="法人或其他组织信息" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="单位名称" />
-
-        <EditText
-            android:id="@+id/abbuseLeaderCompany"
-            style="@style/q_base_et_single"
-            android:hint="请填写单位名称" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="法定代表人" />
-
-        <EditText
-            android:id="@+id/abbuseLeaderName"
-            style="@style/q_base_et_single"
-            android:hint="请填写法定代表人" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="注册号" />
-
-        <EditText
-            android:id="@+id/abbuseLeaderRegNumber"
-            style="@style/q_base_et_single"
-            android:hint="请填写注册号" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="地址" />
-
-        <EditText
-            android:id="@+id/abbuseLeaderAddress"
-            style="@style/q_base_et_single"
-            android:hint="请填写地址" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="联系电话" />
-
-        <EditText
-             android:inputType="phone"
-            android:id="@+id/abbuseLeaderNumber"
-            style="@style/q_base_et_single"
-            android:hint="请填写联系电话" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_big_title"
-            android:background="@color/bg_gray_2"
-            android:text="案件信息" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="发生地点" />
-
-        <EditText
-            android:id="@+id/abbuseLocation"
-            style="@style/q_base_et_single"
-            android:hint="请填写发生地点" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="发生时间" />
-
-        <TextView
-            android:id="@+id/abbuseDate"
-            style="@style/q_base_tv_null"
-            android:hint="请选择发生时间" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="案值估量(万元)" />
-
-        <EditText
-            android:id="@+id/abbuseValue"
-            style="@style/q_base_et_single"
-            android:hint="请填写案值估量"
-            android:inputType="number" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="人数" />
-
-        <EditText
-            android:id="@+id/abbuseScale"
-            style="@style/q_base_et_single"
-            android:hint="请填写人数"
-            android:inputType="number" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginBottom="30dp"
-            android:background="@color/text_black7" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="简要违法事实:" />
-
-        <EditText
-            android:id="@+id/abbuseIllegal"
-            style="@style/q_base_et_muti"
-            android:hint="请填写简要违法事实" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="无照经营分类:" />
-
-        <TextView
-            android:id="@+id/unLicensedType"
-            style="@style/q_base_tv_null"
-            android:hint="请选择无照经营分类" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="冒充市场主体名义分类:" />
-
-        <TextView
-            android:id="@+id/entityType"
-            style="@style/q_base_tv_null"
-            android:hint="请选择冒充市场主体名义分类" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="处罚的法律依据:" />
-
-        <TextView
-            android:id="@+id/legalBasis"
-            style="@style/q_base_tv_null"
-            android:hint="请选择处罚的法律依据" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="涉及前置许可无照经营:" />
-
-        <TextView
-            android:id="@+id/abbuseFormmer"
-            style="@style/q_base_tv_null"
-            android:hint="是否涉及前置许可无照经营" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="处理方式:" />
-
-        <TextView
-            android:id="@+id/deal"
-            style="@style/q_base_tv_null"
-            android:hint="请选择处理方式" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <!--
-        <TextView
-            style="@style/q_base_title"
-            android:text="执法对象:" />
-
-        <EditText
-            android:id="@+id/checkedName"
-            style="@style/q_base_et_single"
-            android:hint="请填写执法对象" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="联系电话:" />
-
-        <EditText
-            android:id="@+id/checkedNumber"
-            style="@style/q_base_et_single"
-            android:hint="请填写执法对象联系电话" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-        -->
-
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="现场照片:" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="horizontal"
-            android:paddingBottom="2dp" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="案件来源" />
+
+            <TextView
+                android:id="@+id/caseFrom"
+                style="@style/q_base_tv_null"
+                android:hint="请选择案件来源" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_big_title"
+                android:background="@color/bg_gray_2"
+                android:text="自然人及个体私营企业信息" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="姓名" />
+
+            <EditText
+                android:id="@+id/abbusePerson"
+                style="@style/q_base_et_single"
+                android:hint="请填写姓名" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="性别" />
+
+            <TextView
+                android:id="@+id/abbuseSex"
+                style="@style/q_base_tv_null"
+                android:hint="请选择性别" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="年龄" />
+
+            <EditText
+                android:id="@+id/abbuseAge"
+                style="@style/q_base_et_single"
+                android:hint="请填写年龄" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="工作单位" />
+
+            <EditText
+                android:id="@+id/abbuseCompany"
+                style="@style/q_base_et_single"
+                android:hint="请填写工作单位" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="职业" />
+
+            <EditText
+                android:id="@+id/abbuseOccupation"
+                style="@style/q_base_et_single"
+                android:hint="请填写职业" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="名称/字号" />
+
+            <EditText
+                android:id="@+id/abbuseName"
+                style="@style/q_base_et_single"
+                android:hint="请填写名称/字号" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="联系电话" />
+
+            <EditText
+                android:inputType="phone"
+                android:id="@+id/abbuseNumber"
+                style="@style/q_base_et_single"
+                android:hint="请填写联系电话" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="证件类型" />
+
+            <TextView
+                android:id="@+id/cardType"
+                style="@style/q_base_tv_null"
+                android:hint="请选择证件类型" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="证件号码" />
+
+            <EditText
+                android:id="@+id/abbuseIdNumber"
+                style="@style/q_base_et_single"
+                android:hint="请填写证件号码" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="住所/地址" />
+
+            <EditText
+                android:id="@+id/abbuseAddress"
+                style="@style/q_base_et_single"
+                android:hint="请填写住所/地址" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_big_title"
+                android:background="@color/bg_gray_2"
+                android:text="法人或其他组织信息" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="单位名称" />
+
+            <EditText
+                android:id="@+id/abbuseLeaderCompany"
+                style="@style/q_base_et_single"
+                android:hint="请填写单位名称" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="法定代表人" />
+
+            <EditText
+                android:id="@+id/abbuseLeaderName"
+                style="@style/q_base_et_single"
+                android:hint="请填写法定代表人" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="注册号" />
+
+            <EditText
+                android:id="@+id/abbuseLeaderRegNumber"
+                style="@style/q_base_et_single"
+                android:hint="请填写注册号" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="地址" />
+
+            <EditText
+                android:id="@+id/abbuseLeaderAddress"
+                style="@style/q_base_et_single"
+                android:hint="请填写地址" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="联系电话" />
+
+            <EditText
+                android:inputType="phone"
+                android:id="@+id/abbuseLeaderNumber"
+                style="@style/q_base_et_single"
+                android:hint="请填写联系电话" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_big_title"
+                android:background="@color/bg_gray_2"
+                android:text="案件信息" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="发生地点" />
+
+            <EditText
+                android:id="@+id/abbuseLocation"
+                style="@style/q_base_et_single"
+                android:hint="请填写发生地点" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="发生时间" />
+
+            <TextView
+                android:id="@+id/abbuseDate"
+                style="@style/q_base_tv_null"
+                android:hint="请选择发生时间" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="案值估量(万元)" />
+
+            <EditText
+                android:id="@+id/abbuseValue"
+                style="@style/q_base_et_single"
+                android:hint="请填写案值估量"
+                android:inputType="number" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="人数" />
+
+            <EditText
+                android:id="@+id/abbuseScale"
+                style="@style/q_base_et_single"
+                android:hint="请填写人数"
+                android:inputType="number" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="30dp"
+                android:background="@color/text_black7" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="简要违法事实:" />
+
+            <EditText
+                android:id="@+id/abbuseIllegal"
+                style="@style/q_base_et_muti"
+                android:hint="请填写简要违法事实" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="无照经营分类:" />
+
+            <TextView
+                android:id="@+id/unLicensedType"
+                style="@style/q_base_tv_null"
+                android:hint="请选择无照经营分类" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="冒充市场主体名义分类:" />
+
+            <TextView
+                android:id="@+id/entityType"
+                style="@style/q_base_tv_null"
+                android:hint="请选择冒充市场主体名义分类" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="处罚的法律依据:" />
+
+            <TextView
+                android:id="@+id/legalBasis"
+                style="@style/q_base_tv_null"
+                android:hint="请选择处罚的法律依据" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="涉及前置许可无照经营:" />
+
+            <TextView
+                android:id="@+id/abbuseFormmer"
+                style="@style/q_base_tv_null"
+                android:hint="是否涉及前置许可无照经营" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="处理方式:" />
+
+            <TextView
+                android:id="@+id/deal"
+                style="@style/q_base_tv_null"
+                android:hint="请选择处理方式" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <!--
+            <TextView
+                style="@style/q_base_title"
+                android:text="执法对象:" />
+
+            <EditText
+                android:id="@+id/checkedName"
+                style="@style/q_base_et_single"
+                android:hint="请填写执法对象" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="联系电话:" />
+
+            <EditText
+                android:id="@+id/checkedNumber"
+                style="@style/q_base_et_single"
+                android:hint="请填写执法对象联系电话" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+            -->
+
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="现场照片:" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/white_corner_stroke" >
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="horizontal"
+                android:paddingBottom="2dp" >
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/imageview_background"
-                    android:scaleType="centerCrop" />
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_corner_stroke" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/imageview_background"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_corner_stroke" >
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/imageview_background"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_corner_stroke" >
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/imageview_background"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="工作人员:" />
+
+            <TextView
+                android:id="@+id/inspector"
+                style="@style/q_base_tv_null"
+                android:hint="请选择工作人员" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
+            <TextView
+                style="@style/q_base_title"
+                android:text="备注:" />
+
+            <EditText
+                android:id="@+id/memo"
+                style="@style/q_base_et_muti"
+                android:hint="其他说明" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_black7" />
+
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/white_corner_stroke" >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/imageview_background"
-                    android:scaleType="centerCrop" />
-            </LinearLayout>
+                <Button
+                    android:id="@+id/tempButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_four_corner_lightblue"
+                    android:text="暂存"
+                    android:textColor="@color/text_white"
+                    android:textSize="17dp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/white_corner_stroke" >
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/imageview_background"
-                    android:scaleType="centerCrop" />
+                <Button
+                    android:id="@+id/realButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_four_corner"
+                    android:text="提交"
+                    android:textColor="@color/text_white"
+                    android:textSize="17dp" />
             </LinearLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
+    </ScrollView>
 
-        <TextView
-            style="@style/q_base_title"
-            android:text="工作人员:" />
-
-        <TextView
-            android:id="@+id/inspector"
-            style="@style/q_base_tv_null"
-            android:hint="请选择工作人员" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <TextView
-            style="@style/q_base_title"
-            android:text="备注:" />
-
-        <EditText
-            android:id="@+id/memo"
-            style="@style/q_base_et_muti"
-            android:hint="其他说明" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/text_black7" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/tempButton"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_four_corner_lightblue"
-                android:text="暂存"
-                android:textColor="@color/text_white"
-                android:textSize="17dp" />
-
-            <Button
-                android:id="@+id/realButton"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_four_corner"
-                android:text="提交"
-                android:textColor="@color/text_white"
-                android:textSize="17dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

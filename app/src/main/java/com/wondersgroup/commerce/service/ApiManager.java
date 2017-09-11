@@ -119,7 +119,7 @@ public class ApiManager {
         getInstance().token = "";
     }
 
-    public synchronized void init(String token, Context context) {
+    public synchronized void init() {
 
         RootAppcation appcation = RootAppcation.getInstance();
         switch (appcation.getVersion()) {
@@ -151,7 +151,7 @@ public class ApiManager {
                 tjInit();
                 break;
             case "四川":
-                API_CASE = API_CASE_3;
+                API_CASE = API_CASE_2;
                 API_HB_ROOT = API_HB_ROOT_3;
                 API_OA = API_OA_1;
                 caseInit();
@@ -232,6 +232,9 @@ public class ApiManager {
         if(tjApi==null){
             synchronized (ApiManager.class){
                 if(tjApi==null){
+                    httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+                    httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
+                    httpClient.setReadTimeout(60, TimeUnit.SECONDS);
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(API_TJ)
                             .addConverterFactory(GsonConverterFactory.create())

@@ -55,7 +55,6 @@ public class ListDialog extends DialogFragment implements View.OnClickListener{
     private ArrayList<String> items=new ArrayList<>();
     private List<DicItem> dicItems=new ArrayList<>();
     private String organId;
-    private RootAppcation app;
 
     public interface OnSelected{
         void onSelected(String type, String typeCode);
@@ -69,7 +68,6 @@ public class ListDialog extends DialogFragment implements View.OnClickListener{
             titleString=getArguments().getString("title");
             type=getArguments().getString("type");
         }
-        app = (RootAppcation) getActivity().getApplication();
     }
 
     public static ListDialog newInsance(String title,String type){
@@ -140,35 +138,11 @@ public class ListDialog extends DialogFragment implements View.OnClickListener{
         if("CLQD".equals(type)){
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.view_checked_list_item, items);
             list.setAdapter(adapter);
-            /*list.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-            list.setItemsCanFocus(false);
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    list.setItemChecked(position,!list.isItemChecked(position));
-                    if("9".equals(dicItems.get(position).getName())){
-                        new MaterialDialog.Builder(getContext())
-                                .title("请输入类型名")
-                                .inputType(InputType.TYPE_CLASS_TEXT)
-                                .input("输入类型名", "", new MaterialDialog.InputCallback() {
-                                    @Override
-                                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                                        items.set(position,input.toString());
-                                    }
-                                })
-                                .cancelable(false)
-                                .show();
-                    }
-                }
-            });*/
             list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             list.setItemsCanFocus(false);
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    /*list.setItemChecked(position,!list.isItemChecked(position));
-                    CheckedTextView tv=(CheckedTextView)view;
-                    tv.toggle();*/
                     if("9".equals(dicItems.get(position).getName())){
                         new MaterialDialog.Builder(getContext())
                                 .title("请输入类型名")
@@ -184,89 +158,6 @@ public class ListDialog extends DialogFragment implements View.OnClickListener{
                     }
                 }
             });
-            /*list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
-                    if("9".equals(dicItems.get(position).getName())){
-                        new MaterialDialog.Builder(getContext())
-                                .title("请输入类型名")
-                                .inputType(InputType.TYPE_CLASS_TEXT)
-                                .input("输入类型名", "", new MaterialDialog.InputCallback() {
-                                    @Override
-                                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                                        items.set(position,input.toString());
-                                    }
-                                })
-                                .cancelable(false)
-                                .show();
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });*/
-
-            /*list.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-                @Override
-                public void onItemCheckedStateChanged(ActionMode mode, final int position, long id, boolean checked) {
-                    Toast.makeText(getContext(),""+position,Toast.LENGTH_LONG).show();
-                    if(checked){
-                        if("其他".equals(items.get(position))){
-                            new MaterialDialog.Builder(getContext())
-                                    .title("请输入类型名")
-                                    .inputType(InputType.TYPE_CLASS_TEXT)
-                                    .input("输入类型名", "", new MaterialDialog.InputCallback() {
-                                        @Override
-                                        public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                                            items.set(position,input.toString());
-                                        }
-                                    })
-                                    .cancelable(false)
-                                    .show();
-                        }
-                    }
-                }
-
-                @Override
-                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                    return false;
-                }
-
-                @Override
-                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                    return false;
-                }
-
-                @Override
-                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                    return false;
-                }
-
-                @Override
-                public void onDestroyActionMode(ActionMode mode) {
-
-                }
-            });*/
-            /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    if ("其它".equals(items.get(position))) {
-                        new MaterialDialog.Builder(getContext())
-                                .title("请输入类型名")
-                                .inputType(InputType.TYPE_CLASS_TEXT)
-                                .input("输入类型名", "", new MaterialDialog.InputCallback() {
-                                    @Override
-                                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                                        items.set(position,input.toString());
-                                    }
-                                })
-                                .cancelable(false)
-                                .show();
-                    }
-                }
-            });*/
             LinearLayout ll=new LinearLayout(getContext());
             ll.setOrientation(LinearLayout.VERTICAL);
             Button btn=new Button(getContext());
@@ -362,12 +253,6 @@ public class ListDialog extends DialogFragment implements View.OnClickListener{
         }else if("CLQD".equals(type)){
             dicItems.addAll(dic.getDicCheckAppendixList());
         }
-            /*else if("CDXZ".equals(type)){
-            dicItems.addAll(dic.getRunSpaceType());
-        }else if("BMXZ".equals(type)){
-            //List<DicItem> bmItems=Hawk.get("BMXZDic");
-            dicItems.addAll(dic.getDicDeptTypeAll());
-        }*/
         for (DicItem i :
                 dicItems) {
             items.add(i.getValue());

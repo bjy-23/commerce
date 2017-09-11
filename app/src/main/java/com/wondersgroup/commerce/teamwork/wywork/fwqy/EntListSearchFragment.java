@@ -52,7 +52,6 @@ public class EntListSearchFragment extends Fragment {
 	private Gson gson = new Gson();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
-	private Dialog progressDialog;
 	private RootAppcation application;
 
 	// selfList
@@ -76,26 +75,6 @@ public class EntListSearchFragment extends Fragment {
 		toolbarText.setText(Constants.fwqy);
 
 		application = (RootAppcation) activity.getApplication();
-//		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
-//				"loading");
-
-
-
-//		Toolbar toolbar = (Toolbar) view.findViewById(R.id.mid_toolbar);
-//		TextView toolbarText = (TextView) view.findViewById(R.id.toolbar_title);
-//		// toolbar.inflateMenu(R.menu.menu_main);
-//		activity.setSupportActionBar(toolbar);
-//		activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//		activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-//		activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-//		toolbarText.setText(Constants.qyfw+"——企业列表");
-
-
-
-//		ActionBar actionBar = activity.getSupportActionBar();
-//		actionBar.setDisplayShowTitleEnabled(true);
-//		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("监督管理—服务企业");
 		searchWord = (TextView) view.findViewById(R.id.searchWord);
 		CheckUtil.limitCheckMinCount(searchWord,Constants.inputMinCount);
 		CheckUtil.limitCheckMaxCount(searchWord,Constants.inputMaxCount);

@@ -10,6 +10,11 @@ android {
 
         }
     }
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion '25.0.1'
     defaultConfig {
@@ -19,6 +24,14 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
+    }
+    signingConfigs {
+        relase {
+            storeFile file("wonders.jks")
+            storePassword "123456789"
+            keyAlias "YDJG"
+            keyPassword "123456789"
+        }
     }
     buildTypes {
         release {
@@ -32,6 +45,9 @@ android {
                     output.outputFile = new File(output.outputFile.parent, newName)
                 }
             }
+        }
+        debug {
+
         }
     }
     lintOptions {
@@ -49,6 +65,13 @@ android {
 
     }
     productFlavors {
+        YN {
+            resValue("string", "app_name", "云南工商业务系统(移动版)")
+        }
+
+        SC {
+            resValue("string", "app_name", "四川工商移动监管")
+        }
     }
 }
 
@@ -66,7 +89,6 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
         transitive = true
     }
-    compile files('libs/zxing.jar')
     compile 'commons-codec:commons-codec:1.10'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'

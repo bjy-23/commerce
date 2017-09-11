@@ -117,13 +117,13 @@ public class DailyCheckTempFragment extends Fragment {
 		view = inflater.inflate(R.layout.mode_expandablelist, container, false);
 		activity = (AppCompatActivity) getActivity();
 		application = (RootAppcation) activity.getApplication();
-		application.setProblemName(application.getInfoBean()
-				.getAppRecordContentVo().getProblemName());
-		application.setProblem(application.getInfoBean()
-				.getAppRecordContentVo().getProblem());
-
-		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
-		title.setText(application.getInfoBean().getEtpsInfoVo().get("etpsName"));
+//		application.setProblemName(application.getInfoBean()
+//				.getAppRecordContentVo().getProblemName());
+//		application.setProblem(application.getInfoBean()
+//				.getAppRecordContentVo().getProblem());
+//
+//		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
+//		title.setText(application.getInfoBean().getEtpsInfoVo().get("etpsName"));
 
 		headView = inflater.inflate(R.layout.q_dailycheck_up, null);
 		footView = inflater.inflate(R.layout.q_dailycheck_down, null);
@@ -232,9 +232,9 @@ public class DailyCheckTempFragment extends Fragment {
 
 	private void initExpandableList() {
 
-		tempDetails = application.getInfoBean().getAppRecordDetails();
-
-		fathers = application.getInfoBean().getCheckMatters();
+//		tempDetails = application.getInfoBean().getAppRecordDetails();
+//
+//		fathers = application.getInfoBean().getCheckMatters();
 		newFathers = new ArrayList<Father>();
 		for (int i = 0; i < fathers.size(); i++) {
 			if (fathers.get(i).getParentMatterId() == null) {
@@ -295,12 +295,12 @@ public class DailyCheckTempFragment extends Fragment {
 	private void initView() {
 		deal = (TextView) footView.findViewById(R.id.deal);
 		inspector = (TextView) footView.findViewById(R.id.inspector);
-		dealMap = application.getInfoBean().getDeal();
-		users = application.getInfoBean().getUserList();
-		deal.setTag(application.getInfoBean().getAppRecordContent()
-				.getTreatment());
-		inspector.setTag(application.getInfoBean().getAppCheckInfo()
-				.getInspector());
+//		dealMap = application.getInfoBean().getDeal();
+//		users = application.getInfoBean().getUserList();
+//		deal.setTag(application.getInfoBean().getAppRecordContent()
+//				.getTreatment());
+//		inspector.setTag(application.getInfoBean().getAppCheckInfo()
+//				.getInspector());
 		String[] inspectorStrings = inspector.getTag().toString().split(",");
 		String inspectorString = " ";
 		for (int i = 0; i < inspectorStrings.length; i++) {
@@ -341,17 +341,17 @@ public class DailyCheckTempFragment extends Fragment {
 		expandableListView = (AnimatedExpandableListView) view
 				.findViewById(R.id.doubleList);
 		changeRecord = (TextView) footView.findViewById(R.id.changeRecord);
-		MapToListUtil mapToListUtil = new MapToListUtil(application
-				.getInfoBean().getAppEntInfoVo());
-		List<EtpsInfoBean> keyValues = mapToListUtil.mapToEtpsInfoS();
+//		MapToListUtil mapToListUtil = new MapToListUtil(application
+//				.getInfoBean().getAppEntInfoVo());
+//		List<EtpsInfoBean> keyValues = mapToListUtil.mapToEtpsInfoS();
 		String string = "";
-		for (int i = 0; i < keyValues.size(); i++) {
-			if (!keyValues.get(i).getValue().equals("EOF")) {
-				string += keyValues.get(i).getName() + ":"
-						+ keyValues.get(i).getValue() + "\n";
-			}
-
-		}
+//		for (int i = 0; i < keyValues.size(); i++) {
+//			if (!keyValues.get(i).getValue().equals("EOF")) {
+//				string += keyValues.get(i).getName() + ":"
+//						+ keyValues.get(i).getValue() + "\n";
+//			}
+//
+//		}
 
 		// String string = textView.getText().toString();
 		// string += etpsInfoBeans.get(position).getName() + ":"
@@ -360,9 +360,9 @@ public class DailyCheckTempFragment extends Fragment {
 		changeRecord.setText(string);
 
 		trdScope = (TextView) footView.findViewById(R.id.trdScope);
-		trdScope.setText(application.getInfoBean().getTrdScopeChg());
+//		trdScope.setText(application.getInfoBean().getTrdScopeChg());
 		tradeScope = (TextView) footView.findViewById(R.id.tradeScope);
-		tradeScope.setText(application.getInfoBean().getTrdScope());
+//		tradeScope.setText(application.getInfoBean().getTrdScope());
 		tempButton = (Button) footView.findViewById(R.id.tempButton);
 		realButton = (Button) footView.findViewById(R.id.realButton);
 		checkedName = (TextView) footView.findViewById(R.id.checkedName);
@@ -372,11 +372,11 @@ public class DailyCheckTempFragment extends Fragment {
 		CheckUtil.limitCheckMaxCount(checkedName,50);
 		CheckUtil.limitCheckMaxCount(trdScope, 50);
 		CheckUtil.checkInputPhone(checkedNumber);
-		checkedName.setText(application.getInfoBean().getAppCheckInfo()
-				.getCheckedName());
-		checkedNumber.setText(application.getInfoBean().getAppCheckInfo()
-				.getCheckedNumber());
-		memo.setText(application.getInfoBean().getAppCheckInfo().getMemo());
+//		checkedName.setText(application.getInfoBean().getAppCheckInfo()
+//				.getCheckedName());
+//		checkedNumber.setText(application.getInfoBean().getAppCheckInfo()
+//				.getCheckedNumber());
+//		memo.setText(application.getInfoBean().getAppCheckInfo().getMemo());
 		// gpsInfo.setText(application.getInfoBean().getAppCheckInfo()
 		// .getGpsInfo());
 		// problem.setText(application.getInfoBean().getAppRecordContent()
@@ -405,8 +405,8 @@ public class DailyCheckTempFragment extends Fragment {
 					// new
 					saveCheckBean.getAppRecordContent().setProblem(
 							problem.getTag().toString());
-					saveCheckBean.getAppCheckInfo().setSubmitUser(
-							application.getLoginUserInfo().getUserId());
+//					saveCheckBean.getAppCheckInfo().setSubmitUser(
+//							application.getLoginUserInfo().getUserId());
 					saveCheckBean.getAppCheckInfo().setRecordId(
 							application.getRecordId());
 					saveCheckBean.setTrdScope(trdScope.getText().toString());
@@ -414,21 +414,21 @@ public class DailyCheckTempFragment extends Fragment {
 					saveCheckBean.setAppRecordDetail(appRecordDetails);
 					saveCheckBean.setAppEntInfo(adapter.getChangeMap());
 					saveCheckBean.getAppCheckInfo().setCheckType("1");
-					saveCheckBean.getAppCheckInfo().setGpsInfo(
-							application.getInfoBean().getAppCheckInfo()
-									.getGpsInfo());
-					saveCheckBean.getAppCheckInfo()
-							.setEtpsId(
-									application.getInfoBean().getAppCheckInfo()
-											.getEtpsId());
+//					saveCheckBean.getAppCheckInfo().setGpsInfo(
+//							application.getInfoBean().getAppCheckInfo()
+//									.getGpsInfo());
+//					saveCheckBean.getAppCheckInfo()
+//							.setEtpsId(
+//									application.getInfoBean().getAppCheckInfo()
+//											.getEtpsId());
 					saveCheckBean.getAppCheckInfo().setPhonenumber(
 							checkedNumber.getText() + "");
 					saveCheckBean.getAppCheckInfo().setMemo(memo.getText() + "");
 
-					saveCheckBean.getAppCheckInfo().setOrganId(
-							application.getLoginUserInfo().getOrganId());
-					saveCheckBean.getAppCheckInfo().setDeptId(
-							application.getLoginUserInfo().getDeptId());
+//					saveCheckBean.getAppCheckInfo().setOrganId(
+//							application.getLoginUserInfo().getOrganId());
+//					saveCheckBean.getAppCheckInfo().setDeptId(
+//							application.getLoginUserInfo().getDeptId());
 
 					SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 					String checkDate = df.format(new Date());// new Date()为获取当前系统时间
@@ -587,8 +587,8 @@ public class DailyCheckTempFragment extends Fragment {
 				saveCheckBean.getAppRecordContent().setProblem(
 						problem.getTag().toString());
 
-				saveCheckBean.getAppCheckInfo().setSubmitUser(
-						application.getLoginUserInfo().getUserId());
+//				saveCheckBean.getAppCheckInfo().setSubmitUser(
+//						application.getLoginUserInfo().getUserId());
 
 					saveCheckBean.setTrdScope(trdScope.getText().toString());
 					saveCheckBean.setAppRecordDetail(appRecordDetails);
@@ -596,21 +596,21 @@ public class DailyCheckTempFragment extends Fragment {
 				saveCheckBean.getAppCheckInfo().setRecordId(
 						application.getRecordId());
 				saveCheckBean.getAppCheckInfo().setCheckType("1");
-				saveCheckBean.getAppCheckInfo().setGpsInfo(
-						application.getInfoBean().getAppCheckInfo()
-								.getGpsInfo());
-				saveCheckBean.getAppCheckInfo()
-						.setEtpsId(
-								application.getInfoBean().getAppCheckInfo()
-										.getEtpsId());
+//				saveCheckBean.getAppCheckInfo().setGpsInfo(
+//						application.getInfoBean().getAppCheckInfo()
+//								.getGpsInfo());
+//				saveCheckBean.getAppCheckInfo()
+//						.setEtpsId(
+//								application.getInfoBean().getAppCheckInfo()
+//										.getEtpsId());
 				saveCheckBean.getAppCheckInfo().setPhonenumber(
 						checkedNumber.getText() + "");
 					saveCheckBean.getAppCheckInfo().setMemo(memo.getText() + "");
 
-				saveCheckBean.getAppCheckInfo().setOrganId(
-						application.getLoginUserInfo().getOrganId());
-				saveCheckBean.getAppCheckInfo().setDeptId(
-						application.getLoginUserInfo().getDeptId());
+//				saveCheckBean.getAppCheckInfo().setOrganId(
+//						application.getLoginUserInfo().getOrganId());
+//				saveCheckBean.getAppCheckInfo().setDeptId(
+//						application.getLoginUserInfo().getDeptId());
 
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 				String checkDate = df.format(new Date());// new Date()为获取当前系统时间
@@ -676,22 +676,22 @@ public class DailyCheckTempFragment extends Fragment {
 	}
 
 	public void initCheckList() {
-		if (application.getInfoBean() != null) {
-			LinkedHashMap<String, String> changeMap = application.getInfoBean()
-					.getAppEntInfoVo();
-			LinkedHashMap<String, String> map = application.getInfoBean()
-					.getEtpsInfoVo();
-			MapToListUtil mapToListUtil = new MapToListUtil(map);
-			List<EtpsInfoBean> etpsInfoBeans = mapToListUtil.mapToEtpsInfoS();
-
-			dailyList = (LinearLayoutForListView) view
-					.findViewById(R.id.demo_list);
-			adapter = new EtpsInfoRadioButtonAdapter(activity,
-					R.layout.radio_buton_list_item, etpsInfoBeans,
-					changeRecord, changeMap);
-			adapter.setChangeMap(application.getInfoBean().getAppEntInfoVo());
-			dailyList.setAdapter(adapter);
-		}
+//		if (application.getInfoBean() != null) {
+//			LinkedHashMap<String, String> changeMap = application.getInfoBean()
+//					.getAppEntInfoVo();
+//			LinkedHashMap<String, String> map = application.getInfoBean()
+//					.getEtpsInfoVo();
+//			MapToListUtil mapToListUtil = new MapToListUtil(map);
+//			List<EtpsInfoBean> etpsInfoBeans = mapToListUtil.mapToEtpsInfoS();
+//
+//			dailyList = (LinearLayoutForListView) view
+//					.findViewById(R.id.demo_list);
+//			adapter = new EtpsInfoRadioButtonAdapter(activity,
+//					R.layout.radio_buton_list_item, etpsInfoBeans,
+//					changeRecord, changeMap);
+//			adapter.setChangeMap(application.getInfoBean().getAppEntInfoVo());
+//			dailyList.setAdapter(adapter);
+//		}
 	}
 
 	@Override

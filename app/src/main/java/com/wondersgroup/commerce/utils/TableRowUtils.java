@@ -11,6 +11,7 @@ import com.wondersgroup.commerce.widget.CusDatePickerDialog;
 import com.wondersgroup.commerce.widget.TableRow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -79,7 +80,7 @@ public class TableRowUtils {
             case "3":
                 builder.title(data.getName())
                         .content(data.getValue())
-                        .multiSelect2(new ArrayList<String>());
+                        .multiSelect2(Arrays.asList("123","789"));
                 break;
             case "7":
                 builder.title(data.getName())

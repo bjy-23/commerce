@@ -173,8 +173,7 @@ public class QueryCountActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    @OnClick({R.id.ywcx, R.id.nb, R.id.bj, R.id.bl, R.id.agr_annal, R.id.yc, R.id.shjg, R.id.gtnb, R.id.lryc
-            , R.id.djhs})
+    @OnClick({R.id.ywcx, R.id.nb, R.id.bj, R.id.bl, R.id.agr_annal, R.id.yc, R.id.shjg,R.id.lryc})
     void onTextClick(View view) {
         switch (view.getId()) {
             case R.id.ywcx://业务查询
@@ -199,10 +198,8 @@ public class QueryCountActivity extends BaseActivity {
                 startActivity(new Intent(this, OutActivity.class));
                 break;
             case R.id.shjg:
-            case R.id.ztnb:
-            case R.id.djhs:
                 Toast.makeText(QueryCountActivity.this, "功能正在开发中", Toast.LENGTH_SHORT).show();
-                break;
+            break;
         }
     }
 

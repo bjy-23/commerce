@@ -11,7 +11,7 @@ android {
     buildToolsVersion "25.0.1"
 
     defaultConfig {
-        applicationId "com.example.fgdj"
+//        applicationId "com.example.fgdj"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1

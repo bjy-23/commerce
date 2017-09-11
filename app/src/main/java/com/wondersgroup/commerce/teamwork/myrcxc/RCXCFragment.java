@@ -16,9 +16,6 @@ import android.widget.Toast;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.SerializableMap;
-import com.wondersgroup.commerce.teamwork.mysupervision.KeyValue;
-import com.wondersgroup.commerce.teamwork.mysupervision.MapToListUtil;
-import com.wondersgroup.commerce.teamwork.mysupervision.ShowSingleDialogListListener;
 import com.wondersgroup.commerce.utils.CheckUtil;
 
 import java.util.HashMap;
@@ -60,10 +57,10 @@ public class RCXCFragment extends Fragment {
         checkTypeMap.put("xyfl","信用分类");
         checkTypeMap.put("zdhy","重点行业");
         checkTypeMap.put("zdqy","重点区域");
-        MapToListUtil checkUtil = new MapToListUtil(checkTypeMap);
-        List<KeyValue> checkKeyValues = checkUtil.mapToKeyValues();
-        rcxcSingleChoose.setOnClickListener(new ShowSingleDialogListListener(
-                checkKeyValues, getActivity(), rcxcSingleChoose));
+//        MapToListUtil checkUtil = new MapToListUtil(checkTypeMap);
+//        List<KeyValue> checkKeyValues = checkUtil.mapToKeyValues();
+//        rcxcSingleChoose.setOnClickListener(new ShowSingleDialogListListener(
+//                checkKeyValues, getActivity(), rcxcSingleChoose));
 //        CheckUtil.limitCheckMinCount(nameEt, Constants.inputMinCount);
         CheckUtil.limitCheckMaxCount(nameEt, Constants.inputMaxCount);
         regNoEt.setInputType(InputType.TYPE_CLASS_DATETIME);

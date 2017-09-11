@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
-import com.wondersgroup.commerce.teamwork.dailycheck.UtilForFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,8 +33,6 @@ public class XqzgdqActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
         title.setText("限期整改到期");
-
-        UtilForFragment.switchContent(this, new XqzgdqFragment(), R.id.content);
 
         }
 

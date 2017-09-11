@@ -10,7 +10,6 @@
     <include layout="@layout/view_mid_toolbar" />
 
     <RelativeLayout
-        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="34dp"
         android:background="@color/white"

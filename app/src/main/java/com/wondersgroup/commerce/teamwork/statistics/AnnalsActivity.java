@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -81,7 +82,7 @@ public class AnnalsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
 //        recyclerView.setAdapter(new HeaderBottomAdapter(this, null));
         year.setText(getYear() + "");
-//        params.put("organId", loginBean.getResult().getOrganId());
+        params.put("organId", loginBean.getResult().getOrganId());
 //        params.put("organId", "510000000");
         params.put("annlYear", year.getText().toString());
         params.put("allFlag", isZCBJ ? "0" : "1");//0表示获取全局数据，1表示只查本级。
@@ -151,33 +152,37 @@ public class AnnalsActivity extends AppCompatActivity {
         List<Annals.AnnalsResult> data = new ArrayList<>();
         Annals.AnnalsResult result = new Annals.AnnalsResult();
         result.setName("内资");
-        result.setYnb(item.getNZ_YES_ANNL_COUNT());
-        result.setWnb(item.getNZ_NOT_ANNL_COUNT());
-        result.setYgnb(item.getNZ_NEED_ANNL_COUNT());
-        result.setNbl(item.getNZ_ANNL_PERCENT());
+        result.setYnb(defaultZero(item.getNZ_YES_ANNL_COUNT()));
+        result.setWnb(defaultZero(item.getNZ_NOT_ANNL_COUNT()));
+        result.setYgnb(defaultZero(item.getNZ_NEED_ANNL_COUNT()));
+        result.setNbl(defaultZero(item.getNZ_ANNL_PERCENT()));
         data.add(result);
         result = new Annals.AnnalsResult();
         result.setName("外资");
-        result.setYnb(item.getWZ_YES_ANNL_COUNT());
-        result.setWnb(item.getWZ_NOT_ANNL_COUNT());
-        result.setYgnb(item.getWZ_NEED_ANNL_COUNT());
-        result.setNbl(item.getWZ_ANNL_PERCENT());
+        result.setYnb(defaultZero(item.getWZ_YES_ANNL_COUNT()));
+        result.setWnb(defaultZero(item.getWZ_NOT_ANNL_COUNT()));
+        result.setYgnb(defaultZero(item.getWZ_NEED_ANNL_COUNT()));
+        result.setNbl(defaultZero(item.getWZ_ANNL_PERCENT()));
         data.add(result);
         result = new Annals.AnnalsResult();
         result.setName("农专");
-        result.setYnb(item.getNOZ_YES_ANNL_COUNT());
-        result.setWnb(item.getNOZ_NOT_ANNL_COUNT());
-        result.setYgnb(item.getNOZ_NEED_ANNL_COUNT());
-        result.setNbl(item.getNOZ_ANNL_PERCENT());
+        result.setYnb(defaultZero(item.getNOZ_YES_ANNL_COUNT()));
+        result.setWnb(defaultZero(item.getNOZ_NOT_ANNL_COUNT()));
+        result.setYgnb(defaultZero(item.getNOZ_NEED_ANNL_COUNT()));
+        result.setNbl(defaultZero(item.getNOZ_ANNL_PERCENT()));
         data.add(result);
         result = new Annals.AnnalsResult();
         result.setName("个体");
-        result.setYnb(item.getGT_YES_ANNL_COUNT());
-        result.setWnb(item.getGT_NOT_ANNL_COUNT());
-        result.setYgnb(item.getGT_NEED_ANNL_COUNT());
-        result.setNbl(item.getGT_ANNL_PERCENT());
+        result.setYnb(defaultZero(item.getGT_YES_ANNL_COUNT()));
+        result.setWnb(defaultZero(item.getGT_NOT_ANNL_COUNT()));
+        result.setYgnb(defaultZero(item.getGT_NEED_ANNL_COUNT()));
+        result.setNbl(defaultZero(item.getGT_ANNL_PERCENT()));
         data.add(result);
         return data;
+    }
+
+    private String defaultZero(String value) {
+        return TextUtils.isEmpty(value) ? "0" : value;
     }
 
     /**

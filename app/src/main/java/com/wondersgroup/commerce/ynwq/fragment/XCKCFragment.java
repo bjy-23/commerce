@@ -53,7 +53,6 @@ import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.ccjc.DicItem;
 import com.wondersgroup.commerce.service.ApiManager;
-import com.wondersgroup.commerce.teamwork.dailycheck.ImgFirstBean;
 import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.ynwq.activity.InputActivity;
 import com.wondersgroup.commerce.ynwq.activity.ListActivity;

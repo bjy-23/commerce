@@ -28,7 +28,6 @@ import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.gwpy.CheckListActivity;
 import com.wondersgroup.commerce.teamwork.gwpy.PeopleListActivity;
-import com.wondersgroup.commerce.teamwork.wywork.FileUtils;
 import com.wondersgroup.commerce.widget.InfoCheckRow;
 import com.wondersgroup.commerce.widget.InfoSelectRow;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
@@ -528,15 +527,15 @@ public class PyFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Response<FileBean> response, Retrofit retrofit) {
                 if(response!=null && response.body()!=null){
                     if("200".equals(response.body().getCode())){
-                        FileUtils fileUtils = new FileUtils();
-                        try {
-                            fileUtils.decoderBase64File(getActivity(),
-                                    response.body().getResult().getAttachFile().getAttachFileStr(),
-                                    getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//                        FileUtils fileUtils = new FileUtils();
+//                        try {
+//                            fileUtils.decoderBase64File(getActivity(),
+//                                    response.body().getResult().getAttachFile().getAttachFileStr(),
+//                                    getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+//                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
                     }else{
                         Toast.makeText(getActivity(), "下载失败", Toast.LENGTH_SHORT).show();
                     }

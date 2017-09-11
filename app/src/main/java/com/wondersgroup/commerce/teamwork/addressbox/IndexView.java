@@ -195,8 +195,6 @@ public class IndexView extends View {
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             mTouched = true;
-        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
         } else {
             mFloatView.setVisibility(INVISIBLE);
             mTouched = false;
@@ -223,5 +221,9 @@ public class IndexView extends View {
     public interface OnIndexSelectListener {
         /*返回选中的位置，和对应的索引名*/
         void onItemSelect(int position, String value);
+    }
+
+    public void clean(){
+        mWindowManager.removeViewImmediate(mFloatView);
     }
 }

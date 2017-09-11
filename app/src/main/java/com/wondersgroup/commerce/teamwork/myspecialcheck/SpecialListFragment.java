@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +18,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
+import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsOneAdapter;
 import com.wondersgroup.commerce.teamwork.dailycheck.BigBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.HttpCallbackListener;
@@ -46,16 +50,17 @@ public class SpecialListFragment extends Fragment {
 	private Gson gson = new Gson();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
+	private TotalLoginBean loginBean;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.mode_list, container, false);
 		activity = (AppCompatActivity) getActivity();
+        loginBean = Hawk.get(Constants.LOGIN_BEAN);
 		ActionBar actionBar = activity.getSupportActionBar();
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("专项整治列表");
 		TextView title = (TextView)activity.findViewById(R.id.toolbar_title);
 		title.setText("专项整治列表");
 		application = (RootAppcation) activity.getApplication();
@@ -83,7 +88,8 @@ public class SpecialListFragment extends Fragment {
 				// 河北接口
 				String hebeiAddress = Url.QJ_IN_USE + "doCheck/"
 						+ application.getEtpsBeans().get(position).getEtpsId()
-						+ "/3/" + application.getLoginUserInfo().getDeptId();
+						+ "/3/" + loginBean.getResult().getDeptId();
+                Log.e("hebeiAddress", hebeiAddress);
 				HttpClientUtil.callWebServiceForGet(hebeiAddress,
 						new HttpCallbackListener() {
 
@@ -154,7 +160,6 @@ public class SpecialListFragment extends Fragment {
 					progressDialog.cancel();
 					UtilForFragment.switchContentWithStack(activity,
 							new SpecialFragment(), R.id.content);
-
 				} else {
 					progressDialog.cancel();
 					Toast.makeText(getActivity(), "未查询到该记录详情",

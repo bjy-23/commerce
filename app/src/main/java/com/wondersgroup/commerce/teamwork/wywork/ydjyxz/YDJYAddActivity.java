@@ -34,8 +34,6 @@ public class YDJYAddActivity extends AppCompatActivity{
     Toolbar toolbar;
     @Bind(R.id.toolbar_title)
     TextView toolTitle;
-    @Bind(R.id.toolbar_image)
-    ImageView toolAdd;
 
     @Bind(R.id.ydjy_ssfj1)
     TextView tvSsfj1;
@@ -125,7 +123,6 @@ public class YDJYAddActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        toolAdd.setImageResource(R.drawable.toolbar_add);
         toolTitle.setText("新增");
 
         init();
@@ -163,14 +160,6 @@ public class YDJYAddActivity extends AppCompatActivity{
 //        }
 
 
-
-
-        toolAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "提交", Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void initQy1() {

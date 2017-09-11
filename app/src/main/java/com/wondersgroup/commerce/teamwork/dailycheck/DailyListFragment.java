@@ -56,48 +56,48 @@ public class DailyListFragment extends Fragment {
 
 	public void initCheckList() {
 		DailyCheckList = (ListView) view.findViewById(R.id.demo_list);
-		adapter = new EtpsOneAdapter(getActivity(), R.layout.mode_list_item1,
-				application.getEtpsBeans());
+//		adapter = new EtpsOneAdapter(getActivity(), R.layout.mode_list_item1,
+//				application.getEtpsBeans());
 		DailyCheckList.setAdapter(adapter);
-		DailyCheckList.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				MyProgressDialog.show(activity);
-
-				application.setCaseId(application.getEtpsBeans().get(position)
-						.getEtpsId());
-				// 河北接口
-				String hebeiAddress = Url.QJ_IN_USE + "doCheck/"
-						+ application.getEtpsBeans().get(position).getEtpsId()
-						+ "/1/" + application.getLoginUserInfo().getDeptId();
-				HttpClientUtil.callWebServiceForGet(hebeiAddress,
-						new HttpCallbackListener() {
-
-							@Override
-							public void onFinish(String response) {
-								MyProgressDialog.dismiss();
-								Message message = new Message();
-								message.what = SHOW_RESPONSE;
-								message.obj = response.toString();
-								handler.sendMessage(message);
-							}
-
-							@Override
-							public void onError(Exception e) {
-								MyProgressDialog.dismiss();
-								Message message = new Message();
-								message.what = SHOW_ERROR;
-								message.obj = e.toString();
-								handler.sendMessage(message);
-
-							}
-						});
-
-			}
-		});
+//		DailyCheckList.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//
+//				MyProgressDialog.show(activity);
+//
+////				application.setCaseId(application.getEtpsBeans().get(position)
+////						.getEtpsId());
+//				// 河北接口
+////				String hebeiAddress = Url.QJ_IN_USE + "doCheck/"
+////						+ application.getEtpsBeans().get(position).getEtpsId()
+////						+ "/1/" + application.getLoginUserInfo().getDeptId();
+//				HttpClientUtil.callWebServiceForGet(hebeiAddress,
+//						new HttpCallbackListener() {
+//
+//							@Override
+//							public void onFinish(String response) {
+//								MyProgressDialog.dismiss();
+//								Message message = new Message();
+//								message.what = SHOW_RESPONSE;
+//								message.obj = response.toString();
+//								handler.sendMessage(message);
+//							}
+//
+//							@Override
+//							public void onError(Exception e) {
+//								MyProgressDialog.dismiss();
+//								Message message = new Message();
+//								message.what = SHOW_ERROR;
+//								message.obj = e.toString();
+//								handler.sendMessage(message);
+//
+//							}
+//						});
+//
+//			}
+//		});
 	}
 
 	@Override
@@ -141,7 +141,7 @@ public class DailyListFragment extends Fragment {
 
 				if (code.equals("200")) {
 					BigBean bigBean = gson.fromJson(result, BigBean.class);
-					application.setBigBean(bigBean);
+//					application.setBigBean(bigBean);
 
 					UtilForFragment.switchContentWithStack(activity,
 							new DailyFragment(), R.id.content);

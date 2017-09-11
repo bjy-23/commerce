@@ -38,8 +38,6 @@ import com.wondersgroup.commerce.model.yn.RequestLoginBean;
 import com.wondersgroup.commerce.model.yn.YnLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.Result;
-import com.wondersgroup.commerce.teamwork.dailycheck.ImgFirstBean;
-import com.wondersgroup.commerce.teamwork.dailycheck.LoginUserInfo;
 import com.wondersgroup.commerce.utils.DataShared;
 import com.wondersgroup.commerce.utils.FileHelper;
 import com.wondersgroup.commerce.utils.LogHelper;
@@ -168,11 +166,11 @@ public class LoginActivity extends RootActivity {
                 switch (myApplication.getVersion()) {
                     case "云南":
                     case "四川":
-                        gsythLoginNet("1");
+//                        gsythLoginNet("1");
 
 //                        免登陆测试
-//                        makeMenu(new ArrayList<MenuBean>(),false);
-//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        makeMenu(new ArrayList<MenuBean>(),false);
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         break;
                     case "上海":
                         shLoginNet();
@@ -390,7 +388,8 @@ public class LoginActivity extends RootActivity {
             remakeMenus(menuList,menus);
             //配置图标
             for (MenuBean menuBean : menuList){
-                menuBean.setResId(Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName()));
+                Integer resId = Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName());
+                menuBean.setResId(resId);
             }
             Hawk.put(Constants.MENU_SC,menuList);
             RootAppcation.getInstance().setBottomMenus(new ArrayList<String>());
@@ -409,7 +408,7 @@ public class LoginActivity extends RootActivity {
                         break;
                     }
                 }
-                if (!isHave){
+                if (!isHave && !Constants.COMMON_ID.equals(menuBean.getMenuId())){
                     menuBeans.remove(i);
                     i--;
                 }
