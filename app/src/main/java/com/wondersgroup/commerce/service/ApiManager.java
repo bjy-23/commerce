@@ -29,9 +29,9 @@ public class ApiManager {
     应用名称；*/
    private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
     private static final String BASE_URL_2 = "http://172.28.129.42/";//云南内网正式
-    private static final String BASE_URL = BASE_URL_1;
-    public String API_TJ  = BASE_URL + "mds/";//测试
-//    public String API_TJ = BASE_URL + "mds2/";//正式
+    private static final String BASE_URL = BASE_URL_2;
+//    public String API_TJ  = BASE_URL + "mds/";//测试
+    public String API_TJ = BASE_URL + "mds2/";//正式
 
     //版本更新
     public static String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试

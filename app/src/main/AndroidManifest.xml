@@ -147,7 +147,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RecyclerActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".teamwork.ztxxcx.InputActivity"
             android:screenOrientation="portrait" />
@@ -324,7 +325,6 @@
         <activity
             android:name=".activity.RouterActivity"
             android:screenOrientation="portrait" />
-
         <activity android:name=".activity.FragmentActivity" />
         <activity android:name=".activity.QueryCountActivity" />
         <activity android:name=".activity.TjActivity" />
@@ -371,12 +371,15 @@
         <activity android:name=".teamwork.casedeal.LitigtDetailActivity" />
         <activity android:name=".teamwork.casedeal.CaseQueryActivity" />
         <activity android:name=".teamwork.email.EmailDetailsActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".activity.QueryActivity"></activity>
     </application>
 
 </manifest>

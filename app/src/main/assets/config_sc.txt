@@ -54,5 +54,9 @@
         {
             "menuName":"收件箱",
             "authId":"999"
+        },
+        {
+            "menuName":"广告查询",
+            "authId":"999"
         }
     ]

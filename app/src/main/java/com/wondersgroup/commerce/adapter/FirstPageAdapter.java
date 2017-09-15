@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.activity.GSActivity;
+import com.wondersgroup.commerce.activity.QueryActivity;
 import com.wondersgroup.commerce.activity.RecyclerActivity;
 import com.wondersgroup.commerce.activity.RouterActivity;
 import com.wondersgroup.commerce.activity.ViewPagerActivity;
@@ -95,6 +96,10 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
         switch (bean.getMenuId()){
             case Constants.COMMON_ID:
                 switch (bean.getMenuName()){
+                    case Constants.GGCX_NAME:
+                        intent = new Intent(context, QueryActivity.class);
+                        context.startActivity(intent);
+                        break;
                     case Constants.ZXZZ_NAME:
                         intent = new Intent(context, SpecialCheckActivity.class);
                         context.startActivity(intent);

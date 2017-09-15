@@ -1,8 +1,8 @@
 package com.wondersgroup.commerce.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
-import com.squareup.okhttp.ResponseBody;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.adapter.TextWpicAdapter;
 import com.wondersgroup.commerce.adapter.Title3RowAdapter;
@@ -39,6 +38,7 @@ import com.wondersgroup.commerce.teamwork.email.EmailResult;
 import com.wondersgroup.commerce.utils.DividerItemDecoration;
 import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.adapter.CommonAdapter;
+import com.wondersgroup.commerce.widget.SearchLayout;
 import com.wondersgroup.commerce.ynwq.widget.CountBar;
 
 import java.util.ArrayList;
@@ -77,6 +77,8 @@ public class RecyclerActivity extends AppCompatActivity {
     View viewError;
     @Bind(R.id.tv_error)
     TextView tvError;
+    @Bind(R.id.searchLayout)
+    SearchLayout searchLayout;
 
     private String doctype;
     private GwjsCondition condition;
@@ -183,6 +185,16 @@ public class RecyclerActivity extends AppCompatActivity {
         entIds=new ArrayList<>();
         onlyLocals = new ArrayList<>();
         if ("email".equals(type)){
+            searchLayout.setSearchListenr(new SearchLayout.SearchListener() {
+                @Override
+                public void search(String content) {
+                    pageNo = 1;
+                    state = Constants.LOAD_REFRESH;
+
+                    body.put("condition", String.format("{pageNo:%d,pageSize:%d,wordKey:'%s'}", pageNo, 10, content));
+                    getEmail();
+                }
+            });
             emailBeanList = new ArrayList<>();
             adapter = new CommonAdapter(this,emailBeanList);
             adapter.setItemClick(new CommonAdapter.ItemClick() {
@@ -555,10 +567,13 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     public void getEmail(){
+        final Dialog loadingDialog = LoadingDialog.showCanCancelable(this);
+        loadingDialog.show();
         Call<Result<EmailResult>> call = ApiManager.oaApi.getEmail(body);
         call.enqueue(new Callback<Result<EmailResult>>() {
             @Override
             public void onResponse(Response<Result<EmailResult>> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
                 if (response.body() != null
                         && response.body().getObject() != null
                         && response.body().getObject().getEmailList() != null
@@ -571,16 +586,24 @@ public class RecyclerActivity extends AppCompatActivity {
                         emailBeanList.addAll(response.body().getObject().getEmailList());
                         adapter.notifyDataSetChanged();
                     }
+                    viewError.setVisibility(View.GONE);
                 }else {
-                    if (emailBeanList.size() == 0)
+                    if (state == Constants.LOAD_REFRESH){
+                        emailBeanList.clear();
+                        adapter.notifyDataSetChanged();
                         viewError.setVisibility(View.VISIBLE);
-                    else
-                        viewError.setVisibility(View.GONE);
+                    }else {
+                        if (emailBeanList.size() == 0)
+                            viewError.setVisibility(View.VISIBLE);
+                        else
+                            viewError.setVisibility(View.GONE);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
+                loadingDialog.dismiss();
                 if (emailBeanList.size() == 0)
                     viewError.setVisibility(View.VISIBLE);
                 else

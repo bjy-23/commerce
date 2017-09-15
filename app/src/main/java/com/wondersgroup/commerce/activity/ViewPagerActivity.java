@@ -32,10 +32,12 @@ public class ViewPagerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.app_back);
         titleString=getIntent().getStringExtra("title");
-        if(titleString==null)titleString=getResources().getString(R.string.report_title);
+        if(titleString==null)
+            titleString=getResources().getString(R.string.report_title);
         title.setText(titleString);
         type=getIntent().getStringExtra("type");
-        if(type==null)type="TSJBCL";
+        if(type==null)
+            type="TSJBCL";
 
         ViewPagerAdapter adapter=new ViewPagerAdapter(getSupportFragmentManager(),type);
         viewPager.setAdapter(adapter);

@@ -1,5 +1,6 @@
 package com.wondersgroup.commerce.fgdj.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.wondersgroup.commerce.fgdj.bean.FgdjEntListBean;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.Result;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -301,6 +303,8 @@ public class ListInfoAdapter extends RecyclerView.Adapter implements View.OnClic
 
     //获取暂存数据
     public void getDataEdit(final String entId,final String type){
+        final Dialog dialog = LoadingDialog.showCanCancelable(mContext);
+        dialog.show();
         HashMap map = new HashMap();
         map.put(Constants.USER_ID,loginBean.getResult().getUserId());
         map.put(Constants.ORGAN_ID,loginBean.getResult().getOrganId());
@@ -310,6 +314,7 @@ public class ListInfoAdapter extends RecyclerView.Adapter implements View.OnClic
         ca.enqueue(new Callback<Result<BaseInfoBean>>() {
             @Override
             public void onResponse(Response<Result<BaseInfoBean>> response, Retrofit retrofit) {
+                dialog.dismiss();
                 BaseInfoBean baseInfoBean = response.body().getObject();
                 EntBaseInfo entBaseInfo = baseInfoBean.getEntBaseInfo();
                 if (entBaseInfo!=null){
@@ -336,7 +341,8 @@ public class ListInfoAdapter extends RecyclerView.Adapter implements View.OnClic
 
             @Override
             public void onFailure(Throwable t) {
-
+                dialog.dismiss();
+                Toast.makeText(mContext,"获取信息失败",Toast.LENGTH_SHORT).show();
             }
         });
     }

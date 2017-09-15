@@ -82,6 +82,7 @@ public class Constants {
     public static final String ZXZZ_NAME = "专项整治";
     public static final String WZJY_NAME = "无证经营";
     public static final String EMAIL_NAME = "收件箱";
+    public static final String GGCX_NAME = "广告查询";
     public static final String CCJCLR_ID = "05021530,05022530,05023530,05024530";
     public static final String CCJCLR_NAME = "抽查检查录入\n(实地核查)";
     public static final String CCJCCX_ID = "05021580,05022580,05023580,05024580";
@@ -408,6 +409,7 @@ public class Constants {
             menuIconMapSC.put(Constants.COMMON_ID + Constants.WZJY_NAME,R.mipmap.xygs_dj);
             menuIconMapSC.put(Constants.COMMON_ID + Constants.ZXZZ_NAME,R.mipmap.xygs_jl);
             menuIconMapSC.put(Constants.COMMON_ID + Constants.EMAIL_NAME,R.mipmap.xygs_jl);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.GGCX_NAME,R.mipmap.sbcx);
         }
 
         return menuIconMapSC;
