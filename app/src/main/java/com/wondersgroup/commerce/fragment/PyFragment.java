@@ -1,6 +1,7 @@
 package com.wondersgroup.commerce.fragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,8 +29,10 @@ import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.gwpy.CheckListActivity;
 import com.wondersgroup.commerce.teamwork.gwpy.PeopleListActivity;
+import com.wondersgroup.commerce.utils.FileUtils;
 import com.wondersgroup.commerce.widget.InfoCheckRow;
 import com.wondersgroup.commerce.widget.InfoSelectRow;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 import com.wondersgroup.commerce.widget.TableRowView;
 
@@ -515,6 +518,8 @@ public class PyFragment extends Fragment implements View.OnClickListener {
     }
     //下载正文
     public void getDoc(){
+        final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
+        dialog.show();
         Map<String, String> body = new HashMap<>();
         body.put("wsCodeReq", "07010013");
         if("收文管理".equals(docType))
@@ -525,17 +530,18 @@ public class PyFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<FileBean>() {
             @Override
             public void onResponse(Response<FileBean> response, Retrofit retrofit) {
+                dialog.dismiss();
                 if(response!=null && response.body()!=null){
                     if("200".equals(response.body().getCode())){
-//                        FileUtils fileUtils = new FileUtils();
-//                        try {
-//                            fileUtils.decoderBase64File(getActivity(),
-//                                    response.body().getResult().getAttachFile().getAttachFileStr(),
-//                                    getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-//                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
+                        FileUtils fileUtils = new FileUtils();
+                        try {
+                            fileUtils.decoderBase64File(getActivity(),
+                                    response.body().getResult().getAttachFile().getAttachFileStr(),
+                                    getActivity().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }else{
                         Toast.makeText(getActivity(), "下载失败", Toast.LENGTH_SHORT).show();
                     }
@@ -544,6 +550,7 @@ public class PyFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
@@ -628,7 +635,7 @@ public class PyFragment extends Fragment implements View.OnClickListener {
 
             map.remove("wsCodeReq");
             map.put("wsCodeReq", "07010014");
-            map.put("deptId", "13000000001");
+            map.put("deptId", ((TotalLoginBean)Hawk.get(Constants.LOGIN_BEAN)).getResult().getDeptId());
             if(isUrgencyView!=null && isUrgencyView.getVisibility()==View.VISIBLE && isUrgencyView.getCheckBox()==false){
                 map.put("isUrgency", "0");
             }else if(isUrgencyView!=null && isUrgencyView.getVisibility()==View.VISIBLE && isUrgencyView.getCheckBox()==true){
@@ -684,7 +691,7 @@ public class PyFragment extends Fragment implements View.OnClickListener {
 
             map.remove("wsCodeReq");
             map.put("wsCodeReq", "07010015");
-            map.put("deptId", "13000000001");
+            map.put("deptId", ((TotalLoginBean)Hawk.get(Constants.LOGIN_BEAN)).getResult().getDeptId());
             if(isUrgencyView!=null && isUrgencyView.getVisibility()==View.VISIBLE && isUrgencyView.getCheckBox()==false){
                 map.put("isUrgency", "0");
             }else if(isUrgencyView!=null && isUrgencyView.getVisibility()==View.VISIBLE && isUrgencyView.getCheckBox()==true){

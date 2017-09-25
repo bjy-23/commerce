@@ -17,12 +17,24 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp">
+                android:layout_height="117dp">
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:background="@drawable/first_page_index_3" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/top_sc" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/title_1_sc"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/title_2_sc"/>
 
                 <ImageView
                     android:id="@+id/img_mine"
@@ -51,7 +63,7 @@
             android:layout_width="320dp"
             android:layout_height="34dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="203dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/rect_corner_white_1">
 
             <ImageView

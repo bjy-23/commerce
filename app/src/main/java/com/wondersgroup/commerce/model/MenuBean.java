@@ -14,6 +14,7 @@ public class MenuBean extends Data{
     @SerializedName(value = "authId")
     private String menuId;
 
+    private boolean isShow;//是否显示
     private int resId;
     private String number;
     private String[] menuIdList;
@@ -51,6 +52,14 @@ public class MenuBean extends Data{
         this.menuIdList = menuIdList;
         this.resId = resId;
         setType(1);
+    }
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
     }
 
     public String getMenuName() {

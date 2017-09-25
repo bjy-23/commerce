@@ -26,4 +26,15 @@
         android:src="@mipmap/app_right"
         android:scaleType="center"
         android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/img_ok"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/img_ok"
+        android:scaleType="center"
+        android:visibility="gone"/>
 </RelativeLayout>

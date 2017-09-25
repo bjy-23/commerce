@@ -126,6 +126,7 @@ public class MainActivity extends RootActivity {
         if (Constants.SC.equals(appcation.getVersion())){
             FragmentSc fragmentSc = new FragmentSc();
             FragmentHelper.replaceFragmentNoBack(fm,fragmentSc,"",null,R.id.layout_fragment);
+            menuLayout.setVisibility(View.GONE);
         }else if (Constants.YN.equals(appcation.getVersion())){
             FragmentOne fOne = new FragmentOne();
             FragmentHelper.replaceFragmentNoBack(fm, fOne, "首页", null, R.id.layout_fragment);

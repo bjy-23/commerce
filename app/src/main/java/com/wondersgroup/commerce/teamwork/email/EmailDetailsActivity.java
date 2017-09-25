@@ -1,25 +1,33 @@
 package com.wondersgroup.commerce.teamwork.email;
 
 import android.app.Dialog;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.FileBean;
+import com.wondersgroup.commerce.model.ReceiveDetailBean;
+import com.wondersgroup.commerce.model.SendDetailBean;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.Result;
+import com.wondersgroup.commerce.utils.DWZH;
 import com.wondersgroup.commerce.utils.DateUtil;
+import com.wondersgroup.commerce.utils.FileUtils;
 import com.wondersgroup.commerce.widget.LoadingDialog;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,6 +63,8 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
     View viewError;
     @Bind(R.id.tv_message)
     TextView tvMessage;
+    @Bind(R.id.tv_attach)
+    TextView tvAttach;
     private HashMap<String, String> param;
     private TotalLoginBean loginBean;
     private int position;
@@ -138,8 +148,8 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
                         && response.body().getObject() != null
                         && response.body().getObject().getEmailDetailBean() != null
                         ){
-                    EmailDetailBean emailDetailBean = response.body().getObject().getEmailDetailBean();
-                    setData(emailDetailBean);
+                    EmailDetailResult emailDetailResult = response.body().getObject();
+                    setData(emailDetailResult);
                     layoutContent.setVisibility(View.VISIBLE);
                 }else{
                     dialog.dismiss();
@@ -155,7 +165,8 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    public void setData(EmailDetailBean emailDetailBean){
+    public void setData(EmailDetailResult emailDetailResult){
+        EmailDetailBean emailDetailBean = emailDetailResult.getEmailDetailBean();
         tvHead.setText(emailDetailBean.getTitle());
         tvSendName.setText(emailDetailBean.getSendName());
         tvSendEmail.setText("bjy@1229.com");
@@ -163,21 +174,25 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         tvReceieveEmail.setText("bjy@1229.com");
         tvTime.setText(DateUtil.getYMDHM(emailDetailBean.getSendtime()));
         tvMessage.setText(emailDetailBean.getContent());
-        if (emailDetailBean.getAttachList() != null && emailDetailBean.getAttachList().size() != 0){
-            for (AttachBean attachBean : emailDetailBean.getAttachList()){
+        if (emailDetailResult.getAttachList() != null && emailDetailResult.getAttachList().size() != 0){
+            for (final AttachBean attachBean : emailDetailResult.getAttachList()){
                 View view = View.inflate(this,R.layout.item_attach,null);
+                view.setPadding(DWZH.dp(5), DWZH.dp(5), DWZH.dp(5), DWZH.dp(5));
                 TextView tvName = (TextView) view.findViewById(R.id.tv_name);
                 tvName.setText(attachBean.getAttachName());
                 tvName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        getDownLoad(attachBean);
                     }
                 });
                 layoutAttach.addView(view);
             }
+            tvAttach.setVisibility(View.GONE);
+            layoutAttach.setVisibility(View.VISIBLE);
         }else {
             layoutAttach.setVisibility(View.GONE);
+            tvAttach.setVisibility(View.VISIBLE);
         }
     }
 
@@ -210,5 +225,41 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         }else {
             imgDown.setImageResource(R.mipmap.arrow_bottom_light);
         }
+    }
+
+    public void getDownLoad(AttachBean attachBean){
+        final Dialog dialog = LoadingDialog.showCanCancelable(this);
+        dialog.show();
+        Map<String, String> body = new HashMap<>();
+        body.put("wsCodeReq", "07010013");
+        body.put("attachId", attachBean.getAttachId());
+        Call<FileBean> call = ApiManager.oaApi.apiDownload(body);
+        call.enqueue(new Callback<FileBean>() {
+            @Override
+            public void onResponse(Response<FileBean> response, Retrofit retrofit) {
+                dialog.dismiss();
+                if(response!=null && response.body()!=null){
+                    if("200".equals(response.body().getCode())){
+                        FileUtils fileUtils = new FileUtils();
+                        try {
+                            fileUtils.decoderBase64File(EmailDetailsActivity.this,
+                                    response.body().getResult().getAttachFile().getAttachFileStr(),
+                                    getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Toast.makeText(EmailDetailsActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(EmailDetailsActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.wondersgroup.commerce.widget;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
@@ -27,7 +28,12 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.utils.DWZH;
+import com.wondersgroup.commerce.utils.DateUtil;
 
+import org.w3c.dom.Text;
+
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import lecho.lib.hellocharts.model.Line;
@@ -45,6 +51,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
     private TextView tvContent;
     private ImageView mapImg;
     private final Builder mBuilder;
+    private OnMultiClick onMultiClick;
 
     protected enum Type {
         TEXT,
@@ -60,6 +67,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         MAP,
         SELECT_WITH_ARROW,
         INPUT_WITH_ARROW,
+        TIME
     }
 
     protected TableRow(Builder mBuilder) {
@@ -194,6 +202,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.content.setMaxLines(2);
                 this.content.setEllipsize(TextUtils.TruncateAt.END);
                 this.mapImg.setOnClickListener(this);
+                break;
+            case TIME:
+                this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
+                this.addTitle();
+                this.addTimes();
                 break;
             default:
         }
@@ -441,12 +454,21 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             RelativeLayout layout = new RelativeLayout(mBuilder.mContext);
             layout.setLayoutParams(lp3);
 
-            TextView textView = new TextView(mBuilder.mContext);
+            final TextView textView = new TextView(mBuilder.mContext);
+            textView.setTag(i+"");
             textView.setLayoutParams(lp1);
             textView.setText(mBuilder.multiHints.get(i));
             textView.setTextColor(mBuilder.textColor);
             textView.setTextSize(mBuilder.textSize);
             textView.setPadding(0, (int) mBuilder.marginV, 0, (int) mBuilder.marginV);
+            textView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onMultiClick != null){
+                        onMultiClick.onClick(Integer.parseInt(textView.getTag().toString()));
+                    }
+                }
+            });
             layout.addView(textView);
 
             //添加索引图标
@@ -469,6 +491,62 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         contentLayout.addView(root);
     }
 
+    private void addTimes(){
+        LinearLayout root = new LinearLayout(mBuilder.mContext);
+        root.setOrientation(LinearLayout.VERTICAL);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins((int) mBuilder.titleW, 0, 0, 0);
+        root.setLayoutParams(lp);
+
+        int size = mBuilder.times.size();
+        LinearLayout.LayoutParams lp1 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //分割线的参数
+        LinearLayout.LayoutParams lp2 = new LayoutParams(LayoutParams.MATCH_PARENT,1);
+        lp2.setMargins(0, 0, DWZH.dp(10), 0);
+        for (int i=0; i<size; i++){
+            final TextView textView = new TextView(mBuilder.mContext);
+            textView.setLayoutParams(lp1);
+            textView.setTextSize(12);
+            textView.setTextColor(mBuilder.hintColor);
+            textView.setTag(mBuilder.times.get(i));
+            textView.setHint(mBuilder.times.get(i));
+            textView.setHintTextColor(mBuilder.hintColor);
+//            textView.setText(mBuilder.times.get(i));
+            textView.setPadding(0, (int) mBuilder.marginV, 0, (int) mBuilder.marginV);
+            textView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DateUtil.createDatePicker((Activity) mBuilder.mContext, new DateUtil.DateListener() {
+                        @Override
+                        public void back(Date date) {
+                            String time = DateUtil.getYMD(date);
+                            textView.setText(time);
+                            mBuilder.timeListener.timeBack(String.valueOf(textView.getTag()), time);
+                        }
+                    });
+                }
+            });
+            root.addView(textView);
+
+            //添加分割线
+            if (i <size -1){
+                View line = new View(mBuilder.mContext);
+                line.setLayoutParams(lp2);
+                line.setBackgroundResource(R.color.linecolor);
+                root.addView(line);
+            }
+        }
+
+        contentLayout.addView(root);
+    }
+
+    public void clearTime() {
+        int size = mBuilder.times.size();
+        for (int i = 0; i < size; i++) {
+            TextView tv = (TextView) contentLayout.findViewWithTag(mBuilder.times.get(i));
+            tv.setText("");
+        }
+    }
 
     @TargetApi(17)
     private void addContentWithImg() {
@@ -599,6 +677,23 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         }
     }
 
+    public void setChildContent(String tag, String content) {
+        RelativeLayout contentLayout = (RelativeLayout) getChildAt(0);
+        LinearLayout root = (LinearLayout) contentLayout.getChildAt(1);
+        for (int i=0; i< root.getChildCount(); i++){
+            View child = root.getChildAt(i);
+            if (child instanceof RelativeLayout){
+                RelativeLayout layout = (RelativeLayout) child;
+                for (int j=0; j<layout.getChildCount(); j++){
+                    if (layout.getChildAt(j).getTag() != null && tag.equals(layout.getChildAt(j).getTag())){
+                        ((TextView)layout.getChildAt(j)).setText(content);
+                    }
+                }
+            }
+        }
+
+    }
+
     public void setTvContent(String content) {
         if (this.tvContent != null) {
             this.tvContent.setText(content);
@@ -684,7 +779,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    public TextView getTvContentView() { return tvContent; }
+    public TextView getTvContentView() {
+        return tvContent;
+    }
 
     public void setEllipsize(TextUtils.TruncateAt ellipsis){
         if(content!=null)
@@ -760,6 +857,8 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         private String multiHintTwo;
         private List<String> multiHints;
         private String seperator;
+        private List<String> times;
+        private TimeListener timeListener;
 
         public Builder(Context mContext) {
             this.mContext = mContext;
@@ -803,6 +902,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
+
         public Builder msgWithTitle(String msgString){
             this.mType = Type.MSG_WITH_TITLE;
             this.msgString = msgString;
@@ -817,6 +917,17 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         public Builder msg(@StringRes int msgRes) {
             msg(this.mContext.getString(msgRes));
+            return this;
+        }
+
+        public Builder time(String... times){
+            this.mType = Type.TIME;
+            this.times = Arrays.asList(times);
+            return this;
+        }
+
+        public Builder timeBack(TimeListener timeListener){
+            this.timeListener = timeListener;
             return this;
         }
 
@@ -938,8 +1049,8 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
-        public Builder marginV(int marginV) {
-            this.marginV = DWZH.dp2pt(this.mContext, marginV);
+        public Builder marginV(int dp) {
+            this.marginV = DWZH.dp(dp);
             return this;
         }
 
@@ -975,9 +1086,25 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         private Context getContext() {
             return mContext;
         }
+
+        public interface TimeListener{
+            void timeBack(String key, String value);
+        }
+
+        public void setTimeListener(TimeListener timeListener) {
+            this.timeListener = timeListener;
+        }
     }
 
     public interface SelectCallBack {
         void onSelect(TableRow row, int which);
+    }
+
+    public interface OnMultiClick{
+        void onClick(int position);
+    }
+
+    public void setOnMultiClick(OnMultiClick onMultiClick) {
+        this.onMultiClick = onMultiClick;
     }
 }

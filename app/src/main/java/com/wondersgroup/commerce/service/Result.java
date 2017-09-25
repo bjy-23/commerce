@@ -11,7 +11,7 @@ public class Result<T> {
     private int code;
     @SerializedName(value = "message",alternate = {})
     private String message;
-    @SerializedName(value = "object",alternate = {"busCatelogMap","codeList","punishList","result"})
+    @SerializedName(value = "object",alternate = {"busCatelogMap", "codeList", "punishList", "result", "list"})
     private T object;
     @SerializedName(value = "totalRecord")
     private int totalRecord;

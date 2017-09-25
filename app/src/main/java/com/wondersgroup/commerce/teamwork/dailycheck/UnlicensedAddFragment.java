@@ -212,9 +212,8 @@ public class UnlicensedAddFragment extends Fragment {
 				break;
 
 			case SHOW_ERROR:
-
-				Toast.makeText(getActivity(), "网络出现问题", Toast.LENGTH_SHORT)
-						.show();
+				if (getActivity() != null)
+					Toast.makeText(getActivity(), "网络出现问题", Toast.LENGTH_SHORT).show();
 				break;
 
 			case SHOW_RESPONSE_SELF:

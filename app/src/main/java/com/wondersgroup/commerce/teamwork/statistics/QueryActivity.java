@@ -108,8 +108,8 @@ public class QueryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("业务查询");
-//        location.setText(loginBean.getResult().getOrganName());
+        title.setText("市场主体户数统计");
+        location.setText(loginBean.getResult().getOrganName());
         mStartDate.setText(getFirstDay());
         mEndDate.setText(getToday());
         initView();

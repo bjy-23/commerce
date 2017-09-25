@@ -8,6 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/layout_root"/>
+        android:id="@+id/layout_root">
+
+        <include layout="@layout/error_1"
+            android:id="@id/layout_error"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
 </ScrollView>

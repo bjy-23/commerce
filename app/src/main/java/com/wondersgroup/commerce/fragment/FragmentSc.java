@@ -15,11 +15,13 @@ import android.widget.TextView;
 
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.adapter.MenuAdapter;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.adapter.FirstPageAdapter;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.Ggcx;
 import com.wondersgroup.commerce.model.MenuBean;
+import com.wondersgroup.commerce.model.MenuInfo;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.tztg.GGDetailActivity;
@@ -54,8 +56,8 @@ public class FragmentSc extends Fragment implements View.OnClickListener {
     @Bind(R.id.img_mine)
     ImageView imgMine;
 
-    private List<MenuBean> data;
-    private FirstPageAdapter adapter;
+    private List<MenuInfo> data;
+    private MenuAdapter adapter;
     private TotalLoginBean loginBean;
 
     @Nullable
@@ -75,11 +77,11 @@ public class FragmentSc extends Fragment implements View.OnClickListener {
         if (data == null)
             data = new ArrayList<>();
 
-        adapter = new FirstPageAdapter(getActivity(), data, 2);
+        adapter = new MenuAdapter(getActivity(), data, 2);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
-
-//        getTZGG();
+//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        getTZGG();
         tvOption.setOnClickListener(this);
         imgMine.setOnClickListener(this);
     }

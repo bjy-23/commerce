@@ -1,5 +1,6 @@
 package com.wondersgroup.commerce.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +21,8 @@ import com.wondersgroup.commerce.model.FileBean;
 import com.wondersgroup.commerce.model.ReceiveDetailBean;
 import com.wondersgroup.commerce.model.SendDetailBean;
 import com.wondersgroup.commerce.service.ApiManager;
+import com.wondersgroup.commerce.teamwork.wywork.FileUtils;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 
 import java.util.HashMap;
 import java.util.List;
@@ -134,6 +137,8 @@ public class DownloadListActivity extends AppCompatActivity {
 
     //下载附件
     public void getDoc(int pos){
+        final Dialog dialog = LoadingDialog.showCanCancelable(this);
+        dialog.show();
         Map<String, String> body = new HashMap<>();
         body.put("wsCodeReq", "07010013");
         body.put("attachId", dataList.get(pos).getAttachId());
@@ -141,17 +146,18 @@ public class DownloadListActivity extends AppCompatActivity {
         call.enqueue(new Callback<FileBean>() {
             @Override
             public void onResponse(Response<FileBean> response, Retrofit retrofit) {
+                dialog.dismiss();
                 if(response!=null && response.body()!=null){
                     if("200".equals(response.body().getCode())){
-//                        FileUtils fileUtils = new FileUtils();
-//                        try {
-//                            fileUtils.decoderBase64File(DownloadListActivity.this,
-//                                    response.body().getResult().getAttachFile().getAttachFileStr(),
-//                                    DownloadListActivity.this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
-//                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
+                        FileUtils fileUtils = new FileUtils();
+                        try {
+                            fileUtils.decoderBase64File(DownloadListActivity.this,
+                                    response.body().getResult().getAttachFile().getAttachFileStr(),
+                                    DownloadListActivity.this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                                            + "/"+response.body().getResult().getAttachFile().getAttachName());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }else{
                         Toast.makeText(DownloadListActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
                     }
@@ -160,6 +166,7 @@ public class DownloadListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
+                dialog.dismiss();
                 Toast.makeText(DownloadListActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
             }
         });

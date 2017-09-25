@@ -30,15 +30,6 @@
             />
 
         <ImageView
-            android:id="@+id/img_attach"
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:src="@mipmap/icon_attach"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/tv_name"
-            android:layout_marginLeft="5dp"/>
-
-        <ImageView
             android:id="@+id/img_index"
             android:layout_width="8dp"
             android:layout_height="8dp"

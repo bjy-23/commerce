@@ -18,11 +18,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.adapter.AdvertisementAdapter;
 import com.wondersgroup.commerce.adapter.TextWpicAdapter;
 import com.wondersgroup.commerce.adapter.Title3RowAdapter;
 import com.wondersgroup.commerce.adapter.Title4RowAdapter;
 import com.wondersgroup.commerce.constant.Constants;
-import com.wondersgroup.commerce.teamwork.email.EmailBean;
+import com.wondersgroup.commerce.model.AdvertisementBean;
+import com.wondersgroup.commerce.model.ad.AdQuery;
+import com.wondersgroup.commerce.service.CaseApi;
+import com.wondersgroup.commerce.teamwork.casedeal.CaseInvestigateActivity;
+import com.wondersgroup.commerce.teamwork.casedeal.CaseQueryDetailActivity;
+import com.wondersgroup.commerce.teamwork.casedeal.adapter.CaseQueryAdapter;
+import com.wondersgroup.commerce.teamwork.casedeal.bean.CaseQueryBean;import com.wondersgroup.commerce.teamwork.email.EmailBean;
 import com.wondersgroup.commerce.model.GwjsBean;
 import com.wondersgroup.commerce.model.GwjsCondition;
 import com.wondersgroup.commerce.model.TextWpicItem;
@@ -35,6 +42,7 @@ import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.Result;
 import com.wondersgroup.commerce.teamwork.email.EmailDetailsActivity;
 import com.wondersgroup.commerce.teamwork.email.EmailResult;
+import com.wondersgroup.commerce.utils.DateUtil;
 import com.wondersgroup.commerce.utils.DividerItemDecoration;
 import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.adapter.CommonAdapter;
@@ -55,9 +63,11 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+import static com.wondersgroup.commerce.activity.ViewPagerActivity.BUENT_ID;
+
 /**
  * Created by yclli on 2016/3/16.
- *
+ * <p>
  * 抽查检查录入、公文检索结果、收件箱
  */
 public class RecyclerActivity extends AppCompatActivity {
@@ -92,6 +102,10 @@ public class RecyclerActivity extends AppCompatActivity {
     private List<GwjsBean.Result.Result_> dataList;
     private List<EmailBean> emailBeanList;
     private CommonAdapter adapter;
+    private AdvertisementAdapter adAdapter;
+    private List<AdQuery.AdOp> adList;
+    private CaseQueryAdapter caseQueryAdapter;
+    private List<CaseQueryBean> caseList;
     private String userId;
     private String organId;
     private String deptId;
@@ -152,6 +166,8 @@ public class RecyclerActivity extends AppCompatActivity {
                         getCCJCDB();
                     }else if ("GWJS".equals(type)){
                         getGWJSDataList();
+                    } else if ("gglb".equals(type)) {
+                        getAdQuery();
                     }
                 }
             }
@@ -184,112 +200,161 @@ public class RecyclerActivity extends AppCompatActivity {
         checkIds=new ArrayList<>();
         entIds=new ArrayList<>();
         onlyLocals = new ArrayList<>();
-        if ("email".equals(type)){
-            searchLayout.setSearchListenr(new SearchLayout.SearchListener() {
-                @Override
-                public void search(String content) {
-                    pageNo = 1;
-                    state = Constants.LOAD_REFRESH;
-
-                    body.put("condition", String.format("{pageNo:%d,pageSize:%d,wordKey:'%s'}", pageNo, 10, content));
-                    getEmail();
+        switch (type){
+            case "casequery"://案件查询
+            {
+                searchLayout.setVisibility(View.GONE);
+                caseList = new ArrayList<>();
+                caseQueryAdapter = new CaseQueryAdapter(this, caseList);
+                caseQueryAdapter.setOnItemClick(new CaseQueryAdapter.onItemClick() {
+                    @Override
+                    public void onClick(int position) {
+                        Intent mIntent = new Intent(RecyclerActivity.this, CaseQueryDetailActivity.class);
+                        mIntent.putExtra("clueNo", caseList.get(position).getClueNo());
+                        startActivity(mIntent);
+                    }
+                });
+                recycler.setAdapter(caseQueryAdapter);
+                recycler.clearOnScrollListeners();
+                state = Constants.LOAD_REFRESH;
+                body = (HashMap<String, String>) getIntent().getSerializableExtra("param");
+                getCaseQueryList();
+            }
+            break;
+            case "gglb"://广告列表
+                searchLayout.setVisibility(View.GONE);
+                if (getIntent().getExtras() != null && getIntent().getExtras().getSerializable("PARAMS") != null) {
+                    Map<String, String> map = (Map<String, String>) getIntent().getExtras().getSerializable("PARAMS");
+                    body.putAll(map);
                 }
-            });
-            emailBeanList = new ArrayList<>();
-            adapter = new CommonAdapter(this,emailBeanList);
-            adapter.setItemClick(new CommonAdapter.ItemClick() {
+                adList = new ArrayList<>();
+                adAdapter = new AdvertisementAdapter(RecyclerActivity.this, adList);
+                adAdapter.setItemClickListener(new AdvertisementAdapter.ItemClickListener() {
+                    @Override
+                    public void onClick(int position) {
+                        Intent intent = new Intent(RecyclerActivity.this, ViewPagerActivity.class);
+                        intent.putExtra(Constants.TITLE, "广告详情");
+                        intent.putExtra(Constants.TYPE, "GGXQ");
+                        BUENT_ID = adList.get(position).getBuentId();
+                        startActivity(intent);
+                    }
+                });
+                recycler.setAdapter(adAdapter);
+//                recycler.clearOnScrollListeners();
+                getAdQuery();
+                break;
+            case "email"://收件箱
+                searchLayout.setSearchListenr(new SearchLayout.SearchListener() {
+                    @Override
+                    public void search(String content) {
+                        pageNo = 1;
+                        state = Constants.LOAD_REFRESH;
+                        body.put("condition", String.format("{pageNo:%d,pageSize:%d,wordKey:'%s'}", pageNo, 10, content));
+                        getEmail();
+                    }
+                });
+                emailBeanList = new ArrayList<>();
+                adapter = new CommonAdapter(this,emailBeanList);
+                adapter.setItemClick(new CommonAdapter.ItemClick() {
 
-                @Override
-                public void onClick(int position) {
-                    Intent intent = new Intent(RecyclerActivity.this, EmailDetailsActivity.class);
-                    intent.putExtra(Constants.POSITION, position);
-                    intent.putParcelableArrayListExtra("emailBeanList", (ArrayList) emailBeanList);
-                    startActivity(intent);
-                }
-            });
-            recycler.setAdapter(adapter);
-            recycler.clearOnScrollListeners();
-            recycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+                    @Override
+                    public void onClick(int position) {
+                        Intent intent = new Intent(RecyclerActivity.this, EmailDetailsActivity.class);
+                        intent.putExtra(Constants.POSITION, position);
+                        intent.putParcelableArrayListExtra("emailBeanList", (ArrayList) emailBeanList);
+                        startActivity(intent);
+                    }
+                });
+                recycler.setAdapter(adapter);
+                recycler.clearOnScrollListeners();
+                recycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
 
-            body.put("wsCodeReq", "07010016");
-            body.put(Constants.USER_ID, userId);
-            body.put(Constants.USER_ID, "2c9b02065901bba4015914a4e7b20002");
-            body.put(Constants.DEPT_ID, deptId);
-            body.put(Constants.DEPT_ID, "51000000099");
-            body.put("businessType", "1");
-            pageNo = 1;
-            body.put("condition", String.format("{pageNo:%d,pageSize:%d}",pageNo,10) );
-            state = Constants.LOAD_REFRESH;
-            getEmail();
-        } else if("GWJS".equals(type)) {
-            searchBar.setVisibility(View.GONE);
-            doctype = getIntent().getStringExtra("doctype");
-            condition = Hawk.get("gwCondition");
-            dataList = new ArrayList<>();
-            textWpicItems = new ArrayList<>();
-            textWpicAdapter = new TextWpicAdapter(textWpicItems);
-            recycler.setAdapter(textWpicAdapter);
-            textWpicAdapter.setOnItemClickListener(new TextWpicAdapter.OnItemClickListener() {
-                @Override
-                public void OnItemClick(View view, int position) {
-                    //Toast.makeText(getActivity(), "HAHAHA", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RecyclerActivity.this, ViewPagerActivity.class);
-                    intent.putExtra("title", dataList.get(position).getTitle());
-                    intent.putExtra("type", "GWJSXQ");
-                    Hawk.put("gwType", doctype);
-                    Hawk.put("gwId", dataList.get(position).getDocId());
-                    startActivity(intent);
-                }
-            });
+                body.put("wsCodeReq", "07010016");
+                body.put(Constants.USER_ID, userId);
+//                body.put(Constants.USER_ID, "2c9b02065901bba4015914a4e7b20002");
+                body.put(Constants.DEPT_ID, deptId);
+//                body.put(Constants.DEPT_ID, "51000000099");
+                body.put("businessType", "1");
+                pageNo = 1;
+                body.put("condition", String.format("{pageNo:%d,pageSize:%d}",pageNo,10) );
+                state = Constants.LOAD_REFRESH;
+                getEmail();
+                break;
+            case "GWJS":
+                searchBar.setVisibility(View.GONE);
+                doctype = getIntent().getStringExtra("doctype");
+                condition = Hawk.get("gwCondition");
+                dataList = new ArrayList<>();
+                textWpicItems = new ArrayList<>();
+                textWpicAdapter = new TextWpicAdapter(textWpicItems);
+                recycler.setAdapter(textWpicAdapter);
+                textWpicAdapter.setOnItemClickListener(new TextWpicAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(View view, int position) {
+                        //Toast.makeText(getActivity(), "HAHAHA", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RecyclerActivity.this, ViewPagerActivity.class);
+                        intent.putExtra("title", dataList.get(position).getTitle());
+                        intent.putExtra("type", "GWJSXQ");
+                        Hawk.put("gwType", doctype);
+                        Hawk.put("gwId", dataList.get(position).getDocId());
+                        startActivity(intent);
+                    }
+                });
 
-            getGWJSDataList();
-        }else if("TSCX".equals(type)||"JBCX".equals(type)){
-            title4RowItems=new ArrayList<>();
-            title4RowAdapter=new Title4RowAdapter(title4RowItems);
-            recycler.setAdapter(title4RowAdapter);
-            title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
-                @Override
-                public void OnItemClick(View view, int position) {
-                    Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
-                    intent.putExtra("type",type.startsWith("TS")?"TSXQXXLZ":"JBXQXXLZ");
-                    intent.putExtra("title",title4RowItems.get(position).getTitle());
-                    Hawk.put("TSJBXQ_caseId",title4RowItems.get(position).getTitle());
-                    startActivity(intent);
-                }
-            });
-            String infoType=type.startsWith("TS")?"1":"2";
-            String basicName=getIntent().getStringExtra("TSJBCX_basicName").equals("")?" ":getIntent().getStringExtra("TSJBCX_basicName");
-            String accuseName=getIntent().getStringExtra("TSJBCX_accuseName").equals("")?" ":getIntent().getStringExtra("TSJBCX_accuseName");
-            String caseId=getIntent().getStringExtra("TSJBCX_caseId").equals("")?" ":getIntent().getStringExtra("TSJBCX_caseId");
-            String pageSize="25";
-            Call<Result<List<CaseInfo>>> call=ApiManager.ynApi.searchCase(userId,infoType,basicName,accuseName,caseId,"1",pageSize);
-            call.enqueue(new Callback<Result<List<CaseInfo>>>() {
-                @Override
-                public void onResponse(Response<Result<List<CaseInfo>>> response, Retrofit retrofit) {
-                    if(response.isSuccess()&&response.body()!=null){
-                        if(200==response.body().getCode()){
-                            List<CaseInfo> list = response.body().getObject();
-                            if (list!=null){
-                                if (list.size()!=0){
-                                    for (CaseInfo info : list) {
-                                        Title4RowItem tmp=new Title4RowItem();
-                                        tmp.setTitle(info.getCaseId());
-                                        tmp.setRowOneTitle("消费者");
-                                        tmp.setRowOneContent(info.getBasicName());
-                                        if (type.startsWith("TS")) {
-                                            tmp.setRowTwoTitle("被诉单位");
-                                        } else {
-                                            tmp.setRowTwoTitle("被举报单位");
+                getGWJSDataList();
+                break;
+            case "TSCX":
+            case "JBCX":
+                title4RowItems=new ArrayList<>();
+                title4RowAdapter=new Title4RowAdapter(title4RowItems);
+                recycler.setAdapter(title4RowAdapter);
+                title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(View view, int position) {
+                        Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
+                        intent.putExtra("type",type.startsWith("TS")?"TSXQXXLZ":"JBXQXXLZ");
+                        intent.putExtra("title",title4RowItems.get(position).getTitle());
+                        Hawk.put("TSJBXQ_caseId",title4RowItems.get(position).getTitle());
+                        startActivity(intent);
+                    }
+                });
+                String infoType=type.startsWith("TS")?"1":"2";
+                String basicName=getIntent().getStringExtra("TSJBCX_basicName").equals("")?" ":getIntent().getStringExtra("TSJBCX_basicName");
+                String accuseName=getIntent().getStringExtra("TSJBCX_accuseName").equals("")?" ":getIntent().getStringExtra("TSJBCX_accuseName");
+                String caseId=getIntent().getStringExtra("TSJBCX_caseId").equals("")?" ":getIntent().getStringExtra("TSJBCX_caseId");
+                String pageSize="25";
+                Call<Result<List<CaseInfo>>> call=ApiManager.ynApi.searchCase(userId,infoType,basicName,accuseName,caseId,"1",pageSize);
+                call.enqueue(new Callback<Result<List<CaseInfo>>>() {
+                    @Override
+                    public void onResponse(Response<Result<List<CaseInfo>>> response, Retrofit retrofit) {
+                        if(response.isSuccess()&&response.body()!=null){
+                            if(200==response.body().getCode()){
+                                List<CaseInfo> list = response.body().getObject();
+                                if (list!=null){
+                                    if (list.size()!=0){
+                                        for (CaseInfo info : list) {
+                                            Title4RowItem tmp=new Title4RowItem();
+                                            tmp.setTitle(info.getCaseId());
+                                            tmp.setRowOneTitle("消费者");
+                                            tmp.setRowOneContent(info.getBasicName());
+                                            if (type.startsWith("TS")) {
+                                                tmp.setRowTwoTitle("被诉单位");
+                                            } else {
+                                                tmp.setRowTwoTitle("被举报单位");
+                                            }
+                                            tmp.setRowTwoContent(info.getAccuseName());
+                                            tmp.setRowThrTitle("登记时间");
+                                            tmp.setRowThrContent(info.getRegDate());
+                                            tmp.setRowForTitle("当前状态");
+                                            tmp.setRowForContent(info.getStatus());
+
+                                            title4RowItems.add(tmp);
                                         }
-                                        tmp.setRowTwoContent(info.getAccuseName());
-                                        tmp.setRowThrTitle("登记时间");
-                                        tmp.setRowThrContent(info.getRegDate());
-                                        tmp.setRowForTitle("当前状态");
-                                        tmp.setRowForContent(info.getStatus());
-
-                                        title4RowItems.add(tmp);
+                                        title4RowAdapter.notifyItemRangeInserted(0, title4RowItems.size());
+                                    }else {
+                                        layoutSearch.setVisibility(View.GONE);
+                                        viewError.setVisibility(View.VISIBLE);
                                     }
-                                    title4RowAdapter.notifyItemRangeInserted(0, title4RowItems.size());
                                 }else {
                                     layoutSearch.setVisibility(View.GONE);
                                     viewError.setVisibility(View.VISIBLE);
@@ -302,71 +367,71 @@ public class RecyclerActivity extends AppCompatActivity {
                             layoutSearch.setVisibility(View.GONE);
                             viewError.setVisibility(View.VISIBLE);
                         }
-                    }else {
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
                         layoutSearch.setVisibility(View.GONE);
                         viewError.setVisibility(View.VISIBLE);
                     }
+                });
+                break;
+            case "ZTCX":
+                getIntent().getStringExtra("name");
+                getIntent().getStringExtra("uid");
+                getIntent().getStringExtra("register");
+                title3RowItems=new ArrayList<>();
+                title3RowAdapter=new Title3RowAdapter(title3RowItems);
+                recycler.setAdapter(title3RowAdapter);
+                for(int i=0; i<10; i++){
+                    Title4RowItem tmp=new Title4RowItem();
+                    tmp.setTitle("某某有限公司");
+                    tmp.setRowOneTitle("统一社会信用代码");
+                    tmp.setRowOneContent("5329830183940813048");
+                    tmp.setRowTwoTitle("注册号");
+                    tmp.setRowTwoContent("123456789");
+                    tmp.setRowThrTitle("地址");
+                    tmp.setRowThrContent("某某街道");
+                    title3RowItems.add(tmp);
                 }
-
-                @Override
-                public void onFailure(Throwable t) {
-                    layoutSearch.setVisibility(View.GONE);
-                    viewError.setVisibility(View.VISIBLE);
-                }
-            });
-        }else if("ZTCX".equals(type)){
-            getIntent().getStringExtra("name");
-            getIntent().getStringExtra("uid");
-            getIntent().getStringExtra("register");
-            title3RowItems=new ArrayList<>();
-            title3RowAdapter=new Title3RowAdapter(title3RowItems);
-            recycler.setAdapter(title3RowAdapter);
-            for(int i=0; i<10; i++){
-                Title4RowItem tmp=new Title4RowItem();
-                tmp.setTitle("某某有限公司");
-                tmp.setRowOneTitle("统一社会信用代码");
-                tmp.setRowOneContent("5329830183940813048");
-                tmp.setRowTwoTitle("注册号");
-                tmp.setRowTwoContent("123456789");
-                tmp.setRowThrTitle("地址");
-                tmp.setRowThrContent("某某街道");
-                title3RowItems.add(tmp);
-            }
-            title3RowAdapter.notifyItemRangeInserted(0, title3RowItems.size());
-        }else if("CCJCCX".equals(type)){
-            title4RowItems=new ArrayList<>();
-            title4RowAdapter=new Title4RowAdapter(title4RowItems);
-            recycler.setAdapter(title4RowAdapter);
-            title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
-                @Override
-                public void OnItemClick(View view, int position) {
-                    Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
-                    intent.putExtra("type","CCJCCX");
-                    intent.putExtra("title","抽查检查查询");
-                    Hawk.put("CCJC_CheckId",checkIds.get(position));
-                    Hawk.put("CCJC_EntId",entIds.get(position));
-                    startActivity(intent);
-                }
-            });
-            getCCJCCX();
-        }else if("CCJCDB".equals(type)){
-            searchBar.setVisibility(View.VISIBLE);
-            title4RowItems=new ArrayList<>();
-            title4RowAdapter=new Title4RowAdapter(title4RowItems);
-            recycler.setAdapter(title4RowAdapter);
-            title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
-                @Override
-                public void OnItemClick(View view, int position) {
-                    Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
-                    intent.putExtra("type","CCJCDB");
-                    intent.putExtra("title","抽查检查待办");
-                    Hawk.put("CCJC_CheckId",checkIds.get(position));
-                    Hawk.put("CCJC_EntId",entIds.get(position));
-                    Hawk.put("CCJC_OnlyLocal", onlyLocals.get(position));
-                    startActivity(intent);
-                }
-            });
-            getCCJCDB();
+                title3RowAdapter.notifyItemRangeInserted(0, title3RowItems.size());
+                break;
+            case "CCJCCX":
+                title4RowItems=new ArrayList<>();
+                title4RowAdapter=new Title4RowAdapter(title4RowItems);
+                recycler.setAdapter(title4RowAdapter);
+                title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(View view, int position) {
+                        Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
+                        intent.putExtra("type","CCJCCX");
+                        intent.putExtra("title","抽查检查查询");
+                        Hawk.put("CCJC_CheckId",checkIds.get(position));
+                        Hawk.put("CCJC_EntId",entIds.get(position));
+                        startActivity(intent);
+                    }
+                });
+                getCCJCCX();
+                break;
+            case "CCJCDB":
+                searchBar.setVisibility(View.VISIBLE);
+                title4RowItems=new ArrayList<>();
+                title4RowAdapter=new Title4RowAdapter(title4RowItems);
+                recycler.setAdapter(title4RowAdapter);
+                title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
+                    @Override
+                    public void OnItemClick(View view, int position) {
+                        Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
+                        intent.putExtra("type","CCJCDB");
+                        intent.putExtra("title","抽查检查待办");
+                        Hawk.put("CCJC_CheckId",checkIds.get(position));
+                        Hawk.put("CCJC_EntId",entIds.get(position));
+                        Hawk.put("CCJC_OnlyLocal", onlyLocals.get(position));
+                        startActivity(intent);
+                    }
+                });
+                getCCJCDB();
+                break;
         }
     }
 
@@ -578,12 +643,15 @@ public class RecyclerActivity extends AppCompatActivity {
                         && response.body().getObject() != null
                         && response.body().getObject().getEmailList() != null
                         && response.body().getObject().getEmailList().size() != 0){
+                    List<EmailBean> emails = response.body().getObject().getEmailList();
+                    //转换日期格式
+                    changeDate(emails);
                     if (state == Constants.LOAD_REFRESH){
                         emailBeanList.clear();
-                        emailBeanList.addAll(response.body().getObject().getEmailList());
+                        emailBeanList.addAll(emails);
                         adapter.notifyDataSetChanged();
                     }else if (state == Constants.LOAD_MORE){
-                        emailBeanList.addAll(response.body().getObject().getEmailList());
+                        emailBeanList.addAll(emails);
                         adapter.notifyDataSetChanged();
                     }
                     viewError.setVisibility(View.GONE);
@@ -610,7 +678,68 @@ public class RecyclerActivity extends AppCompatActivity {
                     viewError.setVisibility(View.GONE);
             }
         });
+    }
 
+    private List<AdQuery.AdOp> generateAdData(List<List<AdQuery.AdOp>> tmp) {
+        List<AdQuery.AdOp> ret = new ArrayList<>();
+        for (List<AdQuery.AdOp> item : tmp) {
+            AdQuery.AdOp op = item.get(0);
+            op.setBulicNo(item.get(1).getBulicNo());
+            ret.add(op);
+    }
+        return ret;
+    }
+
+    /**
+     * 广告查询
+     */
+    private void getAdQuery() {
+        final Dialog loadingDialog = LoadingDialog.showCanCancelable(this);
+        loadingDialog.show();
+        body.put("pageNo", (pageNo + 1) + "");
+        body.put("pageSize", "10");
+        ApiManager.adApi.adQuery(body).enqueue(new Callback<AdQuery>() {
+            @Override
+            public void onResponse(Response<AdQuery> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
+                isLoaded = true;
+                if (response.body() != null) {
+                    AdQuery result = response.body();
+                    if (result.getCode() == 200) {
+                        pageMax = result.getResult().getPageCount();
+                        totalRecord = result.getResult().getTotalRecord();
+                        if (state == Constants.LOAD_REFRESH) {
+                            adList.clear();
+                            adList.addAll(generateAdData(result.getResult().getResultList()));
+                            adAdapter.notifyDataSetChanged();
+                        } else if (state == Constants.LOAD_MORE) {
+                            adList.addAll(generateAdData(result.getResult().getResultList()));
+                            adAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                        if (state == Constants.LOAD_REFRESH) {
+                            emailBeanList.clear();
+                            adAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+                if (adList.size() == 0)
+                    viewError.setVisibility(View.VISIBLE);
+                else
+                    viewError.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                loadingDialog.dismiss();
+                Toast.makeText(RecyclerActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+                if (adList.size() == 0)
+                    viewError.setVisibility(View.VISIBLE);
+                else
+                    viewError.setVisibility(View.GONE);
+            }
+        });
     }
 
     @OnClick(R.id.searchbtn)
@@ -623,5 +752,40 @@ public class RecyclerActivity extends AppCompatActivity {
 
         state = Constants.LOAD_REFRESH;
         getCCJCDB();
+    }
+
+    public void getCaseQueryList(){
+        String url = CaseApi.URL_CASE_1 + CaseApi.TO_CASE_QUERY;
+        Call<Result<List<CaseQueryBean>>> call = ApiManager.caseApi.toCaseQuery(url, body);
+        final Dialog dialog = LoadingDialog.showCanCancelable(this);
+        dialog.show();
+        call.enqueue(new Callback<Result<List<CaseQueryBean>>>() {
+            @Override
+            public void onResponse(Response<Result<List<CaseQueryBean>>> response, Retrofit retrofit) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+                if (response.body() != null && response.body().getObject()!= null
+                        && response.body().getObject().size() != 0){
+                    if (state == Constants.LOAD_REFRESH){
+                        caseList.clear();
+                        caseList.addAll(response.body().getObject());
+                        caseQueryAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                if (dialog.isShowing())
+                    dialog.dismiss();
+                viewError.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void changeDate(List<EmailBean> emails){
+        for (int i=0; i<emails.size(); i++){
+            EmailBean emailBean = emails.get(i);
+        }
     }
 }

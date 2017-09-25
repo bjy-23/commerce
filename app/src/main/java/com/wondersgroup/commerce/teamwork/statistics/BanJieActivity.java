@@ -45,7 +45,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * 办结统计情况
+ * 消费维权投诉举报统计
  */
 public class BanJieActivity extends AppCompatActivity {
     @Bind(R.id.mid_toolbar)
@@ -102,7 +102,7 @@ public class BanJieActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("办结统计情况");
+        title.setText("消费维权投诉举报统计");
         location.setText(loginBean.getResult().getOrganName());
         mStartDate.setText(getFirstDay());
         mEndDate.setText(getToday());

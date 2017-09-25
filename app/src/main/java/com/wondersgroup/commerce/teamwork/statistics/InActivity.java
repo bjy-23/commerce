@@ -36,7 +36,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * 列入移出
+ * 列入经营异常名录统计
  */
 public class InActivity extends AppCompatActivity {
     @Bind(R.id.mid_toolbar)
@@ -72,7 +72,8 @@ public class InActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("列入");
+        title.setText("列入经营异常名录统计");
+        location.setText(loginBean.getResult().getOrganName());
         mStartDate.setText(getFirstDay());
         mEndDate.setText(getToday());
         initView();

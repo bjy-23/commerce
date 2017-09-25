@@ -166,11 +166,12 @@ public class LoginActivity extends RootActivity {
                 switch (myApplication.getVersion()) {
                     case "云南":
                     case "四川":
-//                        gsythLoginNet("1");
-
-//                        免登陆测试
-                        makeMenu(new ArrayList<MenuBean>(),false);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        //正常登陆,有权限
+//                        gsythLoginNet("1", true, true);
+                        //免权限
+                        gsythLoginNet("1", true, false);
+                        //免登陆、免权限
+//                        gsythLoginNet("1", false, false);
                         break;
                     case "上海":
                         shLoginNet();
@@ -207,53 +208,64 @@ public class LoginActivity extends RootActivity {
     /**
      * 工商一体化登陆
      */
-    private void gsythLoginNet(String deptId) {
-        final SweetAlertDialog dialog = LoadingDialog.showCanCancelable(mContext);
-        dialog.setTitleText("登录...");
-        dialog.show();
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "00000001");
-        map.put("deptId", deptId);
-        map.put("loginName", loginName);
-        map.put("password", password);
+    private void gsythLoginNet(String deptId, boolean needLogin, final boolean needAuth) {
+        if (needLogin){
+            final SweetAlertDialog dialog = LoadingDialog.showCanCancelable(mContext);
+            dialog.setTitleText("登录...");
+            dialog.show();
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("wsCodeReq", "00000001");
+            map.put("deptId", deptId);
+            map.put("loginName", loginName);
+            map.put("password", password);
 
-        Call<TotalLoginBean> call = ApiManager.hbApi.login(map);
-        call.enqueue(new Callback<TotalLoginBean>() {
-            @Override
-            public void onResponse(Response<TotalLoginBean> response, Retrofit retrofit) {
-                dialog.dismiss();
-                if (response.isSuccess()){
-                    if (response.body().getCode() == 200 && null == response.body().getResult().getErrorMsg()){
-                        TotalLoginBean login = response.body();
-                        Hawk.put(Constants.LOGIN_BEAN,login);
-                        Hawk.put(Constants.PASSWORD,password);
-                        Map<String,String> body = new HashMap<>();
-                        body.put("wsCodeReq","00000009");
-                        body.put("userId",login.getResult().getUserId());
-                        body.put("deptId",login.getResult().getDeptId());
-                        body.put("appCode","0801");
+            Call<TotalLoginBean> call = ApiManager.hbApi.login(map);
+            call.enqueue(new Callback<TotalLoginBean>() {
+                @Override
+                public void onResponse(Response<TotalLoginBean> response, Retrofit retrofit) {
+                    dialog.dismiss();
+                    if (response.isSuccess()){
+                        if (response.body().getCode() == 200 && null == response.body().getResult().getErrorMsg()){
+                            TotalLoginBean login = response.body();
+                            Hawk.put(Constants.LOGIN_BEAN,login);
+                            Hawk.put(Constants.PASSWORD,password);
+                            Map<String,String> body = new HashMap<>();
+                            body.put("wsCodeReq","00000009");
+                            body.put("userId",login.getResult().getUserId());
+                            body.put("deptId",login.getResult().getDeptId());
+                            body.put("appCode","0801");
 
-                        getMenu(body);
-                    }else if (response.body().getCode() == 200 && "请选择部门登录".equals(response.body().getResult().getErrorMsg())){
-                        detpList = response.body().getResult().getDeptIdInfo();
-                        showDeptDialog();
+                            if (needAuth)
+                                getMenu(body);
+                            else {
+                                makeMenu(null, false);
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            }
+                        }else if (response.body().getCode() == 200 && "请选择部门登录".equals(response.body().getResult().getErrorMsg())){
+                            detpList = response.body().getResult().getDeptIdInfo();
+                            showDeptDialog();
+                        }
+                        else if (response.body().getCode() == 400){
+                            Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
                     }
-                    else if (response.body().getCode() == 400){
-                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }else {
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    if(dialog.isShowing())
+                        dialog.dismiss();
                     Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if(dialog.isShowing())
-                    dialog.dismiss();
-                Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
-            }
-        });
-
+            });
+        }else {
+            makeMenu(null, false);
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     private void getMenu(Map<String,String> body){
@@ -277,7 +289,7 @@ public class LoginActivity extends RootActivity {
             @Override
             public void onFailure(Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(LoginActivity.this,"获取权限字典失败",Toast.LENGTH_SHORT);
+                Toast.makeText(LoginActivity.this,"获取权限字典失败",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -342,22 +354,6 @@ public class LoginActivity extends RootActivity {
                 //统计分析
                 MenuBean bean2 = new MenuBean(Constants.CXTJ_ID,0);
                 menusTemp.add(bean2);
-//                //法律法规的权限和案件调查保持一致
-//                boolean isHave = false;
-//                loop1:for (MenuInfo menuInfo : ywblMenus){
-//                    loop2:for (MenuBean bean : menuInfo.getMenus()){
-//                                if (Constants.AJDC_ID.equals(bean.getMenuId())){
-//                                    isHave = true;
-//                                    break loop1;
-//                                }
-//                    }
-//                }
-//                //法律法规
-//                if (isHave){
-//                    MenuBean bean3 = new MenuBean(Constants.FLFG_ID,0);
-//                    menusTemp.add(bean3);
-//                }
-
                 menusTemp.addAll(menus);
                 //根据权限按需加载
                 if (checkable)
@@ -383,13 +379,43 @@ public class LoginActivity extends RootActivity {
                 e.printStackTrace();
             }
         }else if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
-            String result = FileHelper.getFromAssets("config_sc.txt", this);
-            ArrayList<MenuBean> menuList = gson.fromJson(result,new TypeToken<ArrayList<MenuBean>>(){}.getType());
-            remakeMenus(menuList,menus);
+//            String result = FileHelper.getFromAssets("config_sc.txt", this);
+//            ArrayList<MenuBean> menuList = gson.fromJson(result,new TypeToken<ArrayList<MenuBean>>(){}.getType());
+//            //根据权限动态配置
+//            if(checkable)
+//                remakeMenus(menuList,menus);
+//            //配置图标
+//            for (MenuBean menuBean : menuList){
+//                Integer resId = Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName());
+//                menuBean.setResId(resId);
+//            }
+//            Hawk.put(Constants.MENU_SC,menuList);
+//            RootAppcation.getInstance().setBottomMenus(new ArrayList<String>());
+
+            String result = FileHelper.getFromAssets("config_sc_2.txt", this);
+            ArrayList<MenuInfo> menuList = gson.fromJson(result,new TypeToken<ArrayList<MenuInfo>>(){}.getType());
+
+            //根据权限动态配置
+            if(checkable)
+                for (MenuInfo menuInfo: menuList){
+                    remakeMenus(menuInfo.getMenus(),menus);
+                }
+
             //配置图标
-            for (MenuBean menuBean : menuList){
-                Integer resId = Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName());
-                menuBean.setResId(resId);
+            for (int i=0; i<menuList.size(); i++){
+                MenuInfo menuInfo = menuList.get(i);
+                for (int j=0; j<menuInfo.getMenus().size(); j++){
+                    MenuBean menuBean = menuInfo.getMenus().get(j);
+                    //根据isShow来是否展示
+                    if (menuBean.isShow()){
+                        if (Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName()) != null)
+                            menuBean.setResId(Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName()));
+                    }else {
+                        menuInfo.getMenus().remove(j);
+                        j--;
+                    }
+                }
+
             }
             Hawk.put(Constants.MENU_SC,menuList);
             RootAppcation.getInstance().setBottomMenus(new ArrayList<String>());
@@ -484,7 +510,7 @@ public class LoginActivity extends RootActivity {
                     .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
                         @Override
                         public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            gsythLoginNet(detpList.get(which).split(",")[0]);
+                            gsythLoginNet(detpList.get(which).split(",")[0], true, true);
                             return true;
                         }
                     })

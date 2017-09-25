@@ -2,12 +2,15 @@ package com.wondersgroup.commerce.service;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import com.wondersgroup.commerce.BuildConfig;
+import com.wondersgroup.commerce.adapter.NullStringToEmptyAdapterFactory;
 import com.wondersgroup.commerce.application.RootAppcation;
 
 import java.io.IOException;
@@ -27,16 +30,16 @@ public class ApiManager {
     注意修改公示信息js配置;
     注意版本更新;
     应用名称；*/
-   private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
+    private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
     private static final String BASE_URL_2 = "http://172.28.129.42/";//云南内网正式
     private static final String BASE_URL = BASE_URL_2;
-//    public String API_TJ  = BASE_URL + "mds/";//测试
+//    public String API_TJ = BASE_URL + "mds/";//测试
     public String API_TJ = BASE_URL + "mds2/";//正式
 
     //版本更新
     public static String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试
     public static String VERSION_URL_2 = "http://172.28.129.42/zfMobileService/";//正式
-    public static String VERSION_URL = VERSION_URL_1;
+    public static String VERSION_URL = VERSION_URL_2;
     private String API_CASE;//案件
     private String API_OA;
     private String API_HB_ROOT;
@@ -48,7 +51,7 @@ public class ApiManager {
 
     private static final String API_CASE_1 = "http://10.1.8.130:8006/";//案件;130,云南、205,四川
     private static final String API_CASE_2 = "http://10.1.192.40:8006/";
-    private static final String API_CASE_3 = "http://10.2.102.166:8080/";
+    private static final String API_CASE_3 = "http://10.2.18.120:8080/";
     private static final String API_OA_1 = "http://10.1.192.40:8013/oa/";
     private static final String API_OA_2 = "http://10.1.8.205:8013/oa/";
     private static final String API_HB_ROOT_1 = "http://10.1.8.130:8001/";//工商一体化
@@ -57,12 +60,13 @@ public class ApiManager {
     private static final String API_HB_ROOT_4 = "http://10.2.14.102:8080/";
     private static final String API_YN_ROOT_1 = "http://10.1.8.130:8010/";
     private static final String API_YN_ROOT_2 = "http://10.2.18.108:8080/";
-    private static final String CCJC_ROOT_1="http://10.1.8.133:8012/";
-    private static final String CCJC_ROOT_2="http://10.2.14.158:8080/";
-    public static final String API_RE_ROOT_1="http://10.1.8.130:8009/";
-    public static final String API_RE_ROOT_2="http://10.2.103.41:8080/";
+    private static final String CCJC_ROOT_1 = "http://10.1.8.133:8012/";
+    private static final String CCJC_ROOT_2 = "http://10.2.14.158:8080/";
+    public static final String API_RE_ROOT_1 = "http://10.1.8.130:8009/";
+    public static final String API_RE_ROOT_2 = "http://10.2.103.41:8080/";
     public static final String API_FGDJ_ROOT_1 = "http://220.163.27.42:8024/";
     public static final String API_LAW_ROOT_1 = "http://10.1.8.130:8006/";
+    public static final String API_AD = "http://10.1.192.40:8008/ad/";//广告
 
     public static final String API_ROOT = "http://gsxt.ynaic.gov.cn/netme/services/mobile/";//外网正式
     //    public static final String API_ROOT="http://10.1.8.130:8007/netme/services/mobile/";//外网测试
@@ -79,6 +83,7 @@ public class ApiManager {
     public static String RESULT_SUCCESS = "200";    //code="200"表示请求执行成功
     private volatile static ApiManager instance;
     public static TjApi tjApi;
+    public static AdApi adApi;
     public static CaseApi caseApi;
     public static OaApi oaApi;
     public static HbApi hbApi;
@@ -95,6 +100,7 @@ public class ApiManager {
     public static OkHttpClient httpClient;
     private static String token = "";
     public static int caseType = 1;//1:工商行政执法系统;2:市场监督管理局行政执法系统
+    private Gson gson;
 
     public static ApiManager getInstance() {
         if (instance == null) {
@@ -121,6 +127,7 @@ public class ApiManager {
 
     public synchronized void init() {
 
+        gson = new GsonBuilder().registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory<>()).create();
         RootAppcation appcation = RootAppcation.getInstance();
         switch (appcation.getVersion()) {
             case "云南":
@@ -154,17 +161,20 @@ public class ApiManager {
                 API_CASE = API_CASE_2;
                 API_HB_ROOT = API_HB_ROOT_3;
                 API_OA = API_OA_1;
+                API_TJ = "http://10.1.192.40:8028/mds/";//统计四川测试地址
                 caseInit();
                 oaInit();
                 hbInit();
+                tjInit();
+                adInit();
                 break;
         }
     }
 
-    public void caseInit(){
-        if (caseApi == null){
-            synchronized (ApiManager.class){
-                if (caseApi == null){
+    public void caseInit() {
+        if (caseApi == null) {
+            synchronized (ApiManager.class) {
+                if (caseApi == null) {
                     httpClient = new OkHttpClient();
                     httpClient.interceptors().add(new Interceptor() {
                         @Override
@@ -185,7 +195,7 @@ public class ApiManager {
                     httpClient.interceptors().add(interceptor);
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(API_CASE)
-                            .addConverterFactory(GsonConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create(gson))
                             .client(httpClient)
                             .build();
                     caseApi = retrofit.create(CaseApi.class);
@@ -194,10 +204,10 @@ public class ApiManager {
         }
     }
 
-    public synchronized void oaInit(){
-        if (oaApi == null){
-            synchronized (OaApi.class){
-                if (oaApi == null){
+    public synchronized void oaInit() {
+        if (oaApi == null) {
+            synchronized (OaApi.class) {
+                if (oaApi == null) {
                     OkHttpClient httpClient = new OkHttpClient();
                     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
                     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -213,25 +223,25 @@ public class ApiManager {
         }
     }
 
-    public synchronized void ccInit(){
-        if(ccjcApi==null){
-            synchronized (CCJCApi.class){
-                if(ccjcApi==null){
+    public synchronized void ccInit() {
+        if (ccjcApi == null) {
+            synchronized (CCJCApi.class) {
+                if (ccjcApi == null) {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(CCJC_ROOT)
                             .addConverterFactory(GsonConverterFactory.create())
                             .client(httpClient)
                             .build();
-                    ccjcApi=retrofit.create(CCJCApi.class);
+                    ccjcApi = retrofit.create(CCJCApi.class);
                 }
             }
         }
     }
 
-    public synchronized void tjInit(){
-        if(tjApi==null){
-            synchronized (ApiManager.class){
-                if(tjApi==null){
+    public synchronized void tjInit() {
+        if (tjApi == null) {
+            synchronized (ApiManager.class) {
+                if (tjApi == null) {
                     httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
                     httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
                     httpClient.setReadTimeout(60, TimeUnit.SECONDS);
@@ -240,22 +250,43 @@ public class ApiManager {
                             .addConverterFactory(GsonConverterFactory.create())
                             .client(httpClient)
                             .build();
-                    tjApi=retrofit.create(TjApi.class);
+                    tjApi = retrofit.create(TjApi.class);
                 }
             }
         }
     }
 
-    public synchronized void hnInit(){
-        if(hnApi==null){
-            synchronized (HNApi.class){
-                if(hnApi==null){
+    /**
+     * 广告
+     */
+    public synchronized void adInit() {
+        if (adApi == null) {
+            synchronized (ApiManager.class) {
+                if (adApi == null) {
+                    httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+                    httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
+                    httpClient.setReadTimeout(60, TimeUnit.SECONDS);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(API_AD)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(httpClient)
+                            .build();
+                    adApi = retrofit.create(AdApi.class);
+                }
+            }
+        }
+    }
+
+    public synchronized void hnInit() {
+        if (hnApi == null) {
+            synchronized (HNApi.class) {
+                if (hnApi == null) {
                     httpClient = new OkHttpClient();
                     httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
                     httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
                     httpClient.setReadTimeout(60, TimeUnit.SECONDS);
                     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-                    if(BuildConfig.DEBUG)
+                    if (BuildConfig.DEBUG)
                         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                     else
                         interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
@@ -265,7 +296,7 @@ public class ApiManager {
                             .addConverterFactory(GsonConverterFactory.create())
                             .client(httpClient)
                             .build();
-                    hnApi=retrofit.create(HNApi.class);
+                    hnApi = retrofit.create(HNApi.class);
                 }
             }
         }
@@ -307,37 +338,37 @@ public class ApiManager {
         getInstance().token = token;
         if (hbApi == null) {
             //if (retrofit == null) {
-                httpClient = new OkHttpClient();
-                httpClient.interceptors().add(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request original = chain.request();
+            httpClient = new OkHttpClient();
+            httpClient.interceptors().add(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request original = chain.request();
 
-                        Request request = original.newBuilder()
-                                .header("User-Agent", "hb-Android")
-                                .header("token", getInstance().token)
-                                .method(original.method(), original.body())
-                                .build();
+                    Request request = original.newBuilder()
+                            .header("User-Agent", "hb-Android")
+                            .header("token", getInstance().token)
+                            .method(original.method(), original.body())
+                            .build();
 
-                        return chain.proceed(request);
-                    }
-                });
-                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                httpClient.interceptors().add(interceptor);
-                httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-                httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
-                httpClient.setReadTimeout(60, TimeUnit.SECONDS);
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(API_HB_ROOT)
+                    return chain.proceed(request);
+                }
+            });
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            httpClient.interceptors().add(interceptor);
+            httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+            httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
+            httpClient.setReadTimeout(60, TimeUnit.SECONDS);
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(API_HB_ROOT)
 //                        .addConverterFactory(StringConverterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .client(httpClient)
-                        .build();
-                hbApi = retrofit.create(HbApi.class);
-            }
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(httpClient)
+                    .build();
+            hbApi = retrofit.create(HbApi.class);
+        }
 
-       // }
+        // }
     }
 
     private void shInit() {
@@ -403,13 +434,13 @@ public class ApiManager {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient)
                 .build();
-        ynWqApi=retrofit.create(YnWqApi.class);
+        ynWqApi = retrofit.create(YnWqApi.class);
     }
 
-    private void fgdjInit(){
+    private void fgdjInit() {
         httpClient = new OkHttpClient();
         httpClient.setConnectTimeout(30, TimeUnit.SECONDS);
-        httpClient.setReadTimeout(30,TimeUnit.SECONDS);
+        httpClient.setReadTimeout(30, TimeUnit.SECONDS);
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClient.interceptors().add(interceptor);
@@ -421,7 +452,7 @@ public class ApiManager {
         fgdjApi = retrofit.create(FGDJApi.class);
     }
 
-    private void lawInit(){
+    private void lawInit() {
         httpClient = new OkHttpClient();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -437,33 +468,33 @@ public class ApiManager {
     private void testServiceInit() {//调试服务器初始化
         getInstance().token = token;
 //        if (caseModule == null) {
-        if(tradeMarkApi == null){
-        httpClient = new OkHttpClient();
-        httpClient.interceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
+        if (tradeMarkApi == null) {
+            httpClient = new OkHttpClient();
+            httpClient.interceptors().add(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request original = chain.request();
 
-                Request request = original.newBuilder()
-                        .header("User-Agent", "hb-Android")
-                        .header("token", getInstance().token)
-                        .method(original.method(), original.body())
-                        .build();
+                    Request request = original.newBuilder()
+                            .header("User-Agent", "hb-Android")
+                            .header("token", getInstance().token)
+                            .method(original.method(), original.body())
+                            .build();
 
-                return chain.proceed(request);
-            }
-        });
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(interceptor);
-        retrofit = new Retrofit.Builder()
-                //.baseUrl(API_TEST)
-                .baseUrl(TRADEMARK_API_TEST)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
+                    return chain.proceed(request);
+                }
+            });
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            httpClient.interceptors().add(interceptor);
+            retrofit = new Retrofit.Builder()
+                    //.baseUrl(API_TEST)
+                    .baseUrl(TRADEMARK_API_TEST)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(httpClient)
+                    .build();
 //        caseModule = retrofit.create(CaseModule.class);
-        tradeMarkApi = retrofit.create(TradeMarkApi.class);
+            tradeMarkApi = retrofit.create(TradeMarkApi.class);
         }
     }
 

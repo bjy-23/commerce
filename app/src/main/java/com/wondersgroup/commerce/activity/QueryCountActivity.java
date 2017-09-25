@@ -173,9 +173,8 @@ public class QueryCountActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    @OnClick({R.id.ywcx, R.id.nb, R.id.bj, R.id.bl, R.id.agr_annal, R.id.yc, R.id.shjg,R.id.lryc})
-    void onTextClick(View view) {
-        switch (view.getId()) {
+@OnClick({R.id.ywcx, R.id.nb, R.id.bj, R.id.bl, R.id.shy, R.id.agr_annal, R.id.yc, R.id.shjg, R.id.lryc
+            })    void onTextClick(View view) {        switch (view.getId()) {
             case R.id.ywcx://业务查询
                 startActivity(new Intent(this, QueryActivity.class));
                 break;
@@ -187,6 +186,11 @@ public class QueryCountActivity extends BaseActivity {
                 break;
             case R.id.bl://办理
                 startActivity(new Intent(this, BanLiActivity.class));
+                break;
+            case R.id.shy://三合一案件系统办理数统计
+                Intent intent = new Intent(this, BanLiActivity.class);
+                intent.putExtra("KEY_TYPE", "SHY");
+                startActivity(intent);
                 break;
             case R.id.agr_annal://农专年报
 //                startActivity(new Intent(this, AgrAnnalActivity.class));

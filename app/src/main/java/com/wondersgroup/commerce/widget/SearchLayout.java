@@ -154,10 +154,10 @@ public class SearchLayout extends RelativeLayout implements View.OnClickListener
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == event.ACTION_UP) {
             if (!editText.hasFocusable()) {
-                setAnime();
-                tvHint.startAnimation(translateAnimation);
+//                setAnime();
+//                tvHint.startAnimation(translateAnimation);
 
-//                ObjectAnimator.ofFloat(tvHint, "translationX", 0, (width2 - width1 + textPadding)).setDuration(300).start();
+                ObjectAnimator.ofFloat(tvHint, "translationX", 0, (width2 - width1 + textPadding)).setDuration(300).start();
 
                 editText.setFocusable(true);
                 editText.setFocusableInTouchMode(true);
@@ -167,7 +167,6 @@ public class SearchLayout extends RelativeLayout implements View.OnClickListener
 //            editText.setEnabled(true);
             InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-
         }
 
         return true;

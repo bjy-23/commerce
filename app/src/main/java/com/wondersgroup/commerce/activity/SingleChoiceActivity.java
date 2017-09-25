@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
@@ -11,9 +13,14 @@ import com.wondersgroup.commerce.adapter.SingleChoiceAdapter;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.fgdj.bean.AreaBean;
 import com.wondersgroup.commerce.model.KeyValue;
+import com.wondersgroup.commerce.model.TreeBean;
+import com.wondersgroup.commerce.model.ccjc.Tree;
+import com.wondersgroup.commerce.teamwork.casedeal.CaseEnquireActivity;
 import com.wondersgroup.commerce.utils.DividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +32,12 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
     private ArrayList<AreaBean> data;
     private SingleChoiceAdapter adapter;
 
+    private String type;
+    private List<TreeBean> caseQueryDic;
+    private List<TreeBean> caseQueryList;
+    private HashMap<String, Integer> positionMap;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +45,169 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
         ButterKnife.bind(this);
 
         tvTitle.setText(getIntent().getStringExtra(Constants.TITLE));
-        data =  getIntent().getParcelableArrayListExtra(Constants.AREA_LIST);
-        adapter = new SingleChoiceAdapter(this,data);
-        adapter.setOnClickListener(this);
-        recyclerView.setAdapter(adapter);
+        type = getIntent().getStringExtra(Constants.TYPE);
+        if ("caseQuery".equals(type)){//多层，树
+            tvOption.setVisibility(View.VISIBLE);
+            tvOption.setText("确认");
+            tvOption.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int positon = positionMap.get("position");
+                    if (positon == -1)
+                        Toast.makeText(SingleChoiceActivity.this, "请选择！", Toast.LENGTH_SHORT).show();
+                    else {
+                        Intent intent = new Intent();
+                        intent.putExtra("data", caseQueryList.get(positon));
+                        setResult(-1, intent);
+                        finish();
+                    }
+                }
+            });
+
+            positionMap = new HashMap<>();
+            positionMap.put("position", -1);
+            TreeBean root = getIntent().getParcelableExtra("root");
+            if (caseQueryDic == null)
+                caseQueryDic = Hawk.get("caseQueryDic");
+            caseQueryList = new ArrayList<>();
+            for (TreeBean treeBean: caseQueryDic){
+                if (root.getId().equals(treeBean.getpId()))
+                    caseQueryList.add(treeBean);
+            }
+            loop1:
+            for (TreeBean treeBean : caseQueryList) {
+                loop2:
+                for (TreeBean bean: caseQueryDic){
+                    if (treeBean.getId().equals(bean.getpId())){
+                        treeBean.setChilds(new ArrayList<TreeBean>());
+                        break loop2;
+                    }
+                }
+            }
+            caseQueryList.add(0, root);
+            adapter = new SingleChoiceAdapter(this, caseQueryList, 1);
+            adapter.setOnClick(new SingleChoiceAdapter.OnClick() {
+                @Override
+                public void back(int position) {
+                    TreeBean treeBean = caseQueryList.get(position);
+                    if (treeBean.getChilds() != null){
+                        //复制一个同数据的对象
+                        TreeBean root = new TreeBean();
+                        root.setId(treeBean.getId());
+                        root.setName(treeBean.getName());
+                        Intent intent = new Intent(SingleChoiceActivity.this, SingleChoiceActivity.class);
+                        intent.putExtra("root", root);
+                        intent.putExtra(Constants.TITLE, root.getName());
+                        intent.putExtra(Constants.TYPE, "caseQuery");
+                        startActivityForResult(intent, 10);
+                    }else {
+                        int oldPosition = positionMap.get("position");
+                        if (oldPosition == position)
+                            return;
+                        else {
+                            if (oldPosition != -1)
+                                caseQueryList.get(oldPosition).setSelected(false);
+                            caseQueryList.get(position).setSelected(true);
+                            positionMap.put("position", position);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
+            recyclerView.setAdapter(adapter);
+        }else if ("caseQuery2".equals(type)){//单层
+            tvOption.setVisibility(View.VISIBLE);
+            tvOption.setText("确认");
+            tvOption.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int positon = positionMap.get("position");
+                    if (positon == -1)
+                        Toast.makeText(SingleChoiceActivity.this, "请选择！", Toast.LENGTH_SHORT).show();
+                    else {
+                        Intent intent = new Intent();
+                        intent.putExtra("data", caseQueryList.get(positon));
+                        setResult(-1, intent);
+                        finish();
+                    }
+                }
+            });
+
+            positionMap = new HashMap<>();
+            positionMap.put("position", -1);
+
+            caseQueryList = getIntent().getParcelableArrayListExtra("list");
+            adapter = new SingleChoiceAdapter(this, caseQueryList, 1);
+            adapter.setOnClick(new SingleChoiceAdapter.OnClick() {
+                @Override
+                public void back(int position) {
+                    TreeBean treeBean = caseQueryList.get(position);
+                    if (treeBean.getChilds() != null){
+                        //复制一个同数据的对象
+                        TreeBean root = new TreeBean();
+                        root.setId(treeBean.getId());
+                        root.setName(treeBean.getName());
+                        Intent intent = new Intent(SingleChoiceActivity.this, SingleChoiceActivity.class);
+                        intent.putExtra("root", root);
+                        intent.putExtra(Constants.TYPE, "caseQuery");
+                        startActivityForResult(intent, 10);
+                    }else {
+                        int oldPosition = positionMap.get("position");
+                        if (oldPosition == position)
+                            return;
+                        else {
+                            if (oldPosition != -1)
+                                caseQueryList.get(oldPosition).setSelected(false);
+                            caseQueryList.get(position).setSelected(true);
+                            positionMap.put("position", position);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
+            recyclerView.setAdapter(adapter);
+        }else if ("caseQuery3".equals(type)){
+            tvOption.setVisibility(View.VISIBLE);
+            tvOption.setText("确认");
+            tvOption.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    ArrayList<TreeBean> list = new ArrayList<TreeBean>();
+                    for (TreeBean treeBean: caseQueryList){
+                        if (treeBean.isSelected())
+                            list.add(treeBean);
+                    }
+                    if (list.size() == 0){
+                        Toast.makeText(SingleChoiceActivity.this, "请选择", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    intent.putParcelableArrayListExtra("list", list);
+                    setResult(-1, intent);
+                    finish();
+                }
+            });
+            caseQueryList = getIntent().getParcelableArrayListExtra("list");
+            adapter = new SingleChoiceAdapter(this, caseQueryList, 1);
+            adapter.setOnClick(new SingleChoiceAdapter.OnClick() {
+                @Override
+                public void back(int position) {
+                    TreeBean treeBean = caseQueryList.get(position);
+                    if (treeBean.isSelected())
+                        treeBean.setSelected(false);
+                    else
+                        treeBean.setSelected(true);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            recyclerView.setAdapter(adapter);
+        }else {
+            data =  getIntent().getParcelableArrayListExtra(Constants.AREA_LIST);
+            adapter = new SingleChoiceAdapter(this,data);
+            adapter.setOnClickListener(this);
+            recyclerView.setAdapter(adapter);
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
     }
@@ -45,6 +217,9 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Constants.RESPONSE_AREA_CODE){
             setResult(Constants.RESPONSE_AREA_CODE,data);
+            finish();
+        }else if (resultCode == -1){
+            setResult(-1, data);
             finish();
         }
     }

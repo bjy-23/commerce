@@ -21,11 +21,11 @@
             android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
-            android:clipChildren="false">
+            android:clipChildren="false"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_head"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                tools:text="飛機划過天空。。。"/>
+                tools:text="飛機划過天空。。。" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -44,30 +44,31 @@
                     android:id="@+id/tv_send"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="发件人："
                     android:textColor="@color/gray"
-                    android:textSize="14sp"
-                    android:text="发件人："/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_send_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tv_send"
                     android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/tv_send"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    tools:text="bjy"/>
+                    tools:text="bjy" />
 
                 <TextView
                     android:id="@+id/tv_send_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_send_name"
                     android:layout_alignLeft="@+id/tv_send_name"
+                    android:layout_below="@+id/tv_send_name"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
-                    tools:text="bjy@1229.com"/>
+                    tools:text="bjy@1229.com"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
@@ -80,46 +81,46 @@
                     android:id="@+id/tv_receieve"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="收件人："
                     android:textColor="@color/gray"
-                    android:textSize="14sp"
-                    android:text="收件人："/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_receieve_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tv_receieve"
                     android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/tv_receieve"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    tools:text="bjy"/>
+                    tools:text="bjy" />
 
                 <TextView
                     android:id="@+id/tv_receieve_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_receieve_name"
                     android:layout_alignLeft="@+id/tv_receieve_name"
+                    android:layout_below="@+id/tv_receieve_name"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
-                    tools:text="bjy@1229.com"/>
+                    tools:text="bjy@1229.com"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="时间："
                     android:textColor="@color/gray"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_time"
@@ -128,23 +129,22 @@
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
-                    tools:text="2017"/>
+                    tools:text="2017" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="附件："
                     android:textColor="@color/gray"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:id="@+id/layout_attach"
@@ -156,28 +156,30 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_attach"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="无"/>
+                    android:visibility="gone"
+                    android:text="无" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/linecolor"
-                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="-15dp"
-                android:layout_marginRight="-15dp"/>
+                android:layout_marginRight="-15dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/linecolor" />
 
             <TextView
                 android:id="@+id/tv_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/gray"/>
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
 
         </LinearLayout>
 

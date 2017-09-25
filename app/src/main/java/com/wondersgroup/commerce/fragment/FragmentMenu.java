@@ -66,7 +66,7 @@ public class FragmentMenu extends Fragment {
             data = Hawk.get(Constants.MESSAGE_MENUINFO);
         }
 
-        adapter = new MenuAdapter(getActivity(),data);
+        adapter = new MenuAdapter(getActivity(), data, 1);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL_LIST));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));

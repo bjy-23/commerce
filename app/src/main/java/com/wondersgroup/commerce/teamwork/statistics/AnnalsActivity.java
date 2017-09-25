@@ -43,7 +43,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * 年报
+ * 年报情况统计
  */
 public class AnnalsActivity extends AppCompatActivity {
     @Bind(R.id.mid_toolbar)
@@ -72,7 +72,8 @@ public class AnnalsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("年报");
+        title.setText("年报情况统计");
+        location.setText(loginBean.getResult().getOrganName());
         initView();
     }
 

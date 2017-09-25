@@ -18,9 +18,6 @@ public class EmailDetailBean {
     @SerializedName("username")
     private String sendName;
 
-    @SerializedName("mailAttachVoList")
-    private List<AttachBean> attachList;
-
 
     public String getContent() {
         return content;
@@ -52,13 +49,5 @@ public class EmailDetailBean {
 
     public void setSendName(String sendName) {
         this.sendName = sendName;
-    }
-
-    public List<AttachBean> getAttachList() {
-        return attachList;
-    }
-
-    public void setAttachList(List<AttachBean> attachList) {
-        this.attachList = attachList;
     }
 }

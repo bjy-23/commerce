@@ -91,6 +91,21 @@
                     android:background="@color/gray_dark" />
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
+                    android:id="@+id/shy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="三合一案件系统办理数统计"
+                    app:content="三合一案件系统办理数统计" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@color/gray_dark" />
+
+                <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/agr_annal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

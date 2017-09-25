@@ -37,7 +37,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * 列入移出
+ * 移出经营异常名录统计
  */
 public class OutActivity extends AppCompatActivity {
     @Bind(R.id.mid_toolbar)
@@ -73,7 +73,8 @@ public class OutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("移出");
+        title.setText("移出经营异常名录统计");
+        location.setText(loginBean.getResult().getOrganName());
         mStartDate.setText(getFirstDay());
         mEndDate.setText(getToday());
         initView();

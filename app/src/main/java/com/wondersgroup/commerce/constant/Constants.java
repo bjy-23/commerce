@@ -37,6 +37,7 @@ public class Constants {
     public final static String PASSWORD = "password";
     public final static String AUTH_MENU ="authMenu";
     public final static String TITLE = "title";
+    public final static String PARAM = "param";
     public final static String POSITION = "position";
 
     /*
@@ -111,10 +112,8 @@ public class Constants {
     public static final String WQCB_NAME = "微企财补初审";
     public static final String GSXX_ID = "08012001";
     public static final String GSXX_NAME = "公示信息查询";
-    public static final String XYGS_DJ_NAME = "双随机结果录入";
-    public static final String XYGS_DJ_ID = "333333";
-    public static final String XYGS_JL_NAME = "双随机结果查询";
-    public static final String XYGS_JL_ID = "222222";
+    public static final String SSJLR = "双随机录入";
+    public static final String RCJG = "日常监管";
     public static final String SBCX_ID = "02077110";
     public static final String SBCX_NAME = "注册商标查询";
     public static final String FLFG_ID = "03010033";//法律法规的权限和案件调查保持一致
@@ -395,21 +394,23 @@ public class Constants {
     public static HashMap<String,Integer> menuIconMapSC(){
         if (menuIconMapSC == null){
             menuIconMapSC = new HashMap<>();
-            menuIconMapSC.put(Constants.AJDC_ID + Constants.AJDC_NAME,R.mipmap.ajdc_sc);
+            menuIconMapSC.put(Constants.AJDC_ID + Constants.AJDC_NAME,R.mipmap.ajdc_sc_2);
             menuIconMapSC.put(Constants.WDAJCX_ID + Constants.WDAJCX_NAME,R.mipmap.ajcx_sc);
-            menuIconMapSC.put(Constants.JYCX_ID + Constants.JYCX_NAME,R.mipmap.jycx_sc);
-            menuIconMapSC.put(Constants.XYGS_DJ_ID + Constants.XYGS_DJ_NAME,R.mipmap.xygs_dj);
-            menuIconMapSC.put(Constants.XYGS_JL_ID + Constants.XYGS_JL_NAME,R.mipmap.xygs_jl);
-            menuIconMapSC.put(Constants.GWPY_ID + Constants.GWPY_NAME,R.mipmap.txl_sc);
-            menuIconMapSC.put(Constants.GWJS_ID + Constants.GWJS_NAME,R.mipmap.txl_sc);
-            menuIconMapSC.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.qyxyxx);
-            menuIconMapSC.put(Constants.SBCX_ID + Constants.SBCX_NAME,R.mipmap.sbcx);
-            menuIconMapSC.put(Constants.TZGG_ID + Constants.TZGG_NAME,R.mipmap.tzgg_sc);
-            menuIconMapSC.put(Constants.TXL_ID + Constants.TXL_NAME,R.mipmap.txl_sc);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.WZJY_NAME,R.mipmap.xygs_dj);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.ZXZZ_NAME,R.mipmap.xygs_jl);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.EMAIL_NAME,R.mipmap.xygs_jl);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.GGCX_NAME,R.mipmap.sbcx);
+            menuIconMapSC.put(Constants.AJCX_ID + Constants.AJCX_NAME,R.mipmap.ajcx_sc_2);
+            menuIconMapSC.put(Constants.JYCX_ID + Constants.JYCX_NAME,R.mipmap.jycx_sc_2);
+            menuIconMapSC.put(Constants.GWPY_ID + Constants.GWPY_NAME,R.mipmap.gwpy_sc);
+            menuIconMapSC.put(Constants.GWJS_ID + Constants.GWJS_NAME,R.mipmap.gwjs_sc);
+            menuIconMapSC.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.gsxx_sc);
+            menuIconMapSC.put(Constants.SBCX_ID + Constants.SBCX_NAME,R.mipmap.sbcx_sc);
+            menuIconMapSC.put(Constants.TZGG_ID + Constants.TZGG_NAME,R.mipmap.tzgg_sc_2);
+            menuIconMapSC.put(Constants.TXL_ID + Constants.TXL_NAME,R.mipmap.txl_sc_2);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.WZJY_NAME,R.mipmap.wzjg_sc);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.ZXZZ_NAME,R.mipmap.zxzz_sc);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.EMAIL_NAME,R.mipmap.gryj_sc);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.GGCX_NAME,R.mipmap.ggfb_sc);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.tj,R.mipmap.ywtj_sc);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.SSJLR,R.mipmap.ssjlr_sc);
+            menuIconMapSC.put(Constants.COMMON_ID + Constants.RCJG,R.mipmap.rcjg_sc);
         }
 
         return menuIconMapSC;

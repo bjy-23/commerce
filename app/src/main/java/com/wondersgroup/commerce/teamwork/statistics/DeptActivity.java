@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ import retrofit.Retrofit;
  * 区局选择
  */
 public class DeptActivity extends RootActivity {
-    private ImageView backBtn;
+    private LinearLayout backBtn;
     private TextView titleTv;
     private ListView oneLv;
     private Button confirmBtn;
@@ -124,45 +125,45 @@ public class DeptActivity extends RootActivity {
             }
         });
 
-//        backBtn = (ImageView) findViewById(R.id.btn_back);
-//        backBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ArrayList<Dept.OrganInfo> temp;
-//                selectItem = -1;
-//                switch (currentState) {
-//                    case 0:
-//                        finish();
-//                        break;
-//
-//                    case 1:
-//                        titleTv.setText(loginBean.getResult().getOrganName());
-//
-//                        temp = organList;
-//
-//                        oneAdapter.setData(temp);
-//
-//                        oneAdapter.notifyDataSetChanged();
-//
-//                        currentState--;
-//                        break;
-//
-//                    case 2:
-//                        titleTv.setText(organList.get(one).getOrganName());
-//
-//                        temp = organList.get(one).getOrganList();
-//
-//                        oneAdapter.setData(temp);
-//
-//                        oneAdapter.notifyDataSetChanged();
-//
-//                        currentState--;
-//
-//                        break;
-//
-//                }
-//            }
-//        });
+        backBtn = (LinearLayout) findViewById(R.id.ll_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Dept.OrganInfo> temp;
+                selectItem = -1;
+                switch (currentState) {
+                    case 0:
+                        finish();
+                        break;
+
+                    case 1:
+                        titleTv.setText(loginBean.getResult().getOrganName());
+
+                        temp = organList;
+
+                        oneAdapter.setData(temp);
+
+                        oneAdapter.notifyDataSetChanged();
+
+                        currentState--;
+                        break;
+
+                    case 2:
+                        titleTv.setText(organList.get(one).getOrganName());
+
+                        temp = organList.get(one).getOrganList();
+
+                        oneAdapter.setData(temp);
+
+                        oneAdapter.notifyDataSetChanged();
+
+                        currentState--;
+
+                        break;
+
+                }
+            }
+        });
         titleTv = (TextView) findViewById(R.id.tv_title);
         titleTv.setText(loginBean.getResult().getOrganName());
         titleTv.setOnClickListener(new View.OnClickListener() {

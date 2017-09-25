@@ -25,6 +25,8 @@ public class DateUtil {
     private static final String FORMATE_YMD = "yyyy-MM-dd";
     private static final String FORMATE_YMDHM = "yyyy年MM月dd日  HH时mm分";
     private static final String FORMATE_YMDHMS = "yyyy-MM-dd HH:mm:ss";
+    private static final String FORMAT_YY_MM_DD_HH_MM_SS = "yy-MM-dd HH-mm-ss";
+    private static DateListener dateListener;
 
     public static String getYMD(Date date){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMATE_YMD);
@@ -114,9 +116,70 @@ public class DateUtil {
 
     }
 
+    public static void createDatePicker(Activity activity, final DateListener dateListener){
+        View view  = View.inflate(activity, R.layout.date_picker,null);
+        final PopupWindow popupWindowDatePicker = new PopupWindow(view,ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,true);
+        popupWindowDatePicker.showAtLocation(activity.getWindow().getDecorView(), Gravity.BOTTOM,0,0);
+        popupWindowDatePicker.setAnimationStyle(R.style.popup_animation_1);
+        final NumberPicker pickerYear = (NumberPicker) view.findViewById(R.id.picker_year);
+        final NumberPicker pickerMonth = (NumberPicker) view.findViewById(R.id.picker_month);
+        final NumberPicker pickerDay = (NumberPicker) view.findViewById(R.id.picker_day);
+        TextView tvDateNo = (TextView) view.findViewById(R.id.tv_date_no);
+        tvDateNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindowDatePicker.dismiss();
+            }
+        });
+        TextView tvDateOk = (TextView) view.findViewById(R.id.tv_date_ok);
+        tvDateOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindowDatePicker.dismiss();
+                if (dateListener != null){
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.YEAR, pickerYear.getValue());
+                    calendar.set(Calendar.MONTH, pickerMonth.getValue());
+                    calendar.set(Calendar.DAY_OF_MONTH, pickerDay.getValue());
+                    dateListener.back(calendar.getTime());
+                }
+            }
+        });
+        pickerYear.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        pickerYear.setMaxValue(3017);
+        pickerYear.setMinValue(0);
+        pickerYear.setValue(getNowYear());
+        pickerMonth.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        pickerMonth.setMaxValue(12);
+        pickerMonth.setMinValue(1);
+        pickerMonth.setValue(getNowMonth());
+        pickerDay.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+        pickerDay.setMaxValue(31);
+        pickerDay.setMinValue(1);
+        pickerDay.setValue(getNowDay());
+
+        View viewExtra = view.findViewById(R.id.v_extra);
+        viewExtra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindowDatePicker.dismiss();
+            }
+        });
+
+    }
+
     private static String changeTime(int time){
         if (time < 10)
             return "0" + time;
         return time+"";
+    }
+
+    public interface DateListener{
+        void back(Date date);
+    }
+
+    public void setDateListener(DateListener dateListener) {
+        this.dateListener = dateListener;
     }
 }

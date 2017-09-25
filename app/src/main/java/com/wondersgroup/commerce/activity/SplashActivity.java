@@ -93,6 +93,14 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
 
+    class splashhandler implements Runnable {
+        public void run() {
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,19 +113,12 @@ public class SplashActivity extends AppCompatActivity {
         switch (app.getVersion()) {
             case "四川":
                 viewBg.setImageResource(R.drawable.splash_sc);
+                handler.postDelayed(new splashhandler(), 500);
                 break;
             case "云南":
                 viewBg.setImageResource(R.drawable.boot_yunnan);
+                ynUpdate();
                 break;
-        }
-        ynUpdate();
-    }
-
-    class splashhandler implements Runnable {
-        public void run() {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
         }
     }
 

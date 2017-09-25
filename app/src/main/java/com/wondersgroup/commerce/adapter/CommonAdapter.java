@@ -71,7 +71,7 @@ public class CommonAdapter  extends RecyclerView.Adapter{
         private TextView tvTime;
         private TextView tvTitle;
         private ImageView imgDot;
-        private ImageView imgAttach;
+
         public EmailViewHolder(View itemView) {
             super(itemView);
 
@@ -80,7 +80,6 @@ public class CommonAdapter  extends RecyclerView.Adapter{
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             imgDot = (ImageView) itemView.findViewById(R.id.img_dot);
-            imgAttach = (ImageView) itemView.findViewById(R.id.img_attach);
         }
     }
 

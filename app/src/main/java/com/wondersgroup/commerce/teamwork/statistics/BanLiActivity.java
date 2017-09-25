@@ -44,7 +44,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 /**
- * 办理统计情况
+ * 工商案件系统办理数统计
  */
 public class BanLiActivity extends AppCompatActivity {
     @Bind(R.id.mid_toolbar)
@@ -87,6 +87,7 @@ public class BanLiActivity extends AppCompatActivity {
     private List<String> organNameList = new ArrayList<>();
     private boolean isZCBJ = true;//1表示获取全局数据，0表示只查本级。
     private AnnalsDatePopup popup;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,10 @@ public class BanLiActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("办理统计情况");
+        type = !TextUtils.isEmpty(getIntent().getStringExtra("KEY_TYPE")) ? getIntent().getStringExtra("KEY_TYPE") : "";
+        title.setText("工商案件系统办理数统计");
+        if (type.equals("SHY"))
+            title.setText("三合一案件系统办理数统计");
         location.setText(loginBean.getResult().getOrganName());
         mStartDate.setText(getFirstDay());
         mEndDate.setText(getToday());
@@ -207,7 +211,10 @@ public class BanLiActivity extends AppCompatActivity {
 
     private void initData() {
         MyProgressDialog.show(this);
-        ApiManager.tjApi.getBanLiInfo(params).enqueue(new Callback<BaLiResult>() {
+        Call<BaLiResult> call = ApiManager.tjApi.getBanLiInfo(params);
+        if (type.equals("SHY"))
+            call = ApiManager.tjApi.getCaseNInfo(params);
+        call.enqueue(new Callback<BaLiResult>() {
             @Override
             public void onResponse(Response<BaLiResult> response, Retrofit retrofit) {
                 MyProgressDialog.dismiss();

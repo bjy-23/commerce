@@ -5,6 +5,7 @@ import com.wondersgroup.commerce.model.AttachResultObject;
 import com.wondersgroup.commerce.model.BackResultObject;
 import com.wondersgroup.commerce.model.CaseInvestigateDetail;
 import com.wondersgroup.commerce.model.CaseInvestigateListBean;
+import com.wondersgroup.commerce.model.CaseQueryDic;
 import com.wondersgroup.commerce.model.CaseQueryResult;
 import com.wondersgroup.commerce.model.DynamicComponentObject;
 import com.wondersgroup.commerce.model.NoteRecordBean;
@@ -19,6 +20,7 @@ import com.wondersgroup.commerce.model.ProcedureCaseLegalBasisResult;
 import com.wondersgroup.commerce.model.ProcedureCaseQueryCompanySelectedResultObject;
 import com.wondersgroup.commerce.model.ProcedureCaseQueryPersonSelectedResultObject;
 import com.wondersgroup.commerce.model.ProcedureCaseQueryResult;
+import com.wondersgroup.commerce.teamwork.casedeal.bean.CaseQueryBean;
 import com.wondersgroup.commerce.teamwork.casedeal.bean.LitigtBean;
 
 import java.util.List;
@@ -52,6 +54,9 @@ public interface CaseApi {
     public static final String CASE_GENERAL_DETAIL = "getCaseGeneralDetail";        //案件总览
     public static final String DOWNLAODER_ATTACH = "downloadAttachFileByPost";      //附件下载
     public static final String GET_LITIGT_DETAIL = "getLitigtDetailByLitigtIdAndAssort";//当事人
+    public static final String CASE_QUERY_LIST = "caseQuery_list";
+    public static final String TO_CASE_QUERY = "toCaseQuery";
+    public static final String DOWNLOAD_WRIT_FILE_BY_POST = "downloadWritFileByPost";
 
     /*
     * 简易程序
@@ -127,6 +132,13 @@ public interface CaseApi {
     @POST
     public Call<Result<List<LitigtBean>>> getLitigtDetail(@Url String url, @FieldMap Map<String,String> map);
 
+    @FormUrlEncoded
+    @POST
+    public Call<Result<CaseQueryDic>> caseQueryList(@Url String url, @FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST
+    public Call<Result<List<CaseQueryBean>>> toCaseQuery(@Url String url, @FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST(PROCEDURE_CASE_LIST)

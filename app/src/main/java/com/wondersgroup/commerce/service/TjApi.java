@@ -25,8 +25,9 @@ public interface TjApi {
     String BASE = "services/mdsWebService/app/";
 
     //统计
-    String GET_CONSUMER_INFO = BASE + "getConsumerInfo";//办结情况
-    String GET_CASE_INFO = BASE + "getCaseInfo ";//办理情况
+    String GET_CONSUMER_INFO = BASE + "getConsumerInfo";//消费维权投诉举报统计
+    String GET_CASE_INFO = BASE + "getCaseInfo ";//工商案件系统办理数统计
+    String GET_CASE_N_INFO = BASE + "getCaseNInfo ";//案件三合一
     String API_VERSION = "commerceInfo";//版本更新
     String GET_ETPS_AND_PE_INFO = BASE + "getEtpsAndPeInfo";//市场主体户数统计
     String GET_ANNL_STAT_INFO = BASE + "getAnnlStatInfo";//年报情况统计
@@ -42,6 +43,11 @@ public interface TjApi {
     @POST(GET_CASE_INFO)
     @FormUrlEncoded
     Call<BaLiResult> getBanLiInfo(@FieldMap Map<String, String> params);
+
+    //案件三合一
+    @POST(GET_CASE_N_INFO)
+    @FormUrlEncoded
+    Call<BaLiResult> getCaseNInfo(@FieldMap Map<String, String> params);
 
     @GET(API_VERSION)
     Call<Version> apiUpdate();

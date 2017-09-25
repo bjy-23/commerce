@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/location"
-                android:layout_width="wrap_content"
+                android:layout_width="128dp"
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
                 android:drawableRight="@mipmap/app_down"
