@@ -50,6 +50,7 @@ import com.wondersgroup.commerce.widget.SearchLayout;
 import com.wondersgroup.commerce.ynwq.widget.CountBar;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -160,14 +161,23 @@ public class RecyclerActivity extends AppCompatActivity {
                     isLoaded = false;
                     pageNo++;
                     state = Constants.LOAD_MORE;
-                    if ("CCJCCX".equals(type)){
-                        getCCJCCX();
-                    }else if ("CCJCDB".equals(type)){
-                        getCCJCDB();
-                    }else if ("GWJS".equals(type)){
-                        getGWJSDataList();
-                    } else if ("gglb".equals(type)) {
-                        getAdQuery();
+                    switch (type){
+                        case "CCJCCX":
+                            getCCJCCX();
+                            break;
+                        case "CCJCDB":
+                            getCCJCDB();
+                            break;
+                        case "GWJS":
+                            getGWJSDataList();
+                            break;
+                        case "gglb":
+                            getAdQuery();
+                            break;
+                        case "email":
+                            body.put("condition", String.format("{pageNo:%d,pageSize:%d}",pageNo,10) );
+                            getEmail();
+                            break;
                     }
                 }
             }
@@ -269,11 +279,9 @@ public class RecyclerActivity extends AppCompatActivity {
                 recycler.clearOnScrollListeners();
                 recycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
 
-                body.put("wsCodeReq", "07010016");
+                body.put(Constants.WS_CODE_REQ, "07010016");
                 body.put(Constants.USER_ID, userId);
-//                body.put(Constants.USER_ID, "2c9b02065901bba4015914a4e7b20002");
                 body.put(Constants.DEPT_ID, deptId);
-//                body.put(Constants.DEPT_ID, "51000000099");
                 body.put("businessType", "1");
                 pageNo = 1;
                 body.put("condition", String.format("{pageNo:%d,pageSize:%d}",pageNo,10) );
@@ -786,6 +794,15 @@ public class RecyclerActivity extends AppCompatActivity {
     public void changeDate(List<EmailBean> emails){
         for (int i=0; i<emails.size(); i++){
             EmailBean emailBean = emails.get(i);
+            Date date = DateUtil.getDate(DateUtil.FORMAT_YY_MM_DD_HH_MM_SS, emailBean.getDate());
+            if (DateUtil.isToday(date))
+                emailBean.setDate(DateUtil.getTime(DateUtil.FORMAT_HH_MM, date));
+            else if (DateUtil.isYestoday(date))
+                emailBean.setDate("昨天 " + DateUtil.getTime(DateUtil.FORMAT_HH_MM, date));
+            else if (DateUtil.isThisYear(date))
+                emailBean.setDate(DateUtil.getTime(DateUtil.FORMAT_MM_DD, date));
+            else
+                emailBean.setDate(DateUtil.getTime(DateUtil.FORMATE_YY_MM_DD, date));
         }
     }
 }

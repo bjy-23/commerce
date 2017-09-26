@@ -17,6 +17,8 @@ public class CaseQueryBean {
 
     private String regStage2Show1;//案件阶段
 
+    private String regStage2Show;//案件阶段
+
     private String transactOrganShow;//立案机关
 
     private String conficateAmount1;//罚没金额（元）
@@ -24,6 +26,14 @@ public class CaseQueryBean {
     private String inWareAmount1;//入库金额（元）
 
     private String clueNo;
+
+    public String getRegStage2Show() {
+        return regStage2Show;
+    }
+
+    public void setRegStage2Show(String regStage2Show) {
+        this.regStage2Show = regStage2Show;
+    }
 
     public String getClueNo() {
         return clueNo;

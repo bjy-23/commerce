@@ -45,70 +45,14 @@ public class FileBean {
     }
 
     public class Result {
-        private AttachFile attachFile;
+        private AttachBean attachFile;
 
-
-        /**
-         * @return The attachFile
-         */
-        public AttachFile getAttachFile() {
+        public AttachBean getAttachFile() {
             return attachFile;
         }
 
-        /**
-         * @param attachFile The attachFile
-         */
-        public void setAttachFile(AttachFile attachFile) {
+        public void setAttachFile(AttachBean attachFile) {
             this.attachFile = attachFile;
-        }
-
-        public class AttachFile {
-
-            private String attachFileStr;
-            private String attachId;
-            private String attachName;
-
-            /**
-             * @return The attachFileStr
-             */
-            public String getAttachFileStr() {
-                return attachFileStr;
-            }
-
-            /**
-             * @param attachFileStr The attachFileStr
-             */
-            public void setAttachFileStr(String attachFileStr) {
-                this.attachFileStr = attachFileStr;
-            }
-
-            /**
-             * @return The attachId
-             */
-            public String getAttachId() {
-                return attachId;
-            }
-
-            /**
-             * @param attachId The attachId
-             */
-            public void setAttachId(String attachId) {
-                this.attachId = attachId;
-            }
-
-            /**
-             * @return The attachName
-             */
-            public String getAttachName() {
-                return attachName;
-            }
-
-            /**
-             * @param attachName The attachName
-             */
-            public void setAttachName(String attachName) {
-                this.attachName = attachName;
-            }
         }
     }
 }

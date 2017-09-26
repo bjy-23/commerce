@@ -92,7 +92,7 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
                     layoutContent.setVisibility(View.GONE);
                     viewError.setVisibility(View.GONE);
                     position--;
-                    param.put(Constants.POSITION, emailBeanList.get(position).getMailId());
+                    param.put(Constants.ID, emailBeanList.get(position).getMailId());
                     getData();
                     setImgState();
                 }
@@ -102,7 +102,7 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
                     layoutContent.setVisibility(View.GONE);
                     viewError.setVisibility(View.GONE);
                     position++;
-                    param.put(Constants.POSITION, emailBeanList.get(position).getMailId());
+                    param.put(Constants.ID, emailBeanList.get(position).getMailId());
                     getData();
                     setImgState();
                 }
@@ -128,12 +128,12 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         position = getIntent().getIntExtra(Constants.POSITION,0);
         emailBeanList = getIntent().getParcelableArrayListExtra("emailBeanList");
         param = new HashMap<>();
-        param.put("wsCodeReq", "07010016");
+        param.put(Constants.WS_CODE_REQ, "07010016");
         param.put(Constants.USER_ID, loginBean.getResult().getUserId());
         param.put(Constants.USER_ID, "2c9b02065901bba4015914a4e7b20002");
         param.put(Constants.DEPT_ID, loginBean.getResult().getDeptId());
         param.put(Constants.DEPT_ID, "51000000099");
-        param.put("id", emailBeanList.get(position).getMailId());
+        param.put(Constants.ID, emailBeanList.get(position).getMailId());
     }
 
     public void getData(){
@@ -175,6 +175,7 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         tvTime.setText(DateUtil.getYMDHM(emailDetailBean.getSendtime()));
         tvMessage.setText(emailDetailBean.getContent());
         if (emailDetailResult.getAttachList() != null && emailDetailResult.getAttachList().size() != 0){
+            layoutAttach.removeAllViews();
             for (final AttachBean attachBean : emailDetailResult.getAttachList()){
                 View view = View.inflate(this,R.layout.item_attach,null);
                 view.setPadding(DWZH.dp(5), DWZH.dp(5), DWZH.dp(5), DWZH.dp(5));

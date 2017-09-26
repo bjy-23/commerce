@@ -1,18 +1,35 @@
 package com.wondersgroup.commerce.utils;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.squareup.okhttp.ResponseBody;
+import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.AttachBean;
 import com.wondersgroup.commerce.model.DataVolume;
+import com.wondersgroup.commerce.service.ApiManager;
+import com.wondersgroup.commerce.service.CaseApi;
+import com.wondersgroup.commerce.service.Result;
 import com.wondersgroup.commerce.widget.CusDatePickerDialog;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.widget.TableRow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Created by yclli on 16/10/26.
@@ -77,10 +94,11 @@ public class TableRowUtils {
                 if ("1".equals(data.getRequired()))
                     builder.required();
                 break;
-            case "3":
+            case "4":
                 builder.title(data.getName())
-                        .content(data.getValue())
-                        .multiSelect2(Arrays.asList("123","789"));
+                        .content(data.getRemark().get(0).getValue())
+                        .textColor(R.color.blue)
+                        .tag(data.getRemark().get(0).getKey());
                 break;
             case "7":
                 builder.title(data.getName())
@@ -124,6 +142,20 @@ public class TableRowUtils {
                     });
                 }
                 break;
+            case "4":
+//                tableRow.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        getDoc(tableRow.getTag().toString());
+//                    }
+//                });
+                tableRow.setSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        getDoc(tableRow.getTag().toString());
+                    }
+                });
+                break;
             case "5":
                 tableRow.setSelect(new TableRow.SelectCallBack() {
                     @Override
@@ -163,4 +195,38 @@ public class TableRowUtils {
         }
     }
 
+    public void getDoc(String attachId){
+        final Dialog dialog = LoadingDialog.showCanCancelable(context);
+        dialog.show();
+        HashMap<String, String> param = new HashMap<>();
+        param.put(Constants.WS_CODE_REQ, "03010016");
+        param.put("attachId", attachId);
+        String url = CaseApi.URL_CASE_1 + CaseApi.DOWNLOAD_WRIT_FILE_BY_POST;
+        Call<Result<AttachBean>> call = ApiManager.caseApi.downloadDoc(url, param);
+        call.enqueue(new Callback<Result<AttachBean>>() {
+            @Override
+            public void onResponse(Response<Result<AttachBean>> response, Retrofit retrofit) {
+                dialog.dismiss();
+                if("200".equals(response.body().getCode())){
+                    FileUtils fileUtils = new FileUtils();
+                    try {
+                        fileUtils.decoderBase64File(context,
+                                response.body().getObject().getAttachFileStr(),
+                                context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                                        + "/"+response.body().getObject().getAttachName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,37 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         build();
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(content)) {
+            if (mBuilder.onSelect != null) {
+                mBuilder.onSelect.onSelect(this, 1);
+            }
+        } else if (v.equals(content2)) {
+            if (mBuilder.onSelect != null) {
+                mBuilder.onSelect.onSelect(this, 2);
+            }
+        } else if (v.equals(mapImg)) {
+            if (mBuilder.onSelect != null) {
+                mBuilder.onSelect.onSelect(this, 2);
+            }
+        } else if (v.equals(clearEditText)) {
+            v.setFocusable(true);
+            v.setFocusableInTouchMode(true);
+            v.requestFocus();
+            v.requestFocusFromTouch();
+            InputMethodManager inputMethodManager = (InputMethodManager) mBuilder.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.showSoftInput(v, 0);
+        }
+    }
+
     private void build() {
+        setTag(mBuilder.tag);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setLayoutParams(params);
         this.setOrientation(VERTICAL);
@@ -94,6 +125,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.content.setSingleLine(false);
                 this.content.setMaxLines(3);
                 this.content.setEllipsize(TextUtils.TruncateAt.END);
+                this.content.setOnClickListener(this);
                 break;
             case INPUT:
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
@@ -806,30 +838,6 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.equals(content)) {
-            if (mBuilder.onSelect != null) {
-                mBuilder.onSelect.onSelect(this, 1);
-            }
-        } else if (v.equals(content2)) {
-            if (mBuilder.onSelect != null) {
-                mBuilder.onSelect.onSelect(this, 2);
-            }
-        } else if (v.equals(mapImg)) {
-            if (mBuilder.onSelect != null) {
-                mBuilder.onSelect.onSelect(this, 2);
-            }
-        } else if (v.equals(clearEditText)) {
-            v.setFocusable(true);
-            v.setFocusableInTouchMode(true);
-            v.requestFocus();
-            v.requestFocusFromTouch();
-            InputMethodManager inputMethodManager = (InputMethodManager) mBuilder.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.showSoftInput(v, 0);
-        }
-    }
-
     public static class Builder {
         private Context mContext;
         private Type mType;
@@ -848,6 +856,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         private int inputType;
 
+        private Object tag;
         private String titleString;
         private String contentString;
         private String msgString;
@@ -874,6 +883,12 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             showBtmLine = true;
             inputType = InputType.TYPE_CLASS_TEXT;
             seperator = "、";
+        }
+
+        public Builder tag(Object tag){
+//            TableRow.this.setTag(tag);
+            this.tag = tag;
+            return this;
         }
 
         public Builder title(String title) {

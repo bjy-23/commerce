@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
         addContentView(R.layout.activity_single_choice);
         ButterKnife.bind(this);
 
+        Log.e("endTime", System.currentTimeMillis()+"");
         tvTitle.setText(getIntent().getStringExtra(Constants.TITLE));
         type = getIntent().getStringExtra(Constants.TYPE);
         if ("caseQuery".equals(type)){//多层，树

@@ -44,7 +44,7 @@ public class CaseQueryAdapter extends RecyclerView.Adapter {
         viewHolder.tvRegDate.setText("立案日期：" + bean.getRegCaseDateShow1());
         viewHolder.tvEndDate.setText("结案日期：" + bean.getEndCaseDateShow1());
         viewHolder.tvDuration.setText("时限：" + bean.getCaseDuration() + " 天");
-        viewHolder.tvRegState.setText("案件阶段：" + bean.getRegStage2Show1()!= null? bean.getRegStage2Show1(): "");
+        viewHolder.tvRegState.setText("案件阶段：" + (bean.getRegStage2Show()!= null? bean.getRegStage2Show(): ""));
         viewHolder.tvOrgan.setText("立案机关：" + bean.getTransactOrganShow());
         viewHolder.tvConficate.setText("罚没金额：" + bean.getConficateAmount1() + " 元");
         viewHolder.tvInWare.setText("入库金额：" + bean.getInWareAmount1() + " 元");

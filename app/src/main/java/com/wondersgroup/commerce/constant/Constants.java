@@ -27,6 +27,8 @@ public class Constants {
     /*
    * 通用标识符
    * */
+    public final static String ID = "id";
+    public final static String WS_CODE_REQ = "wsCodeReq";
     public final static String DATA = "data";
     public final static String TYPE = "type";
     public final static String USER_ID = "userId";
@@ -35,7 +37,6 @@ public class Constants {
     public final static String LOGIN_BEAN = "loginBean";
     public final static String LOGIN_NAME = "loginName";
     public final static String PASSWORD = "password";
-    public final static String AUTH_MENU ="authMenu";
     public final static String TITLE = "title";
     public final static String PARAM = "param";
     public final static String POSITION = "position";

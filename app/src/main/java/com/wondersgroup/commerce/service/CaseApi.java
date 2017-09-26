@@ -1,6 +1,7 @@
 package com.wondersgroup.commerce.service;
 
 import com.squareup.okhttp.ResponseBody;
+import com.wondersgroup.commerce.model.AttachBean;
 import com.wondersgroup.commerce.model.AttachResultObject;
 import com.wondersgroup.commerce.model.BackResultObject;
 import com.wondersgroup.commerce.model.CaseInvestigateDetail;
@@ -139,6 +140,10 @@ public interface CaseApi {
     @FormUrlEncoded
     @POST
     public Call<Result<List<CaseQueryBean>>> toCaseQuery(@Url String url, @FieldMap Map<String, String> map);
+
+    @POST
+    @FormUrlEncoded
+    public Call<Result<AttachBean>> downloadDoc(@Url String url, @FieldMap Map<String, String> param);
 
     @FormUrlEncoded
     @POST(PROCEDURE_CASE_LIST)

@@ -632,6 +632,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 //                list.addAll(lajgTree.getChilds());
 //                lajgTree.getChilds().clear();
 //                list.add(0, lajgTree);
+                Log.e("startTime", System.currentTimeMillis()+"");
                 Intent intent = new Intent(CaseEnquireActivity.this, SingleChoiceActivity.class);
                 intent.putExtra("root", lajgTree);
                 intent.putExtra(Constants.TITLE, lajgTree.getName());

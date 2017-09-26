@@ -22,11 +22,97 @@ import java.util.Date;
  */
 
 public class DateUtil {
-    private static final String FORMATE_YMD = "yyyy-MM-dd";
-    private static final String FORMATE_YMDHM = "yyyy年MM月dd日  HH时mm分";
-    private static final String FORMATE_YMDHMS = "yyyy-MM-dd HH:mm:ss";
-    private static final String FORMAT_YY_MM_DD_HH_MM_SS = "yy-MM-dd HH-mm-ss";
+    public static final String FORMATE_YMD = "yyyy-MM-dd";
+    public static final String FORMATE_YMDHM = "yyyy年MM月dd日  HH时mm分";
+    public static final String FORMATE_YMDHMS = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMATE_YY_MM_DD = "yyyy年MM月dd日";
+    public static final String FORMAT_YY_MM_DD_HH_MM_SS = "yy-MM-dd HH:mm:ss";
+    public static final String FORMAT_HH_MM = "HH:mm";
+    public static final String FORMAT_MM_DD = "MM:dd";
     private static DateListener dateListener;
+
+    public static Date getDate(String dateFormat, String time){
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        Date date = null;
+        try {
+            date = sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }finally {
+            if (date == null)
+                date = new Date();
+            return date;
+        }
+    }
+
+    public static String getTime(String dateFormat, Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        return sdf.format(date);
+    }
+
+    public static boolean isToday(Date date){
+        Date dateNow = new Date();
+        if (date.getYear() == dateNow.getYear()
+                && date.getMonth() == dateNow.getMonth()
+                && date.getDate() == dateNow.getDate())
+            return true;
+
+        return false;
+    }
+
+    public static boolean isYestoday(Date date){
+        Date dateNow = new Date();
+        if (date.getYear() == dateNow.getYear()
+                && date.getMonth() == dateNow.getMonth()
+                && (date.getDate() - dateNow.getDate() ==1))
+            return true;
+        else if (date.getYear() == dateNow.getYear()
+                && dateNow.getMonth() - date.getMonth() == 1
+                && isFirstDayOfMonth(dateNow)
+                && isLastDayOfMonth(date))
+            return true;
+        else if (dateNow.getYear() - date.getYear() == 1
+                && isFirstMonthOfYear(dateNow)
+                && isFirstDayOfMonth(dateNow)
+                && isLastMonthOfYear(date)
+                && isLastDayOfMonth(date))
+            return true;
+
+        return false;
+    }
+
+    public static boolean isFirstDayOfMonth(Date date){
+        if (date.getDate() == 1)
+            return true;
+        return false;
+    }
+
+    public static boolean isLastDayOfMonth(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        if (max == date.getDate())
+            return true;
+        return false;
+    }
+
+    public static boolean isFirstMonthOfYear(Date date){
+        if (date.getMonth() == 0)
+            return true;
+        return false;
+    }
+
+    public static boolean isLastMonthOfYear(Date date){
+        if (date.getMonth() == 11)
+            return true;
+        return false;
+    }
+
+    public static boolean isThisYear(Date date){
+        if (date.getYear() == getNowYear())
+            return true;
+        return false;
+    }
 
     public static String getYMD(Date date){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMATE_YMD);
