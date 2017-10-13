@@ -1,19 +1,25 @@
 package com.wondersgroup.commerce.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.wondersgroup.commerce.interface_.Data;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Lee on 2016/2/2.
  */
-public class DataVolume {
+public class DataVolume implements Serializable{
 
-    String key;
-    String name;
-    List<DataVolume> remark = new ArrayList<DataVolume>();
-    String required;
-    String type;
-    String value;
+    private String key;
+    private String name;
+    private List<DataVolume> remark;
+    private String required;
+    private String type;
+    private String value;
 
     public String getKey() {
         return key;

@@ -47,6 +47,7 @@ import com.wondersgroup.commerce.service.CaseApi;
 import com.wondersgroup.commerce.service.Result;
 import com.wondersgroup.commerce.teamwork.casedeal.bean.CaseQueryBean;
 import com.wondersgroup.commerce.utils.CodeUtils;
+import com.wondersgroup.commerce.utils.DateUtil;
 import com.wondersgroup.commerce.utils.DynamicWidgetUtils;
 import com.wondersgroup.commerce.utils.FileHelper;
 import com.wondersgroup.commerce.utils.TableRowUtils;
@@ -61,6 +62,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -104,11 +106,11 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     private TotalLoginBean loginBean;
     private CaseQueryDic caseQueryDic;
     private TreeBean lajgTree;
-    private TableRow cxlx, lajg, bajg, gsqk, ajjd, ajmc, dsrmc, sycx;
-    private HashMap<String, String> temp;
-    private JSONObject tempJson;
+    private TableRow cxlx, lajg, bajg, gsqk, ajjd, ajjd_1, ajjd_2, ajmc, dsrmc, sycx, larq, larq_1, larq_2, cfrq, cfrq_1, cfrq_2;
+    private HashMap<String, String> queryConditionMap;
     private HashMap<String, String> param;
     private int currentPage = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,15 +123,15 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
         loginBean = Hawk.get(Constants.LOGIN_BEAN);
         type = getIntent().getStringExtra(Constants.TYPE);
-        temp = new HashMap<>();
-        tempJson = new JSONObject();
+        queryConditionMap = new HashMap<>();
         param = new HashMap<>();
-        param.put("currentPage", currentPage+"");
-        if (Constants.WDAJCX_ID.equals(type) || Constants.WDAJCX_ID_2.equals(type)){
+        param.put("currentPage", currentPage + "");
+        if (Constants.WDAJCX_ID.equals(type) || Constants.WDAJCX_ID_2.equals(type)) {
             initView();
             initData();
-        }else if (Constants.AJCX_ID.equals(type)){
+        } else if (Constants.AJCX_ID.equals(type)) {
             initView2();
+            initViewData2();
             initData2();
         }
     }
@@ -147,125 +149,104 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data != null){
+        if (data != null) {
             TreeBean treeBean = null;
-            switch (requestCode){
+            switch (requestCode) {
                 case 101:
                     Log.e("扫码", "返回成功");
                     String result = data.getStringExtra("result");
                     int p1 = result.indexOf("=");
                     int p2 = result.indexOf("=", p1 + 1);
-                    String clueNo = new String(Base64.decode(result.substring(p1 + 1, p2),0));
+                    String clueNo = new String(Base64.decode(result.substring(p1 + 1, p2), 0));
                     if (TextUtils.isEmpty(clueNo)) {
                         Toast.makeText(this, "查询的clueNo为空！", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         Intent mIntent = new Intent(this, CaseQueryDetailActivity.class);
                         mIntent.putExtra("clueNo", clueNo);
+                        mIntent.putExtra(Constants.TYPE, Constants.SC);
                         startActivity(mIntent);
                     }
                     break;
                 case 10:
-                    if (data != null){
+                    if (data != null) {
                         treeBean = data.getParcelableExtra("data");
-                        if (treeBean != null){
+                        if (treeBean != null) {
                             lajg.setContent(treeBean.getName());
-//                        temp.put("transactOrgan", treeBean.getId());
-                            try {
-                                tempJson.put("transactOrgan", treeBean.getId());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            queryConditionMap.put("transactOrgan", treeBean.getId());
                         }
                     }
                     break;
                 case 11:
-                    if (data != null){
+                    if (data != null) {
                         treeBean = data.getParcelableExtra("data");
-                        if (treeBean != null){
+                        if (treeBean != null) {
                             cxlx.setContent(treeBean.getName());
                             param.put("queryType", treeBean.getId());
-                            if ("01".equals(treeBean.getId())){
+                            String code = queryConditionMap.get("transactOrgan") != null ? queryConditionMap.get("transactOrgan") : queryConditionMap.get("appOrgan");
+                            if ("01".equals(treeBean.getId())) {
                                 lajg.setTitle("立案机关");
-                            }else {
+                                queryConditionMap.remove("appOrgan");
+                                queryConditionMap.put("transactOrgan", code);
+                            } else {
                                 lajg.setTitle("办案机关");
+                                queryConditionMap.remove("transactOrgan");
+                                queryConditionMap.put("appOrgan", code);
                             }
                         }
                     }
                     break;
                 case 12:
-                    if (data != null){
+                    if (data != null) {
                         treeBean = data.getParcelableExtra("data");
-                        if (treeBean != null){
+                        if (treeBean != null) {
                             bajg.setContent(treeBean.getName());
-//                        temp.put("appOrgan", treeBean.getId());
-                            try {
-                                tempJson.put("transactDept", treeBean.getId());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            if ("01".equals(param.get("queryType")))
+                                queryConditionMap.put("transactDept", treeBean.getId());
+                            else
+                                queryConditionMap.put("appOrgan", treeBean.getId());
                         }
                     }
                     break;
                 case 13:
-                    if (data != null){
+                    if (data != null) {
                         ArrayList<TreeBean> list = data.getParcelableArrayListExtra("list");
                         String content = "";
-                        for (TreeBean bean: list){
-                            content += bean.getName()+", ";
+                        for (TreeBean bean : list) {
+                            content += bean.getName() + ", ";
                         }
-                        content = content.substring(0, content.length()-2);
+                        content = content.substring(0, content.length() - 2);
                         sycx.setContent(content);
                         String code = "";
-                        for (TreeBean bean: list){
-                            code += bean.getName()+",";
+                        for (TreeBean bean : list) {
+                            code += bean.getName() + ",";
                         }
-//                    temp.put("suitProcedure", code.substring(0, code.length()-1));
-                        try {
-                            tempJson.put("suitProcedure", code.substring(0, code.length()-1));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        queryConditionMap.put("suitProcedure", code.substring(0, code.length() - 1));
                     }
                 case 14:
-                    if (data != null){
+                    if (data != null) {
                         treeBean = data.getParcelableExtra("data");
-                        if (treeBean != null){
+                        if (treeBean != null) {
                             gsqk.setContent(treeBean.getName());
-//                        temp.put("caseNoticeFlag", treeBean.getId());
-                            try {
-                                tempJson.put("caseNoticeFlag", treeBean.getId());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                            queryConditionMap.put("caseNoticeFlag", treeBean.getId());
                         }
                     }
                     break;
                 case 15:
-                    if (data != null){
+                    if (data != null) {
                         treeBean = data.getParcelableExtra("data");
-                        if (treeBean != null){
-                            ajjd.setChildContent("0", treeBean.getName());
-//                        temp.put("regStage1", treeBean.getId());
-                            try {
-                                tempJson.put("regStage1", treeBean.getId());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                        if (treeBean != null) {
+                            ajjd_1.setContent(treeBean.getName());
+                            queryConditionMap.put("regStage1", treeBean.getId());
                         }
                     }
                     break;
                 case 16:
-                    if (data != null){
+                    if (data != null) {
                         treeBean = data.getParcelableExtra("data");
-                        if (treeBean != null){
-                            ajjd.setChildContent("1", treeBean.getName());
-//                        temp.put("regStage2", treeBean.getId());
-                            try {
-                                tempJson.put("regStage2", treeBean.getId());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+                        if (treeBean != null) {
+                            ajjd_2.setContent(treeBean.getName());
+                            queryConditionMap.put("regStage2", treeBean.getId());
                         }
                     }
                     break;
@@ -284,13 +265,15 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "03010001");
-
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<DynamicComponentObject> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_CONDITION;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_QUERY_CONDITION;
-        Call<DynamicComponentObject> call = ApiManager.caseApi.toQueryCase(url,map);
+            call = ApiManager.caseApi.toQueryCase(url, map);
+        } else{
+            url = CaseApi.CASE_QUERY_CONDITION;
+            call = ApiManager.shyApi.toQueryCase(url, map);
+        }
         call.enqueue(new Callback<DynamicComponentObject>() {
             @Override
             public void onResponse(Response<DynamicComponentObject> response, Retrofit retrofit) {
@@ -308,10 +291,6 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
                     //添加动态控件
                     tableRowUtils = new TableRowUtils(CaseEnquireActivity.this, componentsLinearLayout, componentObjectsList, false);
                     tableRowUtils.build();
-//                    if (null != componentObjectsList && componentObjectsList.size() > 1) {
-//                        dynamicWidgetUtils = new DynamicWidgetUtils(CaseEnquireActivity.this, componentObjectsList, arrayedittext);
-//                        dynamicWidgetUtils.addComponents(componentsLinearLayout);
-//                    }
 
                 } else {
                     Log.d(TAG, "CaseInspectActivity --------------- response.is not Success()");
@@ -326,9 +305,9 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
-    public void initView2(){
+    public void initView2() {
         title.setText("案件查询");
-        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
+        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())) {
             imageScan.setVisibility(View.VISIBLE);
             imageScan.setOnClickListener(this);
         }
@@ -338,49 +317,26 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
         cxlx = new TableRow.Builder(this)
                 .title("查询类型")
-                .content("按立案机关查询")
                 .select("")
                 .build();
-        param.put("queryType", "01");
         componentsLinearLayout.addView(cxlx);
 
         lajg = new TableRow.Builder(this)
                 .title("立案机关")
-                .content(loginBean.getResult().getOrganName())
                 .select("")
                 .build();
-//        temp.put("transactOrgan", loginBean.getResult().getDeptId());
-        try {
-            tempJson.put("transactOrgan", loginBean.getResult().getOrganId());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         componentsLinearLayout.addView(lajg);
 
         bajg = new TableRow.Builder(this)
                 .title("办案机构")
-                .content(loginBean.getResult().getDeptName())
                 .select("")
                 .build();
-//        temp.put("transactDept", loginBean.getResult().getOrganId());
-        try {
-            tempJson.put("transactDept", loginBean.getResult().getDeptId());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         componentsLinearLayout.addView(bajg);
 
         sycx = new TableRow.Builder(this)
                 .title("适用程序")
                 .select("")
                 .build();
-        sycx.setContent("简易程序, 一般程序, 其他");
-//        temp.put("suitProcedure", "1,2,9");
-        try {
-            tempJson.put("suitProcedure", "1,2,9");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         componentsLinearLayout.addView(sycx);
 
         gsqk = new TableRow.Builder(this)
@@ -401,40 +357,172 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
                 .build();
         componentsLinearLayout.addView(dsrmc);
 
+        ajjd_1 = new TableRow.Builder(this)
+                .titleW(0)
+                .select("")
+                .content("正处于")
+                .build();
+        queryConditionMap.put("regStage1", "1");
+
+        ajjd_2 = new TableRow.Builder(this)
+                .titleW(0)
+                .select("")
+                .content("全部")
+                .hideBtmLine()
+                .build();
+        queryConditionMap.put("regStage2", "");
+
         ajjd = new TableRow.Builder(this)
                 .title("案件阶段")
-                .multiSelect2(Arrays.asList("正处于","全部"))
+                .addChild(ajjd_1, ajjd_2)
                 .build();
-//        temp.put("regStage1", "1");
-//        temp.put("regStage2", "");
-        try {
-            tempJson.put("regStage1", "1");
-            tempJson.put("regStage2", "");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         componentsLinearLayout.addView(ajjd);
+
+        larq_1 = new TableRow.Builder(this)
+                .titleW(0)
+                .select("开始时间")
+                .hasIndex(false)
+                .content(DateUtil.getNowYear() + "-01-01")
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        DateUtil.createDatePicker(CaseEnquireActivity.this, new DateUtil.DateListener() {
+                            @Override
+                            public void back(Date date) {
+                                String time = DateUtil.getYMD(date);
+                                larq_1.setContent(time);
+                                queryConditionMap.put("regCaseDateShow1", time);
+                            }
+                        });
+                    }
+                })
+                .build();
+        queryConditionMap.put("regCaseDateShow1", DateUtil.getNowYear() + "-01-01");
+
+        larq_2 = new TableRow.Builder(this)
+                .titleW(0)
+                .select("结束时间")
+                .hasIndex(false)
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        DateUtil.createDatePicker(CaseEnquireActivity.this, new DateUtil.DateListener() {
+                            @Override
+                            public void back(Date date) {
+                                String time = DateUtil.getYMD(date);
+                                larq_2.setContent(time);
+                                queryConditionMap.put("regCaseDateShow2", time);
+                            }
+                        });
+                    }
+                })
+                .hideBtmLine()
+                .build();
+
+        larq = new TableRow.Builder(this)
+                .title("立案日期")
+                .addChild(larq_1, larq_2)
+                .build();
+        componentsLinearLayout.addView(larq);
+
+        cfrq_1 = new TableRow.Builder(this)
+                .titleW(0)
+                .select("开始时间")
+                .hasIndex(false)
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        DateUtil.createDatePicker(CaseEnquireActivity.this, new DateUtil.DateListener() {
+                            @Override
+                            public void back(Date date) {
+                                String time = DateUtil.getYMD(date);
+                                cfrq_1.setContent(time);
+                                queryConditionMap.put("regCaseDateShow1", time);
+                            }
+                        });
+                    }
+                })
+                .build();
+
+        cfrq_2 = new TableRow.Builder(this)
+                .titleW(0)
+                .select("结束时间")
+                .hasIndex(false)
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        DateUtil.createDatePicker(CaseEnquireActivity.this, new DateUtil.DateListener() {
+                            @Override
+                            public void back(Date date) {
+                                String time = DateUtil.getYMD(date);
+                                cfrq_2.setContent(time);
+                                queryConditionMap.put("regCaseDateShow2", time);
+                            }
+                        });
+                    }
+                })
+                .build();
+
+        cfrq = new TableRow.Builder(this)
+                .title("处罚决定日期")
+                .addChild(cfrq_1, cfrq_2)
+                .build();
+        componentsLinearLayout.addView(cfrq);
     }
 
-    public void initData2(){
+    public void initViewData2(){
+        cxlx.setContent("按立案机关查询");
+        param.put("queryType", "01");
+
+        lajg.setTitle("立案机关");
+        lajg.setContent(loginBean.getResult().getOrganName());
+        queryConditionMap.put("transactOrgan", loginBean.getResult().getOrganId());
+
+        bajg.setContent(loginBean.getResult().getDeptName());
+        queryConditionMap.put("transactDept", loginBean.getResult().getDeptId());
+
+        sycx.setContent("简易程序, 一般程序, 其他");
+        queryConditionMap.put("suitProcedure", "1,2,9");
+
+        gsqk.setContent("");
+
+        ajmc.setContent("");
+
+        dsrmc.setContent("");
+
+        ajjd_1.setContent("正处于");
+        queryConditionMap.put("regStage1", "1");
+
+        ajjd_2.setContent("全部");
+        queryConditionMap.put("regStage2", "");
+
+        larq_1.setContent(DateUtil.getNowYear() + "-01-01");
+        queryConditionMap.put("regCaseDateShow1", DateUtil.getNowYear() + "-01-01");
+        larq_2.setContent("");
+        queryConditionMap.remove("regCaseDateShow2");
+
+        cfrq_1.setContent("");
+        queryConditionMap.remove("regCaseDateShow1");
+        cfrq_2.setContent("");
+        queryConditionMap.remove("regCaseDateShow2");
+    }
+
+    public void initData2() {
         final Dialog dialog = LoadingDialog.showCanCancelable(this);
         dialog.show();
         String url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_LIST;
         param = new HashMap<>();
-        param.put("wsCodeReq", "03010025");
+        param.put(Constants.WS_CODE_REQ, "03010025");
         param.put(Constants.USER_ID, loginBean.getResult().getUserId());
         param.put(Constants.ORGAN_ID, loginBean.getResult().getOrganId());
         param.put(Constants.DEPT_ID, loginBean.getResult().getDeptId());
-//        param.put(Constants.USER_ID, "8a81a9b8520b9f8601520ba5e8e10001");
-//        param.put(Constants.ORGAN_ID, "510000000");
-//        param.put(Constants.DEPT_ID, "51000000099");
         Call<Result<CaseQueryDic>> call = ApiManager.caseApi.caseQueryList(url, param);
         call.enqueue(new Callback<Result<CaseQueryDic>>() {
             @Override
             public void onResponse(Response<Result<CaseQueryDic>> response, Retrofit retrofit) {
                 if (dialog.isShowing())
                     dialog.dismiss();
-                if (response.body() != null){
+                if (response.body() != null) {
                     caseQueryDic = response.body().getObject();
                     handleDic();
                 }
@@ -448,6 +536,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
             }
         });
     }
+
     /**
      * 添加全部项
      */
@@ -485,7 +574,6 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "03010003");
         map.put("userId", loginBean.getResult().getUserId());
-//        map.put("userId", "00005859");
 
         conditionMap = new HashMap<String, String>();
 
@@ -509,11 +597,14 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
         Log.d(TAG, "map = " + map.toString());
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<CaseQueryResult> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_MY_CASE;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_QUERY_MY_CASE;
-        Call<CaseQueryResult> call = ApiManager.caseApi.queryMyCase(url,map);
+            call = ApiManager.caseApi.queryMyCase(url, map);
+        } else{
+            url = CaseApi.CASE_QUERY_MY_CASE;
+            call = ApiManager.shyApi.queryMyCase(url, map);
+        }
         call.enqueue(new Callback<CaseQueryResult>() {
             @Override
             public void onResponse(Response<CaseQueryResult> response, Retrofit retrofit) {
@@ -553,25 +644,16 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         });
     }
 
-    public void queryRecord2(){
-//        temp.put("caseName", ajmc.getInput().trim());
-//        temp.put("litigtName", dsrmc.getInput().trim());
-        try {
-            tempJson.put("caseName", ajmc.getInput().trim());
-            tempJson.put("litigtName", dsrmc.getInput().trim());
-            tempJson.put("currentPage", 1);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        String queryCondition = tempJson.toString();
-        param.put("queryCondition", queryCondition);
+    public void queryRecord2() {
+        queryConditionMap.put("caseName", ajmc.getInput().trim());
+        queryConditionMap.put("litigtName", dsrmc.getInput().trim());
+        queryConditionMap.put("currentPage", 1 + "");
 
         Intent intent = new Intent(this, RecyclerActivity.class);
         intent.putExtra(Constants.TYPE, "casequery");
         intent.putExtra(Constants.TITLE, "案件查询");
         intent.putExtra(Constants.PARAM, param);
+        intent.putExtra("queryConditionMap", queryConditionMap);
         startActivity(intent);
     }
 
@@ -588,21 +670,21 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
                 scan();
                 break;
             case R.id.query_button:
-                if (Constants.WDAJCX_ID.equals(type) || Constants.WDAJCX_ID_2.equals(type)){
+                if (Constants.WDAJCX_ID.equals(type) || Constants.WDAJCX_ID_2.equals(type)) {
                     if (checkValue() == true)
                         queryRecord();
-                }else if (Constants.AJCX_ID.equals(type)){
-                   queryRecord2();
+                } else if (Constants.AJCX_ID.equals(type)) {
+                    queryRecord2();
                 }
 
                 break;
             case R.id.clear_btn:
-                if (Constants.WDAJCX_ID.equals(type) || Constants.WDAJCX_ID_2.equals(type)){
+                if (Constants.WDAJCX_ID.equals(type) || Constants.WDAJCX_ID_2.equals(type)) {
                     for (int i = 0; i < componentObjectsList.size(); i++) {
                         tableRowUtils.setContent(i, "");
                     }
-                }else if (Constants.AJCX_ID.equals(type)){
-
+                } else if (Constants.AJCX_ID.equals(type)) {
+                    initViewData2();
                 }
                 break;
         }
@@ -621,10 +703,10 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
     }
 
     //处理字典项
-    public void handleDic(){
+    public void handleDic() {
         //立案机关
         lajgTree = getTree(caseQueryDic.getOrgList());
-        lajg.setContent(lajgTree.getName());
+//        lajg.setContent(lajgTree.getName());
         lajg.setSelect(new TableRow.SelectCallBack() {
             @Override
             public void onSelect(TableRow row, int which) {
@@ -632,7 +714,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 //                list.addAll(lajgTree.getChilds());
 //                lajgTree.getChilds().clear();
 //                list.add(0, lajgTree);
-                Log.e("startTime", System.currentTimeMillis()+"");
+                Log.e("startTime", System.currentTimeMillis() + "");
                 Intent intent = new Intent(CaseEnquireActivity.this, SingleChoiceActivity.class);
                 intent.putExtra("root", lajgTree);
                 intent.putExtra(Constants.TITLE, lajgTree.getName());
@@ -693,52 +775,54 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         final ArrayList<TreeBean> ajjdList1 = MapToList(caseQueryDic.getStatusMap());
         final ArrayList<TreeBean> ajjdList2 = MapToList(caseQueryDic.getStatusMap2());
         final ArrayList<TreeBean> ajjdList3 = MapToList(caseQueryDic.getStatusMap3());
-        ajjd.setOnMultiClick(new TableRow.OnMultiClick() {
+        ajjd_1.setSelect(new TableRow.SelectCallBack() {
             @Override
-            public void onClick(int position) {
+            public void onSelect(TableRow row, int which) {
+                Intent intent = new Intent(CaseEnquireActivity.this, SingleChoiceActivity.class);
+                intent.putExtra(Constants.TYPE, "caseQuery2");
+                intent.putParcelableArrayListExtra("list", ajjdList1);
+                intent.putExtra(Constants.TITLE, "选择");
+                startActivityForResult(intent, 15);
+            }
+        });
+
+        ajjd_2.setSelect(new TableRow.SelectCallBack() {
+            @Override
+            public void onSelect(TableRow row, int which) {
                 ArrayList<TreeBean> list = null;
-                if (position == 0){
-                    list = ajjdList1;
-                    Intent intent = new Intent(CaseEnquireActivity.this, SingleChoiceActivity.class);
-                    intent.putExtra(Constants.TYPE, "caseQuery2");
-                    intent.putParcelableArrayListExtra("list", list);
-                    intent.putExtra(Constants.TITLE, "选择");
-                    startActivityForResult(intent, 15);
-                }else if (position == 1){
-                    try {
-                        if("1".equals(tempJson.getString("regStage1")))
-                            list = ajjdList2;
-                        else
-                            list = ajjdList3;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Intent intent = new Intent(CaseEnquireActivity.this, SingleChoiceActivity.class);
-                    intent.putExtra(Constants.TYPE, "caseQuery2");
-                    intent.putParcelableArrayListExtra("list", list);
-                    intent.putExtra(Constants.TITLE, "选择");
-                    startActivityForResult(intent, 16);
-                }
+
+                if ("1".equals(queryConditionMap.get("regStage1")))
+                    list = ajjdList2;
+                else
+                    list = ajjdList3;
+
+                Intent intent = new Intent(CaseEnquireActivity.this, SingleChoiceActivity.class);
+                intent.putExtra(Constants.TYPE, "caseQuery2");
+                intent.putParcelableArrayListExtra("list", list);
+                intent.putExtra(Constants.TITLE, "选择");
+                startActivityForResult(intent, 16);
 
             }
         });
     }
 
-    public TreeBean getTree(List<TreeBean> list){
+    public TreeBean getTree(List<TreeBean> list) {
         //找出根节点
-        Log.e("startTime", System.currentTimeMillis()+"");
+        Log.e("startTime", System.currentTimeMillis() + "");
         Log.e("size", list.size() + "");
         TreeBean root = new TreeBean();
-        loop1: for (int i=0; i< list.size(); i++){
+        loop1:
+        for (int i = 0; i < list.size(); i++) {
             TreeBean bean = list.get(i);
             boolean match = false;
-            loop2: for (int j=0; j<list.size(); j++){
-                if (bean.getpId().equals(list.get(j).getId())){
+            loop2:
+            for (int j = 0; j < list.size(); j++) {
+                if (bean.getpId().equals(list.get(j).getId())) {
                     match = true;
                     break loop2;
                 }
             }
-            if (!match){
+            if (!match) {
                 root = bean;
             }
         }
@@ -746,35 +830,35 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 //        addChilds(root, list);
         Hawk.put("caseQueryDic", list);
 
-        Log.e("endTime", System.currentTimeMillis()+"");
+        Log.e("endTime", System.currentTimeMillis() + "");
         return root;
     }
 
-    public void addChilds(TreeBean root, List<TreeBean> list){
-        for (int i=0; i<list.size(); i++){
-            if (list.get(i).getpId().equals(root.getId())){
-                if (root.getChilds() == null){
+    public void addChilds(TreeBean root, List<TreeBean> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getpId().equals(root.getId())) {
+                if (root.getChilds() == null) {
 //                    root.setChilds(Arrays.asList(list.get(i)));
                     ArrayList<TreeBean> arrayList = new ArrayList<>();
                     arrayList.add(list.get(i));
                     root.setChilds(arrayList);
-                } else{
+                } else {
                     root.getChilds().add(list.get(i));
                 }
             }
         }
 
-        if (root.getChilds() != null){
-            for (TreeBean child: root.getChilds()){
+        if (root.getChilds() != null) {
+            for (TreeBean child : root.getChilds()) {
                 addChilds(child, list);
             }
         }
     }
 
-    public ArrayList<TreeBean> MapToList(LinkedHashMap linkedHashMap){
+    public ArrayList<TreeBean> MapToList(LinkedHashMap linkedHashMap) {
         ArrayList<TreeBean> list = new ArrayList<>();
         Iterator iterator = linkedHashMap.entrySet().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
             TreeBean treeBean = new TreeBean();
             treeBean.setId(entry.getKey().toString());

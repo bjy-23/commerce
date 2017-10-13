@@ -1,20 +1,15 @@
 package com.wondersgroup.commerce.activity;
 
-import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.google.gson.annotations.Since;
 import com.wondersgroup.commerce.R;
-
-import java.util.Arrays;
+import com.wondersgroup.commerce.teamwork.dailycheck.UtilForFragment;
 
 public class BaseActivity extends AppCompatActivity {
     protected TextView tvTitle;
@@ -33,7 +28,10 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (getSupportFragmentManager().getBackStackEntryCount() != 0)
+                    UtilForFragment.popBackStack(BaseActivity.this);
+                else
+                    finish();
             }
         });
 
@@ -42,11 +40,13 @@ public class BaseActivity extends AppCompatActivity {
         layoutContent = (FrameLayout) findViewById(R.id.layout_content);
     }
 
-    protected void addContentView(int layoutId){
-        View view = LayoutInflater.from(this).inflate(layoutId,null,false);
+    protected void addContentView(int layoutId) {
+        View view = LayoutInflater.from(this).inflate(layoutId, null, false);
         layoutContent.addView(view);
 
 
 //        Arrays.asList("a","b").forEach( e -> Log("",e));
     }
+
+
 }

@@ -11,6 +11,15 @@ import java.util.List;
 public class MenuInfo extends Data {
     private String title;
     private List<MenuBean> menus;
+    private boolean isShow;
+
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
+    }
 
     public String getTitle() {
         return title;

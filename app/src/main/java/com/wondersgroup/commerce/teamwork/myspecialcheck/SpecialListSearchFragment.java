@@ -22,10 +22,12 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
+import com.squareup.okhttp.ResponseBody;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsAdapter;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.InfoBean;
@@ -44,7 +46,13 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class SpecialListSearchFragment extends Fragment {
 
@@ -112,6 +120,18 @@ public class SpecialListSearchFragment extends Fragment {
                         e1.printStackTrace();
                     }
 
+                    Call<ResponseBody> call = ApiManager.consumerwApi.getEtpsList(loginBean.getResult().getOrganId(), keyWord);
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+
+                        }
+                    });
                     String address = Url.QJ_IN_USE + "getEtpsList/"
                             + loginBean.getResult().getOrganId() + "/"
                             + keyWord;
@@ -147,6 +167,23 @@ public class SpecialListSearchFragment extends Fragment {
 
     private void initSelfList() {
         loadingDialog.show();
+        HashMap<String, String> param = new HashMap<>();
+        param.put("submitUser", loginBean.getResult().getUserId());
+        param.put("checkType", "3");
+        param.put("organId", loginBean.getResult().getOrganId());
+        param.put("tmpFlag", "1");
+        Call<ResponseBody> call = ApiManager.consumerwApi.searchList(param);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+//                loadingDialog.show();
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                loadingDialog.show();
+//            }
+//        });
         String address = Url.QJ_IN_USE + "searchList";
         JSONObject jsonObject = new JSONObject();
         try {
@@ -187,6 +224,18 @@ public class SpecialListSearchFragment extends Fragment {
                                     int position, long id) {
                 loadingDialog.show();
                 recordId = etpsBeans.get(position).getRecordId();
+                Call<ResponseBody> call = ApiManager.consumerwApi.getRecordInfo(loginBean.getResult().getDeptId(), recordId);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+                        loadingDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        loadingDialog.dismiss();
+                    }
+                });
                 String netAddress = Url.QJ_IN_USE + "getRecordInfo/2/"
                         + loginBean.getResult().getDeptId() + "/"
                         + recordId;
@@ -212,7 +261,6 @@ public class SpecialListSearchFragment extends Fragment {
 
                             }
                         });
-
             }
         });
     }

@@ -21,6 +21,18 @@ import java.net.URL;
  */
 public class FileUtils {
 
+    public void openFile(Context context,String fileName){
+        final String savePathFinal = fileName;
+
+        try {
+            context.startActivity(
+                    OpenFileHelper.openFile(savePathFinal));
+        } catch (Exception e) {
+            Toast.makeText(context, "不支持打开该类文件",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void decoderBase64File(Context context,  String base64Code, String savePath) throws Exception {
         //byte[] buffer = new BASE64Decoder().decodeBuffer(base64Code);
         byte[] buffer = Base64.decode(base64Code, Base64.DEFAULT);

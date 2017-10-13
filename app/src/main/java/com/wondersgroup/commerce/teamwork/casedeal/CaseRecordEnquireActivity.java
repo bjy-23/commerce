@@ -90,11 +90,14 @@ public class CaseRecordEnquireActivity extends AppCompatActivity {
             map.put("serialNo", serialNo);
 
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<DynamicComponentObject> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_EDIT;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_EDIT;
-        Call<DynamicComponentObject> call = ApiManager.caseApi.toEnquireEdit(url,map);
+            call = ApiManager.caseApi.toEnquireEdit(url,map);
+        } else{
+            url = CaseApi.CASE_ENQUIRE_EDIT;
+            call = ApiManager.shyApi.toEnquireEdit(url,map);
+        }
         Log.d(TAG, "initData()--------map.toString() = " + map.toString());
         call.enqueue(new Callback<DynamicComponentObject>() {
             @Override
@@ -223,11 +226,14 @@ public class CaseRecordEnquireActivity extends AppCompatActivity {
 
         Log.d(TAG, "map = " + map.toString());
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<BackResultObject> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_SAVE;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_SAVE;
-        Call<BackResultObject> call = ApiManager.caseApi.saveEnquire(url,map);
+            call = ApiManager.caseApi.saveEnquire(url,map);
+        } else{
+            url = CaseApi.CASE_ENQUIRE_SAVE;
+            call = ApiManager.shyApi.saveEnquire(url,map);
+        }
         call.enqueue(new Callback<BackResultObject>() {
             @Override
             public void onResponse(Response<BackResultObject> response, Retrofit retrofit) {

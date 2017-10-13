@@ -586,7 +586,7 @@ public class SpecialFragment extends Fragment {
 				if (code.equals("200")) {
 					Toast.makeText(activity, "保存成功", Toast.LENGTH_SHORT).show();
 					progressDialog.cancel();
-					UtilForFragment.popBackStackTwo(activity);
+					UtilForFragment.popBackStack(activity);
 				} else {
 					progressDialog.cancel();
 					Toast.makeText(getActivity(), "未查询到该记录详情",

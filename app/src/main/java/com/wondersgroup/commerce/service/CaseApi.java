@@ -9,6 +9,7 @@ import com.wondersgroup.commerce.model.CaseInvestigateListBean;
 import com.wondersgroup.commerce.model.CaseQueryDic;
 import com.wondersgroup.commerce.model.CaseQueryResult;
 import com.wondersgroup.commerce.model.DynamicComponentObject;
+import com.wondersgroup.commerce.model.FileBean;
 import com.wondersgroup.commerce.model.NoteRecordBean;
 import com.wondersgroup.commerce.model.ProcedureCaseAICRequiryComResultObject;
 import com.wondersgroup.commerce.model.ProcedureCaseAICRequiryResultObject;
@@ -40,7 +41,7 @@ import retrofit.http.Url;
 public interface CaseApi {
     public static final String URL_CASE_1 = "case/services/mobile/";
 //    public static final String URL_CASE_1 = "sccase/services/mobile/";
-    public static final String URL_CASE_2 = "scjd/services/mobile/";
+    public static final String URL_CASE_2 = "services/mobile/";
     public static final String INVESTIGATE_CASE_LIST = "myCaseToInvestigate";       //案件调查列表
     public static final String INVESTIGATE_CASE_DETAIL = "getCaseRegDetail";        //立案信息
     public static final String NOTE_RECORD_LIST = "queryInvestigateList";           //现场笔录和询问笔录列表
@@ -76,6 +77,7 @@ public interface CaseApi {
     String PROCEDURE_CASE_QUERY_PERSON_SELECT = URL_CASE_1 + "queryPersonSelected";     //5.3.4. 个体工商户选择
     String PROCEDURE_CASE_QUERY_COMPANY_SELECT = URL_CASE_1 + "queryEtpsSelected ";     //5.3.6. 企业选择
     String PROCEDURE_CASE_DOWNLAODER_ATTACH =URL_CASE_1 + "downloadAttachFileByPost";      //附件下载
+    String PROCEDURE_CASE_BRAND_TYPE = URL_CASE_1 + "queryTrademarkMap";             //商标类型二级菜单
 
     @FormUrlEncoded
     @POST
@@ -131,7 +133,8 @@ public interface CaseApi {
 
     @FormUrlEncoded
     @POST
-    public Call<Result<List<LitigtBean>>> getLitigtDetail(@Url String url, @FieldMap Map<String,String> map);
+    public Call<ResponseBody> getLitigtDetail(@Url String url, @FieldMap Map<String,String> map);
+
 
     @FormUrlEncoded
     @POST
@@ -167,6 +170,10 @@ public interface CaseApi {
     public Call<ProcedureCaseIllegalSmalTypeResultObject> getProcedureCaseIllegalCode(@FieldMap Map<String, String> body);
 
     @FormUrlEncoded
+    @POST(PROCEDURE_CASE_BRAND_TYPE)
+    public Call<ProcedureCaseIllegalSmalTypeResultObject> getBrandTypeSecondLevel(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
     @POST(PROCEDURE_CASE_ILLEGAL_LAW)
     public Call<ProcedureCaseIllegalCodeResultObject> getProcedureCaseIllegalLaw(@FieldMap Map<String, String> body);
 
@@ -198,7 +205,10 @@ public interface CaseApi {
     @POST(PROCEDURE_CASE_QUERY_COMPANY_SELECT)
     public Call<ProcedureCaseQueryCompanySelectedResultObject> queryEtpsSelected (@FieldMap Map<String, String> body);
 
+//    @FormUrlEncoded
+//    @POST(PROCEDURE_CASE_DOWNLAODER_ATTACH)
+//    public Call<ProcedureCaseAttachResultObject> procedureCaseDownLoadAttchment(@FieldMap Map<String, String> body);
     @FormUrlEncoded
     @POST(PROCEDURE_CASE_DOWNLAODER_ATTACH)
-    public Call<ProcedureCaseAttachResultObject> procedureCaseDownLoadAttchment(@FieldMap Map<String, String> body);
+    public Call<FileBean> procedureCaseDownLoadAttchment(@FieldMap Map<String, String> body);
 }

@@ -23,6 +23,7 @@ import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.teamwork.dailycheck.EtpsBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsOneAdapter;
 import com.wondersgroup.commerce.teamwork.dailycheck.BigBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.HttpCallbackListener;
@@ -73,6 +74,7 @@ public class SpecialListFragment extends Fragment {
 
 	public void initCheckList() {
 		DailyCheckList = (ListView) view.findViewById(R.id.demo_list);
+		List<EtpsBean> data = application.getEtpsBeans();
 		adapter = new EtpsOneAdapter(getActivity(), R.layout.mode_list_item1,
 				application.getEtpsBeans());
 		DailyCheckList.setAdapter(adapter);

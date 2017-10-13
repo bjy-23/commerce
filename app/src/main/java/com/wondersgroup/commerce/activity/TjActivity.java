@@ -1,12 +1,22 @@
 package com.wondersgroup.commerce.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -45,9 +55,67 @@ public class TjActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
 
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.setWebChromeClient(new WebChromeClient());
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setLoadsImagesAutomatically(true);
+        settings.setGeolocationEnabled(true);
+        settings.setAppCacheEnabled(true);
+        settings.setAllowFileAccess(true);
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
+        settings.setUseWideViewPort(true);
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                Log.e("progress", newProgress + "");
+            }
+        });
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                Log.e("title", view.getTitle());
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.e("title", view.getTitle());
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                //返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                super.onReceivedSslError(view, handler, error);
+                handler.proceed();
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                Log.e("error", error.toString());
+            }
+
+            @Override
+            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                super.onReceivedHttpError(view, request, errorResponse);
+                Log.e("error", errorResponse.toString());
+            }
+        });
+//        webView.loadUrl(Constants.TJ_YN_GTGSH_LINK_7);
         /*// 设置可以支持缩放
         webView.getSettings().setSupportZoom(true);
         // 设置出现缩放工具
@@ -55,7 +123,7 @@ public class TjActivity extends AppCompatActivity {
         // 扩大比例的缩放
         webView.getSettings().setUseWideViewPort(true);
         webView.setInitialScale(10);*/
-        switch (titleName){
+        switch (titleName) {
             case "近期新设内资企业户数情况":
                 webView.loadUrl(Constants.TJ_URL_1);
                 break;
@@ -173,12 +241,44 @@ public class TjActivity extends AppCompatActivity {
             case "2016-2017年个体同比折线图（按月份）":
                 webView.loadUrl(Constants.TJ_YN_GTGSH_LINK_6);
                 break;
-            case "个体经营户则年龄段占比图":
+            case "个体经营者年龄段占比图":
                 webView.loadUrl(Constants.TJ_YN_GTGSH_LINK_7);
                 break;
             case "个体经营者各年龄段占前十行业数量":
                 webView.loadUrl(Constants.TJ_YN_GTGSH_LINK_8);
                 break;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        webView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        webView.onPause();
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (webView != null) {
+            webView.destroy();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null) {
+            final ViewGroup viewGroup = (ViewGroup) webView.getParent();
+            if (viewGroup != null) {
+                viewGroup.removeView(webView);
+            }
+            webView.destroy();
         }
     }
 

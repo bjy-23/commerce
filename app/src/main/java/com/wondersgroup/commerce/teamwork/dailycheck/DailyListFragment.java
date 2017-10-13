@@ -1,11 +1,13 @@
 package com.wondersgroup.commerce.teamwork.dailycheck;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import org.json.JSONException;
@@ -34,7 +40,8 @@ public class DailyListFragment extends Fragment {
 	private Gson gson = new Gson();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
-
+    private TotalLoginBean loginBean;
+	private boolean isLoaded;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -45,59 +52,67 @@ public class DailyListFragment extends Fragment {
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setTitle("");
 		application = (RootAppcation) activity.getApplication();
-
+        loginBean = Hawk.get(Constants.LOGIN_BEAN);
 		TextView title = (TextView)activity.findViewById(R.id.toolbar_title);
 		title.setText("日常检查列表");
 
-		initCheckList();
+//		if (!isLoaded)
+			initCheckList();
 		setHasOptionsMenu(true);
 		return view;
 	}
 
-	public void initCheckList() {
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    public void initCheckList() {
 		DailyCheckList = (ListView) view.findViewById(R.id.demo_list);
-//		adapter = new EtpsOneAdapter(getActivity(), R.layout.mode_list_item1,
-//				application.getEtpsBeans());
+		adapter = new EtpsOneAdapter(getActivity(), R.layout.mode_list_item1,
+				application.getEtpsBeans());
 		DailyCheckList.setAdapter(adapter);
-//		DailyCheckList.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> parent, View view,
-//					int position, long id) {
-//
-//				MyProgressDialog.show(activity);
-//
-////				application.setCaseId(application.getEtpsBeans().get(position)
-////						.getEtpsId());
-//				// 河北接口
-////				String hebeiAddress = Url.QJ_IN_USE + "doCheck/"
-////						+ application.getEtpsBeans().get(position).getEtpsId()
-////						+ "/1/" + application.getLoginUserInfo().getDeptId();
-//				HttpClientUtil.callWebServiceForGet(hebeiAddress,
-//						new HttpCallbackListener() {
-//
-//							@Override
-//							public void onFinish(String response) {
-//								MyProgressDialog.dismiss();
-//								Message message = new Message();
-//								message.what = SHOW_RESPONSE;
-//								message.obj = response.toString();
-//								handler.sendMessage(message);
-//							}
-//
-//							@Override
-//							public void onError(Exception e) {
-//								MyProgressDialog.dismiss();
-//								Message message = new Message();
-//								message.what = SHOW_ERROR;
-//								message.obj = e.toString();
-//								handler.sendMessage(message);
-//
-//							}
-//						});
-//
-//			}
-//		});
+		DailyCheckList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
+				dialog.show();
+				application.setCaseId(application.getEtpsBeans().get(position)
+						.getEtpsId());
+				// 河北接口
+				String hebeiAddress = Url.QJ_IN_USE + "doCheck/"
+						+ application.getEtpsBeans().get(position).getEtpsId()
+						+ "/1/" + loginBean.getResult().getDeptId();
+				Log.e("address", hebeiAddress);
+				HttpClientUtil.callWebServiceForGet(hebeiAddress,
+						new HttpCallbackListener() {
+
+							@Override
+							public void onFinish(String response) {
+                                isLoaded = true;
+								dialog.dismiss();
+								Log.e("response", response);
+								Message message = new Message();
+								message.what = SHOW_RESPONSE;
+								message.obj = response.toString();
+								handler.sendMessage(message);
+							}
+
+							@Override
+							public void onError(Exception e) {
+								dialog.dismiss();
+								Message message = new Message();
+								message.what = SHOW_ERROR;
+								message.obj = e.toString();
+								handler.sendMessage(message);
+
+							}
+						});
+
+			}
+		});
 	}
 
 	@Override
@@ -141,7 +156,7 @@ public class DailyListFragment extends Fragment {
 
 				if (code.equals("200")) {
 					BigBean bigBean = gson.fromJson(result, BigBean.class);
-//					application.setBigBean(bigBean);
+					application.setBigBean(bigBean);
 
 					UtilForFragment.switchContentWithStack(activity,
 							new DailyFragment(), R.id.content);

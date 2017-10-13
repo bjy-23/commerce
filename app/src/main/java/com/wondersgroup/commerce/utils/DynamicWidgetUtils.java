@@ -570,11 +570,14 @@ public class DynamicWidgetUtils extends RootActivity {
         map.put("wsCodeReq", "03010015");
         map.put("attachId", attachId);
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<AttachResultObject> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.DOWNLAODER_ATTACH;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.DOWNLAODER_ATTACH;
-        Call<AttachResultObject> call = ApiManager.caseApi.downLoadAttchment(url,map);
+            call = ApiManager.caseApi.downLoadAttchment(url,map);
+        } else{
+            url = CaseApi.DOWNLAODER_ATTACH;
+            call = ApiManager.shyApi.downLoadAttchment(url,map);
+        }
         call.enqueue(new Callback<AttachResultObject>() {
             @Override
             public void onResponse(Response<AttachResultObject> response, Retrofit retrofit) {

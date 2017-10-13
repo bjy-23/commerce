@@ -76,6 +76,13 @@
                             />
                     </LinearLayout>
                 </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/listViewAttachments4ProcedureCaseDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:divider="@color/background"
+                    android:dividerHeight="1dp"/>
 
                 <Button
                     android:id="@+id/commit_record_Button"

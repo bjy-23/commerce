@@ -42,6 +42,7 @@ import com.wondersgroup.commerce.model.NoteRecordEnquire;
 import com.wondersgroup.commerce.model.NoteRecordSpot;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.CaseApi;
+import com.wondersgroup.commerce.service.ShyApi;
 import com.wondersgroup.commerce.utils.DWZH;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 import com.wondersgroup.commerce.widget.TableRow;
@@ -137,11 +138,15 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
         map.put("wsCodeReq", "03010005");
         map.put("clueNo", clueNo);
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<CaseInvestigateDetail> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.INVESTIGATE_CASE_DETAIL;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.INVESTIGATE_CASE_DETAIL;
-        Call<CaseInvestigateDetail> call = ApiManager.caseApi.getCaseRegDetail(url, map);
+            call = ApiManager.caseApi.getCaseRegDetail(url, map);
+        }else {
+            url = CaseApi.INVESTIGATE_CASE_DETAIL;
+            call = ApiManager.shyApi.getCaseRegDetail(url, map);
+        }
+
         call.enqueue(new Callback<CaseInvestigateDetail>() {
             @Override
             public void onResponse(Response<CaseInvestigateDetail> response, Retrofit retrofit) {
@@ -269,11 +274,14 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
         map.put("wsCodeReq", "03010006");
         map.put("clueNo", clueNo);
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<NoteRecordBean> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.NOTE_RECORD_LIST;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.NOTE_RECORD_LIST;
-        Call<NoteRecordBean> call = ApiManager.caseApi.queryInvestigateList(url, map);
+            call = ApiManager.caseApi.queryInvestigateList(url, map);
+        } else{
+            url = CaseApi.NOTE_RECORD_LIST;
+            call = ApiManager.shyApi.queryInvestigateList(url, map);
+        }
         call.enqueue(new Callback<NoteRecordBean>() {
             @Override
             public void onResponse(Response<NoteRecordBean> response, Retrofit retrofit) {
@@ -551,20 +559,24 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
             map.put("wsCodeReq", "03010009");
             map.put("serialNo", spotRecordList.get(this.deleteInspectIndex).getSerialNo());
             String url = "";
-            if (ApiManager.caseType == 1)
+            if (ApiManager.caseType == 1){
                 url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_DELETE;
-            else
-                url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_DELETE;
-            call = ApiManager.caseApi.deleteInspect(url, map);
+                call = ApiManager.caseApi.deleteInspect(url, map);
+            } else{
+                url = CaseApi.CASE_INSPECT_DELETE;
+                call = ApiManager.shyApi.deleteInspect(url, map);
+            }
         } else {//询问笔录（删除--询问笔录）
             map.put("wsCodeReq", "03010009");
             map.put("serialNo", enquireRecordList.get(this.deleteEnquireIndex).getSerialNo());
             String url = "";
-            if (ApiManager.caseType == 1)
+            if (ApiManager.caseType == 1){
                 url = CaseApi.URL_CASE_1 + CaseApi.CASE_ENQUIRE_DELETE;
-            else
-                url = CaseApi.URL_CASE_2 + CaseApi.CASE_ENQUIRE_DELETE;
-            call = ApiManager.caseApi.deleteEnquire(url, map);
+                call = ApiManager.caseApi.deleteEnquire(url, map);
+            } else{
+                url = CaseApi.CASE_ENQUIRE_DELETE;
+                call = ApiManager.shyApi.deleteEnquire(url, map);
+            }
         }
 
 

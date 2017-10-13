@@ -32,9 +32,13 @@ public class ApiManager {
     应用名称；*/
     private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
     private static final String BASE_URL_2 = "http://172.28.129.42/";//云南内网正式
+    private static final String BASE_URL_3 ="http://182.131.3.114/";//四川正式
     private static final String BASE_URL = BASE_URL_2;
 //    public String API_TJ = BASE_URL + "mds/";//测试
     public String API_TJ = BASE_URL + "mds2/";//正式
+
+    private static final String SHY_URL_1 = "http://172.28.129.29:8041/shy/services/mobile/";//云南市场监督管理局行政执法系统测试
+    private static final String SHY_URL_2 = "http://172.28.129.18:8031/shy/services/mobile/";//云南市场监督管理局行政执法系统正式
 
     //版本更新
     public static String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试
@@ -45,19 +49,24 @@ public class ApiManager {
     private String API_HB_ROOT;
     private String API_YN_ROOT;
     private String CCJC_ROOT;
+    private String API_CONSUMERW;
+    private String API_SHY;
     public static String API_RE_ROOT;
     public String API_FGDJ_ROOT;
     public String API_LAW_ROOT;
 
-    private static final String API_CASE_1 = "http://10.1.8.130:8006/";//案件;130,云南、205,四川
+    private static final String API_CASE_1 = BASE_URL_3;
     private static final String API_CASE_2 = "http://10.1.192.40:8006/";
-    private static final String API_CASE_3 = "http://10.2.18.120:8080/";
-    private static final String API_OA_1 = "http://10.1.192.40:8013/oa/";
+    private static final String API_CASE_3 = "http://10.2.18.102:8080/";
+    private static final String API_OA_1 = BASE_URL_3 + "oa/";
+    private static final String API_OA_3 = "http://10.1.192.40:8013/oa/";
     private static final String API_OA_2 = "http://10.1.8.205:8013/oa/";
-    private static final String API_HB_ROOT_1 = "http://10.1.8.130:8001/";//工商一体化
+    private static final String API_HB_ROOT_1 = BASE_URL_3;//工商一体化
     private static final String API_HB_ROOT_2 = "http://10.1.8.205:8001/";
     private static final String API_HB_ROOT_3 = "http://10.1.192.40:8001/";
     private static final String API_HB_ROOT_4 = "http://10.2.14.102:8080/";
+    private static final String API_TJ_1 = BASE_URL_3 + "mds/";
+    private static final String API_TJ_2 = "http://10.1.192.40:8028/mds/";
     private static final String API_YN_ROOT_1 = "http://10.1.8.130:8010/";
     private static final String API_YN_ROOT_2 = "http://10.2.18.108:8080/";
     private static final String CCJC_ROOT_1 = "http://10.1.8.133:8012/";
@@ -67,6 +76,8 @@ public class ApiManager {
     public static final String API_FGDJ_ROOT_1 = "http://220.163.27.42:8024/";
     public static final String API_LAW_ROOT_1 = "http://10.1.8.130:8006/";
     public static final String API_AD = "http://10.1.192.40:8008/ad/";//广告
+    public static final String API_COMSUMER_1 = "http://10.1.192.40:8010/consumerw/";
+    public static final String API_COMSUMER_2 = "http://10.2.103.208:8080/consumerw/";
 
     public static final String API_ROOT = "http://gsxt.ynaic.gov.cn/netme/services/mobile/";//外网正式
     //    public static final String API_ROOT="http://10.1.8.130:8007/netme/services/mobile/";//外网测试
@@ -82,6 +93,7 @@ public class ApiManager {
 
     public static String RESULT_SUCCESS = "200";    //code="200"表示请求执行成功
     private volatile static ApiManager instance;
+    public static ShyApi shyApi;
     public static TjApi tjApi;
     public static AdApi adApi;
     public static CaseApi caseApi;
@@ -92,7 +104,7 @@ public class ApiManager {
     public static HNApi hnApi;
     public static YnWqApi ynWqApi;
     public static CCJCApi ccjcApi;
-    public static CaseModule caseModule;
+    public static ConsumerwApi consumerwApi;
     public static TradeMarkApi tradeMarkApi;
     public static FGDJApi fgdjApi;
     public static LawApi lawApi;
@@ -132,8 +144,7 @@ public class ApiManager {
         switch (appcation.getVersion()) {
             case "云南":
                 API_CASE = BASE_URL;
-//                API_CASE = API_CASE_3;
-
+                API_SHY = SHY_URL_2;
                 API_HB_ROOT = BASE_URL;
 //                API_HB_ROOT = API_HB_ROOT_4;
 
@@ -156,17 +167,20 @@ public class ApiManager {
                 lawInit();
                 ccInit();
                 tjInit();
+                shyInit();
                 break;
             case "四川":
-                API_CASE = API_CASE_2;
-                API_HB_ROOT = API_HB_ROOT_3;
+                API_CASE = API_CASE_1;
+                API_HB_ROOT = API_HB_ROOT_1;
                 API_OA = API_OA_1;
-                API_TJ = "http://10.1.192.40:8028/mds/";//统计四川测试地址
+                API_TJ = API_TJ_1;//统计四川测试地址
+                API_CONSUMERW = API_COMSUMER_1;
                 caseInit();
                 oaInit();
                 hbInit();
                 tjInit();
                 adInit();
+                consumerwInit();
                 break;
         }
     }
@@ -256,6 +270,24 @@ public class ApiManager {
         }
     }
 
+    private void shyInit(){
+        if (shyApi == null) {
+            synchronized (ApiManager.class) {
+                if (shyApi == null) {
+                    httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+                    httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
+                    httpClient.setReadTimeout(60, TimeUnit.SECONDS);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(API_SHY)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(httpClient)
+                            .build();
+                    shyApi = retrofit.create(ShyApi.class);
+                }
+            }
+        }
+    }
+
     /**
      * 广告
      */
@@ -273,6 +305,22 @@ public class ApiManager {
                             .build();
                     adApi = retrofit.create(AdApi.class);
                 }
+            }
+        }
+    }
+
+    public synchronized void consumerwInit(){
+        if (consumerwApi == null){
+            synchronized (ConsumerwApi.class){
+                httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+                httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
+                httpClient.setReadTimeout(60, TimeUnit.SECONDS);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(API_CONSUMERW)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .client(httpClient)
+                        .build();
+                consumerwApi = retrofit.create(ConsumerwApi.class);
             }
         }
     }

@@ -335,8 +335,6 @@ public class TradeMarksListActivity extends AppCompatActivity {
         String userId = loginBean.getResult().getUserId();
         String organId = loginBean.getResult().getOrganId();
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("userId", "90125e91c95730897efc5305d799da7c");
-//        map.put("organId", "510000000");
         map.put("userId", userId);
         map.put("organId", organId);
         map.put("pageNo", "1");

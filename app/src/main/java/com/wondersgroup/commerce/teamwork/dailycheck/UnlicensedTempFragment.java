@@ -29,8 +29,10 @@ import android.widget.Toast;
 
 
 import com.google.gson.Gson;
+import com.squareup.okhttp.ResponseBody;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.service.ApiManager;
 
 
 import org.json.JSONException;
@@ -44,6 +46,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class UnlicensedTempFragment extends Fragment {
 
@@ -182,6 +189,18 @@ public class UnlicensedTempFragment extends Fragment {
 
 			}
 
+		});
+		Call<ResponseBody> call = ApiManager.consumerwApi.fetchImg(application.getRecordId());
+		call.enqueue(new Callback<ResponseBody>() {
+			@Override
+			public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+
+			}
+
+			@Override
+			public void onFailure(Throwable t) {
+
+			}
 		});
 		String imageAddress = Url.QJ_IN_USE + "fetchImg/"
 				+ application.getRecordId();

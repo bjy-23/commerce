@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/linearlayout_button"
-            android:scrollbars="vertical">
+            android:scrollbars="none"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:id="@+id/components_LinearLayout"
@@ -38,7 +39,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center">
-
 
                 <LinearLayout
                     android:layout_width="match_parent"

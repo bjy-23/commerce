@@ -70,7 +70,7 @@ android {
         }
 
         SC {
-            resValue("string", "app_name", "四川工商移动监管")
+            resValue("string", "app_name", "移动工商")
         }
     }
 }

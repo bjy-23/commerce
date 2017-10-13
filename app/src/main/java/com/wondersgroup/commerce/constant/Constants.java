@@ -129,6 +129,8 @@ public class Constants {
     public static final String GWPY_NAME = "公文批阅";
     public static final String GWJS_ID = "08011004";
     public static final String GWJS_NAME = "公文检索";
+    public static final String XWQYCX = "小微企业查询";
+    public static final String XWQYFCQKCX = "小微企业扶持/n情况查询";
 
     public final static String REMIND = "消息提醒";
     public final static String ABOUT_US = "关于我们";

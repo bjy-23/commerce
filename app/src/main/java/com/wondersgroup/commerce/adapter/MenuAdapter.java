@@ -321,7 +321,6 @@ public class MenuAdapter extends RecyclerView.Adapter {
 //                intent = new Intent(context, com.example.fgdj.ExampleActivity.class);
 //                intent.putExtra(Constants.TYPE, Constants.GUAN_LI);
 //                context.startActivity(intent);
-
                 break;
             //公示信息
             case Constants.GSXX_ID:

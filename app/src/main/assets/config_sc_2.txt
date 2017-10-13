@@ -1,24 +1,29 @@
 [
     {
-        "title":"综合监管",
+        "title":"政务办公",
         "menus":[
             {
-                "menuName":"双随机录入",
-                "authId":"999",
-                "isShow":false
-            },
-            {
-                "menuName":"日常监管",
-                "authId":"999",
+                "menuName":"公文批阅",
+                "authId":"08011003",
                 "isShow":true
             },
             {
-                "menuName":"专项整治",
-                "authId":"999",
+                "menuName":"公文检索",
+                "authId":"08011004",
                 "isShow":true
             },
             {
-                "menuName":"无证经营",
+                "menuName":"通讯录",
+                "authId":"08013001",
+                "isShow":true
+            },
+            {
+                "menuName":"通知公告",
+                "authId":"08013003",
+                "isShow":true
+            },
+            {
+                "menuName":"收件箱",
                 "authId":"999",
                 "isShow":true
             }
@@ -45,30 +50,25 @@
                 ]
     },
     {
-        "title":"政务办公",
+        "title":"综合监管",
         "menus":[
             {
-                "menuName":"公文批阅",
-                "authId":"08011003",
+                "menuName":"双随机录入",
+                "authId":"999",
+                "isShow":false
+            },
+            {
+                "menuName":"日常监管",
+                "authId":"999",
                 "isShow":true
             },
             {
-                "menuName":"公文检索",
-                "authId":"08011004",
+                "menuName":"专项整治",
+                "authId":"999",
                 "isShow":true
             },
             {
-                "menuName":"通讯录",
-                "authId":"08013001",
-                "isShow":true
-            },
-            {
-                "menuName":"通知公告",
-                "authId":"08013003",
-                "isShow":true
-            },
-            {
-                "menuName":"收件箱",
+                "menuName":"无证经营",
                 "authId":"999",
                 "isShow":true
             }

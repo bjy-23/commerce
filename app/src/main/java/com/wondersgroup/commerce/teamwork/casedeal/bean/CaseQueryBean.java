@@ -25,6 +25,14 @@ public class CaseQueryBean {
 
     private String inWareAmount1;//入库金额（元）
 
+    private String punishOrgan;//处罚决定机关
+
+    private String pendecissdate1Show;//处罚决定日期
+
+    private String penDecWritNo;//处罚决定书文号
+
+    private String finishCaseDateShow1;//办结日期
+
     private String clueNo;
 
     public String getRegStage2Show() {
@@ -113,5 +121,37 @@ public class CaseQueryBean {
 
     public void setInWareAmount1(String inWareAmount1) {
         this.inWareAmount1 = inWareAmount1;
+    }
+
+    public String getPunishOrgan() {
+        return punishOrgan;
+    }
+
+    public void setPunishOrgan(String punishOrgan) {
+        this.punishOrgan = punishOrgan;
+    }
+
+    public String getPendecissdate1Show() {
+        return pendecissdate1Show;
+    }
+
+    public void setPendecissdate1Show(String pendecissdate1Show) {
+        this.pendecissdate1Show = pendecissdate1Show;
+    }
+
+    public String getPenDecWritNo() {
+        return penDecWritNo;
+    }
+
+    public void setPenDecWritNo(String penDecWritNo) {
+        this.penDecWritNo = penDecWritNo;
+    }
+
+    public String getFinishCaseDateShow1() {
+        return finishCaseDateShow1;
+    }
+
+    public void setFinishCaseDateShow1(String finishCaseDateShow1) {
+        this.finishCaseDateShow1 = finishCaseDateShow1;
     }
 }

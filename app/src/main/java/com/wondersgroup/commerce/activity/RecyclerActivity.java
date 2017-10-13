@@ -23,13 +23,14 @@ import com.wondersgroup.commerce.adapter.TextWpicAdapter;
 import com.wondersgroup.commerce.adapter.Title3RowAdapter;
 import com.wondersgroup.commerce.adapter.Title4RowAdapter;
 import com.wondersgroup.commerce.constant.Constants;
-import com.wondersgroup.commerce.model.AdvertisementBean;
+import com.wondersgroup.commerce.recyclerView.viewModel.CaseQueryViewModel;
+import com.wondersgroup.commerce.recyclerView.viewModel.EmailViewModel;
+import com.wondersgroup.commerce.recyclerView.ViewModel;
 import com.wondersgroup.commerce.model.ad.AdQuery;
 import com.wondersgroup.commerce.service.CaseApi;
-import com.wondersgroup.commerce.teamwork.casedeal.CaseInvestigateActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseQueryDetailActivity;
-import com.wondersgroup.commerce.teamwork.casedeal.adapter.CaseQueryAdapter;
-import com.wondersgroup.commerce.teamwork.casedeal.bean.CaseQueryBean;import com.wondersgroup.commerce.teamwork.email.EmailBean;
+import com.wondersgroup.commerce.teamwork.casedeal.bean.CaseQueryBean;
+import com.wondersgroup.commerce.teamwork.email.EmailBean;
 import com.wondersgroup.commerce.model.GwjsBean;
 import com.wondersgroup.commerce.model.GwjsCondition;
 import com.wondersgroup.commerce.model.TextWpicItem;
@@ -45,7 +46,7 @@ import com.wondersgroup.commerce.teamwork.email.EmailResult;
 import com.wondersgroup.commerce.utils.DateUtil;
 import com.wondersgroup.commerce.utils.DividerItemDecoration;
 import com.wondersgroup.commerce.widget.LoadingDialog;
-import com.wondersgroup.commerce.adapter.CommonAdapter;
+import com.wondersgroup.commerce.recyclerView.CommonAdapter;
 import com.wondersgroup.commerce.widget.SearchLayout;
 import com.wondersgroup.commerce.ynwq.widget.CountBar;
 
@@ -101,16 +102,14 @@ public class RecyclerActivity extends AppCompatActivity {
     private List<Title4RowItem> title3RowItems;
     private List<TextWpicItem> textWpicItems;
     private List<GwjsBean.Result.Result_> dataList;
-    private List<EmailBean> emailBeanList;
+    private List<ViewModel> viewModels;
     private CommonAdapter adapter;
     private AdvertisementAdapter adAdapter;
     private List<AdQuery.AdOp> adList;
-    private CaseQueryAdapter caseQueryAdapter;
-    private List<CaseQueryBean> caseList;
     private String userId;
     private String organId;
     private String deptId;
-    private HashMap<String,String> body;
+    private HashMap<String, String> param;
     private List<String> checkIds;
     private List<String> entIds;
     private List<String> onlyLocals;
@@ -118,6 +117,10 @@ public class RecyclerActivity extends AppCompatActivity {
     private int pageNo = 0, pageMax = 0, totalRecord = 0;
     private boolean isLoaded = false;
     private int state = Constants.LOAD_REFRESH;
+    private HashMap queryConditionMap;
+    private Gson gson;
+    private RecyclerView.OnScrollListener onScrollListener;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,117 +128,108 @@ public class RecyclerActivity extends AppCompatActivity {
         setContentView(R.layout.acitivity_recycler);
         ButterKnife.bind(this);
         TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
-        userId=loginBean.getResult().getUserId();
-        organId=loginBean.getResult().getOrganId();
-        deptId=loginBean.getResult().getDeptId();
+        userId = loginBean.getResult().getUserId();
+        organId = loginBean.getResult().getOrganId();
+        deptId = loginBean.getResult().getDeptId();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
 
+        gson = new Gson();
         String titleString = getIntent().getStringExtra(Constants.TITLE);
         if (titleString == null)
             titleString = "公文检索结果";
         title.setText(titleString);
-        type=getIntent().getStringExtra(Constants.TYPE);
-        if(type==null)
-            type="GWJS";
-        final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        type = getIntent().getStringExtra(Constants.TYPE);
+        if (type == null)
+            type = "GWJS";
+
+        //滑动监听
+        initOnScrollListener();
+
+        linearLayoutManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(linearLayoutManager);
         recycler.setItemAnimator(new DefaultItemAnimator());
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener(){
-            @Override
-            public void onScrolled(RecyclerView view, int dx, int dy) {
-                super.onScrolled(view, dx, dy);
-
-                if(countBar!=null) {
-                    if (countBar.getDialog() != null) countBar.getDialog().show();
-                    if (countBar.isVisible()) {
-                        countBar.setCur(linearLayoutManager.findFirstCompletelyVisibleItemPosition() + 1);
-                        countBar.setTotal(totalRecord);
-                    }
-                }
-
-                if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == linearLayoutManager.getItemCount() - 2
-                        && pageNo <pageMax-1 && isLoaded){
-                    isLoaded = false;
-                    pageNo++;
-                    state = Constants.LOAD_MORE;
-                    switch (type){
-                        case "CCJCCX":
-                            getCCJCCX();
-                            break;
-                        case "CCJCDB":
-                            getCCJCDB();
-                            break;
-                        case "GWJS":
-                            getGWJSDataList();
-                            break;
-                        case "gglb":
-                            getAdQuery();
-                            break;
-                        case "email":
-                            body.put("condition", String.format("{pageNo:%d,pageSize:%d}",pageNo,10) );
-                            getEmail();
-                            break;
-                    }
-                }
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState== RecyclerView.SCROLL_STATE_IDLE){
-                    if(countBar!=null) {
-                        if (countBar.isVisible()) countBar.getDialog().hide();
-                    }
-                }else if(newState== RecyclerView.SCROLL_STATE_DRAGGING){
-                    synchronized (this) {
-                        if (countBar == null) {
-                            if(recyclerView.getAdapter()!=null) {
-                                countBar = CountBar.newInstance(totalRecord);
-                                countBar.show(getSupportFragmentManager(), "CountBar");
-                            }
-                        }
-                    }
-                }
-            }
-        });
 
         init();
     }
 
-    public void init(){
-        body = new HashMap<>();
-        checkIds=new ArrayList<>();
-        entIds=new ArrayList<>();
+    public void init() {
+        param = new HashMap<>();
+        checkIds = new ArrayList<>();
+        entIds = new ArrayList<>();
         onlyLocals = new ArrayList<>();
-        switch (type){
+
+        //通用的adapter
+        viewModels = new ArrayList<>();
+        adapter = new CommonAdapter(this, viewModels);
+
+        switch (type) {
             case "casequery"://案件查询
-            {
                 searchLayout.setVisibility(View.GONE);
-                caseList = new ArrayList<>();
-                caseQueryAdapter = new CaseQueryAdapter(this, caseList);
-                caseQueryAdapter.setOnItemClick(new CaseQueryAdapter.onItemClick() {
+                adapter.setOnItemClick(new CommonAdapter.OnItemClick() {
                     @Override
                     public void onClick(int position) {
-                        Intent mIntent = new Intent(RecyclerActivity.this, CaseQueryDetailActivity.class);
-                        mIntent.putExtra("clueNo", caseList.get(position).getClueNo());
-                        startActivity(mIntent);
+                        CaseQueryViewModel caseQueryViewModel = (CaseQueryViewModel) viewModels.get(position);
+                        Intent intent = new Intent(RecyclerActivity.this, CaseQueryDetailActivity.class);
+                        intent.putExtra("clueNo", caseQueryViewModel.getBean().getClueNo());
+                        intent.putExtra(Constants.TYPE, Constants.SC);
+                        startActivity(intent);
                     }
                 });
-                recycler.setAdapter(caseQueryAdapter);
-                recycler.clearOnScrollListeners();
-                state = Constants.LOAD_REFRESH;
-                body = (HashMap<String, String>) getIntent().getSerializableExtra("param");
+                recycler.setAdapter(adapter);
+                recycler.addOnScrollListener(onScrollListener);
+                queryConditionMap = (HashMap) getIntent().getSerializableExtra("queryConditionMap");
+                param = (HashMap<String, String>) getIntent().getSerializableExtra("param");
+                param.put("queryCondition", gson.toJson(queryConditionMap));
+                pageNo = 1;
+
                 getCaseQueryList();
-            }
-            break;
+
+                break;
+            case "email"://收件箱
+                searchLayout.setSearchListenr(new SearchLayout.SearchListener() {
+                    @Override
+                    public void search(String content) {
+                        pageNo = 1;
+                        state = Constants.LOAD_REFRESH;
+                        param.put("condition", String.format("{pageNo:%d,pageSize:%d,wordKey:'%s'}", pageNo, 10, content));
+                        getEmail();
+                    }
+                });
+                adapter.setOnItemClick(new CommonAdapter.OnItemClick() {
+                    @Override
+                    public void onClick(int position) {
+                        ArrayList<EmailBean> emailBeanList = new ArrayList<EmailBean>();
+                        for (ViewModel model: viewModels){
+                            emailBeanList.add(((EmailViewModel)model).getBean());
+                        }
+                        Intent intent = new Intent(RecyclerActivity.this, EmailDetailsActivity.class);
+                        intent.putExtra(Constants.POSITION, position);
+                        intent.putParcelableArrayListExtra("emailBeanList", emailBeanList);
+                        startActivity(intent);
+                    }
+                });
+                recycler.setAdapter(adapter);
+                recycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+                recycler.addOnScrollListener(onScrollListener);
+
+                param.put(Constants.WS_CODE_REQ, "07010016");
+                param.put(Constants.USER_ID, userId);
+                param.put(Constants.DEPT_ID, deptId);
+                param.put("businessType", "1");
+                pageNo = 1;
+                param.put("condition", String.format("{pageNo:%d,pageSize:%d}", pageNo, 10));
+
+                getEmail();
+
+                break;
             case "gglb"://广告列表
                 searchLayout.setVisibility(View.GONE);
                 if (getIntent().getExtras() != null && getIntent().getExtras().getSerializable("PARAMS") != null) {
                     Map<String, String> map = (Map<String, String>) getIntent().getExtras().getSerializable("PARAMS");
-                    body.putAll(map);
+                    param.putAll(map);
                 }
                 adList = new ArrayList<>();
                 adAdapter = new AdvertisementAdapter(RecyclerActivity.this, adList);
@@ -250,43 +244,8 @@ public class RecyclerActivity extends AppCompatActivity {
                     }
                 });
                 recycler.setAdapter(adAdapter);
-//                recycler.clearOnScrollListeners();
+                recycler.addOnScrollListener(onScrollListener);
                 getAdQuery();
-                break;
-            case "email"://收件箱
-                searchLayout.setSearchListenr(new SearchLayout.SearchListener() {
-                    @Override
-                    public void search(String content) {
-                        pageNo = 1;
-                        state = Constants.LOAD_REFRESH;
-                        body.put("condition", String.format("{pageNo:%d,pageSize:%d,wordKey:'%s'}", pageNo, 10, content));
-                        getEmail();
-                    }
-                });
-                emailBeanList = new ArrayList<>();
-                adapter = new CommonAdapter(this,emailBeanList);
-                adapter.setItemClick(new CommonAdapter.ItemClick() {
-
-                    @Override
-                    public void onClick(int position) {
-                        Intent intent = new Intent(RecyclerActivity.this, EmailDetailsActivity.class);
-                        intent.putExtra(Constants.POSITION, position);
-                        intent.putParcelableArrayListExtra("emailBeanList", (ArrayList) emailBeanList);
-                        startActivity(intent);
-                    }
-                });
-                recycler.setAdapter(adapter);
-                recycler.clearOnScrollListeners();
-                recycler.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
-
-                body.put(Constants.WS_CODE_REQ, "07010016");
-                body.put(Constants.USER_ID, userId);
-                body.put(Constants.DEPT_ID, deptId);
-                body.put("businessType", "1");
-                pageNo = 1;
-                body.put("condition", String.format("{pageNo:%d,pageSize:%d}",pageNo,10) );
-                state = Constants.LOAD_REFRESH;
-                getEmail();
                 break;
             case "GWJS":
                 searchBar.setVisibility(View.GONE);
@@ -313,35 +272,36 @@ public class RecyclerActivity extends AppCompatActivity {
                 break;
             case "TSCX":
             case "JBCX":
-                title4RowItems=new ArrayList<>();
-                title4RowAdapter=new Title4RowAdapter(title4RowItems);
+                title4RowItems = new ArrayList<>();
+                title4RowAdapter = new Title4RowAdapter(title4RowItems);
                 recycler.setAdapter(title4RowAdapter);
                 title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
-                        intent.putExtra("type",type.startsWith("TS")?"TSXQXXLZ":"JBXQXXLZ");
-                        intent.putExtra("title",title4RowItems.get(position).getTitle());
-                        Hawk.put("TSJBXQ_caseId",title4RowItems.get(position).getTitle());
+                        Intent intent = new Intent(RecyclerActivity.this, ViewPagerActivity.class);
+                        intent.putExtra("type", type.startsWith("TS") ? "TSXQXXLZ" : "JBXQXXLZ");
+                        intent.putExtra("title", title4RowItems.get(position).getTitle());
+                        Hawk.put("TSJBXQ_caseId", title4RowItems.get(position).getTitle());
                         startActivity(intent);
                     }
                 });
-                String infoType=type.startsWith("TS")?"1":"2";
-                String basicName=getIntent().getStringExtra("TSJBCX_basicName").equals("")?" ":getIntent().getStringExtra("TSJBCX_basicName");
-                String accuseName=getIntent().getStringExtra("TSJBCX_accuseName").equals("")?" ":getIntent().getStringExtra("TSJBCX_accuseName");
-                String caseId=getIntent().getStringExtra("TSJBCX_caseId").equals("")?" ":getIntent().getStringExtra("TSJBCX_caseId");
-                String pageSize="25";
-                Call<Result<List<CaseInfo>>> call=ApiManager.ynApi.searchCase(userId,infoType,basicName,accuseName,caseId,"1",pageSize);
+                String infoType = type.startsWith("TS") ? "1" : "2";
+                String basicName = getIntent().getStringExtra("TSJBCX_basicName").equals("") ? " " : getIntent().getStringExtra("TSJBCX_basicName");
+                String accuseName = getIntent().getStringExtra("TSJBCX_accuseName").equals("") ? " " : getIntent().getStringExtra("TSJBCX_accuseName");
+                String caseId = getIntent().getStringExtra("TSJBCX_caseId").equals("") ? " " : getIntent().getStringExtra("TSJBCX_caseId");
+                String pageSize = "25";
+                Call<Result<List<CaseInfo>>> call = ApiManager.ynApi.searchCase(userId, infoType, basicName, accuseName, caseId, "1", pageSize);
                 call.enqueue(new Callback<Result<List<CaseInfo>>>() {
                     @Override
                     public void onResponse(Response<Result<List<CaseInfo>>> response, Retrofit retrofit) {
-                        if(response.isSuccess()&&response.body()!=null){
-                            if(200==response.body().getCode()){
+                        isLoaded = true;
+                        if (response.isSuccess() && response.body() != null) {
+                            if (200 == response.body().getCode()) {
                                 List<CaseInfo> list = response.body().getObject();
-                                if (list!=null){
-                                    if (list.size()!=0){
+                                if (list != null) {
+                                    if (list.size() != 0) {
                                         for (CaseInfo info : list) {
-                                            Title4RowItem tmp=new Title4RowItem();
+                                            Title4RowItem tmp = new Title4RowItem();
                                             tmp.setTitle(info.getCaseId());
                                             tmp.setRowOneTitle("消费者");
                                             tmp.setRowOneContent(info.getBasicName());
@@ -359,19 +319,19 @@ public class RecyclerActivity extends AppCompatActivity {
                                             title4RowItems.add(tmp);
                                         }
                                         title4RowAdapter.notifyItemRangeInserted(0, title4RowItems.size());
-                                    }else {
+                                    } else {
                                         layoutSearch.setVisibility(View.GONE);
                                         viewError.setVisibility(View.VISIBLE);
                                     }
-                                }else {
+                                } else {
                                     layoutSearch.setVisibility(View.GONE);
                                     viewError.setVisibility(View.VISIBLE);
                                 }
-                            }else {
+                            } else {
                                 layoutSearch.setVisibility(View.GONE);
                                 viewError.setVisibility(View.VISIBLE);
                             }
-                        }else {
+                        } else {
                             layoutSearch.setVisibility(View.GONE);
                             viewError.setVisibility(View.VISIBLE);
                         }
@@ -379,6 +339,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Throwable t) {
+                        isLoaded = true;
                         layoutSearch.setVisibility(View.GONE);
                         viewError.setVisibility(View.VISIBLE);
                     }
@@ -388,11 +349,11 @@ public class RecyclerActivity extends AppCompatActivity {
                 getIntent().getStringExtra("name");
                 getIntent().getStringExtra("uid");
                 getIntent().getStringExtra("register");
-                title3RowItems=new ArrayList<>();
-                title3RowAdapter=new Title3RowAdapter(title3RowItems);
+                title3RowItems = new ArrayList<>();
+                title3RowAdapter = new Title3RowAdapter(title3RowItems);
                 recycler.setAdapter(title3RowAdapter);
-                for(int i=0; i<10; i++){
-                    Title4RowItem tmp=new Title4RowItem();
+                for (int i = 0; i < 10; i++) {
+                    Title4RowItem tmp = new Title4RowItem();
                     tmp.setTitle("某某有限公司");
                     tmp.setRowOneTitle("统一社会信用代码");
                     tmp.setRowOneContent("5329830183940813048");
@@ -405,17 +366,17 @@ public class RecyclerActivity extends AppCompatActivity {
                 title3RowAdapter.notifyItemRangeInserted(0, title3RowItems.size());
                 break;
             case "CCJCCX":
-                title4RowItems=new ArrayList<>();
-                title4RowAdapter=new Title4RowAdapter(title4RowItems);
+                title4RowItems = new ArrayList<>();
+                title4RowAdapter = new Title4RowAdapter(title4RowItems);
                 recycler.setAdapter(title4RowAdapter);
                 title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
-                        intent.putExtra("type","CCJCCX");
-                        intent.putExtra("title","抽查检查查询");
-                        Hawk.put("CCJC_CheckId",checkIds.get(position));
-                        Hawk.put("CCJC_EntId",entIds.get(position));
+                        Intent intent = new Intent(RecyclerActivity.this, ViewPagerActivity.class);
+                        intent.putExtra("type", "CCJCCX");
+                        intent.putExtra("title", "抽查检查查询");
+                        Hawk.put("CCJC_CheckId", checkIds.get(position));
+                        Hawk.put("CCJC_EntId", entIds.get(position));
                         startActivity(intent);
                     }
                 });
@@ -423,17 +384,17 @@ public class RecyclerActivity extends AppCompatActivity {
                 break;
             case "CCJCDB":
                 searchBar.setVisibility(View.VISIBLE);
-                title4RowItems=new ArrayList<>();
-                title4RowAdapter=new Title4RowAdapter(title4RowItems);
+                title4RowItems = new ArrayList<>();
+                title4RowAdapter = new Title4RowAdapter(title4RowItems);
                 recycler.setAdapter(title4RowAdapter);
                 title4RowAdapter.setOnItemClickListener(new Title4RowAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        Intent intent=new Intent(RecyclerActivity.this,ViewPagerActivity.class);
-                        intent.putExtra("type","CCJCDB");
-                        intent.putExtra("title","抽查检查待办");
-                        Hawk.put("CCJC_CheckId",checkIds.get(position));
-                        Hawk.put("CCJC_EntId",entIds.get(position));
+                        Intent intent = new Intent(RecyclerActivity.this, ViewPagerActivity.class);
+                        intent.putExtra("type", "CCJCDB");
+                        intent.putExtra("title", "抽查检查待办");
+                        Hawk.put("CCJC_CheckId", checkIds.get(position));
+                        Hawk.put("CCJC_EntId", entIds.get(position));
                         Hawk.put("CCJC_OnlyLocal", onlyLocals.get(position));
                         startActivity(intent);
                     }
@@ -443,17 +404,101 @@ public class RecyclerActivity extends AppCompatActivity {
         }
     }
 
+    public void initOnScrollListener() {
+
+        onScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView view, int dx, int dy) {
+                super.onScrolled(view, dx, dy);
+
+                if (countBar != null) {
+                    if (countBar.getDialog() != null)
+                        countBar.getDialog().show();
+                    if (countBar.isVisible()) {
+                        countBar.setCur(linearLayoutManager.findFirstCompletelyVisibleItemPosition() + 1);
+                        countBar.setTotal(totalRecord);
+                    }
+                }
+
+                if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == linearLayoutManager.getItemCount() - 2
+                        && isLoaded) {
+
+                    loadMore();
+
+                    switch (type) {
+                        // < pageMax-1:pageNo从0开始计;< pageMax:pageNo从1开始计
+                        case "CCJCCX":
+                            if (pageNo <= pageMax - 1) {
+                                getCCJCCX();
+                            }
+                            break;
+                        case "CCJCDB":
+                            if (pageNo <= pageMax - 1) {
+                                getCCJCDB();
+                            }
+                            break;
+                        case "GWJS":
+                            if (pageNo <= pageMax - 1) {
+                                getGWJSDataList();
+                            }
+                            break;
+                        case "gglb":
+                            if (pageNo <= pageMax - 1) {
+                                getAdQuery();
+                            }
+                            break;
+                        case "email":
+                            if (pageNo <= pageMax) {
+                                param.put("condition", String.format("{pageNo:%d,pageSize:%d}", pageNo, 10));
+                                getEmail();
+                            }
+                            break;
+                        case "casequery":
+                            if (pageNo <= pageMax) {
+                                queryConditionMap.put("currentPage", pageNo);
+                                param.put("queryCondition", gson.toJson(queryConditionMap));
+                                getCaseQueryList();
+                            }
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (countBar != null) {
+                        if (countBar.isVisible()){
+//                            countBar.getDialog().hide();//hide存在一些问题
+                            countBar.getDialog().dismiss();
+                        }
+                    }
+                } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    synchronized (this) {
+                        if (countBar == null || countBar.getDialog() == null) {
+                            if (recyclerView.getAdapter() != null) {
+                                countBar = CountBar.newInstance(totalRecord);
+                                countBar.show(getSupportFragmentManager(), "CountBar");
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
 
-    public void getCCJCCX(){
+    public void getCCJCCX() {
         final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(RecyclerActivity.this);
-        body= (HashMap<String, String>) getIntent().getSerializableExtra("body");
-        body.put(Constants.PAGE_NO,pageNo+"");
-        Call<CCCXResult> call =ApiManager.ccjcApi.ccCX(body);
+        param = (HashMap<String, String>) getIntent().getSerializableExtra("body");
+        param.put(Constants.PAGE_NO, pageNo + "");
+        Call<CCCXResult> call = ApiManager.ccjcApi.ccCX(param);
         call.enqueue(new Callback<CCCXResult>() {
             @Override
             public void onResponse(Response<CCCXResult> response, Retrofit retrofit) {
@@ -461,10 +506,10 @@ public class RecyclerActivity extends AppCompatActivity {
                 isLoaded = true;
                 pageMax = response.body().getPageCount();
                 totalRecord = response.body().getTotalRecord();
-                if(response.isSuccess()){
-                    CCCXResult result=response.body();
-                    if("200".equals(result.getCode())){
-                        if(state == Constants.LOAD_REFRESH){
+                if (response.isSuccess()) {
+                    CCCXResult result = response.body();
+                    if ("200".equals(result.getCode())) {
+                        if (state == Constants.LOAD_REFRESH) {
                             title4RowItems.clear();
                             checkIds.clear();
                             entIds.clear();
@@ -472,7 +517,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         }
                         for (CCCXResult.Result r :
                                 result.getResult()) {
-                            Title4RowItem tmp=new Title4RowItem();
+                            Title4RowItem tmp = new Title4RowItem();
                             tmp.setTitle(r.getEntName());
                             tmp.setRowOneTitle("统一社会信用代码");
                             tmp.setRowOneContent(r.getUniScid());
@@ -486,19 +531,19 @@ public class RecyclerActivity extends AppCompatActivity {
                             checkIds.add(r.getCheckId());
                             entIds.add(r.getEntId());
                         }
-                        if(title4RowItems.size() == 0) {
+                        if (title4RowItems.size() == 0) {
                             recycler.setVisibility(View.GONE);
                             viewError.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             recycler.setVisibility(View.VISIBLE);
                             viewError.setVisibility(View.GONE);
                         }
                         title4RowAdapter.notifyDataSetChanged();
-                    }else {
+                    } else {
                         viewError.setVisibility(View.VISIBLE);
                         recycler.setVisibility(View.GONE);
                     }
-                }else {
+                } else {
                     viewError.setVisibility(View.VISIBLE);
                     recycler.setVisibility(View.GONE);
                 }
@@ -507,21 +552,22 @@ public class RecyclerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 dialog.dismiss();
-                Toast.makeText(RecyclerActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                isLoaded = true;
+                Toast.makeText(RecyclerActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
     public void getCCJCDB() {
         final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(RecyclerActivity.this);
-        body.put("wsCodeReq","000201");
-        body.put(Constants.PAGE_NO,pageNo+"");
-        body.put("userId",userId);
-        if (organId.length()>5)
-            body.put("organId",organId.substring(0,6));
+        param.put("wsCodeReq", "000201");
+        param.put(Constants.PAGE_NO, pageNo + "");
+        param.put("userId", userId);
+        if (organId.length() > 5)
+            param.put("organId", organId.substring(0, 6));
         else
-            body.put("organId",organId);
-        Call<CCToDoResult> call = ApiManager.ccjcApi.ccTodo(body);
+            param.put("organId", organId);
+        Call<CCToDoResult> call = ApiManager.ccjcApi.ccTodo(param);
         call.enqueue(new Callback<CCToDoResult>() {
             @Override
             public void onResponse(Response<CCToDoResult> response, Retrofit retrofit) {
@@ -529,10 +575,10 @@ public class RecyclerActivity extends AppCompatActivity {
                 isLoaded = true;
                 pageMax = response.body().getPageCount();
                 totalRecord = response.body().getTotalRecord();
-                if (response.isSuccess() && response.body()!=null) {
-                    CCToDoResult result=response.body();
-                    if("200".equals(result.getCode())){
-                        if(state == Constants.LOAD_REFRESH){
+                if (response.isSuccess() && response.body() != null) {
+                    CCToDoResult result = response.body();
+                    if ("200".equals(result.getCode())) {
+                        if (state == Constants.LOAD_REFRESH) {
                             title4RowItems.clear();
                             checkIds.clear();
                             entIds.clear();
@@ -540,8 +586,8 @@ public class RecyclerActivity extends AppCompatActivity {
                         }
                         for (CCToDoResult.Result r : result.getResult()) {
                             String checkWayShow = r.getCheckWayShow();
-                            if (Constants.SDHC.equals(checkWayShow)){
-                                Title4RowItem tmp=new Title4RowItem();
+                            if (Constants.SDHC.equals(checkWayShow)) {
+                                Title4RowItem tmp = new Title4RowItem();
                                 tmp.setTitle(r.getEntName());
                                 tmp.setRowOneTitle("统一社会信用代码");
                                 tmp.setRowOneContent(r.getUniScid());
@@ -557,21 +603,21 @@ public class RecyclerActivity extends AppCompatActivity {
                                 onlyLocals.add(r.getCheckWayOnlyLocal());
                             }
                         }
-                        if(title4RowItems.size() == 0) {
+                        if (title4RowItems.size() == 0) {
                             recycler.setVisibility(View.GONE);
                             viewError.setVisibility(View.VISIBLE);
                             tvError.setText(Constants.NO_DB);
-                        }else {
+                        } else {
                             recycler.setVisibility(View.VISIBLE);
                             viewError.setVisibility(View.GONE);
                         }
                         title4RowAdapter.notifyDataSetChanged();
-                    }else {
+                    } else {
                         recycler.setVisibility(View.GONE);
                         viewError.setVisibility(View.VISIBLE);
                         tvError.setText(Constants.NO_DB);
                     }
-                }else {
+                } else {
                     layoutSearch.setVisibility(View.GONE);
                     viewError.setVisibility(View.VISIBLE);
                     tvError.setText(Constants.NO_DB);
@@ -581,6 +627,7 @@ public class RecyclerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 dialog.dismiss();
+                isLoaded = true;
                 layoutSearch.setVisibility(View.GONE);
                 viewError.setVisibility(View.VISIBLE);
                 tvError.setText(Constants.NO_DB);
@@ -588,30 +635,27 @@ public class RecyclerActivity extends AppCompatActivity {
         });
     }
 
-    public void getGWJSDataList(){
-//        int curSize = textWpicItems.size();
-//        textWpicItems.clear();
-//        textWpicAdapter.notifyItemRangeRemoved(0, curSize);
+    public void getGWJSDataList() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "07010008");
         map.put("userId", userId);
         map.put("deptId", deptId);
         map.put("organId", organId);
         Gson gson = new GsonBuilder().create();
-        condition.setPageNo((pageNo+1)+"");
+        condition.setPageNo((pageNo + 1) + "");
         map.put("condition", gson.toJson(condition));
-        if("收文管理".equals(doctype)) {
+        if ("收文管理".equals(doctype)) {
             map.put("businessType", "2");
-        }else if("发文管理".equals(doctype)) {
+        } else if ("发文管理".equals(doctype)) {
             map.put("businessType", "1");
         }
         Call<GwjsBean> call = ApiManager.oaApi.apiGetDocList(map);
         call.enqueue(new Callback<GwjsBean>() {
             @Override
             public void onResponse(Response<GwjsBean> response, Retrofit retrofit) {
-                if(response.body()!=null) {
+                isLoaded = true;
+                if (response.body() != null) {
                     if ("200".equals(response.body().getCode()) && response.body().getResult() != null) {
-                        isLoaded = true;
                         List<GwjsBean.Result.Result_> temp = response.body().getResult().getResult();
                         pageMax = response.body().getResult().getPageCount();
                         totalRecord = response.body().getResult().getTotalRecord();
@@ -623,9 +667,9 @@ public class RecyclerActivity extends AppCompatActivity {
                             item.setPicText(temp.get(i).getType());
                             textWpicItems.add(item);
                         }
-                        textWpicAdapter.notifyItemRangeInserted(dataList.size(),temp.size());
+                        textWpicAdapter.notifyItemRangeInserted(dataList.size(), temp.size());
                         dataList.addAll(temp);
-                    }else{
+                    } else {
                         Toast.makeText(RecyclerActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -633,43 +677,51 @@ public class RecyclerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
+                isLoaded = true;
                 Toast.makeText(RecyclerActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-    public void getEmail(){
+    public void getEmail() {
         final Dialog loadingDialog = LoadingDialog.showCanCancelable(this);
         loadingDialog.show();
-        Call<Result<EmailResult>> call = ApiManager.oaApi.getEmail(body);
+        Call<Result<EmailResult>> call = ApiManager.oaApi.getEmail(param);
         call.enqueue(new Callback<Result<EmailResult>>() {
             @Override
             public void onResponse(Response<Result<EmailResult>> response, Retrofit retrofit) {
                 loadingDialog.dismiss();
+                isLoaded = true;
                 if (response.body() != null
                         && response.body().getObject() != null
                         && response.body().getObject().getEmailList() != null
-                        && response.body().getObject().getEmailList().size() != 0){
+                        && response.body().getObject().getEmailList().size() != 0) {
                     List<EmailBean> emails = response.body().getObject().getEmailList();
                     //转换日期格式
                     changeDate(emails);
-                    if (state == Constants.LOAD_REFRESH){
-                        emailBeanList.clear();
-                        emailBeanList.addAll(emails);
+                    //包裝
+                    ArrayList<ViewModel> list = new ArrayList<ViewModel>();
+                    for (EmailBean emailBean: emails){
+                        EmailViewModel emailViewModel = new EmailViewModel(emailBean);
+                        list.add(emailViewModel);
+                    }
+                    if (state == Constants.LOAD_REFRESH) {
+                        viewModels.clear();
+                        viewModels.addAll(list);
                         adapter.notifyDataSetChanged();
-                    }else if (state == Constants.LOAD_MORE){
-                        emailBeanList.addAll(emails);
+                    } else if (state == Constants.LOAD_MORE) {
+//                        emailBeanList.addAll(emails);
                         adapter.notifyDataSetChanged();
                     }
                     viewError.setVisibility(View.GONE);
-                }else {
-                    if (state == Constants.LOAD_REFRESH){
-                        emailBeanList.clear();
+                } else {
+                    if (state == Constants.LOAD_REFRESH) {
+                        viewModels.clear();
                         adapter.notifyDataSetChanged();
                         viewError.setVisibility(View.VISIBLE);
-                    }else {
-                        if (emailBeanList.size() == 0)
+                    } else {
+                        if (viewModels.size() == 0)
                             viewError.setVisibility(View.VISIBLE);
                         else
                             viewError.setVisibility(View.GONE);
@@ -680,7 +732,8 @@ public class RecyclerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 loadingDialog.dismiss();
-                if (emailBeanList.size() == 0)
+                isLoaded = true;
+                if (viewModels.size() == 0)
                     viewError.setVisibility(View.VISIBLE);
                 else
                     viewError.setVisibility(View.GONE);
@@ -694,7 +747,7 @@ public class RecyclerActivity extends AppCompatActivity {
             AdQuery.AdOp op = item.get(0);
             op.setBulicNo(item.get(1).getBulicNo());
             ret.add(op);
-    }
+        }
         return ret;
     }
 
@@ -704,9 +757,9 @@ public class RecyclerActivity extends AppCompatActivity {
     private void getAdQuery() {
         final Dialog loadingDialog = LoadingDialog.showCanCancelable(this);
         loadingDialog.show();
-        body.put("pageNo", (pageNo + 1) + "");
-        body.put("pageSize", "10");
-        ApiManager.adApi.adQuery(body).enqueue(new Callback<AdQuery>() {
+        param.put("pageNo", (pageNo + 1) + "");
+        param.put("pageSize", "10");
+        ApiManager.adApi.adQuery(param).enqueue(new Callback<AdQuery>() {
             @Override
             public void onResponse(Response<AdQuery> response, Retrofit retrofit) {
                 loadingDialog.dismiss();
@@ -727,7 +780,6 @@ public class RecyclerActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                         if (state == Constants.LOAD_REFRESH) {
-                            emailBeanList.clear();
                             adAdapter.notifyDataSetChanged();
                         }
                     }
@@ -741,7 +793,7 @@ public class RecyclerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 loadingDialog.dismiss();
-                Toast.makeText(RecyclerActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+                isLoaded = true;
                 if (adList.size() == 0)
                     viewError.setVisibility(View.VISIBLE);
                 else
@@ -751,39 +803,50 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.searchbtn)
-    public void onClick(View v){
+    public void onClick(View v) {
         String searchStr = searchTxt.getText().toString().trim();
-        if (body !=null && !"".equals(searchStr)){
-            body.put("entNameRegNoUniScid", searchStr);
-            body.put(Constants.PAGE_NO,"1");
+        if (param != null && !"".equals(searchStr)) {
+            param.put("entNameRegNoUniScid", searchStr);
+            param.put(Constants.PAGE_NO, "1");
         }
 
         state = Constants.LOAD_REFRESH;
         getCCJCDB();
     }
 
-    public void getCaseQueryList(){
+    public void getCaseQueryList() {
         String url = CaseApi.URL_CASE_1 + CaseApi.TO_CASE_QUERY;
-        Call<Result<List<CaseQueryBean>>> call = ApiManager.caseApi.toCaseQuery(url, body);
+        Call<Result<List<CaseQueryBean>>> call = ApiManager.caseApi.toCaseQuery(url, param);
         final Dialog dialog = LoadingDialog.showCanCancelable(this);
         dialog.show();
         call.enqueue(new Callback<Result<List<CaseQueryBean>>>() {
             @Override
             public void onResponse(Response<Result<List<CaseQueryBean>>> response, Retrofit retrofit) {
+                isLoaded = true;
                 if (dialog.isShowing())
                     dialog.dismiss();
-                if (response.body() != null && response.body().getObject()!= null
-                        && response.body().getObject().size() != 0){
-                    if (state == Constants.LOAD_REFRESH){
-                        caseList.clear();
-                        caseList.addAll(response.body().getObject());
-                        caseQueryAdapter.notifyDataSetChanged();
+                if (response.body() != null && response.body().getObject() != null
+                        && response.body().getObject().size() != 0) {
+                    pageMax = response.body().getPageCount();
+                    totalRecord = response.body().getTotalRecord();
+                    List<ViewModel> array = converToViewModel(CaseQueryViewModel.class, response.body().getObject());
+                    List<CaseQueryViewModel> list = new ArrayList<CaseQueryViewModel>();
+                    for (CaseQueryBean caseQueryBean: response.body().getObject()){
+                        CaseQueryViewModel viewModel = new CaseQueryViewModel(caseQueryBean);
+                        list.add(viewModel);
                     }
+                    if (state == Constants.LOAD_REFRESH)
+                        viewModels.clear();
+                    viewModels.addAll(list);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    viewError.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
+                isLoaded = true;
                 if (dialog.isShowing())
                     dialog.dismiss();
                 viewError.setVisibility(View.VISIBLE);
@@ -791,8 +854,8 @@ public class RecyclerActivity extends AppCompatActivity {
         });
     }
 
-    public void changeDate(List<EmailBean> emails){
-        for (int i=0; i<emails.size(); i++){
+    public void changeDate(List<EmailBean> emails) {
+        for (int i = 0; i < emails.size(); i++) {
             EmailBean emailBean = emails.get(i);
             Date date = DateUtil.getDate(DateUtil.FORMAT_YY_MM_DD_HH_MM_SS, emailBean.getDate());
             if (DateUtil.isToday(date))
@@ -804,5 +867,28 @@ public class RecyclerActivity extends AppCompatActivity {
             else
                 emailBean.setDate(DateUtil.getTime(DateUtil.FORMATE_YY_MM_DD, date));
         }
+    }
+
+    public void loadMore() {
+        isLoaded = false;
+        pageNo++;
+        state = Constants.LOAD_MORE;
+    }
+
+    public List<ViewModel> converToViewModel(Class c, List list){
+        try {
+            c.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Class.forName("");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

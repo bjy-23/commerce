@@ -44,7 +44,25 @@ public class ProcedureCaseDetail {
         ProcedureCaseLitigtInfoVo litigtInfoVo;          //当事人基本情况信息
         ProcedureCasePunishVo     punishVo;              //处罚基本信息
         ProcedureCaseDicVo dicVo;         //相关字典描述
+        CaseTrademark caseTrademark;        //商标信息
+        CaseTrademarkActivistInfo caseTrademarkActivistInfo;//商标维权人信息
         List<ProcedureCaseAttachMentVo> attachList;
+
+        public CaseTrademarkActivistInfo getCaseTrademarkActivistInfo() {
+            return caseTrademarkActivistInfo;
+        }
+
+        public void setCaseTrademarkActivistInfo(CaseTrademarkActivistInfo caseTrademarkActivistInfo) {
+            this.caseTrademarkActivistInfo = caseTrademarkActivistInfo;
+        }
+
+        public CaseTrademark getCaseTrademark() {
+            return caseTrademark;
+        }
+
+        public void setCaseTrademark(CaseTrademark caseTrademark) {
+            this.caseTrademark = caseTrademark;
+        }
 
         public List<ProcedureCaseAttachMentVo> getAttachList() {
             return attachList;

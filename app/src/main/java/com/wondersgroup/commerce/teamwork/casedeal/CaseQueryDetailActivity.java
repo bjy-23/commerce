@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.CaseInvestigateDetail;
 import com.wondersgroup.commerce.model.CaseInvestigateTitle;
 import com.wondersgroup.commerce.model.DataVolume;
@@ -70,7 +71,7 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
     LinearLayout.LayoutParams paramsedittext = new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.WRAP_CONTENT);
 
     private CaseInvestigateDetail caseDetail;           //立案信息对象
-    private String clueNo;
+    private String clueNo, type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +94,13 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
         caseBrowseRadioButton.setChecked(true);//默认选择“案件总览”
 
         clueNo = getIntent().getStringExtra("clueNo");
-        if (TextUtils.isEmpty(clueNo))
-            return;
         initView();
         initData();
-        getCaseRegisterData();
+        if (Constants.SC.equals(getIntent().getStringExtra(Constants.TYPE))){
+            radioGroupDealType.setVisibility(View.GONE);
+        }else {
+            getCaseRegisterData();
+        }
     }
 
     //获得立案信息数据
@@ -107,11 +110,14 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010005");
         map.put("clueNo", clueNo);
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<CaseInvestigateDetail> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.INVESTIGATE_CASE_DETAIL;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.INVESTIGATE_CASE_DETAIL;
-        Call<CaseInvestigateDetail> call = ApiManager.caseApi.getCaseRegDetail(url,map);
+            call = ApiManager.caseApi.getCaseRegDetail(url,map);
+        } else{
+            url = CaseApi.INVESTIGATE_CASE_DETAIL;
+            call = ApiManager.shyApi.getCaseRegDetail(url,map);
+        }
         call.enqueue(new Callback<CaseInvestigateDetail>() {
             @Override
             public void onResponse(Response<CaseInvestigateDetail> response, Retrofit retrofit) {
@@ -161,12 +167,14 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010004");
         map.put("clueNo", clueNo);
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<DynamicComponentObject> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_GENERAL_DETAIL;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_GENERAL_DETAIL;
-        Call<DynamicComponentObject> call = ApiManager.caseApi.getCaseGeneralDetail(url,map);
-
+            call = ApiManager.caseApi.getCaseGeneralDetail(url,map);
+        } else{
+            url = CaseApi.CASE_GENERAL_DETAIL;
+            call = ApiManager.shyApi.getCaseGeneralDetail(url,map);
+        }
         call.enqueue(new Callback<DynamicComponentObject>() {
             @Override
             public void onResponse(Response<DynamicComponentObject> response, Retrofit retrofit) {

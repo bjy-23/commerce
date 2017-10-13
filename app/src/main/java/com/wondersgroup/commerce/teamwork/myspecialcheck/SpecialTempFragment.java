@@ -29,9 +29,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.okhttp.ResponseBody;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.dailycheck.AppRecordDetail;
 import com.wondersgroup.commerce.teamwork.dailycheck.BitMapUtil;
 import com.wondersgroup.commerce.teamwork.dailycheck.BookBean;
@@ -65,6 +67,11 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class SpecialTempFragment extends Fragment {
 
@@ -196,6 +203,18 @@ public class SpecialTempFragment extends Fragment {
 			}
 
 		});
+        Call<ResponseBody> call = ApiManager.consumerwApi.fetchImg(application.getRecordId());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
 		String imageAddress = Url.QJ_IN_USE + "fetchImg/"
 				+ application.getRecordId();
 		HttpClientUtil.callWebServiceForGet(imageAddress,

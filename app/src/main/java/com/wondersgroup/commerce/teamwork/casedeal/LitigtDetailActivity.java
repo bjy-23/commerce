@@ -42,12 +42,12 @@ public class LitigtDetailActivity extends BaseActivity {
     }
 
     public void queryDetail(){
-        String url = CaseApi.URL_CASE_2 + CaseApi.GET_LITIGT_DETAIL;
+        String url = CaseApi.GET_LITIGT_DETAIL;
         HashMap map = new HashMap();
         map.put("wsCodeReq", "03010017");
         map.put("clueNo", getIntent().getStringExtra("clueNo"));
         map.put("litigtId",getIntent().getStringExtra("litigtId"));
-        Call<Result<List<LitigtBean>>> call = ApiManager.caseApi.getLitigtDetail(url,map);
+        Call<Result<List<LitigtBean>>> call = ApiManager.shyApi.getLitigtDetail(url,map);
         call.enqueue(new Callback<Result<List<LitigtBean>>>() {
             @Override
             public void onResponse(Response<Result<List<LitigtBean>>> response, Retrofit retrofit) {

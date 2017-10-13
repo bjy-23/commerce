@@ -89,11 +89,14 @@ public class CaseInspectActivity  extends AppCompatActivity {
 
         Log.d(TAG, "map.toString() = " + map.toString());
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<DynamicComponentObject> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_EDIT;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_EDIT;
-        Call<DynamicComponentObject> call = ApiManager.caseApi.toInspectEdit(url,map);
+            call = ApiManager.caseApi.toInspectEdit(url,map);
+        } else{
+            url = CaseApi.CASE_INSPECT_EDIT;
+            call = ApiManager.shyApi.toInspectEdit(url,map);
+        }
         call.enqueue(new Callback<DynamicComponentObject>() {
             @Override
             public void onResponse(Response<DynamicComponentObject> response, Retrofit retrofit) {
@@ -212,11 +215,14 @@ public class CaseInspectActivity  extends AppCompatActivity {
 
         Log.d(TAG, "map = " + map.toString());
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<BackResultObject> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_INSPECT_SAVE;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_INSPECT_SAVE;
-        Call<BackResultObject> call = ApiManager.caseApi.saveInspect(url,map);
+            call = ApiManager.caseApi.saveInspect(url,map);
+        } else{
+            url = CaseApi.CASE_INSPECT_SAVE;
+            call = ApiManager.shyApi.saveInspect(url,map);
+        }
         call.enqueue(new Callback<BackResultObject>() {
             @Override
             public void onResponse(Response<BackResultObject> response, Retrofit retrofit) {

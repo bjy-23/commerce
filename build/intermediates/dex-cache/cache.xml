@@ -3,15 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpmime-4.1.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="ed8b5ee0167cb27dea55851259eb34b609f31df0">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpmime-4.1.2_9f84bc003fd2606b149625635563aee85e656816\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="E:\Android\AndroidProjects\company\commerce\app\libs\zxing.jar"
         jumboMode="true"
         optimize="true"
@@ -25,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="d6cea74f8d9626011a58cefc90427f27ef5cc4e1">
+        sha1="7941178584dc3195d96fe9bbfd273f5ae69b5724">
         <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\10000\instant-run-bootstrap_375cbe8c4536e9e51ba18997af02d55b4d2998be\classes.dex" />
     </item>
     <item
@@ -36,24 +27,6 @@
         revision="25.0.1"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\10000\instant-run_de5e82806f58a29d4d0c4635be69d1118c2603c9\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpclient-4.2.5.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="3bfeb9062b12d5b340445336790dbc14c59c2d79">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpclient-4.2.5_b419597c3cb03425db16c9425de1a432fc879e24\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpcore-4.2.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="3b7f38df6de5dd8b500e602ae8c2dd5ee446f883">
-        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpcore-4.2.4_8e6b840b4ede129ba4d783cf9e173f9c82c4571d\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -72,6 +45,33 @@
         revision="25.0.1"
         sha1="fad60eea64007823d74948fc6708371dee57fe36">
         <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\jpush-android-2.1.3_795dff626eca68249d217901951902fab8b650b7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpmime-4.1.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ed8b5ee0167cb27dea55851259eb34b609f31df0">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpmime-4.1.2_9f84bc003fd2606b149625635563aee85e656816\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpclient-4.2.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3bfeb9062b12d5b340445336790dbc14c59c2d79">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpclient-4.2.5_b419597c3cb03425db16c9425de1a432fc879e24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\Android\AndroidProjects\company\commerce\app\libs\httpcore-4.2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3b7f38df6de5dd8b500e602ae8c2dd5ee446f883">
+        <dex dex="E:\Android\AndroidProjects\company\commerce\app\build\intermediates\transforms\dex\SC\debug\folders\1000\2\httpcore-4.2.4_8e6b840b4ede129ba4d783cf9e173f9c82c4571d\classes.dex" />
     </item>
 
 </items>

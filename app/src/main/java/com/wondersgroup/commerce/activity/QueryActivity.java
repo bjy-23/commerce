@@ -85,7 +85,8 @@ public class QueryActivity extends AppCompatActivity {
 
             slsj = new TableRow.Builder(this)
                     .title("受理时间")
-                    .time("开始时间", "结束时间")
+                    .timeHints("开始时间", "结束时间")
+                    .time("", "")
                     .timeBack(new TableRow.Builder.TimeListener() {
                         @Override
                         public void timeBack(String key, String value) {
@@ -101,7 +102,7 @@ public class QueryActivity extends AppCompatActivity {
 
             djjg = new TableRow.Builder(this)
                     .title("登记机关")
-                    .arrowSelect()
+                    .select("")
                     .content(loginBean.getResult().getOrganName())
                     .onSelect(new TableRow.SelectCallBack() {
                         @Override

@@ -226,7 +226,7 @@ public class DateUtil {
                 if (dateListener != null){
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.YEAR, pickerYear.getValue());
-                    calendar.set(Calendar.MONTH, pickerMonth.getValue());
+                    calendar.set(Calendar.MONTH, pickerMonth.getValue() - 1);
                     calendar.set(Calendar.DAY_OF_MONTH, pickerDay.getValue());
                     dateListener.back(calendar.getTime());
                 }

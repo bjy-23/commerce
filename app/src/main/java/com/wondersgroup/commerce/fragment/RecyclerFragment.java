@@ -1,6 +1,7 @@
 package com.wondersgroup.commerce.fragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ import com.wondersgroup.commerce.model.yn.CaseBean;
 import com.wondersgroup.commerce.model.yn.CnOpinion;
 import com.wondersgroup.commerce.model.yn.ToDoBean;
 import com.wondersgroup.commerce.service.ApiManager;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +67,7 @@ public class RecyclerFragment extends Fragment {
     private static final String ARG_VIEWTYPE = "viewType";
     private String type;
     private String viewType;
-    private boolean needFetch = false;
+    private boolean needFetch = false, isLoaded = false;
 
     private Title4RowAdapter title4RowAdapter;
     private List<Title4RowItem> title4RowItems;
@@ -135,7 +137,7 @@ public class RecyclerFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            if (getView() != null) {
+            if (getView() != null && !isLoaded) {
                 fetchData();
                 needFetch = false;
             } else {
@@ -338,6 +340,8 @@ public class RecyclerFragment extends Fragment {
     }
 
     private void getGwData() {
+        final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
+        dialog.show();
         gwData.clear();
         int curSize = textWpicItems.size();
         textWpicItems.clear();
@@ -354,6 +358,8 @@ public class RecyclerFragment extends Fragment {
             call.enqueue(new Callback<BacklogListBean>() {
                 @Override
                 public void onResponse(Response<BacklogListBean> response, Retrofit retrofit) {
+                    dialog.dismiss();
+                    isLoaded = true;
                     if (response.body() != null) {
                         if (response.body().getResult() != null) {
                             List<BacklogListBean.Result.BackLogVoList> dataList = response.body().getResult().getBackLogVoList();
@@ -388,6 +394,7 @@ public class RecyclerFragment extends Fragment {
 
                 @Override
                 public void onFailure(Throwable t) {
+                    dialog.dismiss();
                     Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -398,6 +405,7 @@ public class RecyclerFragment extends Fragment {
             call.enqueue(new Callback<BacklogListBean>() {
                 @Override
                 public void onResponse(Response<BacklogListBean> response, Retrofit retrofit) {
+                    dialog.dismiss();
                     if (response.body() != null) {
                         if (response.body().getResult() != null) {
                             List<BacklogListBean.Result.BackLogVoList> dataList = response.body().getResult().getBackLogVoList();
@@ -430,7 +438,8 @@ public class RecyclerFragment extends Fragment {
 
                 @Override
                 public void onFailure(Throwable t) {
-
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
                 }
             });
         }

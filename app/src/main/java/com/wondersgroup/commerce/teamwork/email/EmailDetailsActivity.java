@@ -130,9 +130,7 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         param = new HashMap<>();
         param.put(Constants.WS_CODE_REQ, "07010016");
         param.put(Constants.USER_ID, loginBean.getResult().getUserId());
-        param.put(Constants.USER_ID, "2c9b02065901bba4015914a4e7b20002");
         param.put(Constants.DEPT_ID, loginBean.getResult().getDeptId());
-        param.put(Constants.DEPT_ID, "51000000099");
         param.put(Constants.ID, emailBeanList.get(position).getMailId());
     }
 

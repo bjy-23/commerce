@@ -15,6 +15,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.utils.CheckUtil;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,9 +112,7 @@ public class DailyFragment extends Fragment {
 		view = inflater.inflate(R.layout.mode_expandablelist, container, false);
 		activity = (AppCompatActivity) getActivity();
 		application = (RootAppcation) activity.getApplication();
-//		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
-//				"loading");
-
+		progressDialog = LoadingDialog.showCanCancelable(getActivity());
 		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
 //		title.setText(application.getBigBean().getEtpsInfoVo().get("etpsName"));
 
@@ -375,6 +375,8 @@ public class DailyFragment extends Fragment {
 
 							@Override
 							public void onFinish(String response) {
+
+								Log.e("response", response);
 								Message message = new Message();
 								message.what = SHOW_RESPONSE;
 								message.obj = response.toString();
@@ -548,19 +550,19 @@ public class DailyFragment extends Fragment {
 	}
 
 	public void initCheckList() {
-//		if (application.getBigBean() != null) {
-//			LinkedHashMap<String, String> map = application.getBigBean()
-//					.getEtpsInfoVo();
-//			MapToListUtil mapToListUtil = new MapToListUtil(map);
-//			List<EtpsInfoBean> etpsInfoBeans = mapToListUtil.mapToEtpsInfoS();
-//
-//			dailyList = (LinearLayoutForListView) view
-//					.findViewById(R.id.demo_list);
-//			adapter = new EtpsInfoRadioButtonAdapter(activity,
-//					R.layout.radio_buton_list_item, etpsInfoBeans,
-//					changeRecord, new LinkedHashMap<String, String>());
-//			dailyList.setAdapter(adapter);
-//		}
+		if (application.getBigBean() != null) {
+			LinkedHashMap<String, String> map = application.getBigBean()
+					.getEtpsInfoVo();
+			MapToListUtil mapToListUtil = new MapToListUtil(map);
+			List<EtpsInfoBean> etpsInfoBeans = mapToListUtil.mapToEtpsInfoS();
+
+			dailyList = (LinearLayoutForListView) view
+					.findViewById(R.id.demo_list);
+			adapter = new EtpsInfoRadioButtonAdapter(activity,
+					R.layout.radio_buton_list_item, etpsInfoBeans,
+					changeRecord, new LinkedHashMap<String, String>());
+			dailyList.setAdapter(adapter);
+		}
 	}
 
 	private void showCleanDialog() {
@@ -754,15 +756,9 @@ public class DailyFragment extends Fragment {
 
 				if (code.equals("200")) {
 					Toast.makeText(activity, "保存成功", Toast.LENGTH_SHORT).show();
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 					progressDialog.cancel();
 					// UtilForFragment.popBackStack(activity);
-					UtilForFragment.popBackStackTwo(activity);
+					UtilForFragment.popBackStack(activity);
 
 				} else {
 					progressDialog.cancel();

@@ -172,6 +172,7 @@ public class CaseInvestigateActivity extends AppCompatActivity {
                 } else {
                     Intent mIntent = new Intent(CaseInvestigateActivity.this, CaseQueryDetailActivity.class);
                     mIntent.putExtra("clueNo", data.getClueNo());
+                    mIntent.putExtra(Constants.TYPE, Constants.SC);
                     startActivity(mIntent);
                 }
             }
@@ -346,7 +347,6 @@ public class CaseInvestigateActivity extends AppCompatActivity {
     private void getMyCaseToInvestigate(final int page) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", loginBean.getResult().getUserId());
-//        map.put("userId", "00005859");
         map.put("currentPage", String.valueOf(page));
         map.put("wsCodeReq", "03010002");
         if (!"".equals(searchEdit.getText().toString().trim()))
@@ -359,11 +359,14 @@ public class CaseInvestigateActivity extends AppCompatActivity {
             map.put("regCaseDate2", endDate);
 
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<CaseInvestigateListBean> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.INVESTIGATE_CASE_LIST;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.INVESTIGATE_CASE_LIST;
-        Call<CaseInvestigateListBean> call = ApiManager.caseApi.getMyCaseList(url,map);
+            call = ApiManager.caseApi.getMyCaseList(url,map);
+        } else{
+            url = CaseApi.INVESTIGATE_CASE_LIST;
+            call = ApiManager.shyApi.getMyCaseList(url,map);
+        }
         Log.d(TAG, "map.toString() = " + map.toString());
 
         call.enqueue(new Callback<CaseInvestigateListBean>() {
@@ -413,11 +416,14 @@ public class CaseInvestigateActivity extends AppCompatActivity {
         conditionMap.put("\"" + "currentPage" + "\"", "\"" + String.valueOf(page) + "\"");
         map.put("condition", conditionMap.toString());
         String url = "";
-        if (ApiManager.caseType == 1)
+        Call<CaseQueryResult> call;
+        if (ApiManager.caseType == 1){
             url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_MY_CASE;
-        else
-            url = CaseApi.URL_CASE_2 + CaseApi.CASE_QUERY_MY_CASE;
-        Call<CaseQueryResult> call = ApiManager.caseApi.queryMyCase(url,map);
+            call = ApiManager.caseApi.queryMyCase(url,map);
+        } else{
+            url = CaseApi.CASE_QUERY_MY_CASE;
+            call = ApiManager.shyApi.queryMyCase(url,map);
+        }
         Log.d(TAG, "map.toString() = " + map.toString());
 
         call.enqueue(new Callback<CaseQueryResult>() {

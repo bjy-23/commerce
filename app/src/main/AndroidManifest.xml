@@ -102,7 +102,7 @@
         <activity
             android:name=".teamwork.casedeal.CaseEnquireActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".teamwork.casedeal.CaseQueryDetailActivity"
             android:screenOrientation="portrait" />
@@ -381,6 +381,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.QueryActivity" />
+        <activity android:name=".activity.ItemAddActivity"></activity>
     </application>
 
 </manifest>

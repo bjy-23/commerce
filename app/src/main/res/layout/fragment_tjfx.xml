@@ -109,14 +109,16 @@
                     android:id="@+id/agr_annal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:background="@color/white"
+                    android:visibility="gone" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    android:background="@color/gray_dark"
+                    android:visibility="gone" />
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/lryc"

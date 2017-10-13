@@ -83,6 +83,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.equals(content)) {
             if (mBuilder.onSelect != null) {
@@ -108,7 +113,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
     private void build() {
         setTag(mBuilder.tag);
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         this.setLayoutParams(params);
         this.setOrientation(VERTICAL);
         contentLayout = new RelativeLayout(getContext());
@@ -120,8 +125,10 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
                 this.addTitle();
                 this.addContent();
-                this.content.setInputType(InputType.TYPE_NULL);
-                this.content.setTextIsSelectable(true);
+//                this.content.setInputType(InputType.TYPE_NULL);
+//                this.content.setTextIsSelectable(true);
+//                this.content.setKeyListener(null);
+                this.content.setFocusable(false);
                 this.content.setSingleLine(false);
                 this.content.setMaxLines(3);
                 this.content.setEllipsize(TextUtils.TruncateAt.END);
@@ -140,10 +147,13 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 break;
             case SELECT:
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
-                this.addTitle();
+                if (!TextUtils.isEmpty(mBuilder.titleString))
+                    this.addTitle();
                 this.addContent();
-                this.addIndex();
-                this.content.setInputType(InputType.TYPE_NULL);
+                if (mBuilder.hasIndex)
+                    this.addIndex();
+//                this.content.setInputType(InputType.TYPE_NULL);
+                this.content.setFocusable(false);
                 this.content.setHint(mBuilder.selectHint);
                 this.content.setSingleLine(false);
                 this.content.setMaxLines(2);
@@ -222,7 +232,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.tvContent.setMaxLines(2);
                 this.tvContent.setEllipsize(TextUtils.TruncateAt.END);
                 this.mapImg.setOnClickListener(this);
-                break;
+//                this.content.setOnClickListener(this);                break;
             case INPUT_WITH_ARROW:
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
                 this.addTitle();
@@ -263,7 +273,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         title = new TextView(context);
         RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(DWZH.dp(120), ViewGroup.LayoutParams.WRAP_CONTENT);
         titleParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        titleParams.setMargins((int) mBuilder.marginH, (int) mBuilder.marginV + 30, 0, (int) mBuilder.marginV);
+        titleParams.setMargins((int) mBuilder.marginH, (int) mBuilder.marginV + 15, 0, (int) mBuilder.marginV + 15);
         title.setLayoutParams(titleParams);
         title.setTextSize(mBuilder.textSize);
         title.setTextColor(mBuilder.titleColor);
@@ -288,7 +298,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         content = new EditText(context);
         RelativeLayout.LayoutParams contentParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         contentParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        contentParams.setMargins((int) mBuilder.titleW, (int) mBuilder.marginV, (int) mBuilder.marginH, (int) mBuilder.marginV);
+        contentParams.setMargins((int) mBuilder.titleW, (int) mBuilder.marginV + 5, (int) mBuilder.marginH, (int) mBuilder.marginV + 5);
         content.setLayoutParams(contentParams);
         content.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
         content.setPadding(0, 0, 0, 0);
@@ -469,55 +479,12 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         lp.setMargins((int) mBuilder.titleW, 0, 0, 0);
         root.setLayoutParams(lp);
 
-        int size = mBuilder.multiHints.size();
-        //textView的参数
-        RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        lp1.setMargins(0,0,DWZH.dp(25),0);
-        //分割线的参数
-        LinearLayout.LayoutParams lp2 = new LayoutParams(LayoutParams.MATCH_PARENT,1);
-        lp2.setMargins(0, 0, DWZH.dp(10), 0);
-        RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        //索引图标参数
-        RelativeLayout.LayoutParams lp4 = new RelativeLayout.LayoutParams(DWZH.dp(10),DWZH.dp(10));
-        lp4.addRule(RelativeLayout.CENTER_VERTICAL);
-        lp4.addRule(RelativeLayout.ALIGN_PARENT_END);
-        lp4.setMargins(0, 0, DWZH.dp(15), 0);
-        for (int i=0; i<size; i++){
-            RelativeLayout layout = new RelativeLayout(mBuilder.mContext);
-            layout.setLayoutParams(lp3);
+        LinearLayout.LayoutParams linearLp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-            final TextView textView = new TextView(mBuilder.mContext);
-            textView.setTag(i+"");
-            textView.setLayoutParams(lp1);
-            textView.setText(mBuilder.multiHints.get(i));
-            textView.setTextColor(mBuilder.textColor);
-            textView.setTextSize(mBuilder.textSize);
-            textView.setPadding(0, (int) mBuilder.marginV, 0, (int) mBuilder.marginV);
-            textView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onMultiClick != null){
-                        onMultiClick.onClick(Integer.parseInt(textView.getTag().toString()));
-                    }
-                }
-            });
-            layout.addView(textView);
-
-            //添加索引图标
-            ImageView index = new ImageView(mBuilder.mContext);
-            index.setLayoutParams(lp4);
-            index.setImageResource(R.drawable.right_arrow);
-            layout.addView(index);
-
-            root.addView(layout);
-
-            //添加分割线
-            if (i <size -1){
-                View line = new View(mBuilder.mContext);
-                line.setLayoutParams(lp2);
-                line.setBackgroundResource(R.color.linecolor);
-                root.addView(line);
-            }
+        for (int i=0; i<mBuilder.childRows.size(); i++){
+            TableRow tableRow = mBuilder.childRows.get(i);
+            tableRow.setLayoutParams(linearLp);
+            root.addView(tableRow);
         }
 
         contentLayout.addView(root);
@@ -538,12 +505,12 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         for (int i=0; i<size; i++){
             final TextView textView = new TextView(mBuilder.mContext);
             textView.setLayoutParams(lp1);
-            textView.setTextSize(12);
-            textView.setTextColor(mBuilder.hintColor);
-            textView.setTag(mBuilder.times.get(i));
-            textView.setHint(mBuilder.times.get(i));
+            textView.setTextSize(14);
+            textView.setTag(mBuilder.timeHints.get(i));
+            textView.setHint(mBuilder.timeHints.get(i));
             textView.setHintTextColor(mBuilder.hintColor);
-//            textView.setText(mBuilder.times.get(i));
+            textView.setText(mBuilder.times.get(i));
+            textView.setTextColor(mBuilder.textColor);
             textView.setPadding(0, (int) mBuilder.marginV, 0, (int) mBuilder.marginV);
             textView.setOnClickListener(new OnClickListener() {
                 @Override
@@ -707,23 +674,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         if (this.content != null) {
             this.content.setText(content);
         }
-    }
-
-    public void setChildContent(String tag, String content) {
-        RelativeLayout contentLayout = (RelativeLayout) getChildAt(0);
-        LinearLayout root = (LinearLayout) contentLayout.getChildAt(1);
-        for (int i=0; i< root.getChildCount(); i++){
-            View child = root.getChildAt(i);
-            if (child instanceof RelativeLayout){
-                RelativeLayout layout = (RelativeLayout) child;
-                for (int j=0; j<layout.getChildCount(); j++){
-                    if (layout.getChildAt(j).getTag() != null && tag.equals(layout.getChildAt(j).getTag())){
-                        ((TextView)layout.getChildAt(j)).setText(content);
-                    }
-                }
-            }
+        if(this.clearEditText!=null){
+            this.clearEditText.setText(content);
         }
-
     }
 
     public void setTvContent(String content) {
@@ -851,11 +804,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         private int hintColor;
         private boolean isRequired;
         private boolean showBtmLine;
+        private boolean hasIndex;
 
         private SelectCallBack onSelect;
 
         private int inputType;
-
         private Object tag;
         private String titleString;
         private String contentString;
@@ -864,9 +817,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         private String inputHint;
         private String multiHintOne;
         private String multiHintTwo;
-        private List<String> multiHints;
+        private List<TableRow> childRows;
         private String seperator;
-        private List<String> times;
+        private List<String> times, timeHints;
         private TimeListener timeListener;
 
         public Builder(Context mContext) {
@@ -883,10 +836,10 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             showBtmLine = true;
             inputType = InputType.TYPE_CLASS_TEXT;
             seperator = "、";
+            hasIndex = true;
         }
 
         public Builder tag(Object tag){
-//            TableRow.this.setTag(tag);
             this.tag = tag;
             return this;
         }
@@ -941,8 +894,19 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
+        public Builder timeHints(String... hints){
+            this.mType = Type.TIME;
+            this.timeHints= Arrays.asList(hints);
+            return this;
+        }
+
         public Builder timeBack(TimeListener timeListener){
             this.timeListener = timeListener;
+            if (timeHints != null){
+                for (int i=0; i<timeHints.size(); i++){
+                    timeListener.timeBack(timeHints.get(i), times.get(i));
+                }
+            }
             return this;
         }
 
@@ -954,6 +918,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         public Builder select(@StringRes int hintRes) {
             select(this.mContext.getString(hintRes));
+            return this;
+        }
+
+        public Builder hasIndex(boolean hasIndex){
+            this.hasIndex = hasIndex;
             return this;
         }
 
@@ -997,14 +966,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
-        public Builder multiSelect2(List<String> data) {
-            this.multiHints = data;
+        public Builder addChild(TableRow... childRows){
             this.mType = Type.MULTI_SELECT_2;
-            return this;
-        }
-
-        public Builder multiSelect(@StringRes int hintOneRes, @StringRes int hintTwoRes) {
-            multiSelect(this.mContext.getString(hintOneRes), this.mContext.getString(hintTwoRes));
+            this.childRows = Arrays.asList(childRows);
             return this;
         }
 

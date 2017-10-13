@@ -19,6 +19,33 @@ public class ProcedureCaseDicVo {
     Map<String, String> ilglCateMap;            //	违法行为大类
     Map<String, String> iOrganIdMap;            //  机关字典
     Map<String, String> positionMap;
+    Map<String, String> yesNoMap;               //是否字典
+    Map<String, String> nationMap;              //国籍字典
+    Map<String, String> dicGooMapTop;           //侵权商品、服务种类一级字典
+
+    public Map<String, String> getDicGooMapTop() {
+        return dicGooMapTop;
+    }
+
+    public void setDicGooMapTop(Map<String, String> dicGooMapTop) {
+        this.dicGooMapTop = dicGooMapTop;
+    }
+
+    public Map<String, String> getNationMap() {
+        return nationMap;
+    }
+
+    public void setNationMap(Map<String, String> nationMap) {
+        this.nationMap = nationMap;
+    }
+
+    public Map<String, String> getYesNoMap() {
+        return yesNoMap;
+    }
+
+    public void setYesNoMap(Map<String, String> yesNoMap) {
+        this.yesNoMap = yesNoMap;
+    }
 
     public Map<String, String> getPartyMap() {
         return partyMap;

@@ -2,6 +2,7 @@ package com.wondersgroup.commerce.teamwork.simpleprocedurecase;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,17 +14,23 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -31,6 +38,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -50,7 +58,10 @@ import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.AttachmentDTO;
 import com.wondersgroup.commerce.model.CaseInvestigateTitle;
+import com.wondersgroup.commerce.model.CaseTrademark;
+import com.wondersgroup.commerce.model.CaseTrademarkActivistInfo;
 import com.wondersgroup.commerce.model.DataVolume;
+import com.wondersgroup.commerce.model.FileBean;
 import com.wondersgroup.commerce.model.ProcedureCaseActnItemsVo;
 import com.wondersgroup.commerce.model.ProcedureCaseAttachMentVo;
 import com.wondersgroup.commerce.model.ProcedureCaseAttachResultObject;
@@ -70,6 +81,7 @@ import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.utils.DWZH;
 import com.wondersgroup.commerce.utils.DynamicWidgetUtils;
 import com.wondersgroup.commerce.utils.FileUtils;
+import com.wondersgroup.commerce.utils.OpenFileHelper;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 import com.wondersgroup.commerce.widget.TableRow;
 
@@ -123,6 +135,9 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
     private LinearLayout districtAreaLinearlayout;                //本省登记个体工商户
     private LinearLayout illegalLinearLayout;                       //违法行为小类
     private LinearLayout illegalCodeLinearLayout;                   //违法行为代码
+    private View tradeMarkView, safeguarderInfoView;                //商标信息、商标维权人信息
+    private RecyclerView lvAttachments;                         //附件列表
+    private AttchmentsAdapter attchmentsAdapter;            //附件适配器
 
     private int viewTagNo = 0;                          //立案信息动态控件tag
     private List<DataVolume> componentCaseBrowseList;   //案件总览动态控件对象列表
@@ -141,12 +156,18 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
     private Map<String, String> districtMap;            //二级区域列表
     private Map<String, String> illegalSmallTypeMap;    //违法行为小类map
     private Map<String, String> illegalCodeMap;         //违法行为代码map
+    private Map<String, String> brandType2LevelMap;     //商标类型的二级菜单
     private List<ProcedureCaseActnItemsVo> illegalLawList;         //违法行为定性和处罚依据List
     private ProcedureCasePunishVo submitPunishVo = null;       //处罚部分
     private RootAppcation app;
     private TableRow personType, inquiryNameRow, inquiryRegisterRow, idTypeRow, idNumber, sexTypeRow, caseAreaCityRow, caseAreaDistrictRow, caseSourceRow,
             illegalBigTypeRow, illegalSmallTypeRow, illegalCodeRow, illegalBehaviorType, qualitativeTypeRow, punishTypeRow,
             punishValue, penaltyDateRow, penaltyLetterNumRow, handlePersonRow;
+    private LinearLayout brandLinearLayout, safeguarderLinearLayout;     //商标部分的LinearLayout
+    private TableRow brandName, brandRegister, brankMain, brandKind, brandKind2Level, brandGetTools, brandViolateGeography, brandIllegalMoney, brandPrintCase,
+            brandGetCommodity,  brandViolateSpecial, brandGetMakeCommodityTools, brandViolateFamous;
+    private TableRow safeguarderRegisterNo, safeguarderCompanyName, safeguarderName, safeguarderNationality, safeguarderCertificate, safeguarderCertificateNo,
+            safeguarderAddress, safeguarderTelphone, safeguarderEmail, safeguarderPostCode;//safeguarderLinearLayout
     private RadioGroup punishTypeRadioGroup;
     private CheckBox checkBoxWarning, checkBoxPunishment;
     private TextView txtWarning, txtPunishment;
@@ -182,6 +203,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
     private Boolean bCanNotModify = false;  //当前登录人员不是办案人员，不能修改案件信息时 bCanNotModify = true
     private String defaultCasePerson = null;    //默认办案人员
     private String subCasePerson = null;        //选择的办案人员
+    private List<Attchment> attachmentsList;    //附件列表
+    private String tempAttachMentName;
 //    private ImageTableView fj;
 
 
@@ -200,8 +223,21 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         paramsedittext.weight = 5;
         caseBrowseScrollView = (ScrollView) this.findViewById(R.id.case_browse_ScrollView);
         caseBrowseLinearlayout = (LinearLayout) this.findViewById(R.id.case_browse_linearlayout);
-
+        tradeMarkView = (LinearLayout) getLayoutInflater().inflate(R.layout.view_procedurecase_trademark, null);
+        safeguarderInfoView = (LinearLayout) getLayoutInflater().inflate(R.layout.view_safeguarder_information, null);
+        lvAttachments = (RecyclerView) this.findViewById(R.id.listViewAttachments4ProcedureCaseDetail);
+        brandLinearLayout = (LinearLayout) tradeMarkView.findViewById(R.id.linearLayout4proceduceCaseTradeMark);
+        safeguarderLinearLayout = (LinearLayout)  safeguarderInfoView.findViewById(R.id.linearLayout4safeguarderInformation);
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        picOneName = null;
+        picTwoName = null;
+        picThreeName = null;
+
     }
 
     private void initData(String clueNo) {
@@ -234,6 +270,11 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                             subCasePerson = caseDetail.getResult().getmCaseDetail().getUserIdMainName();
                         dicVo = caseDetail.getResult().getmDicVo();
                         submitPunishVo = caseDetail.getResult().getmPunishVo();
+                        regEntityId = caseDetail.getResult().getmLitigtInfoVo().getEntityId();
+                        regOrganId = caseDetail.getResult().getmLitigtInfoVo().getRegOrganId();
+                        regEtpsTypeGb = caseDetail.getResult().getmLitigtInfoVo().getEtpsTypeGb();
+                        regUniScid = caseDetail.getResult().getmLitigtInfoVo().getUniScid();
+                        regPripId = caseDetail.getResult().getmLitigtInfoVo().getPripid();
                         if(bCanNotModify == false)
                             addBaseView();
                         else
@@ -244,33 +285,57 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         }
                         caseAttachList = caseDetail.getResult().getAttachList();
                         if (caseAttachList != null) {
-                            if(caseAttachList.size() == 0){
-                                pic1.setVisibility(View.GONE);
-                                pic2.setVisibility(View.GONE);
-                                pic3.setVisibility(View.GONE);
-                            }else if(caseAttachList.size() == 1){
-                                pic2.setVisibility(View.GONE);
-                                pic3.setVisibility(View.GONE);
-                            }else if(caseAttachList.size() == 2){
-                                pic3.setVisibility(View.GONE);
-                            }
-                            int count = 0;
+                            attachmentsList = new ArrayList<Attchment>();
                             for (ProcedureCaseAttachMentVo attch : caseAttachList) {
-//                                Log.d(TAG, "initData()------------- attch.getKey() = " + attch.getKey());
-//                                Log.d(TAG, "initData()------------- attch.getName() = " + attch.getName());
-                                putPicinPos(attch.getKey(), count);
-                                if (count == 0)
-                                    picOneId = attch.getKey();
-                                else if (count == 1)
-                                    picTwoId = attch.getKey();
-                                else
-                                    picThreeId = attch.getKey();
-                                count++;
+                                Attchment attachment = new Attchment();
+                                attachment.setAttachmentId(attch.getKey());
+                                attachment.setAttachmentName(attch.getValue());
+                                attachmentsList.add(attachment);
                             }
-                        }else{
-                            pic1.setVisibility(View.GONE);
-                            pic2.setVisibility(View.GONE);
-                            pic3.setVisibility(View.GONE);
+                            if(attachmentsList.size()>0){
+                                final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(ProcedureCaseDetailActivity.this);
+                                lvAttachments.setLayoutManager(linearLayoutManager);
+                                lvAttachments.setItemAnimator(new DefaultItemAnimator());
+                                attchmentsAdapter = new AttchmentsAdapter(ProcedureCaseDetailActivity.this, attachmentsList);
+                                lvAttachments.setAdapter(attchmentsAdapter);
+                                attchmentsAdapter.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void OnItemClick(View view, int position) {
+                                        if(view.getId() == R.id.download){
+                                            Toast.makeText(ProcedureCaseDetailActivity.this, "删除附件:"+attachmentsList.get(position).getAttachmentName(), Toast.LENGTH_SHORT).show();
+                                            String fileName = attachmentsList.get(position).getAttachmentName();
+                                            if(fileName.equals(picOneName))
+                                                picOneName = null;
+                                            if(fileName.equals(picTwoName))
+                                                picTwoName = null;
+                                            if(fileName.equals(picThreeName))
+                                                picThreeName = null;
+                                            attachmentsList.remove(position);
+                                            attchmentsAdapter.notifyDataSetChanged();
+                                        }else if(view.getId() == R.id.tv_content){
+                                            Toast.makeText(ProcedureCaseDetailActivity.this, "打开附件:"+attachmentsList.get(position).getAttachmentName(), Toast.LENGTH_SHORT).show();
+                                            String attachName = attachmentsList.get(position).getAttachmentName();
+                                            if(attachName!=null && !attachName.equals("")){
+                                                if(attachName.startsWith("/storage")){
+                                                    final String savePathFinal = attachName;
+                                                    try {
+                                                        ProcedureCaseDetailActivity.this.startActivity(
+                                                                OpenFileHelper.openFile(savePathFinal));
+                                                    } catch (Exception e) {
+                                                        Toast.makeText(ProcedureCaseDetailActivity.this, "不支持打开该类文件",
+                                                                Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }else{
+                                                tempAttachMentName = attachmentsList.get(position).getAttachmentName();
+                                                getAttchment(attachmentsList.get(position).getAttachmentId());
+                                            }
+                                        }
+
+                                    }
+                                });
+                            }
+
                         }
                     }
                 } else {
@@ -283,6 +348,50 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             public void onFailure(Throwable t) {
 //                Log.d(TAG, "onFailure() ------4--------- 服务器连接错误");
                 Toast.makeText(ProcedureCaseDetailActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    //下载附件
+    public void getAttchment(String attachId){
+        Map<String, String> body = new HashMap<>();
+        body.put("wsCodeReq", "03010023");
+        body.put("attachId", attachId);
+        Call<FileBean> call = ApiManager.caseApi.procedureCaseDownLoadAttchment(body);
+        call.enqueue(new Callback<FileBean>() {
+            @Override
+
+            public void onResponse(Response<FileBean> response, Retrofit retrofit) {
+                if(response!=null && response.body()!=null){
+                    if("200".equals(response.body().getCode())){
+                        FileUtils fileUtils = new FileUtils();
+                        try {
+                            String fileName = response.body().getResult().getAttachFile().getAttachName();
+                            if(fileName!=null && !fileName.equals("")){
+                                fileUtils.decoderBase64File(ProcedureCaseDetailActivity.this,
+                                        response.body().getResult().getAttachFile().getAttachFileStr(),
+                                        ProcedureCaseDetailActivity.this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                                                + "/"+response.body().getResult().getAttachFile().getAttachName());
+                            }else{
+                                fileUtils.decoderBase64File(ProcedureCaseDetailActivity.this,
+                                        response.body().getResult().getAttachFile().getAttachFileStr(),
+                                        ProcedureCaseDetailActivity.this.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()
+                                                + "/"+tempAttachMentName);
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        Toast.makeText(ProcedureCaseDetailActivity.this, "下载失败", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(ProcedureCaseDetailActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -314,6 +423,49 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                             addCityAreaRowLinearLayout();
                         else
                             addCityAreaRowLinearLayoutWithNoModify();
+                    }
+                } else {
+//                    Log.d(TAG, "myCaseToInvestigate --------------- response.is not Success()");
+                    Toast.makeText(ProcedureCaseDetailActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+//                Log.d(TAG, "onFailure() ------1--------- 服务器连接错误");
+                Toast.makeText(ProcedureCaseDetailActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //brandType2LevelMap
+    //获得侵权商品/服务二级列表,如果subType不为空，则获取字典后直接找到subType对应的值，并赋值
+    private void getBrandSecondTypeMap(String firstSpotItem, final String subType) {
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("wsCodeReq", "03010305");
+        map.put("typeId", firstSpotItem);
+
+        Call<ProcedureCaseIllegalSmalTypeResultObject> call;
+        call = ApiManager.caseApi.getBrandTypeSecondLevel(map);
+        call.enqueue(new Callback<ProcedureCaseIllegalSmalTypeResultObject>() {
+            @Override
+            public void onResponse(Response<ProcedureCaseIllegalSmalTypeResultObject> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    MyProgressDialog.dismiss();
+                    final ProcedureCaseIllegalSmalTypeResultObject typeMap = response.body();
+
+                    if (null == typeMap) {
+                        Toast.makeText(ProcedureCaseDetailActivity.this, "获得侵权商品/服务种类类型错误", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        brandType2LevelMap = typeMap.getSubMap();
+                        brandKind2Level.setVisibility(View.VISIBLE);
+                        if(subType != null){
+                            for (Map.Entry<String, String> entry : brandType2LevelMap.entrySet())
+                                if (subType.equals(entry.getKey()))
+                                    brandKind2Level.setTvContent(entry.getValue());
+                        }
                     }
                 } else {
 //                    Log.d(TAG, "myCaseToInvestigate --------------- response.is not Success()");
@@ -600,84 +752,6 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         });
     }
 
-    //在指定位置加载服务端图片
-    public void putPicinPos(String picId, final int pos) {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "03010023");
-        map.put("attachId", picId);
-        Call<ProcedureCaseAttachResultObject> call;
-        call = ApiManager.caseApi.procedureCaseDownLoadAttchment(map);
-        call.enqueue(new Callback<ProcedureCaseAttachResultObject>() {
-            @Override
-            public void onResponse(Response<ProcedureCaseAttachResultObject> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    final ProcedureCaseAttachResultObject attachObject = response.body();
-
-                    if (null == attachObject || null == attachObject.getResult()) {
-                        Toast.makeText(ProcedureCaseDetailActivity.this, "下载附件数据错误", Toast.LENGTH_SHORT).show();
-                    } else {
-                        String fileStr = attachObject.getResult().getAttachFileStr();
-                        if (fileStr == null || fileStr == "")
-                            return;
-                        attachList.get(pos).setAttachFileStr(fileStr);
-                        Bitmap pic = FileUtils.stringtoBitmap(fileStr);
-                        File file;
-                        switch (pos) {
-                            case 0:
-                                file = new File(app.getCachePath(), "pic1.jpg");
-                                try {
-                                    OutputStream stream = new FileOutputStream(file);
-                                    pic.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                    stream.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                picOneName = app.getCachePath() + "/pic1.jpg";
-                                Picasso.with(ProcedureCaseDetailActivity.this).load(file)
-                                        .resize(120, 120).centerCrop().into(pic1);
-                                break;
-                            case 1:
-                                file = new File(app.getCachePath(), "pic2.jpg");
-                                try {
-                                    OutputStream stream = new FileOutputStream(file);
-                                    pic.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                    stream.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                picTwoName = app.getCachePath() + "/pic2.jpg";
-                                Picasso.with(ProcedureCaseDetailActivity.this).load(file)
-                                        .resize(120, 120).centerCrop().into(pic2);
-                                break;
-                            case 2:
-                                file = new File(app.getCachePath(), "pic3.jpg");
-                                try {
-                                    OutputStream stream = new FileOutputStream(file);
-                                    pic.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                                    stream.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                picThreeName = app.getCachePath() + "/pic3.jpg";
-                                Picasso.with(ProcedureCaseDetailActivity.this).load(file)
-                                        .resize(120, 120).centerCrop().into(pic3);
-                                break;
-                        }
-
-
-                    }
-                } else {
-                    Toast.makeText(ProcedureCaseDetailActivity.this, "服务器信息有误", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(ProcedureCaseDetailActivity.this, "服务器连接错误", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     //提交简易案件
     private void submitCase() {
 
@@ -829,6 +903,20 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             additional = additional + "*" + additional2;
         if (additional3 != null)
             additional = additional + "*" + additional3;
+
+        //添加未修改的附件
+        for(Attchment attchment:attachmentsList){
+            if(attchment.getAttachmentId()!=null){
+                AttachmentDTO addition = new AttachmentDTO();
+                addition.setAttachId(attchment.getAttachmentId());
+                Gson gson = new GsonBuilder().create();
+                String strAttach = gson.toJson(addition);
+                if(additional == null)
+                    additional = strAttach;
+                else
+                    additional = additional + "*" + strAttach;
+            }
+        }
         map.put("attachListStr", additional);
 
     }
@@ -857,19 +945,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             addBaseView();
             getVolumesList();
         }
-
-        // 从bundle数据包中取出数据
-//        caseInvestigateTitle = (CaseInvestigateTitle) bundle.getSerializable("CaseInvestigateTitle");
-
-//        if(null == caseInvestigateTitle)
-//            return;
-
-//        Log.d(TAG, "caseInvestigateTitle.getClueNo() = " + caseInvestigateTitle.getClueNo());
         title.setText("简易程序案件");
-        for (int j = 0; j < 3; j++) {
-            AttachmentDTO attchment = new AttachmentDTO();
-            attachList.add(attchment);
-        }
     }
 
     //5.3.6. 企业选择，初始化选择的企业内容
@@ -884,15 +960,15 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 String title = widget.getTitle();
                 if (widget.getTitle() == null)//蓝色标题，不用取值------------1960(父一级)
                     continue;
-                if (widget.getTitle().equals("单位名称*")) {
+                if (widget.getTitle().equals("* 单位名称")) {
                     widget.setContent(companyData.getLitigtName());
-                } else if (widget.getTitle().equals("注册号*")) {
+                } else if (widget.getTitle().equals("* 注册号")) {
                     widget.setContent(companyData.getRegNo());
-                } else if (widget.getTitle().equals("法定代表人经营者*")) {
+                } else if (widget.getTitle().equals("* 法定代表人经营者")) {
                     widget.setContent(companyData.getLegalName());
-                } else if (widget.getTitle().equals("现居住地/经营场所*")) {
+                } else if (widget.getTitle().equals("* 现居住地/经营场所")) {
                     widget.setContent(companyData.getAddress());
-                } else if (widget.getTitle().equals("主体身份代码(G)*")) {
+                } else if (widget.getTitle().equals("* 主体身份代码(G)")) {
                     widget.setContent(companyData.getPripId());
                 }
             }
@@ -922,28 +998,30 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 if (widget.getTitle() == null)//蓝色标题，不用取值------------1960(父一级)
                     continue;
 
-                if (widget.getTitle().equals("个体工商户名称*")) {
+                String strTitle = widget.getTitle();
+                Log.d(TAG, "strTitle = "+strTitle);
+                if (widget.getTitle().equals("* 个体工商户名称")) {
                     widget.setContent(personData.getLitigtName());
-                } else if (widget.getTitle().equals("注册号*")) {
+                } else if (widget.getTitle().equals("* 注册号")) {
                     widget.setContent(personData.getRegNo());
-                } else if (widget.getTitle().equals("年龄(G)*")) {
+                } else if (widget.getTitle().equals("* 年龄(G)")) {
                     widget.setContent(personData.getAge());
-                } else if (widget.getTitle().equals("性别(G)*")) {
+                } else if (widget.getTitle().equals("* 性别(G)")) {
                     if (dicVo != null && dicVo.getDicSexMap() != null)
                         widget.setContent(dicVo.getDicSexMap().get(personData.getSex()));
-                } else if (widget.getTitle().equals("联系电话(G)*")) {
+                } else if (widget.getTitle().equals("* 联系电话(G)")) {
                     widget.setContent(personData.getTel());
-                } else if (widget.getTitle().equals("工作单位(G)*")) {
+                } else if (widget.getTitle().equals("* 工作单位(G)")) {
                     widget.setContent(personData.getWorkunit());
-                } else if (widget.getTitle().equals("住所(G)*")) {
+                } else if (widget.getTitle().equals("* 住所(G)")) {
                     widget.setContent(personData.getHouse());
-                } else if (widget.getTitle().equals("职业(G)*")) {
+                } else if (widget.getTitle().equals("* 职业(G)")) {
                     widget.setContent(personData.getOccupation());
-                } else if (widget.getTitle().equals("邮政编码(G)*")) {
+                } else if (widget.getTitle().equals("* 邮政编码(G)")) {
                     widget.setContent(personData.getPostalcode());
-                } else if (widget.getTitle().equals("法定代表人经营者*")) {
+                } else if (widget.getTitle().equals("* 法定代表人经营者")) {
                     widget.setContent(personData.getLegalName());
-                } else if (widget.getTitle().equals("现居住地/经营场所*")) {
+                } else if (widget.getTitle().equals("* 现居住地/经营场所")) {
                     widget.setContent(personData.getAddress());
                 }
             }
@@ -1197,7 +1275,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                                 Toast.makeText(ProcedureCaseDetailActivity.this, "该人员已经是办案人员！", Toast.LENGTH_SHORT).show();
                                                 return true;
                                             }
-                                            handlePersonRow.setTvContent(defaultCasePerson+","+personStringArray[which]);
+                                            subCasePerson = personStringArray[which];
+                                            handlePersonRow.setTvContent(defaultCasePerson+","+subCasePerson);
                                             return true;
                                         }
                                     })
@@ -1307,6 +1386,13 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                                     submitPunishVo.setQuabasis("");
                                                     submitPunishVo.setPunishLawCon("");
                                                     submitPunishVo.setPenbasis("");
+                                                    if(bigIllegalTypeStringArray[which].equals("商标违法行为")){
+                                                        tradeMarkView.setVisibility(View.VISIBLE);
+                                                        safeguarderInfoView.setVisibility(View.VISIBLE);
+                                                    }else{
+                                                        tradeMarkView.setVisibility(View.GONE);
+                                                        safeguarderInfoView.setVisibility(View.GONE);
+                                                    }
                                                     return true;
                                                 }
                                             }
@@ -1404,7 +1490,6 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             selectedPunishCode = submitPunishVo.getPenbasis();
         }
 
-
         TableRow caseReason = new TableRow.Builder(this)
                 .title("案由(G)")
                 .input("请输入案由")
@@ -1413,6 +1498,20 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .build();
         caseBrowseLinearlayout.addView(caseReason);
 
+        if(bCanNotModify == false){
+            brandInformation();
+            safeguardPersonInfo();
+        }else{
+            brandInformationWithNoModify();
+            safeguardPersonInfoWithNoModify();
+        }
+        if(illegalBigTypeRow.getTvContent()!=null && illegalBigTypeRow.getTvContent().toString().equals("商标违法行为")){
+            tradeMarkView.setVisibility(View.VISIBLE);
+            safeguarderInfoView.setVisibility(View.VISIBLE);
+        }else{
+            tradeMarkView.setVisibility(View.GONE);
+            safeguarderInfoView.setVisibility(View.GONE);
+        }
 
         TableRow punishMentTitle = new TableRow.Builder(this)
                 .asTitle("处罚方式")
@@ -1533,6 +1632,629 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 //        fj.setTitle("附件");
 //        fj.setCanAdd(true);
 //        caseBrowseLinearlayout.addView(fj);
+    }
+
+    //添加商标信息
+    private void brandInformation(){
+        CaseTrademark caseTrademark = null;
+        if(caseDetail!=null)
+            caseTrademark = caseDetail.getResult().getCaseTrademark();
+        brandName = new TableRow.Builder(this)
+                .title("商标名称")
+                .input("请输入商标名称 ")
+                .required()
+                .content(caseTrademark == null ? "":caseTrademark.getTrademarkName())
+                .build();
+        brandLinearLayout.addView(brandName);
+
+        brandRegister = new TableRow.Builder(this)
+                .title("商标注册号 ")
+                .input("请输入商标注册号  ")
+                .required()
+                .content(caseTrademark == null ? "":caseTrademark.getTrademarkRgeNo())
+                .build();
+        brandLinearLayout.addView(brandRegister);
+//dicVo.getDicCetfMap().get(caseDetail.getResult().getmLitigtInfoVo().getCerType()));
+        brankMain = new TableRow.Builder(this)
+                .title("是否主要商标")
+                .input("请选择是否主要商标")
+                .content(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsMain()))
+                .required()
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "是否字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getYesNoMap().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getYesNoMap().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            brankMain.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        brandLinearLayout.addView(brankMain);
+
+        String mainType = null;
+        String subType = null;
+        if(caseTrademark!=null && caseTrademark.getInfringerGood()!=null && brandType2LevelMap!=null){
+            subType = caseTrademark.getInfringerGood();
+            mainType = subType.substring(0, 2);
+        }
+
+
+        brandKind = new TableRow.Builder(this)
+                .title("侵权商品/服务种类")
+                .input("请选择侵权商品/服务种类")
+                .required()
+                .content(mainType == null ? "" : dicVo.getDicGooMapTop().get(mainType))
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "侵权商品/服务种类字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getDicGooMapTop().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getDicGooMapTop().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            brandKind.setTvContent(typeStringArray[organFlag]);
+                                            for (Map.Entry<String, String> entry : dicVo.getDicGooMapTop().entrySet())
+                                                if (typeStringArray[which].equals(entry.getValue()))
+                                                    getBrandSecondTypeMap(entry.getKey(), null);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        brandLinearLayout.addView(brandKind);
+
+        brandKind2Level = new TableRow.Builder(this)
+                .title("侵权商品/服务种类二级")
+                .input("请选择二级侵权商品/服务种类")
+                .required()
+                .content(subType == null ?"" : brandType2LevelMap.get(subType))
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (brandType2LevelMap == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "侵权商品/服务种类二级字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[brandType2LevelMap.size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : brandType2LevelMap.entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            brandKind2Level.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        brandLinearLayout.addView(brandKind2Level);
+        if(caseTrademark == null || caseTrademark.getInfringerGood() == null)
+            brandKind2Level.setVisibility(View.GONE);
+
+        brandGetTools = new TableRow.Builder(this)
+                .title("没收伪造注册商标标识的工具(件)")
+                .input("请输入没收伪造注册商标标识的工具")
+                .required()
+                .content(caseTrademark == null ? "" : caseTrademark.getConfiscateTrademarkTools())
+                .build();
+        brandLinearLayout.addView(brandGetTools);
+
+        brandIllegalMoney = new TableRow.Builder(this)
+                .title("违法经营额(元)")
+                .input("请输入违法经营额 ")
+                .required()
+                .content(caseTrademark == null ? "" : caseTrademark.getIlglAmount())
+                .build();
+        brandLinearLayout.addView(brandIllegalMoney);
+
+        brandGetCommodity = new TableRow.Builder(this)
+                .title("没收侵权商品(件)")
+                .input("请输入没收侵权商品")
+                .required()
+                .content(caseTrademark == null ? "" : caseTrademark.getConfiscateGood())
+                .build();
+        brandLinearLayout.addView(brandGetCommodity);
+
+        brandGetMakeCommodityTools = new TableRow.Builder(this)
+                .title("没收制造侵权商品的工具(件)")
+                .input("请输入没收制造侵权商品的工具")
+                .required()
+                .content(caseTrademark == null ? "" : caseTrademark.getConfiscateGoodTools())
+                .build();
+        brandLinearLayout.addView(brandGetMakeCommodityTools);
+
+        brandViolateGeography = new TableRow.Builder(this)
+                .title("是否侵权地理标志专用权案件")
+                .input("请选择是否侵权地理标志专用权案件")
+                .content(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsInvasionGeographyLogo()))
+                .required()
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "是否字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getYesNoMap().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getYesNoMap().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            brandViolateGeography.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        brandLinearLayout.addView(brandViolateGeography);
+
+        brandPrintCase = new TableRow.Builder(this)
+                .title("是否印制商标标识案件")
+                .input("请选择是否印制商标标识案件")
+                .content(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsPrintTrademarkLogo()))
+                .required()
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "是否字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getYesNoMap().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getYesNoMap().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            brandPrintCase.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        brandLinearLayout.addView(brandPrintCase);
+
+        brandViolateSpecial = new TableRow.Builder(this)
+                .title("是否侵犯特殊标志所有权案件")
+                .input("请选择是否侵犯特殊标志所有权案件")
+                .content(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsInvasionSpecialLogo()))
+                .required()
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "是否字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getYesNoMap().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getYesNoMap().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            brandViolateSpecial.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        brandLinearLayout.addView(brandViolateSpecial);
+
+        brandViolateFamous = new TableRow.Builder(this)
+                .title("是否侵犯驰名商标权益案件")
+                .input("请选择是否侵犯驰名商标权益案件")
+                .content(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsWellKnownTrademark()))
+                .required()
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "是否字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getYesNoMap().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getYesNoMap().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            brandViolateFamous.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        brandLinearLayout.addView(brandViolateFamous);
+        caseBrowseLinearlayout.addView(tradeMarkView);
+    }
+
+    //添加商标维权人信息
+    private void safeguardPersonInfo(){
+        CaseTrademarkActivistInfo caseTrademarkActivistInfo = null;
+        if(caseDetail!=null)
+            caseTrademarkActivistInfo = caseDetail.getResult().getCaseTrademarkActivistInfo();
+        safeguarderRegisterNo = new TableRow.Builder(this)
+                .title("工商注册号 ")
+                .input("请输入工商注册号")
+                .required()
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistRegNo())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderRegisterNo);
+
+        safeguarderCompanyName = new TableRow.Builder(this)
+                .title("单位名称")
+                .input("请输入单位名称")
+                .required()
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistUnitName())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderCompanyName);
+
+        safeguarderName = new TableRow.Builder(this)
+                .title("姓名")
+                .input("请输入姓名")
+                .required()
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistName())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderName);
+
+        safeguarderNationality = new TableRow.Builder(this)
+                .title("国籍")
+                .input("请选择国籍")
+                .content(caseTrademarkActivistInfo == null ? "" : dicVo.getNationMap().get(caseTrademarkActivistInfo.getActivistNational()))
+                .required()
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "国籍字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getNationMap().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getNationMap().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            safeguarderNationality.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        safeguarderLinearLayout.addView(safeguarderNationality);
+
+        safeguarderCertificate = new TableRow.Builder(this)
+                .title("证件类型")
+                .input("请选择证件类型")
+                .content(caseTrademarkActivistInfo == null ? "" : dicVo.getDicCetfMap().get(caseTrademarkActivistInfo.getActivistCerType()))
+                .required()
+                .arrowSelect()
+                .onSelect(new TableRow.SelectCallBack() {
+                    @Override
+                    public void onSelect(TableRow row, int which) {
+                        if (dicVo == null) {
+                            Toast.makeText(ProcedureCaseDetailActivity.this, "证件类型字典为空！", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            final String typeStringArray[] = new String[dicVo.getDicCetfMap().size()];
+                            int i = 0;
+                            for (Map.Entry<String, String> entry : dicVo.getDicCetfMap().entrySet())
+                                typeStringArray[i++] = entry.getValue();
+                            new MaterialDialog.Builder(ProcedureCaseDetailActivity.this)
+                                    .items(typeStringArray)
+                                    .widgetColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                                        @Override
+                                        public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                            int organFlag = which;
+                                            safeguarderCertificate.setTvContent(typeStringArray[organFlag]);
+                                            return true;
+                                        }
+                                    })
+                                    .positiveText("确定")
+                                    .positiveColor(ContextCompat.getColor(ProcedureCaseDetailActivity.this, R.color.blue))
+                                    .show();
+                        }
+                    }
+                })
+                .build();
+        safeguarderLinearLayout.addView(safeguarderCertificate);
+
+        safeguarderCertificateNo = new TableRow.Builder(this)
+                .title("证件号码")
+                .input("请输入证件号码")
+                .required()
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistCerNo())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderCertificateNo);
+
+        safeguarderAddress = new TableRow.Builder(this)
+                .title("住所")
+                .input("请输入住所")
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistAddr())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderAddress);
+
+        safeguarderTelphone = new TableRow.Builder(this)
+                .title("联系电话")
+                .input("请输入联系电话")
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistTel())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderTelphone);
+
+        safeguarderEmail = new TableRow.Builder(this)
+                .title("电子邮箱")
+                .input("请输入电子邮箱")
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistEmail())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderEmail);
+
+        safeguarderPostCode = new TableRow.Builder(this)
+                .title("邮政编码")
+                .input("请输入邮政编码")
+                .content(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistPostalcode())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderPostCode);
+        caseBrowseLinearlayout.addView(safeguarderInfoView);
+    }
+
+    //添加无法修改的商标信息
+    private void brandInformationWithNoModify(){
+        CaseTrademark caseTrademark = null;
+        if(caseDetail!=null)
+            caseTrademark = caseDetail.getResult().getCaseTrademark();
+
+        brandName = new TableRow.Builder(this)
+                .title("商标名称")
+                .msgWithTitle(caseTrademark == null ? "":caseTrademark.getTrademarkName())
+                .build();
+        brandLinearLayout.addView(brandName);
+
+        brandRegister = new TableRow.Builder(this)
+                .title("商标注册号 ")
+                .msgWithTitle(caseTrademark == null ? "":caseTrademark.getTrademarkRgeNo())
+                .build();
+        brandLinearLayout.addView(brandRegister);
+
+        brankMain = new TableRow.Builder(this)
+                .title("是否主要商标")
+                .msgWithTitle(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsMain()))
+                .build();
+        brandLinearLayout.addView(brankMain);
+
+        String type = caseTrademark.getInfringerGood();
+        brandKind = new TableRow.Builder(this)
+                .title("侵权商品/服务种类")
+                .msgWithTitle(caseTrademark == null ? "" : dicVo.getDicGooMapTop().get(type.substring(0, 2)))
+                .build();
+        brandLinearLayout.addView(brandKind);
+        getBrandSecondTypeMap(type.substring(0, 2), type);
+
+        brandKind2Level = new TableRow.Builder(this)
+                .title("侵权商品/服务种类二级")
+                .msgWithTitle("")
+                .build();
+        brandLinearLayout.addView(brandKind2Level);
+
+        brandGetTools = new TableRow.Builder(this)
+                .title("没收伪造注册商标标识的工具(件)")
+                .msgWithTitle(caseTrademark == null ? "" : caseTrademark.getConfiscateTrademarkTools())
+                .build();
+        brandLinearLayout.addView(brandGetTools);
+
+        brandIllegalMoney = new TableRow.Builder(this)
+                .title("违法经营额(元)")
+                .msgWithTitle(caseTrademark == null ? "" : caseTrademark.getIlglAmount())
+                .build();
+        brandLinearLayout.addView(brandIllegalMoney);
+
+        brandGetCommodity = new TableRow.Builder(this)
+                .title("没收侵权商品(件)")
+                .msgWithTitle(caseTrademark == null ? "" : caseTrademark.getConfiscateGood())
+                .build();
+        brandLinearLayout.addView(brandGetCommodity);
+
+        brandGetMakeCommodityTools = new TableRow.Builder(this)
+                .title("没收制造侵权商品的工具(件)")
+                .msgWithTitle(caseTrademark == null ? "" : caseTrademark.getConfiscateGoodTools())
+                .build();
+        brandLinearLayout.addView(brandGetMakeCommodityTools);
+
+        brandViolateGeography = new TableRow.Builder(this)
+                .title("是否侵权地理标志专用权案件")
+                .msgWithTitle(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsInvasionGeographyLogo()))
+                .build();
+        brandLinearLayout.addView(brandViolateGeography);
+
+        brandPrintCase = new TableRow.Builder(this)
+                .title("是否印制商标标识案件")
+                .msgWithTitle(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsPrintTrademarkLogo()))
+                .build();
+        brandLinearLayout.addView(brandPrintCase);
+
+        brandViolateSpecial = new TableRow.Builder(this)
+                .title("是否侵犯特殊标志所有权案件")
+                .msgWithTitle(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsInvasionSpecialLogo()))
+                .build();
+        brandLinearLayout.addView(brandViolateSpecial);
+
+        brandViolateFamous = new TableRow.Builder(this)
+                .title("是否侵犯驰名商标权益案件")
+                .msgWithTitle(caseTrademark == null ? "" : dicVo.getYesNoMap().get(caseTrademark.getIsWellKnownTrademark()))
+                .build();
+        brandLinearLayout.addView(brandViolateFamous);
+        caseBrowseLinearlayout.addView(tradeMarkView);
+    }
+
+    //添加无法修改的商标维权人信息
+    private void safeguardPersonInfoWithNoModify(){
+        CaseTrademarkActivistInfo caseTrademarkActivistInfo = null;
+        if(caseDetail!=null)
+            caseTrademarkActivistInfo = caseDetail.getResult().getCaseTrademarkActivistInfo();
+        safeguarderRegisterNo = new TableRow.Builder(this)
+                .title("工商注册号 ")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistRegNo())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderRegisterNo);
+
+        safeguarderCompanyName = new TableRow.Builder(this)
+                .title("单位名称")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistUnitName())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderCompanyName);
+
+        safeguarderName = new TableRow.Builder(this)
+                .title("姓名")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistName())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderName);
+
+        safeguarderNationality = new TableRow.Builder(this)
+                .title("国籍")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "" : dicVo.getNationMap().get(caseTrademarkActivistInfo.getActivistNational()))
+                .build();
+        safeguarderLinearLayout.addView(safeguarderNationality);
+
+        safeguarderCertificate = new TableRow.Builder(this)
+                .title("证件类型")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "" : dicVo.getDicCetfMap().get(caseTrademarkActivistInfo.getActivistCerType()))
+                .build();
+        safeguarderLinearLayout.addView(safeguarderCertificate);
+
+        safeguarderCertificateNo = new TableRow.Builder(this)
+                .title("证件号码")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistCerNo())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderCertificateNo);
+
+        safeguarderAddress = new TableRow.Builder(this)
+                .title("住所")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistAddr())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderAddress);
+
+        safeguarderTelphone = new TableRow.Builder(this)
+                .title("联系电话")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistTel())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderTelphone);
+
+        safeguarderEmail = new TableRow.Builder(this)
+                .title("电子邮箱")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistEmail())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderEmail);
+
+        safeguarderPostCode = new TableRow.Builder(this)
+                .title("邮政编码")
+                .msgWithTitle(caseTrademarkActivistInfo == null ? "":caseTrademarkActivistInfo.getActivistPostalcode())
+                .build();
+        safeguarderLinearLayout.addView(safeguarderPostCode);
+        caseBrowseLinearlayout.addView(safeguarderInfoView);
     }
 
     //添加无法修改的基本信息
@@ -2430,22 +3152,9 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pic1:
-                if (attachList != null && attachList.get(0).getAttachFileStr() != null)
-                    showPic(1);
-                else
-                    pickPic(1);
-                break;
             case R.id.pic2:
-                if (attachList != null && attachList.get(1).getAttachFileStr() != null)
-                    showPic(2);
-                else
-                    pickPic(2);
-                break;
             case R.id.pic3:
-                if (attachList != null && attachList.get(2).getAttachFileStr() != null)
-                    showPic(3);
-                else
-                    pickPic(3);
+                addPicture();
                 break;
             case R.id.commit_record_Button:
 //                if(fj != null){
@@ -2474,60 +3183,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         }
     }
 
-    //查看图片详情
-    public void showPic(final int picNo) {
-        View view = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_picdetail, null);
-        ImageView picImg = (ImageView) view.findViewById(R.id.img);
-        Button pickBtn = (Button) view.findViewById(R.id.btn_one);
-        Button deleteBtn = (Button) view.findViewById(R.id.btn_two);
-        Button cancelBtn = (Button) view.findViewById(R.id.btn_three);
-        picImg.setImageBitmap(FileUtils.stringtoBitmap(attachList.get(picNo - 1).getAttachFileStr()));
-        MaterialDialog.Builder builer = new MaterialDialog.Builder(this);
-        builer.customView(view, false);
-        final MaterialDialog dialog = builer.build();
-        dialog.show();
-        pickBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-                pickPic(picNo);
-            }
-        });
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attachList.get(picNo - 1).setAttachFileStr(null);
-                attachList.get(picNo - 1).setAttachId(null);
-                attachList.get(picNo - 1).setAttachName(null);
-                setBlankPic(picNo);
-                dialog.dismiss();
-            }
-        });
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-    }
-
-    //放置空白图片
-    public void setBlankPic(int picNo) {
-        switch (picNo) {
-            case 1:
-                pic1.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.addf));
-                break;
-            case 2:
-                pic2.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.addf));
-                break;
-            case 3:
-                pic3.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.addf));
-                break;
-        }
-    }
-
-    //图片选取对话框
-    public void pickPic(final int picNo) {
+    //添加照片
+    public void addPicture(){
         View view = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_camera, null);
         Button photoBtn = (Button) view.findViewById(R.id.btn_one);
         Button picBtn = (Button) view.findViewById(R.id.btn_two);
@@ -2540,25 +3197,31 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (picNo == 1) {
+                File out = null;
+                Uri uri = null;
+                if(picOneName == null){
                     picOneName = FileUtils.saveImageName();
-                    File out = new File(picOneName);
-                    Uri uri = Uri.fromFile(out);
+                    out = new File(picOneName);
+                    uri = Uri.fromFile(out);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                     startActivityForResult(intent, ONE_CAMERA);
-                } else if (picNo == 2) {
+                }else if(picTwoName == null){
                     picTwoName = FileUtils.saveImageName();
-                    File out = new File(picTwoName);
-                    Uri uri = Uri.fromFile(out);
+                    out = new File(picTwoName);
+                    uri = Uri.fromFile(out);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                     startActivityForResult(intent, TWO_CAMERA);
-                } else if (picNo == 3) {
+                }else if(picThreeName == null){
                     picThreeName = FileUtils.saveImageName();
-                    File out = new File(picThreeName);
-                    Uri uri = Uri.fromFile(out);
+                    out = new File(picThreeName);
+                    uri = Uri.fromFile(out);
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                    startActivityForResult(intent, THREE_CAMERA);
+                    startActivityForResult(intent, TWO_CAMERA);
+                }else{
+                    Toast.makeText(ProcedureCaseDetailActivity.this, "最多一次添加3张图片！", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
                 dialog.dismiss();
             }
         });
@@ -2567,12 +3230,15 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                if (picNo == 1) {
+                if(picOneName == null){
                     startActivityForResult(intent, ONE_IMG);
-                } else if (picNo == 2) {
+                }else if(picTwoName == null){
                     startActivityForResult(intent, TWO_IMG);
-                } else if (picNo == 3) {
+                }else if(picThreeName == null){
                     startActivityForResult(intent, THREE_IMG);
+                }else{
+                    Toast.makeText(ProcedureCaseDetailActivity.this, "最多一次添加3张图片！", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 dialog.dismiss();
             }
@@ -2585,37 +3251,84 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         });
     }
 
+    //图片选取对话框
+//    public void pickPic(final int picNo) {
+//        View view = (LinearLayout) getLayoutInflater().inflate(R.layout.dialog_camera, null);
+//        Button photoBtn = (Button) view.findViewById(R.id.btn_one);
+//        Button picBtn = (Button) view.findViewById(R.id.btn_two);
+//        Button cancelBtn = (Button) view.findViewById(R.id.btn_three);
+//        MaterialDialog.Builder builer = new MaterialDialog.Builder(this);
+//        builer.customView(view, false);
+//        final MaterialDialog dialog = builer.build();
+//        dialog.show();
+//        photoBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                if (picNo == 1) {
+//                    picOneName = FileUtils.saveImageName();
+//                    File out = new File(picOneName);
+//                    Uri uri = Uri.fromFile(out);
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//                    startActivityForResult(intent, ONE_CAMERA);
+//                } else if (picNo == 2) {
+//                    picTwoName = FileUtils.saveImageName();
+//                    File out = new File(picTwoName);
+//                    Uri uri = Uri.fromFile(out);
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//                    startActivityForResult(intent, TWO_CAMERA);
+//                } else if (picNo == 3) {
+//                    picThreeName = FileUtils.saveImageName();
+//                    File out = new File(picThreeName);
+//                    Uri uri = Uri.fromFile(out);
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//                    startActivityForResult(intent, THREE_CAMERA);
+//                }
+//                dialog.dismiss();
+//            }
+//        });
+//        picBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                if (picNo == 1) {
+//                    startActivityForResult(intent, ONE_IMG);
+//                } else if (picNo == 2) {
+//                    startActivityForResult(intent, TWO_IMG);
+//                } else if (picNo == 3) {
+//                    startActivityForResult(intent, THREE_IMG);
+//                }
+//                dialog.dismiss();
+//            }
+//        });
+//        cancelBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Log.d(TAG, "onActivityResult!,requestCode = " + requestCode);
-//        switch (resultCode) { //resultCode为回传的标记，我在B中回传的是RESULT_OK
-//            case RESULT_OK:
-//                Bundle b=data.getExtras(); //data为B中回传的Intent
-//                ArrayList<ImageEntry> imageArrayList =(ArrayList<ImageEntry>)b.getSerializable("characterStream");//str即为回传的bitmap的字符流
-//                if(imageArrayList!=null && imageArrayList.size()>0)
-//                    dynamicWidgetUtils.refreshGridView(imageArrayList);
-//                break;
-//            default:
-//                break;
-//        }
-
         super.onActivityResult(requestCode, resultCode, data);
         //第一个相机
         if (requestCode == ONE_CAMERA && resultCode == Activity.RESULT_OK) {
-            saveCameraPic(picOneName);
+            savePicture(picOneName);
             FileUtils.saveImageToGallery(this, new File(picOneName));
             return;
         }
         //第二个相机
         if (requestCode == TWO_CAMERA && resultCode == Activity.RESULT_OK) {
-            saveCameraPic(picTwoName);
+            savePicture(picTwoName);
             FileUtils.saveImageToGallery(this, new File(picOneName));
             return;
         }
         //第三个相机
         if (requestCode == THREE_CAMERA && resultCode == Activity.RESULT_OK) {
-            saveCameraPic(picThreeName);
+            savePicture(picThreeName);
             FileUtils.saveImageToGallery(this, new File(picOneName));
             return;
         }
@@ -2634,26 +3347,16 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             String picturePath = c.getString(columnIndex);
             c.close();
             // 获取图片并显示
-            String[] nameStr = picturePath.split("/");
-            getStrFromFile(picturePath, requestCode);
+//            getStrFromFile(picturePath, requestCode);
             if (requestCode == ONE_IMG) {
                 picOneName = picturePath;
-                attachList.get(0).setAttachName(nameStr[nameStr.length - 1]);
-                attachList.get(0).setAttachId(null);
-                Picasso.with(this).load(new File(picturePath))
-                        .resize(120, 120).centerCrop().into(pic1);
+                addPictureToList(picOneName);
             } else if (requestCode == TWO_IMG) {
                 picTwoName = picturePath;
-                attachList.get(1).setAttachName(nameStr[nameStr.length - 1]);
-                attachList.get(1).setAttachId(null);
-                Picasso.with(this).load(new File(picturePath))
-                        .resize(120, 120).centerCrop().into(pic2);
+                addPictureToList(picTwoName);
             } else {
                 picThreeName = picturePath;
-                attachList.get(2).setAttachName(nameStr[nameStr.length - 1]);
-                attachList.get(2).setAttachId(null);
-                Picasso.with(this).load(new File(picturePath))
-                        .resize(120, 120).centerCrop().into(pic3);
+                addPictureToList(picThreeName);
             }
         }
 
@@ -2712,7 +3415,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void saveCameraPic(final String name) {
+    //保存图片
+    public void savePicture(final String name){
 //        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(ProcedureCaseDetailActivity.this);
 
         String imageUri = "file://" + name;
@@ -2753,39 +3457,162 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                ImageView pic;
-                String[] nameStr = name.split("/");
-                if (name.equals(picOneName)) {
-                    pic = pic1;
-                    attachList.get(0).setAttachName(nameStr[nameStr.length - 1]);
-                    attachList.get(0).setAttachFileStr(FileUtils.bitmaptoString(resizedBitmap, 80));
-                    attachList.get(0).setAttachId(null);
-                } else if (name.equals(picTwoName)) {
-                    pic = pic2;
-                    attachList.get(1).setAttachName(nameStr[nameStr.length - 1]);
-                    attachList.get(1).setAttachFileStr(FileUtils.bitmaptoString(resizedBitmap, 80));
-                    attachList.get(1).setAttachId(null);
-                } else {
-                    pic = pic3;
-                    attachList.get(2).setAttachName(nameStr[nameStr.length - 1]);
-                    attachList.get(2).setAttachFileStr(FileUtils.bitmaptoString(resizedBitmap, 80));
-                    attachList.get(2).setAttachId(null);
-                }
-
-                // 显示图
-                Picasso.with(ProcedureCaseDetailActivity.this)
-                        .load(new File(name))
-                        .skipMemoryCache().resize(120, 120)
-                        .centerCrop().into(pic);
-                // 清除缓存
-                resizedBitmap.recycle();
-                resizedBitmap = null;
+                addPictureToList(name);
             }
 
             @Override
             public void onLoadingCancelled(String imageUri, View view) {
             }
         });
+    }
+
+    private void addPictureToList(String name){
+        if(attachmentsList == null)
+        attachmentsList = new ArrayList<Attchment>();
+        Attchment attachment = new Attchment();
+        attachment.setAttachmentId(null);
+        attachment.setAttachmentName(name);
+        attachmentsList.add(attachment);
+        if(attchmentsAdapter!=null){
+            attchmentsAdapter.notifyDataSetChanged();
+        }else{
+            final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(ProcedureCaseDetailActivity.this);
+            lvAttachments.setLayoutManager(linearLayoutManager);
+            lvAttachments.setItemAnimator(new DefaultItemAnimator());
+            attchmentsAdapter = new AttchmentsAdapter(ProcedureCaseDetailActivity.this, attachmentsList);
+            lvAttachments.setAdapter(attchmentsAdapter);
+            attchmentsAdapter.setOnClickListener(new OnClickListener() {
+                @Override
+                public void OnItemClick(View view, int position) {
+                    if(view.getId() == R.id.download){
+                        Toast.makeText(ProcedureCaseDetailActivity.this, "删除附件:"+attachmentsList.get(position).getAttachmentName(), Toast.LENGTH_SHORT).show();
+                        String fileName = attachmentsList.get(position).getAttachmentName();
+                        if(fileName.equals(picOneName))
+                            picOneName = null;
+                        if(fileName.equals(picTwoName))
+                            picTwoName = null;
+                        if(fileName.equals(picThreeName))
+                            picThreeName = null;
+                        attachmentsList.remove(position);
+                        attchmentsAdapter.notifyDataSetChanged();
+                    }else if(view.getId() == R.id.tv_content){
+                        Toast.makeText(ProcedureCaseDetailActivity.this, "打开附件:"+attachmentsList.get(position).getAttachmentName(), Toast.LENGTH_SHORT).show();
+                        String attachName = attachmentsList.get(position).getAttachmentName();
+                        if(attachName!=null && !attachName.equals("")){
+                            if(attachName.startsWith("/storage")){
+                                final String savePathFinal = attachName;
+                                try {
+                                    ProcedureCaseDetailActivity.this.startActivity(
+                                            OpenFileHelper.openFile(savePathFinal));
+                                } catch (Exception e) {
+                                    Toast.makeText(ProcedureCaseDetailActivity.this, "不支持打开该类文件",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }else{
+                            tempAttachMentName = attachmentsList.get(position).getAttachmentName();
+                            getAttchment(attachmentsList.get(position).getAttachmentId());
+                        }
+                    }
+
+                }
+            });
+        }
+    }
+
+    public class Attchment{
+        private String attachmentId;
+        private String attachmentName;
+
+        public String getAttachmentId() {
+            return attachmentId;
+        }
+
+        public void setAttachmentId(String attachmentId) {
+            this.attachmentId = attachmentId;
+        }
+
+        public String getAttachmentName() {
+            return attachmentName;
+        }
+
+        public void setAttachmentName(String attachmentName) {
+            this.attachmentName = attachmentName;
+        }
+    }
+
+    public class AttchmentsAdapter extends RecyclerView.Adapter {
+        private Context mContext;
+        private List<Attchment> mData;
+        private LayoutInflater inflater;
+
+        private OnClickListener onClickListener;
+
+        public AttchmentsAdapter(Context mContext, List mData) {
+            this.mContext = mContext;
+            this.mData = mData;
+            inflater = LayoutInflater.from(mContext);
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = inflater.inflate(R.layout.item_download_list,parent,false);
+            return new SingleItemViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            SingleItemViewHolder viewHolder = (SingleItemViewHolder) holder;
+            String filePath = mData.get(position).getAttachmentName();
+            String fileName = null;
+            if(filePath.startsWith("/storage")){
+                fileName = filePath.substring(filePath.lastIndexOf("/")+1);
+                viewHolder.tvValue.setText(fileName);
+            }else
+                viewHolder.tvValue.setText(filePath);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+        class SingleItemViewHolder extends RecyclerView.ViewHolder{
+            private TextView tvValue;
+            private TextView removeBtn;
+
+            public SingleItemViewHolder(View itemView) {
+                super(itemView);
+
+                tvValue = (TextView) itemView.findViewById(R.id.tv_content);
+                removeBtn = (TextView) itemView.findViewById(R.id.download);
+                removeBtn.setText("删除");
+                removeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onClickListener!=null){
+                            onClickListener.OnItemClick(v,getLayoutPosition());
+                        }
+                    }
+                });
+                tvValue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onClickListener!=null){
+                            onClickListener.OnItemClick(v,getLayoutPosition());
+                        }
+                    }
+                });
+            }
+        }
+
+        public void setOnClickListener(OnClickListener onClickListener) {
+            this.onClickListener = onClickListener;
+        }
+    }
+
+    public interface OnClickListener{
+        void OnItemClick(View view, int position);
     }
 
     //读取文件获取为字符串
@@ -2910,7 +3737,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 if (widget.getTitle() == null)//蓝色标题，不用取值------------1960(父一级)
                     continue;
 
-                if (widget.getTitle().equals("案件名称*")) {
+                if (widget.getTitle().equals("* 案件名称")) {
                     if (isClearEditTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请输入案件名称", Toast.LENGTH_SHORT).show();
                         return false;
@@ -2926,7 +3753,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 //                        submitCase.getmLitigtInfoVo().setAssort(widget.getContent());
                         continue;
                     }
-                } else if (widget.getTitle().equals("证件类型(G)*")) {
+                } else if (widget.getTitle().equals("* 证件类型(G)")) {
                     if (isSelectTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请选择证件类型", Toast.LENGTH_SHORT).show();
                         return false;
@@ -2934,7 +3761,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         submitCase.getmLitigtInfoVo().setCerType(getKeyByValue(dicVo.getDicCetfMap(), widget.getTvContent()));
                         continue;
                     }
-                } else if (widget.getTitle().equals("证件号码(G)*")) {
+                } else if (widget.getTitle().equals("* 证件号码(G)")) {
                     if (isClearEditTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请输入证件号码", Toast.LENGTH_SHORT).show();
                         return false;
@@ -2942,7 +3769,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         submitCase.getmLitigtInfoVo().setCerNo(widget.getClearEditText());
                         continue;
                     }
-                } else if (widget.getTitle().equals("案发地区（市）*")) {
+                } else if (widget.getTitle().equals("* 案发地区（市）")) {
                     if (isSelectTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请选择案发地区（市）", Toast.LENGTH_SHORT).show();
                         return false;
@@ -2971,7 +3798,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         }
                         continue;
                     }
-                } else if (widget.getTitle().equals("案发地点(G)*")) {
+                } else if (widget.getTitle().equals("* 案发地点(G)")) {
                     if (isClearEditTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请输入案发地点", Toast.LENGTH_SHORT).show();
                         return false;
@@ -2979,15 +3806,15 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         submitCase.getmCaseDetail().setCaseSpot(widget.getClearEditText());
                         continue;
                     }
-                } else if (widget.getTitle().equals("办案人员*")) {
+                } else if (widget.getTitle().equals("* 办案人员")) {
                     if (subCasePerson == null) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请选择办案人员", Toast.LENGTH_SHORT).show();
                         return false;
                     } else {
-                        submitCase.getmCaseDetail().setUserIdMainName(getKeyByValue(dicVo.getUserIdMainMap(), widget.getTvContent()));
+                        submitCase.getmCaseDetail().setUserIdMainName(getKeyByValue(dicVo.getUserIdMainMap(), subCasePerson));
                         continue;
                     }
-                } else if (widget.getTitle().equals("案件来源*")) {
+                } else if (widget.getTitle().equals("* 案件来源")) {
                     if (isSelectTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请选择案件来源", Toast.LENGTH_SHORT).show();
                         return false;
@@ -2995,7 +3822,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         submitCase.getmCaseDetail().setCasesou(getKeyByValue(dicVo.getClueTypeMap(), widget.getTvContent()));
                         continue;
                     }
-                } else if (widget.getTitle().equals("案值估计（元）*")) {
+                } else if (widget.getTitle().equals("* 案值估计（元）")) {
                     if (isClearEditTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请输入案值估计", Toast.LENGTH_SHORT).show();
                         return false;
@@ -3003,7 +3830,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         submitCase.getmCaseDetail().setCaseVal(widget.getClearEditText());
                         continue;
                     }
-                } else if (widget.getTitle().equals("案由(G)*")) {
+                } else if (widget.getTitle().equals("* 案由(G)")) {
                     if (isClearEditTextEmpty(widget)) {
                         Toast.makeText(ProcedureCaseDetailActivity.this, "请输入案由", Toast.LENGTH_SHORT).show();
                         return false;
@@ -3012,9 +3839,9 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         continue;
                     }
                 }
-
-
             } else if (view instanceof LinearLayout) {
+                if(view == tradeMarkView || view == safeguarderInfoView)
+                    continue;
                 LinearLayout linearLayout = (LinearLayout) view;
 //                Log.d(TAG, "checkValue() --------view instanceof LinearLayout------- linearLayout.getChildCount() = " + linearLayout.getChildCount());
                 for (int j = 0; j < linearLayout.getChildCount(); j++) {
@@ -3035,7 +3862,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setLitigtName(widget.getClearEditText());
                                 continue;
                             }
-                        }else if (widget.getTitle().equals("单位名称*")) {
+                        }else if (widget.getTitle().equals("* 单位名称")) {
                             if (documentType.equals("1")) {//"本省登记过的企业"
                                 if (isEditTextEmpty(widget)) {
                                     Toast.makeText(ProcedureCaseDetailActivity.this, "请输入单位名称", Toast.LENGTH_SHORT).show();
@@ -3053,7 +3880,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                     continue;
                                 }
                             }
-                        }else if (widget.getTitle().equals("现居住地/经营场所*")) {
+                        }else if (widget.getTitle().equals("* 现居住地/经营场所")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入现居住地/经营场所", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3061,7 +3888,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setAddress(widget.getClearEditText());
                                 continue;
                             }
-                        } else if (widget.getTitle().equals("个体工商户名称*")) {
+                        } else if (widget.getTitle().equals("* 个体工商户名称")) {
                             if (documentType.equals("1")) {//"本省登记过的工商户"
                                 if (isEditTextEmpty(widget)) {
                                     Toast.makeText(ProcedureCaseDetailActivity.this, "请输入个体工商户名称", Toast.LENGTH_SHORT).show();
@@ -3079,7 +3906,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                     continue;
                                 }
                             }
-                        } else if (widget.getTitle().equals("注册号*")) {
+                        } else if (widget.getTitle().equals("* 注册号")) {
                             if (documentType.equals("1")) {//"本省登记过商户"
                                 if (isEditTextEmpty(widget)) {
                                     Toast.makeText(ProcedureCaseDetailActivity.this, "请输入注册号", Toast.LENGTH_SHORT).show();
@@ -3097,7 +3924,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                     continue;
                                 }
                             }
-                        } else if (widget.getTitle().equals("法定代表人经营者*")) {
+                        } else if (widget.getTitle().equals("* 法定代表人经营者")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入法定代表人经营者", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3105,7 +3932,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setLegalName(widget.getClearEditText());
                                 continue;
                             }
-                        }  else if (widget.getTitle().equals("主体身份代码(G)*")) {
+                        }  else if (widget.getTitle().equals("* 主体身份代码(G)")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入主体身份代码", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3126,7 +3953,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                     submitCase.getmCaseDetail().setCedistrictid(widget.getTvContent());
                                 continue;
                             }
-                        } else if (isPerson == true && widget.getTitle().equals("年龄(G)*")) {
+                        } else if (isPerson == true && widget.getTitle().equals("* 年龄(G)")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入年龄", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3134,7 +3961,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setAge(widget.getClearEditText());
                                 continue;
                             }
-                        } else if (isPerson == true && widget.getTitle().equals("性别(G)*")) {
+                        } else if (isPerson == true && widget.getTitle().equals("* 性别(G)")) {
                             if (isSelectTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请选择性别", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3143,7 +3970,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                     submitCase.getmLitigtInfoVo().setSex(getKeyByValue(dicVo.getDicSexMap(), widget.getTvContent()));
                                 continue;
                             }
-                        } else if (isPerson == true && widget.getTitle().equals("联系电话(G)*")) {
+                        } else if (isPerson == true && widget.getTitle().equals("* 联系电话(G)")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入联系电话", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3151,7 +3978,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setTel(widget.getClearEditText());
                                 continue;
                             }
-                        } else if (isPerson == true && widget.getTitle().equals("工作单位(G)*")) {
+                        } else if (isPerson == true && widget.getTitle().equals("* 工作单位(G)")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入工作单位", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3159,7 +3986,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setWorkunit(widget.getClearEditText());
                                 continue;
                             }
-                        } else if (isPerson == true && widget.getTitle().equals("住所(G)*")) {
+                        } else if (isPerson == true && widget.getTitle().equals("* 住所(G)")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入住所地址", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3167,7 +3994,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setHouse(widget.getClearEditText());
                                 continue;
                             }
-                        } else if (isPerson == true && widget.getTitle().equals("职业(G)*")) {
+                        } else if (isPerson == true && widget.getTitle().equals("* 职业(G)")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入职业", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3175,7 +4002,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setOccupation(widget.getClearEditText());
                                 continue;
                             }
-                        } else if (isPerson == true && widget.getTitle().equals("邮政编码(G)*")) {
+                        } else if (isPerson == true && widget.getTitle().equals("* 邮政编码(G)")) {
                             if (isClearEditTextEmpty(widget)) {
                                 Toast.makeText(ProcedureCaseDetailActivity.this, "请输入邮政编码", Toast.LENGTH_SHORT).show();
                                 return false;
@@ -3189,6 +4016,10 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 }
             }
         }
+
+        if(tradeMarkView.getVisibility() == View.VISIBLE)
+            if(false == checkTradeMarkInfo())
+                return false;
 
         //处罚定性基本信息检查
         if (submitPunishVo == null)
@@ -3227,7 +4058,171 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             return false;
         } else
             submitPunishVo.setPenDecWriteNo(penaltyLetterNumRow.getClearEditText());
+
         submitCase.setmPunishVo(submitPunishVo);
+        return true;
+    }
+
+    //检查商标信息
+    private boolean checkTradeMarkInfo(){
+
+        if (isClearEditTextEmpty(brandName)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入商标名称!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademark().setTrademarkName(brandName.getClearEditText());
+        }
+
+        if (isClearEditTextEmpty(brandRegister)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入商标注册号!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademark().setTrademarkRgeNo(brandRegister.getClearEditText());
+        }
+
+        if (isSelectTextEmpty(brankMain)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择是否主要商标", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (dicVo != null && dicVo.getYesNoMap() != null)
+                submitCase.getCaseTrademark().setIsMain(getKeyByValue(dicVo.getYesNoMap(), brankMain.getTvContent()));
+        }
+
+        if (isSelectTextEmpty(brandKind2Level)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择侵权商品/服务种类", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (brandType2LevelMap != null) {
+                for (Map.Entry<String, String> entry : brandType2LevelMap.entrySet())
+                    if (brandKind2Level.getTvContent().equals(entry.getValue()))
+                        submitCase.getCaseTrademark().setInfringerGood(entry.getKey());
+            }
+        }
+
+        if (isClearEditTextEmpty(brandGetTools)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入没收伪造注册商标标识的工具!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademark().setConfiscateTrademarkTools(brandGetTools.getClearEditText());
+        }
+
+        if (isSelectTextEmpty(brandViolateGeography)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择侵权商品/服务种类", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (dicVo != null && dicVo.getYesNoMap() != null)
+                submitCase.getCaseTrademark().setIsInvasionGeographyLogo(getKeyByValue(dicVo.getYesNoMap(), brandViolateGeography.getTvContent()));
+        }
+
+        if (isClearEditTextEmpty(brandIllegalMoney)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入违法经营额!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademark().setIlglAmount(brandIllegalMoney.getClearEditText());
+        }
+
+        if (isSelectTextEmpty(brandPrintCase)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择是否印制商标标识案件", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (dicVo != null && dicVo.getYesNoMap() != null)
+                submitCase.getCaseTrademark().setIsPrintTrademarkLogo(getKeyByValue(dicVo.getYesNoMap(), brandPrintCase.getTvContent()));
+        }
+
+        if (isClearEditTextEmpty(brandGetCommodity)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入没收侵权商品 !", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademark().setConfiscateGood(brandGetCommodity.getClearEditText());
+        }
+
+        if (isSelectTextEmpty(brandViolateSpecial)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择是否侵犯特殊标志所有权案件", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (dicVo != null && dicVo.getYesNoMap() != null)
+                submitCase.getCaseTrademark().setIsInvasionSpecialLogo(getKeyByValue(dicVo.getYesNoMap(), brandViolateSpecial.getTvContent()));
+        }
+
+        if (isClearEditTextEmpty(brandGetMakeCommodityTools)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入没收制造侵权商品的工具!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademark().setConfiscateGoodTools(brandGetMakeCommodityTools.getClearEditText());
+        }
+
+        if (isSelectTextEmpty(brandViolateFamous)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择是否侵犯驰名商标权益案件", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (dicVo != null && dicVo.getYesNoMap() != null)
+                submitCase.getCaseTrademark().setIsWellKnownTrademark(getKeyByValue(dicVo.getYesNoMap(), brandViolateFamous.getTvContent()));
+        }
+
+        if (isClearEditTextEmpty(safeguarderRegisterNo)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入工商注册号!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademarkActivistInfo().setActivistRegNo(safeguarderRegisterNo.getClearEditText());
+        }
+
+        if (isClearEditTextEmpty(safeguarderCompanyName)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入单位名称!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademarkActivistInfo().setActivistUnitName(safeguarderCompanyName.getClearEditText());
+        }
+
+        if (isClearEditTextEmpty(safeguarderName)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入姓名!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademarkActivistInfo().setActivistName(safeguarderName.getClearEditText());
+        }
+
+        if (isSelectTextEmpty(safeguarderNationality)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择国籍", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (dicVo != null && dicVo.getNationMap() != null)
+                submitCase.getCaseTrademarkActivistInfo().setActivistNational(getKeyByValue(dicVo.getNationMap(), safeguarderNationality.getTvContent()));
+        }
+
+        if (isSelectTextEmpty(safeguarderCertificate)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请选择证件类型", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (dicVo != null && dicVo.getDicCetfMap() != null)
+                submitCase.getCaseTrademarkActivistInfo().setActivistCerType(getKeyByValue(dicVo.getDicCetfMap(), safeguarderCertificate.getTvContent()));
+        }
+
+        if (isClearEditTextEmpty(safeguarderCertificateNo)) {
+            Toast.makeText(ProcedureCaseDetailActivity.this, "请输入证件号码!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            submitCase.getCaseTrademarkActivistInfo().setActivistCerNo(safeguarderCertificateNo.getClearEditText());
+        }
+
+        if (!isClearEditTextEmpty(safeguarderAddress)) {
+            submitCase.getCaseTrademarkActivistInfo().setActivistAddr(safeguarderAddress.getClearEditText());
+        }
+
+        if (!isClearEditTextEmpty(safeguarderTelphone)) {
+            submitCase.getCaseTrademarkActivistInfo().setActivistTel(safeguarderTelphone.getClearEditText());
+        }
+
+        if (!isClearEditTextEmpty(safeguarderEmail)) {
+            submitCase.getCaseTrademarkActivistInfo().setActivistEmail(safeguarderEmail.getClearEditText());
+        }
+
+        if (!isClearEditTextEmpty(safeguarderPostCode)) {
+            submitCase.getCaseTrademarkActivistInfo().setActivistPostalcode(safeguarderPostCode.getClearEditText());
+        }
+
+        if(submitCase.getCaseTrademark().getTrademarkSerialNo() == null)
+            submitCase.getCaseTrademark().setTrademarkSerialNo("");
+        if(submitCase.getCaseTrademarkActivistInfo().getTrademarkSerialNo() == null)
+            submitCase.getCaseTrademarkActivistInfo().setTrademarkSerialNo("");
 
         return true;
     }

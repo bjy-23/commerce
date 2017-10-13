@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <include layout="@layout/head2"/>
+    <include
+        layout="@layout/head2"
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,8 +15,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
@@ -138,10 +140,10 @@
                 android:text="联系电话" />
 
             <EditText
-                android:inputType="phone"
                 android:id="@+id/abbuseNumber"
                 style="@style/q_base_et_single"
-                android:hint="请填写联系电话" />
+                android:hint="请填写联系电话"
+                android:inputType="phone" />
 
             <View
                 android:layout_width="match_parent"
@@ -261,10 +263,10 @@
                 android:text="联系电话" />
 
             <EditText
-                android:inputType="phone"
                 android:id="@+id/abbuseLeaderNumber"
                 style="@style/q_base_et_single"
-                android:hint="请填写联系电话" />
+                android:hint="请填写联系电话"
+                android:inputType="phone" />
 
             <View
                 android:layout_width="match_parent"
@@ -470,14 +472,14 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:orientation="horizontal"
-                android:paddingBottom="2dp" >
+                android:paddingBottom="2dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/white_corner_stroke" >
+                    android:background="@drawable/white_corner_stroke">
 
                     <ImageView
                         android:id="@+id/imageView1"
@@ -492,7 +494,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/white_corner_stroke" >
+                    android:background="@drawable/white_corner_stroke">
 
                     <ImageView
                         android:id="@+id/imageView2"
@@ -507,7 +509,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:background="@drawable/white_corner_stroke" >
+                    android:background="@drawable/white_corner_stroke">
 
                     <ImageView
                         android:id="@+id/imageView3"
@@ -554,7 +556,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/tempButton"

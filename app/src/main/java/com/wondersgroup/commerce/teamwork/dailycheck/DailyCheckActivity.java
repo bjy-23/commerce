@@ -30,7 +30,7 @@ public class DailyCheckActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
         title.setText("日常检查");
 
-        UtilForFragment.switchContent(this, new DailyAndUnlicensedFragment(),
+        UtilForFragment.switchContent(this, new DailyListSearchFragment(),
                 R.id.content);
 
     }

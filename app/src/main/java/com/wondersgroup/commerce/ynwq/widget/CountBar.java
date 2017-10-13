@@ -25,7 +25,7 @@ public class CountBar extends DialogFragment {
     int cur=0;
     TextView curText;
     TextView totalText;
-    LinearLayout countbar;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +49,6 @@ public class CountBar extends DialogFragment {
         View view=View.inflate(getContext(), R.layout.view_countbar,null);
         curText=(TextView)view.findViewById(R.id.curNum);
         totalText=(TextView)view.findViewById(R.id.totalNum);
-        countbar=(LinearLayout)view.findViewById(R.id.countbar);
         return view;
     }
 
@@ -87,7 +86,6 @@ public class CountBar extends DialogFragment {
         if(getView()!=null){
             curText.setText("第 "+cur+" 条");
         }
-        //if(countbar.getVisibility()==View.INVISIBLE)countbar.setVisibility(View.VISIBLE);
     }
 
     public void setTotal(int total){
@@ -95,6 +93,5 @@ public class CountBar extends DialogFragment {
         if (getView()!=null) {
             totalText.setText("共 " + total + " 条");
         }
-        //if(countbar.getVisibility()==View.INVISIBLE)countbar.setVisibility(View.VISIBLE);
     }
 }

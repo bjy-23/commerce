@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.constant.Constants;
 
 import java.util.ArrayList;
 
@@ -33,13 +34,12 @@ public class DailyAndUnlicensedFragment extends Fragment {
 		view = inflater.inflate(R.layout.tab_viewpager_fragment, container,
 				false);
 		activity = (AppCompatActivity) getActivity();
-//		ActionBar actionBar = activity.getSupportActionBar();
-//		actionBar.setDisplayShowTitleEnabled(true);
-//		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("日常检查");
 		fragmentManager = getChildFragmentManager();
 		fragments = new ArrayList<Fragment>();
 		fragments.add(new DailyListSearchFragment());
+		UnlicensedAddFragment unlicensedAddFragment = new UnlicensedAddFragment();
+		Bundle bundle = new Bundle();
+		bundle.putString(Constants.TYPE, "2");
 		fragments.add(new UnlicensedAddFragment());
 		// fragments.add(new ComplainReportSearchFragment());
 		pager = (ViewPager) view.findViewById(R.id.pager);
@@ -95,25 +95,6 @@ public class DailyAndUnlicensedFragment extends Fragment {
 		}
 
 	}
-
-	// @Override
-	// public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	//
-	// menu.clear();
-	// inflater.inflate(R.menu.complain_report_menu, menu);
-	// mMenu = menu;
-	// mInflater = inflater;
-	// super.onCreateOptionsMenu(menu, inflater);
-	// }
-	//
-	// @Override
-	// public void onDestroy() {
-	// if (mMenu != null) {
-	// mMenu.clear();
-	// mInflater.inflate(R.menu.menu_main, mMenu);
-	// }
-	// super.onDestroy();
-	// }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

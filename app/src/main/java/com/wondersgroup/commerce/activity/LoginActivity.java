@@ -168,9 +168,9 @@ public class LoginActivity extends RootActivity {
                     case "云南":
                     case "四川":
                         //正常登陆,有权限
-//                        gsythLoginNet("1", true, true);
+                        gsythLoginNet("1", true, true);
                         //免权限
-                        gsythLoginNet("1", true, false);
+//                        gsythLoginNet("1", true, false);
                         //免登陆、免权限
 //                        gsythLoginNet("1", false, false);
                         break;
@@ -325,6 +325,10 @@ public class LoginActivity extends RootActivity {
                 //业务办理
                 ArrayList<MenuInfo> ywblMenus = gson.fromJson(jsonObject.getString("ywblMenus"), new TypeToken<ArrayList<MenuInfo>>() {
                 }.getType());
+
+                //删除不需要展示的项
+                deleteBurden(ywblMenus);
+
                 //根据权限按需加载
                 if (checkable)
                     for (MenuInfo menuInfo : ywblMenus) {
@@ -355,12 +359,13 @@ public class LoginActivity extends RootActivity {
                 //统计分析
                 MenuBean bean2 = new MenuBean(Constants.CXTJ_ID,0);
                 menusTemp.add(bean2);
-                menusTemp.addAll(menus);
                 //根据权限按需加载
-                if (checkable)
+                if (checkable){
+                    menusTemp.addAll(menus);
                     for (MenuInfo menuInfo : tongjiMenus) {
                         remakeMenus(menuInfo.getMenus(), menusTemp);
                     }
+                }
                 //删除子项menus为空的对象
                 for (int i=0; i<tongjiMenus.size(); i++){
                     if (tongjiMenus.get(i).getMenus().size() == 0){
@@ -380,20 +385,7 @@ public class LoginActivity extends RootActivity {
                 e.printStackTrace();
             }
         }else if (Constants.SC.equals(RootAppcation.getInstance().getVersion())){
-//            String result = FileHelper.getFromAssets("config_sc.txt", this);
-//            ArrayList<MenuBean> menuList = gson.fromJson(result,new TypeToken<ArrayList<MenuBean>>(){}.getType());
-//            //根据权限动态配置
-//            if(checkable)
-//                remakeMenus(menuList,menus);
-//            //配置图标
-//            for (MenuBean menuBean : menuList){
-//                Integer resId = Constants.menuIconMapSC().get(menuBean.getMenuId() + menuBean.getMenuName());
-//                menuBean.setResId(resId);
-//            }
-//            Hawk.put(Constants.MENU_SC,menuList);
-//            RootAppcation.getInstance().setBottomMenus(new ArrayList<String>());
-
-            String result = FileHelper.getFromAssets("config_sc_2.txt", this);
+            String result = FileHelper.getFromAssets("config_sc.txt", this);
             ArrayList<MenuInfo> menuList = gson.fromJson(result,new TypeToken<ArrayList<MenuInfo>>(){}.getType());
 
             //根据权限动态配置
@@ -458,6 +450,14 @@ public class LoginActivity extends RootActivity {
         }
     }
 
+    public void deleteBurden(ArrayList<MenuInfo> menuInfos){
+        for (int i=0; i<menuInfos.size(); i++){
+            if (!menuInfos.get(i).isShow()){
+                menuInfos.remove(i);
+                i--;
+            }
+        }
+    }
     /**
      * 上海登陆网络请求
      */

@@ -1,5 +1,6 @@
 package com.wondersgroup.commerce.teamwork.dailycheck;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,11 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.orhanobut.hawk.Hawk;
+import com.squareup.okhttp.ResponseBody;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.utils.CheckUtil;
 import com.wondersgroup.commerce.utils.LogHelper;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import org.json.JSONException;
@@ -32,7 +38,13 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class DailyListSearchFragment extends Fragment {
 
@@ -43,7 +55,6 @@ public class DailyListSearchFragment extends Fragment {
 	private Gson gson = new Gson();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
-	private RootAppcation application;
 	private TextView searchWord;
 
 	// selfList
@@ -53,18 +64,17 @@ public class DailyListSearchFragment extends Fragment {
 	private ListView listView;
 	private InfoBean infoBean = new InfoBean();
 	private String recordId = "";
+    private TotalLoginBean loginBean;
+    private RootAppcation appcation;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.mode_searchandlist, null);
 		activity = (AppCompatActivity) getActivity();
-//		ActionBar actionBar = activity.getSupportActionBar();
-//		actionBar.setDisplayShowTitleEnabled(true);
-//		actionBar.setDisplayShowHomeEnabled(false);
-//		actionBar.setTitle("监督管理—日常检查");
-		application = (RootAppcation) activity.getApplication();
 
+        appcation = RootAppcation.getInstance();
+        loginBean = Hawk.get(Constants.LOGIN_BEAN);
 		searchWord = (TextView) view.findViewById(R.id.searchWord);
 		CheckUtil.limitCheckMinCount(searchWord, Constants.inputMinCount);
 		CheckUtil.limitCheckMaxCount(searchWord,Constants.inputMaxCount);
@@ -74,8 +84,8 @@ public class DailyListSearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if(searchWord.getError()==null&&!searchWord.getText().toString().equals("")){
-					MyProgressDialog.show(activity);
-
+                    final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
+                    dialog.show();
 					String keyWord = "";
 					try {
 						keyWord = URLEncoder.encode(searchWord.getText()
@@ -85,14 +95,28 @@ public class DailyListSearchFragment extends Fragment {
 						e1.printStackTrace();
 					}
 
+					Call<ResponseBody> call = ApiManager.consumerwApi.getEtpsList(loginBean.getResult().getOrganId(), keyWord);
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Throwable t) {
+                            dialog.dismiss();
+                        }
+                    });
 					String address = Url.QJ_IN_USE + "getEtpsList/"
-							+ application.getLoginUserInfo().getOrganId() + "/" + keyWord;
+							+ loginBean.getResult().getOrganId() + "/" + keyWord;
+                    Log.e("address", address);
 					HttpClientUtil.callWebServiceForGet(address,
 							new HttpCallbackListener() {
 
 								@Override
 								public void onFinish(String response) {
-									MyProgressDialog.dismiss();
+									dialog.dismiss();
+                                    Log.e("response", response);
 									Message message = new Message();
 									message.what = SHOW_RESPONSE;
 									message.obj = response.toString();
@@ -101,7 +125,7 @@ public class DailyListSearchFragment extends Fragment {
 
 								@Override
 								public void onError(Exception e) {
-									MyProgressDialog.dismiss();
+                                    dialog.dismiss();
 									Message message = new Message();
 									message.what = SHOW_ERROR;
 									message.obj = e.toString();
@@ -127,17 +151,29 @@ public class DailyListSearchFragment extends Fragment {
 	}
 
 	private void initSelfList() {
+        HashMap<String, String> param = new HashMap<>();
+        param.put("checkType", "1");
+        param.put("organId", loginBean.getResult().getOrganId());
+        param.put("tmpFlag", "1");
+        param.put("submitUser", loginBean.getResult().getUserId());
+        Call<ResponseBody> call = ApiManager.consumerwApi.searchList(param);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
 
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
 		String address = Url.QJ_IN_USE + "searchList";
 		JSONObject jsonObject = new JSONObject();
 		try {
-			jsonObject.put("checkType", "1");
 
-			jsonObject.put("organId", application.getLoginUserInfo()
-					.getOrganId());
 			jsonObject.put("tmpFlag", "1");
-			jsonObject.put("submitUser", application.getLoginUserInfo()
-					.getUserId());
+			jsonObject.put("submitUser", loginBean.getResult().getUserId());
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -171,10 +207,9 @@ public class DailyListSearchFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				MyProgressDialog.show(activity);
 				recordId = etpsBeans.get(position).getRecordId();
 				String netAddress = Url.QJ_IN_USE + "getRecordInfo/1/"
-						+ application.getLoginUserInfo().getDeptId() + "/"
+						+ loginBean.getResult().getDeptId() + "/"
 						+ recordId;
 				LogHelper.debug(netAddress);
 				HttpClientUtil.callWebServiceForGet(netAddress,
@@ -182,7 +217,6 @@ public class DailyListSearchFragment extends Fragment {
 
 							@Override
 							public void onFinish(String response) {
-								MyProgressDialog.dismiss();
 								Message message = new Message();
 								message.what = SHOW_RESPONSE_INFO;
 								message.obj = response.toString();
@@ -240,7 +274,7 @@ public class DailyListSearchFragment extends Fragment {
 				
 
 				if (firstBean.getCode() == 200) {
-					application.setEtpsBeans(firstBean.getResult());
+					appcation.setEtpsBeans(firstBean.getResult());
 
 					UtilForFragment.switchContentWithStack(activity,
 							new DailyListFragment(), R.id.content);
@@ -253,7 +287,6 @@ public class DailyListSearchFragment extends Fragment {
 				break;
 
 			case SHOW_ERROR:
-
 
 				Toast.makeText(getActivity(), "网络出现问题", Toast.LENGTH_SHORT)
 						.show();
@@ -308,8 +341,8 @@ public class DailyListSearchFragment extends Fragment {
 
 					// infoBean = infoFirstBean.getResult();
 					infoBean = gson.fromJson(result, InfoBean.class);
-					application.setInfoBean(infoBean);
-					application.setRecordId(recordId);
+					appcation.setInfoBean(infoBean);
+					appcation.setRecordId(recordId);
 					UtilForFragment.switchContentWithStack(activity,
 							new DailyCheckTempFragment(), R.id.content);
 

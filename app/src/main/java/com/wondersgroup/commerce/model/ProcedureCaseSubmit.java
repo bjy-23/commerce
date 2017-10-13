@@ -9,8 +9,26 @@ public class ProcedureCaseSubmit {
         CaseDetailVo caseDetailVo = new CaseDetailVo();            //案件基本情况信息
         ProcedureCaseLitigtInfoVo litigtInfoVo = new ProcedureCaseLitigtInfoVo();          //当事人基本情况信息
         ProcedureCasePunishVo     punishVo = new ProcedureCasePunishVo();              //处罚基本信息
+        CaseTrademark caseTrademark = new CaseTrademark();
+        CaseTrademarkActivistInfo caseTrademarkActivistInfo = new CaseTrademarkActivistInfo();
 
-        public CaseDetailVo getmCaseDetail() {
+    public CaseTrademark getCaseTrademark() {
+        return caseTrademark;
+    }
+
+    public void setCaseTrademark(CaseTrademark caseTrademark) {
+        this.caseTrademark = caseTrademark;
+    }
+
+    public CaseTrademarkActivistInfo getCaseTrademarkActivistInfo() {
+        return caseTrademarkActivistInfo;
+    }
+
+    public void setCaseTrademarkActivistInfo(CaseTrademarkActivistInfo caseTrademarkActivistInfo) {
+        this.caseTrademarkActivistInfo = caseTrademarkActivistInfo;
+    }
+
+    public CaseDetailVo getmCaseDetail() {
             return caseDetailVo;
         }
 
