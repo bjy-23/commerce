@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,33 +37,33 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class EmailDetailsActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.tv_head)
+    @BindView(R.id.tv_head)
     TextView tvHead;
-    @Bind(R.id.tv_send_name)
+    @BindView(R.id.tv_send_name)
     TextView tvSendName;
-    @Bind(R.id.tv_send_email)
+    @BindView(R.id.tv_send_email)
     TextView tvSendEmail;
-    @Bind(R.id.tv_receieve_name)
+    @BindView(R.id.tv_receieve_name)
     TextView tvReceieveName;
-    @Bind(R.id.tv_receieve_email)
+    @BindView(R.id.tv_receieve_email)
     TextView tvReceieveEmail;
-    @Bind(R.id.tv_time)
+    @BindView(R.id.tv_time)
     TextView tvTime;
-    @Bind(R.id.layout_attach)
+    @BindView(R.id.layout_attach)
     LinearLayout layoutAttach;
-    @Bind(R.id.layout_back)
+    @BindView(R.id.layout_back)
     LinearLayout layoutBack;
-    @Bind(R.id.img_up)
+    @BindView(R.id.img_up)
     ImageView imgUp;
-    @Bind(R.id.img_down)
+    @BindView(R.id.img_down)
     ImageView imgDown;
-    @Bind(R.id.layout_content)
+    @BindView(R.id.layout_content)
     LinearLayout layoutContent;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.layout_error)
     View viewError;
-    @Bind(R.id.tv_message)
+    @BindView(R.id.tv_message)
     TextView tvMessage;
-    @Bind(R.id.tv_attach)
+    @BindView(R.id.tv_attach)
     TextView tvAttach;
     private HashMap<String, String> param;
     private TotalLoginBean loginBean;
@@ -135,13 +135,13 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void getData(){
-        final Dialog dialog = LoadingDialog.showCanCancelable(this);
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(EmailDetailsActivity.this).build();
+        loadingDialog.show();
         Call<Result<EmailDetailResult>> call = ApiManager.oaApi.getEmailDetail(param);
         call.enqueue(new Callback<Result<EmailDetailResult>>() {
             @Override
             public void onResponse(Response<Result<EmailDetailResult>> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 if (response.body() != null
                         && response.body().getObject() != null
                         && response.body().getObject().getEmailDetailBean() != null
@@ -150,14 +150,13 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
                     setData(emailDetailResult);
                     layoutContent.setVisibility(View.VISIBLE);
                 }else{
-                    dialog.dismiss();
                     viewError.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 viewError.setVisibility(View.VISIBLE);
             }
         });
@@ -227,8 +226,8 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void getDownLoad(AttachBean attachBean){
-        final Dialog dialog = LoadingDialog.showCanCancelable(this);
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(EmailDetailsActivity.this).build();
+        loadingDialog.show();
         Map<String, String> body = new HashMap<>();
         body.put("wsCodeReq", "07010013");
         body.put("attachId", attachBean.getAttachId());
@@ -236,7 +235,7 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         call.enqueue(new Callback<FileBean>() {
             @Override
             public void onResponse(Response<FileBean> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 if(response!=null && response.body()!=null){
                     if("200".equals(response.body().getCode())){
                         FileUtils fileUtils = new FileUtils();
@@ -256,7 +255,7 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(EmailDetailsActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
             }
         });

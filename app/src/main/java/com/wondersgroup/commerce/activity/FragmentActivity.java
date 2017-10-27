@@ -10,16 +10,16 @@ import android.widget.TextView;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.fragment.TJFXFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FragmentActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_txt)
+    @BindView(R.id.toolbar_txt)
     TextView title;
-    @Bind(R.id.toolbar_btn)
+    @BindView(R.id.toolbar_btn)
     Button button;
 
     TJFXFragment tjfxFragment;

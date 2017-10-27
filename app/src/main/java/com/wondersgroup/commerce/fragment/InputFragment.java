@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -50,7 +50,7 @@ import retrofit.Retrofit;
  * create an instance of this fragment.
  */
 public class InputFragment extends Fragment {
-    @Bind(R.id.rootLayout)LinearLayout rootLayout;
+    @BindView(R.id.rootLayout)LinearLayout rootLayout;
 
     private static final String ARG_TYPE = "type";
     private static final String ARG_VIEWTYPE="viewType";
@@ -194,11 +194,11 @@ public class InputFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), RecyclerActivity.class);
                     intent.putExtra("doctype", "收文管理");
                     GwjsCondition gwjsCondition = new GwjsCondition();
-                    if (!"".equals(titleView.getContent())) {
-                        gwjsCondition.setTitle(titleView.getContent());
+                    if (!"".equals(titleView.getInput())) {
+                        gwjsCondition.setTitle(titleView.getInput());
                     }
-                    if (!"".equals(orginView.getContent())) {
-                        gwjsCondition.setDraftdept(orginView.getContent());
+                    if (!"".equals(orginView.getInput())) {
+                        gwjsCondition.setDraftdept(orginView.getInput());
                     }
                     gwjsCondition.setDoctype(typeStr);
                     gwjsCondition.setCreatetimeStartStr(dateView.getMultiOne());
@@ -285,7 +285,7 @@ public class InputFragment extends Fragment {
                     .build();
             rootLayout.addView(deptView);
             dateView=new TableRow.Builder(getContext())
-                    .title("来文日期")
+                    .title("发文日期")
                     .multiSelect("起始日期", "截至日期")
                     .multiSeperator("~")
                     .hideBtmLine()
@@ -329,11 +329,11 @@ public class InputFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), RecyclerActivity.class);
                     intent.putExtra("doctype", "发文管理");
                     GwjsCondition gwjsCondition = new GwjsCondition();
-                    if (!"".equals(titleView.getContent())) {
-                        gwjsCondition.setTitle(titleView.getContent());
+                    if (!"".equals(titleView.getInput())) {
+                        gwjsCondition.setTitle(titleView.getInput());
                     }
-                    if (!"".equals(peoView.getContent())) {
-                        gwjsCondition.setDrafter(peoView.getContent());
+                    if (!"".equals(peoView.getInput())) {
+                        gwjsCondition.setDrafter(peoView.getInput());
                     }
                     gwjsCondition.setDoctype(typeStr);
                     gwjsCondition.setDocclass(lbStr);

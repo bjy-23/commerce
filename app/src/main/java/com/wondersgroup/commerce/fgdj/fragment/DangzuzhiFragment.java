@@ -26,7 +26,7 @@ import com.wondersgroup.commerce.widget.LoadingDialog;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -38,39 +38,39 @@ import retrofit.Retrofit;
  */
 
 public class DangzuzhiFragment extends Fragment {
-    @Bind(R.id.tv_full_name)
+    @BindView(R.id.tv_full_name)
     TextView tvFullName;
-    @Bind(R.id.tv_super_name)
+    @BindView(R.id.tv_super_name)
     TextView tvSuperName;
-    @Bind(R.id.tv_level)
+    @BindView(R.id.tv_level)
     TextView tvLevel;
-    @Bind(R.id.layout_all_counts)
+    @BindView(R.id.layout_all_counts)
     View layoutAllCounts;
-    @Bind(R.id.tv_all_counts)
+    @BindView(R.id.tv_all_counts)
     TextView tvAllCounts;
-    @Bind(R.id.layout_brunch_counts)
+    @BindView(R.id.layout_brunch_counts)
     View layoutBrunchCounts;
-    @Bind(R.id.tv_brunch_counts)
+    @BindView(R.id.tv_brunch_counts)
     TextView tvBrunchCounts;
-    @Bind(R.id.tv_es_date)
+    @BindView(R.id.tv_es_date)
     TextView tvEsDate;
-    @Bind(R.id.tv_es_way)
+    @BindView(R.id.tv_es_way)
     TextView tvEsWay;
-    @Bind(R.id.tv_tel)
+    @BindView(R.id.tv_tel)
     TextView tvTel;
-    @Bind(R.id.tv_address)
+    @BindView(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.tv_act_place)
+    @BindView(R.id.tv_act_place)
     TextView tvActPlace;
-    @Bind(R.id.tv_act_funds)
+    @BindView(R.id.tv_act_funds)
     TextView tvActFuns;
-    @Bind(R.id.tv_secretary_name)
+    @BindView(R.id.tv_secretary_name)
     TextView tvSecretaryName;
-    @Bind(R.id.tv_secretary_tel)
+    @BindView(R.id.tv_secretary_tel)
     TextView tvSecretaryTel;
-    @Bind(R.id.tv_secretary_dept)
+    @BindView(R.id.tv_secretary_dept)
     TextView tvSecretaryDept;
-    @Bind(R.id.tv_town)
+    @BindView(R.id.tv_town)
     TextView tvTown;
 
     private String entId;

@@ -55,7 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -74,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
     private int totalSize;
     private TextView tvSpeed, tvProgress, tvTotal,tvVersion;
     private ProgressBar progressBar;
-    @Bind(R.id.view_bg)
+    @BindView(R.id.view_bg)
     ImageView viewBg;
     private int size, sum;
     Handler handler = new Handler() {
@@ -106,7 +106,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = RootAppcation.getInstance();
-        app.setVersion(Constants.VERSION);
+        app.setVersion(Constants.AREA);
         ApiManager.getInstance().init();
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);

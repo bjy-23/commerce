@@ -31,6 +31,7 @@ import com.orhanobut.hawk.Hawk;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.activity.LoginActivity;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.AttachResultObject;
@@ -63,10 +64,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -79,21 +79,21 @@ import retrofit.Retrofit;
 public class CaseInspectsActivity extends AppCompatActivity {
 
     private String TAG = "CaseInspectActivity";
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.components_LinearLayout)
+    @BindView(R.id.components_LinearLayout)
     LinearLayout componentsLinearLayout;        //控件显示部分（动态添加控件）
-    @Bind(R.id.picLayout)
+    @BindView(R.id.picLayout)
     LinearLayout picLayout;                                  //附件显示部分
-    @Bind(R.id.pic1)
+    @BindView(R.id.pic1)
     ImageView pic1;
-    @Bind(R.id.pic2)
+    @BindView(R.id.pic2)
     ImageView pic2;
-    @Bind(R.id.pic3)
+    @BindView(R.id.pic3)
     ImageView pic3;
-    @Bind(R.id.commit_record_Button)
+    @BindView(R.id.commit_record_Button)
     Button commitButton;                        //提交按钮
 
     private String clueNo = null;                       //线索号
@@ -467,7 +467,8 @@ public class CaseInspectsActivity extends AppCompatActivity {
     //新增、修改记录
     private void commitRecord() {
 
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(this);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(CaseInspectsActivity.this)
+                .build();
         Map<String, String> map = new HashMap<>();
         Map<String, String> mapValue = new HashMap<>();
         List<Map<String, String>> mapList = new ArrayList<Map<String, String>>();
@@ -531,8 +532,8 @@ public class CaseInspectsActivity extends AppCompatActivity {
         call.enqueue(new Callback<BackResultObject>() {
             @Override
             public void onResponse(Response<BackResultObject> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
                 if (response.isSuccess()) {
-                    dialog.dismiss();
                     BackResultObject result = response.body();
                     if (result.getCode().equals(ApiManager.RESULT_SUCCESS)) {
                         CaseInspectsActivity.this.setResult(resultCode, null);
@@ -543,7 +544,6 @@ public class CaseInspectsActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    dialog.dismiss();
                     Log.d(TAG, "CaseInspectActivity --------------- response.is not Success()");
                     Toast.makeText(CaseInspectsActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                 }
@@ -551,7 +551,7 @@ public class CaseInspectsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Log.d("submitErr", t.getMessage());
                 Toast.makeText(CaseInspectsActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }

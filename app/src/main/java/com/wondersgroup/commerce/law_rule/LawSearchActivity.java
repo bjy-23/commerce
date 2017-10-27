@@ -17,21 +17,21 @@ import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.interface_.TextChanger;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LawSearchActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.layout_search)
+    @BindView(R.id.layout_search)
     LinearLayout layoutSearch;
-    @Bind(R.id.et_search)
+    @BindView(R.id.et_search)
     EditText etSearch;
-    @Bind(R.id.img_del)
+    @BindView(R.id.img_del)
     ImageView imgDel;
-    @Bind(R.id.tv_cancel)
+    @BindView(R.id.tv_cancel)
     TextView tvCancel;
-    @Bind(R.id.layout_search_item)
+    @BindView(R.id.layout_search_item)
     LinearLayout layoutSearchItem;
-    @Bind(R.id.tv_search_content)
+    @BindView(R.id.tv_search_content)
     TextView tvSearchContent;
 
     private boolean isShowing;

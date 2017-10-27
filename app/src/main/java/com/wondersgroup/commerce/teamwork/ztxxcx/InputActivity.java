@@ -16,16 +16,16 @@ import com.wondersgroup.commerce.activity.RecyclerActivity;
 import com.wondersgroup.commerce.utils.DWZH;
 import com.wondersgroup.commerce.widget.TableRow;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by yclli on 2016/3/22.
  */
 public class InputActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.rootLayout)LinearLayout rootLayout;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.rootLayout)LinearLayout rootLayout;
 
     private TableRow nameView;
     private TableRow uidView;

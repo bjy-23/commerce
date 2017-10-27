@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -15,9 +15,9 @@ import butterknife.ButterKnife;
  */
 public class XqzgdqActivity extends AppCompatActivity {
 
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
 
     public static int currTab = 0;

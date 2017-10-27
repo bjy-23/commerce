@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -56,11 +56,11 @@ import retrofit.Retrofit;
  * create an instance of this fragment.
  */
 public class PyFragment extends Fragment implements View.OnClickListener {
-    @Bind(R.id.pyInfoLayout)LinearLayout pyInfoLayout;
-    @Bind(R.id.pyHandleLayout)LinearLayout pyHandleLayout;
-    @Bind(R.id.pySendLayout)LinearLayout pySendLayout;
-    @Bind(R.id.fragment_py_suggestion) EditText suggestionEdit;
-    @Bind(R.id.fragment_py_send) Button sendBtn;
+    @BindView(R.id.pyInfoLayout)LinearLayout pyInfoLayout;
+    @BindView(R.id.pyHandleLayout)LinearLayout pyHandleLayout;
+    @BindView(R.id.pySendLayout)LinearLayout pySendLayout;
+    @BindView(R.id.fragment_py_suggestion) EditText suggestionEdit;
+    @BindView(R.id.fragment_py_send) Button sendBtn;
 
     private static final String ARG_PARAM1 = "type";
     private static final String ARG_PARAM2 = "param2";
@@ -302,25 +302,32 @@ public class PyFragment extends Fragment implements View.OnClickListener {
             if ("收文管理".equals(docType)) {
                 //信息显示部分
                 ReceiveDetailBean.Result data = ReceiveDetailBean.receiveDetailBean.getResult();
-                pyInfoRows.get(0).setContent(data.getDocReceiveVo().getOpertype());
-                pyInfoRows.get(1).setContent(data.getDocReceiveVo().getUrgencyStatus());
-                pyInfoRows.get(2).setContent(data.getDocReceiveVo().getIsindicate());
-                pyInfoRows.get(3).setContent(data.getDocReceiveVo().getDocno());
-                pyInfoRows.get(4).setContent(data.getDocReceiveVo().getIsMsign());
-                pyInfoRows.get(5).setContent(data.getDocReceiveVo().getRecnum());
-                pyInfoRows.get(6).setContent(data.getDocReceiveVo().getRecdate().split(" ")[0]);
-                pyInfoRows.get(7).setContent(data.getDocReceiveVo().getTitle());
-                pyInfoRows.get(8).setContent(data.getDocReceiveVo().getRegorg());
-                pyInfoRows.get(9).setContent(data.getDocReceiveVo().getRemark());
-                TableRowView fileView = TableRowView.newSelectRow(getActivity(), "正文",
-                        data.getDocAttachFile().getAttachName(), false, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getDoc();
+                if (data != null ){
+                    if(data.getDocReceiveVo() != null){
+                        pyInfoRows.get(0).setContent(data.getDocReceiveVo().getOpertype());
+                        pyInfoRows.get(1).setContent(data.getDocReceiveVo().getUrgencyStatus());
+                        pyInfoRows.get(2).setContent(data.getDocReceiveVo().getIsindicate());
+                        pyInfoRows.get(3).setContent(data.getDocReceiveVo().getDocno());
+                        pyInfoRows.get(4).setContent(data.getDocReceiveVo().getIsMsign());
+                        pyInfoRows.get(5).setContent(data.getDocReceiveVo().getRecnum());
+                        pyInfoRows.get(6).setContent(data.getDocReceiveVo().getRecdate().split(" ")[0]);
+                        pyInfoRows.get(7).setContent(data.getDocReceiveVo().getTitle());
+                        pyInfoRows.get(8).setContent(data.getDocReceiveVo().getRegorg());
+                        pyInfoRows.get(9).setContent(data.getDocReceiveVo().getRemark());
                     }
-                });
-                fileView.setHintColor(ContextCompat.getColor(getActivity(), R.color.blue));
-                pyInfoLayout.addView(fileView);
+
+                    if (data.getDocAttachFile() != null){
+                        TableRowView fileView = TableRowView.newSelectRow(getActivity(), "正文",
+                                data.getDocAttachFile().getAttachName(), false, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        getDoc();
+                                    }
+                                });
+                        fileView.setHintColor(ContextCompat.getColor(getActivity(), R.color.blue));
+                        pyInfoLayout.addView(fileView);
+                    }
+                }
 
                 //审批处理部分
                 if("1".equals(data.getIsUrgency())){
@@ -427,25 +434,32 @@ public class PyFragment extends Fragment implements View.OnClickListener {
             if ("收文管理".equals(docType)) {
                 //信息显示部分
                 ReceiveDetailBean.Result data = ReceiveDetailBean.receiveDetailBean.getResult();
-                pyInfoRows.get(0).setContent(data.getDocReceiveVo().getOpertype());
-                pyInfoRows.get(1).setContent(data.getDocReceiveVo().getUrgencyStatus());
-                pyInfoRows.get(2).setContent(data.getDocReceiveVo().getIsindicate());
-                pyInfoRows.get(3).setContent(data.getDocReceiveVo().getDocno());
-                pyInfoRows.get(4).setContent(data.getDocReceiveVo().getIsMsign());
-                pyInfoRows.get(5).setContent(data.getDocReceiveVo().getRecnum());
-                pyInfoRows.get(6).setContent(data.getDocReceiveVo().getRecdate().split(" ")[0]);
-                pyInfoRows.get(7).setContent(data.getDocReceiveVo().getTitle());
-                pyInfoRows.get(8).setContent(data.getDocReceiveVo().getRegorg());
-                pyInfoRows.get(9).setContent(data.getDocReceiveVo().getRemark());
-                TableRowView fileView = TableRowView.newSelectRow(getActivity(), "正文",
-                        data.getDocAttachFile().getAttachName(), false, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                getDoc();
-                            }
-                        });
-                fileView.setHintColor(ContextCompat.getColor(getActivity(), R.color.blue));
-                pyInfoLayout.addView(fileView);
+                if (data != null){
+                    if (data.getDocReceiveVo() != null){
+                        pyInfoRows.get(0).setContent(data.getDocReceiveVo().getOpertype());
+                        pyInfoRows.get(1).setContent(data.getDocReceiveVo().getUrgencyStatus());
+                        pyInfoRows.get(2).setContent(data.getDocReceiveVo().getIsindicate());
+                        pyInfoRows.get(3).setContent(data.getDocReceiveVo().getDocno());
+                        pyInfoRows.get(4).setContent(data.getDocReceiveVo().getIsMsign());
+                        pyInfoRows.get(5).setContent(data.getDocReceiveVo().getRecnum());
+                        pyInfoRows.get(6).setContent(data.getDocReceiveVo().getRecdate().split(" ")[0]);
+                        pyInfoRows.get(7).setContent(data.getDocReceiveVo().getTitle());
+                        pyInfoRows.get(8).setContent(data.getDocReceiveVo().getRegorg());
+                        pyInfoRows.get(9).setContent(data.getDocReceiveVo().getRemark());
+                    }
+
+                    if (data.getDocAttachFile() != null){
+                        TableRowView fileView = TableRowView.newSelectRow(getActivity(), "正文",
+                                data.getDocAttachFile().getAttachName(), false, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        getDoc();
+                                    }
+                                });
+                        fileView.setHintColor(ContextCompat.getColor(getActivity(), R.color.blue));
+                        pyInfoLayout.addView(fileView);
+                    }
+                }
             }else if ("发文管理".equals(docType)) {
                 //信息显示部分
                 final SendDetailBean.Result data = SendDetailBean.sendDetailBean.getResult();
@@ -518,8 +532,8 @@ public class PyFragment extends Fragment implements View.OnClickListener {
     }
     //下载正文
     public void getDoc(){
-        final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(getActivity()).build();
+        loadingDialog.show();
         Map<String, String> body = new HashMap<>();
         body.put("wsCodeReq", "07010013");
         if("收文管理".equals(docType))
@@ -530,7 +544,7 @@ public class PyFragment extends Fragment implements View.OnClickListener {
         call.enqueue(new Callback<FileBean>() {
             @Override
             public void onResponse(Response<FileBean> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 if(response!=null && response.body()!=null){
                     if("200".equals(response.body().getCode())){
                         FileUtils fileUtils = new FileUtils();
@@ -550,7 +564,7 @@ public class PyFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
         });

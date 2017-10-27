@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lecho.lib.hellocharts.model.Axis;
@@ -46,17 +46,17 @@ import retrofit.Retrofit;
  * 年报情况统计
  */
 public class AnnalsActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.year)
+    @BindView(R.id.year)
     TextView year;
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.location)
+    @BindView(R.id.location)
     TextView location;
-    @Bind(R.id.iv_select)
+    @BindView(R.id.iv_select)
     ImageView mIVSelect;
     private HashMap<String, String> params = new HashMap<>();
     private boolean isZCBJ = true;//1表示获取全局数据，0表示只查本级。
@@ -72,7 +72,7 @@ public class AnnalsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("年报情况统计");
+        title.setText("市场主体年报进度情况统计");
         location.setText(loginBean.getResult().getOrganName());
         initView();
     }

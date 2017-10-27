@@ -127,8 +127,7 @@ public class EntFragment extends Fragment {
 				.get("etpsName"));
 
 
-		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
-				"loading");
+		progressDialog = new LoadingDialog.Builder(getActivity()).build();
 
 		// new
 		// mLocationClient = application.mLocationClient;

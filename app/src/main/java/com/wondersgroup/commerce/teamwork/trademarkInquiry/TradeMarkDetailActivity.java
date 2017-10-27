@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -45,121 +45,132 @@ import retrofit.Retrofit;
  */
 
 public class TradeMarkDetailActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView tvTitle;
-    @Bind(R.id.ivBaseInfo4TradeMarkDetail)ImageView ivArrowBaseInfo;    //商标基本信息
-    @Bind(R.id.llbaseInfo4TradeMarkDetail)LinearLayout llViewBaseInfo;  //商标基本信息
-    @Bind(R.id.ivEntityInfo4TradeMarkDetail)ImageView ivArrowEntityInfo;    //商标主体信息
-    @Bind(R.id.llType12EntityInfo4TradeMarkDetail)LinearLayout llViewEntityInfoType12;  //商标主体信息(registerType (01企业，02个体))
-    @Bind(R.id.llType345EntityInfo4TradeMarkDetail)LinearLayout llViewEntityInfoType345;  //商标主体信息(registerType (03':'事业单位','04':'社会组织','05':'自然人))
-    @Bind(R.id.llTypeNullEntityInfo4TradeMarkDetail)LinearLayout llViewEntityInfoTypeNull;  //商标主体信息(registerType null)
-    @Bind(R.id.ivApplierInfo4TradeMarkDetail)ImageView ivArrowApplierInfo;    //商标申请人信息
-    @Bind(R.id.llApplierInfo4TradeMarkDetail)LinearLayout llViewApplierInfo;  //商标申请人信息
-    @Bind(R.id.ivAgent4TradeMarkDetail)ImageView ivArrowAgentInfo;    //商标代理人信息
-    @Bind(R.id.llAgentInfo4TradeMarkDetail)LinearLayout llViewAgentInfo;  //商标代理人信息
-    @Bind(R.id.ivPriority4TradeMarkDetail)ImageView ivArrowPriorityInfo;    //商标优先权信息
-    @Bind(R.id.llPriorityInfo4TradeMarkDetail)LinearLayout llViewPriorityInfo;  //商标优先权信息
-    @Bind(R.id.ivOtherInfo4TradeMarkDetail)ImageView ivArrowOtherInfo;    //商标其他信息
-    @Bind(R.id.llOtherInfo4TradeMarkDetail)LinearLayout llViewOtherInfo;  //商标其他信息
-    @Bind(R.id.ivGoodsService4TradeMarkDetail)ImageView ivGoodsServiceInfo;    //商品服务信息
-    @Bind(R.id.lvGoodsService4TradeMarkDetail)ListView lvGoodsService;                //商品服务信息
-    @Bind(R.id.ivCommonOwner4TradeMarkDetail)ImageView ivArrowCommonOwnerInfo;    //商标共有人信息
-    @Bind(R.id.lvCommonOwner4TradeMarkDetail)ListView lvCommonOwner;                //商标共有人信息
-    @Bind(R.id.ivInterReg4TradeMarkDetail)ImageView ivArrowInterRegInfo;    //商标国际注册信息
-    @Bind(R.id.lvInterReg4TradeMarkDetail)ListView lvInterReg;                //商标国际注册信息
-    @Bind(R.id.ivPermit4TradeMarkDetail)ImageView ivArrowPermitInfo;    //商标许可信息
-    @Bind(R.id.lvPermit4TradeMarkDetail)ListView lvPermit;                //商标许可信息
-    @Bind(R.id.ivContactor4TradeMarkDetail)ImageView ivArrowContactorInfo;    //商标联络人信息
-    @Bind(R.id.lvContactor4TradeMarkDetail)ListView lvContactor;                //商标联络人信息
-    @Bind(R.id.ivPledge4TradeMarkDetail)ImageView ivArrowPledgeInfo;    //商标质押信息
-    @Bind(R.id.lvPledge4TradeMarkDetail)ListView lvPledge;                //商标质押信息
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView tvTitle;
+    @BindView(R.id.ivBaseInfo4TradeMarkDetail)ImageView ivArrowBaseInfo;    //商标基本信息
+    @BindView(R.id.llbaseInfo4TradeMarkDetail)LinearLayout llViewBaseInfo;  //商标基本信息
+    @BindView(R.id.ivEntityInfo4TradeMarkDetail)ImageView ivArrowEntityInfo;    //商标主体信息
+    @BindView(R.id.llType12EntityInfo4TradeMarkDetail)LinearLayout llViewEntityInfoType12;  //商标主体信息(registerType (01企业，02个体))
+    @BindView(R.id.llType345EntityInfo4TradeMarkDetail)LinearLayout llViewEntityInfoType345;  //商标主体信息(registerType (03':'事业单位','04':'社会组织','05':'自然人))
+    @BindView(R.id.llTypeNullEntityInfo4TradeMarkDetail)LinearLayout llViewEntityInfoTypeNull;  //商标主体信息(registerType null)
+    @BindView(R.id.ivApplierInfo4TradeMarkDetail)ImageView ivArrowApplierInfo;    //商标申请人信息
+    @BindView(R.id.llApplierInfo4TradeMarkDetail)LinearLayout llViewApplierInfo;  //商标申请人信息
+    @BindView(R.id.ivAgent4TradeMarkDetail)ImageView ivArrowAgentInfo;    //商标代理人信息
+    @BindView(R.id.llAgentInfo4TradeMarkDetail)LinearLayout llViewAgentInfo;  //商标代理人信息
+    @BindView(R.id.ivPriority4TradeMarkDetail)ImageView ivArrowPriorityInfo;    //商标优先权信息
+    @BindView(R.id.llPriorityInfo4TradeMarkDetail)LinearLayout llViewPriorityInfo;  //商标优先权信息
+    @BindView(R.id.ivOtherInfo4TradeMarkDetail)ImageView ivArrowOtherInfo;    //商标其他信息
+    @BindView(R.id.llOtherInfo4TradeMarkDetail)LinearLayout llViewOtherInfo;  //商标其他信息
+    @BindView(R.id.ivGoodsService4TradeMarkDetail)ImageView ivGoodsServiceInfo;    //商品服务信息
+    @BindView(R.id.lvGoodsService4TradeMarkDetail)ListView lvGoodsService;                //商品服务信息
+    @BindView(R.id.ivCommonOwner4TradeMarkDetail)ImageView ivArrowCommonOwnerInfo;    //商标共有人信息
+    @BindView(R.id.lvCommonOwner4TradeMarkDetail)ListView lvCommonOwner;                //商标共有人信息
+    @BindView(R.id.ivInterReg4TradeMarkDetail)ImageView ivArrowInterRegInfo;    //商标国际注册信息
+    @BindView(R.id.lvInterReg4TradeMarkDetail)ListView lvInterReg;                //商标国际注册信息
+    @BindView(R.id.ivPermit4TradeMarkDetail)ImageView ivArrowPermitInfo;    //商标许可信息
+    @BindView(R.id.lvPermit4TradeMarkDetail)ListView lvPermit;                //商标许可信息
+    @BindView(R.id.ivContactor4TradeMarkDetail)ImageView ivArrowContactorInfo;    //商标联络人信息
+    @BindView(R.id.lvContactor4TradeMarkDetail)ListView lvContactor;                //商标联络人信息
+    @BindView(R.id.ivPledge4TradeMarkDetail)ImageView ivArrowPledgeInfo;    //商标质押信息
+    @BindView(R.id.lvPledge4TradeMarkDetail)ListView lvPledge;                //商标质押信息
 
-    @Bind(R.id.tvTradeName4TradeMarkDetail)TextView tvTradeName4TradeMarkDetail;  //商标基本信息--商标名称
-    @Bind(R.id.tvRegisterNo4TradeMarkDetail)TextView tvRegisterNo4TradeMarkDetail;  //商标基本信息--商标注册证号
-    @Bind(R.id.tvType4TradeMarkDetail)TextView tvType4TradeMarkDetail;  //商标基本信息--商标类别
-    @Bind(R.id.tvComTrade4TradeMarkDetail)TextView tvComTrade4TradeMarkDetail;  //商标基本信息--是否共有商标
-    @Bind(R.id.tvGeoGraphyTrade4TradeMarkDetail)TextView tvGeoGraphyTrade4TradeMarkDetail;  //商标基本信息--是否地理标志商标
-    @Bind(R.id.tvFamousTrade4TradeMarkDetail)TextView tvFamousTrade4TradeMarkDetail;  //商标基本信息--是否知名著名商标
-    @Bind(R.id.tvExameNotifyNo4TradeMarkDetail)TextView tvExameNotifyNo4TradeMarkDetail;  //商标基本信息--初审公告期号
-    @Bind(R.id.tvRegisterNotifyNo4TradeMarkDetail)TextView tvRegisterNotifyNo4TradeMarkDetail;  //商标基本信息--注册公告期号
-    @Bind(R.id.tvApplyDate4TradeMarkDetail)TextView tvApplyDate4TradeMarkDetail;  //商标基本信息--申请日期
-    @Bind(R.id.tvColorSet4TradeMarkDetail)TextView tvColorSet4TradeMarkDetail;  //商标基本信息--指定颜色说明
-    @Bind(R.id.tvGiveUpAuthority4TradeMarkDetail)TextView tvGiveUpAuthority4TradeMarkDetail;  //商标基本信息--放弃专用权说明
-    @Bind(R.id.tvTransLateName4TradeMarkDetail)TextView tvTransLateName4TradeMarkDetail;  //商标基本信息--商标名称意译
-    @Bind(R.id.tvClassic4TradeMarkDetail)TextView tvClassic4TradeMarkDetail;  //商标基本信息--商标类型
-    @Bind(R.id.tvFormType4TradeMarkDetail)TextView tvFormType4TradeMarkDetail;  //商标基本信息--商标形式类型
-    @Bind(R.id.tv3DTrade4TradeMarkDetail)TextView tv3DTrade4TradeMarkDetail;  //商标基本信息--是否立体商标
-    @Bind(R.id.tvTradestate4TradeMarkDetail)TextView tvTradestate4TradeMarkDetail;  //商标基本信息--商标状态
-    @Bind(R.id.tvWellKnownTrade4TradeMarkDetail)TextView tvWellKnownTrade4TradeMarkDetail;  //商标基本信息--是否驰名商标
-    @Bind(R.id.tvExameNotifyDate4TradeMarkDetail)TextView tvExameNotifyDate4TradeMarkDetail;  //商标基本信息--初审公告日期
-    @Bind(R.id.tvRegisterNotifyDate4TradeMarkDetail)TextView tvRegisterNotifyDate4TradeMarkDetail;  //商标基本信息--注册公告日期
-    @Bind(R.id.tvPrivateRightDate4TradeMarkDetail)TextView tvPrivateRightDate4TradeMarkDetail;  //商标基本信息--专用权有效期
-    @Bind(R.id.tvColorNum4TradeMarkDetail)TextView tvColorNum4TradeMarkDetail;  //商标基本信息--组合颜色数量
-    @Bind(R.id.tvComments4TradeMarkDetail)TextView tvComments4TradeMarkDetail;  //商标基本信息--备注
-    @Bind(R.id.tvChineseName4TradeMarkApplier)TextView tvChineseName4TradeMarkApplier;  //商标申请人信息--中文名称
-    @Bind(R.id.tvEnglishName4TradeMarkApplier)TextView tvEnglishName4TradeMarkApplier;  //商标申请人信息--外文名称
-    @Bind(R.id.tvCountary4TradeMarkApplier)TextView tvCountary4TradeMarkApplier;  //商标申请人信息--国家
-    @Bind(R.id.tvChineseAddress4TradeMarkApplier)TextView tvChineseAddress4TradeMarkApplier;  //商标申请人信息--中文地址
-    @Bind(R.id.tvEnglishAddress4TradeMarkApplier)TextView tvEnglishAddress4TradeMarkApplier;  //商标申请人信息--外文地址
-    @Bind(R.id.tvDistrict4TradeMarkApplier)TextView tvDistrict4TradeMarkApplier;  //商标申请人信息--行政区划
-    @Bind(R.id.tvEntityType4TradeMarkEntityType12)TextView tvEntityType4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--主体类型
-    @Bind(R.id.tvCompanyName4TradeMarkEntityType12)TextView tvCompanyName4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--企业/个体名称
-    @Bind(R.id.tvRegisterNo4TradeMarkEntityType12)TextView tvRegisterNo4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--注册号
-    @Bind(R.id.tvCreditCode4TradeMarkEntityType12)TextView tvCreditCode4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--统一社会信用代码
-    @Bind(R.id.tvContactor4TradeMarkEntityType12)TextView tvContactor4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--联系人
-    @Bind(R.id.tvTel4TradeMarkEntityType12)TextView tvTel4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--联系电话
-    @Bind(R.id.tvAddress4TradeMarkEntityType12)TextView tvAddress4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--联系地址
-    @Bind(R.id.tvPostCode4TradeMarkEntityType12)TextView tvPostCode4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--邮编
-    @Bind(R.id.tvRegisterDepartment4TradeMarkEntityType12)TextView tvRegisterDepartment4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--登记机关
-    @Bind(R.id.tvCompanyState4TradeMarkEntityType12)TextView tvCompanyState4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--企业状态
-    @Bind(R.id.tvEntityType4TradeMarkEntityType345)TextView tvEntityType4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--主体类型
-    @Bind(R.id.tvOrganizeCode4TradeMarkEntityType345)TextView tvOrganizeCode4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--组织机构代码
-    @Bind(R.id.tvTel4TradeMarkEntityType345)TextView tvTel4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--联系电话
-    @Bind(R.id.tvPostCode4TradeMarkEntityType345)TextView tvPostCode4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--邮编
-    @Bind(R.id.tvCompanyName4TradeMarkEntityType345)TextView tvCompanyName4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--单位名称
-    @Bind(R.id.tvContactor4TradeMarkEntityType345)TextView tvContactor4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--联系人
-    @Bind(R.id.tvAddress4TradeMarkEntityType345)TextView tvAddress4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--联系地址
-    @Bind(R.id.tvTabCompanyName4TradeMarkEntityType345)TextView tvTabCompanyName4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--单位名称tabName
-    @Bind(R.id.tvTabOrganizeCode4TradeMarkEntityType345)TextView tvTabOrganizeCode4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--组织机构代码tabName
-    @Bind(R.id.tvObligeeName4TradeMarkEntityType5)TextView tvObligeeName4TradeMarkEntityType5;      //商标主体信息(主体类型null)--权利人名称
-    @Bind(R.id.tvChineseName4TradeMarkAgent)TextView tvChineseName4TradeMarkAgent;  //商标代理人信息--中文名称
-    @Bind(R.id.tvEnglishName4TradeMarkAgent)TextView tvEnglishName4TradeMarkAgent;  //商标代理人信息--外文名称
-    @Bind(R.id.tvContactor4TradeMarkAgent)TextView tvContactor4TradeMarkAgent;  //商标代理人信息--联系人
-    @Bind(R.id.tvAddress4TradeMarkAgent)TextView tvAddress4TradeMarkAgent;  //商标代理人信息--地址
-    @Bind(R.id.tvMobile4TradeMarkAgent)TextView tvMobile4TradeMarkAgent;  //商标代理人信息--手机号码
-    @Bind(R.id.tvEMail4TradeMarkAgent)TextView tvEMail4TradeMarkAgent;  //商标代理人信息--E_Mail
-    @Bind(R.id.tvEconemyState4TradeMarkAgent)TextView tvEconemyState4TradeMarkAgent;  //商标代理人信息--经济性质
-    @Bind(R.id.tvCreditCode4TradeMarkAgent)TextView tvCreditCode4TradeMarkAgent;  //商标代理人信息--证件编码
-    @Bind(R.id.tvState4TradeMarkAgent)TextView tvState4TradeMarkAgent;  //商标代理人信息--代理人状态
-    @Bind(R.id.tvChineseAddress4TradeMarkAgent)TextView tvChineseAddress4TradeMarkAgent;  //商标代理人信息--中文地址
-    @Bind(R.id.tvEnglishAddress4TradeMarkAgent)TextView tvEnglishAddress4TradeMarkAgent;  //商标代理人信息--外文地址
-    @Bind(R.id.tvPostCode4TradeMarkAgent)TextView tvPostCode4TradeMarkAgent;  //商标代理人信息--邮编
-    @Bind(R.id.tvTelephone4TradeMarkAgent)TextView tvTelephone4TradeMarkAgent;  //商标代理人信息--电话
-    @Bind(R.id.tvFex4TradeMarkAgent)TextView tvFex4TradeMarkAgent;  //商标代理人信息--传真
-    @Bind(R.id.tvAgentStates4TradeMarkAgent)TextView tvAgentStates4TradeMarkAgent;  //商标代理人信息--代理人类型
-    @Bind(R.id.tvCertificateName4TradeMarkAgent)TextView tvCertificateName4TradeMarkAgent;  //商标代理人信息--证件名称
-    @Bind(R.id.tvDistrict4TradeMarkAgent)TextView tvDistrict4TradeMarkAgent;  //商标代理人信息--行政划区
-    @Bind(R.id.tvComment4TradeMarkAgent)TextView tvComment4TradeMarkAgent;  //商标代理人信息--备注
-    @Bind(R.id.tvDate4TradeMarkPriority)TextView tvDate4TradeMarkPriority;    //商标优先权信息--优先权日期
-    @Bind(R.id.tvGoods4TradeMarkPriority)TextView tvGoods4TradeMarkPriority;    //商标优先权信息--优先权商品
-    @Bind(R.id.tvType4TradeMarkPriority)TextView tvType4TradeMarkPriority;    //商标优先权信息--优先权种类
-    @Bind(R.id.tvCountry4TradeMarkPriority)TextView tvCountry4TradeMarkPriority;    //商标优先权信息--优先权国家
-    @Bind(R.id.tvIsValide4TradeMarkPriority)TextView tvIsValide4TradeMarkPriority;    //商标优先权信息--是否有效
-    @Bind(R.id.tvIsFamousMark4TradeMarkOtherInfo)TextView tvIsFamousMark4TradeMarkOtherInfo;    //商标其他信息--是否名牌产品
-    @Bind(R.id.tvIsNewGoods4TradeMarkOtherInfo)TextView tvIsNewGoods4TradeMarkOtherInfo;    //商标其他信息--是否地标产品
-    @Bind(R.id.tvIsHighTech4TradeMarkOtherInfo)TextView tvIsHighTech4TradeMarkOtherInfo;    //商标其他信息--是否高新技术企业
-    @Bind(R.id.tvIsOldMark4TradeMarkOtherInfo)TextView tvIsOldMark4TradeMarkOtherInfo;    //商标其他信息--是否中华老字号
-    @Bind(R.id.tvIsProvinceMark4TradeMarkOtherInfo)TextView tvIsProvinceMark4TradeMarkOtherInfo;    //商标其他信息--是否**省/市老字号
-    @Bind(R.id.tvIsZoneCompany4TradeMarkOtherInfo)TextView tvIsZoneCompany4TradeMarkOtherInfo;    //商标其他信息--是否园区企业
-    @Bind(R.id.tvFamousMarkDate4TradeMarkOtherInfo)TextView tvFamousMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
-    @Bind(R.id.tvGetLandMarkDate4TradeMarkOtherInfo)TextView tvGetLandMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
-    @Bind(R.id.tvGetHighTec4TradeMarkOtherInfo)TextView tvGetHighTec4TradeMarkOtherInfo;    //商标其他信息--获得年份
-    @Bind(R.id.tvGetOldMarkDate4TradeMarkOtherInfo)TextView tvGetOldMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
-    @Bind(R.id.tvGetProvinceMarkDate4TradeMarkOtherInfo)TextView tvGetProvinceMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
-    @Bind(R.id.tvZoneName4TradeMarkOtherInfo)TextView tvZoneName4TradeMarkOtherInfo;    //商标其他信息--园区名称
-    @Bind(R.id.tvComments4TradeMarkOtherInfo)TextView tvComments4TradeMarkOtherInfo;    //商标其他信息--备注
+    @BindView(R.id.tvTradeName4TradeMarkDetail)TextView tvTradeName4TradeMarkDetail;  //商标基本信息--商标名称
+    @BindView(R.id.tvRegisterNo4TradeMarkDetail)TextView tvRegisterNo4TradeMarkDetail;  //商标基本信息--商标注册证号
+    @BindView(R.id.tvType4TradeMarkDetail)TextView tvType4TradeMarkDetail;  //商标基本信息--商标类别
+    @BindView(R.id.tvComTrade4TradeMarkDetail)TextView tvComTrade4TradeMarkDetail;  //商标基本信息--是否共有商标
+    @BindView(R.id.tvGeoGraphyTrade4TradeMarkDetail)TextView tvGeoGraphyTrade4TradeMarkDetail;  //商标基本信息--是否地理标志商标
+    @BindView(R.id.tvFamousTrade4TradeMarkDetail)TextView tvFamousTrade4TradeMarkDetail;  //商标基本信息--是否知名著名商标
+    @BindView(R.id.tvExameNotifyNo4TradeMarkDetail)TextView tvExameNotifyNo4TradeMarkDetail;  //商标基本信息--初审公告期号
+    @BindView(R.id.tvRegisterNotifyNo4TradeMarkDetail)TextView tvRegisterNotifyNo4TradeMarkDetail;  //商标基本信息--注册公告期号
+    @BindView(R.id.tvApplyDate4TradeMarkDetail)TextView tvApplyDate4TradeMarkDetail;  //商标基本信息--申请日期
+    @BindView(R.id.tvColorSet4TradeMarkDetail)TextView tvColorSet4TradeMarkDetail;  //商标基本信息--指定颜色说明
+    @BindView(R.id.tvGiveUpAuthority4TradeMarkDetail)TextView tvGiveUpAuthority4TradeMarkDetail;  //商标基本信息--放弃专用权说明
+    @BindView(R.id.tvTransLateName4TradeMarkDetail)TextView tvTransLateName4TradeMarkDetail;  //商标基本信息--商标名称意译
+    @BindView(R.id.tvClassic4TradeMarkDetail)TextView tvClassic4TradeMarkDetail;  //商标基本信息--商标类型
+    @BindView(R.id.tvFormType4TradeMarkDetail)TextView tvFormType4TradeMarkDetail;  //商标基本信息--商标形式类型
+    @BindView(R.id.tv3DTrade4TradeMarkDetail)TextView tv3DTrade4TradeMarkDetail;  //商标基本信息--是否立体商标
+    @BindView(R.id.tvTradestate4TradeMarkDetail)TextView tvTradestate4TradeMarkDetail;  //商标基本信息--商标状态
+    @BindView(R.id.tvWellKnownTrade4TradeMarkDetail)TextView tvWellKnownTrade4TradeMarkDetail;  //商标基本信息--是否驰名商标
+    @BindView(R.id.tvExameNotifyDate4TradeMarkDetail)TextView tvExameNotifyDate4TradeMarkDetail;  //商标基本信息--初审公告日期
+    @BindView(R.id.tvRegisterNotifyDate4TradeMarkDetail)TextView tvRegisterNotifyDate4TradeMarkDetail;  //商标基本信息--注册公告日期
+    @BindView(R.id.tvPrivateRightDate4TradeMarkDetail)TextView tvPrivateRightDate4TradeMarkDetail;  //商标基本信息--专用权有效期
+    @BindView(R.id.tvColorNum4TradeMarkDetail)TextView tvColorNum4TradeMarkDetail;  //商标基本信息--组合颜色数量
+    @BindView(R.id.tvComments4TradeMarkDetail)TextView tvComments4TradeMarkDetail;  //商标基本信息--备注
+    @BindView(R.id.tvChineseName4TradeMarkApplier)TextView tvChineseName4TradeMarkApplier;  //商标申请人信息--中文名称
+    @BindView(R.id.tvEnglishName4TradeMarkApplier)TextView tvEnglishName4TradeMarkApplier;  //商标申请人信息--外文名称
+    @BindView(R.id.tvCountary4TradeMarkApplier)TextView tvCountary4TradeMarkApplier;  //商标申请人信息--国家
+    @BindView(R.id.tvChineseAddress4TradeMarkApplier)TextView tvChineseAddress4TradeMarkApplier;  //商标申请人信息--中文地址
+    @BindView(R.id.tvEnglishAddress4TradeMarkApplier)TextView tvEnglishAddress4TradeMarkApplier;  //商标申请人信息--外文地址
+    @BindView(R.id.tvDistrict4TradeMarkApplier)TextView tvDistrict4TradeMarkApplier;  //商标申请人信息--行政区划
+    @BindView(R.id.tvEntityType4TradeMarkEntityType12)TextView tvEntityType4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--主体类型
+    @BindView(R.id.tvCompanyName4TradeMarkEntityType12)TextView tvCompanyName4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--企业/个体名称
+    @BindView(R.id.tvRegisterNo4TradeMarkEntityType12)TextView tvRegisterNo4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--注册号
+    @BindView(R.id.tvCreditCode4TradeMarkEntityType12)TextView tvCreditCode4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--统一社会信用代码
+    @BindView(R.id.tvContactor4TradeMarkEntityType12)TextView tvContactor4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--联系人
+    @BindView(R.id.tvTel4TradeMarkEntityType12)TextView tvTel4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--联系电话
+    @BindView(R.id.tvAddress4TradeMarkEntityType12)TextView tvAddress4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--联系地址
+    @BindView(R.id.tvPostCode4TradeMarkEntityType12)TextView tvPostCode4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--邮编
+    @BindView(R.id.tvRegisterDepartment4TradeMarkEntityType12)TextView tvRegisterDepartment4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--登记机关
+    @BindView(R.id.tvCompanyState4TradeMarkEntityType12)TextView tvCompanyState4TradeMarkEntityType12;     //商标主体信息(主体类型01,02)--企业状态
+    @BindView(R.id.tvEntityType4TradeMarkEntityType345)TextView tvEntityType4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--主体类型
+    @BindView(R.id.tvOrganizeCode4TradeMarkEntityType345)TextView tvOrganizeCode4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--组织机构代码
+    @BindView(R.id.tvTel4TradeMarkEntityType345)TextView tvTel4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--联系电话
+    @BindView(R.id.tvPostCode4TradeMarkEntityType345)TextView tvPostCode4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--邮编
+    @BindView(R.id.tvCompanyName4TradeMarkEntityType345)TextView tvCompanyName4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--单位名称
+    @BindView(R.id.tvContactor4TradeMarkEntityType345)TextView tvContactor4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--联系人
+    @BindView(R.id.tvAddress4TradeMarkEntityType345)TextView tvAddress4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--联系地址
+    @BindView(R.id.tvTabCompanyName4TradeMarkEntityType345)TextView tvTabCompanyName4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--单位名称tabName
+    @BindView(R.id.tvTabOrganizeCode4TradeMarkEntityType345)TextView tvTabOrganizeCode4TradeMarkEntityType345;     //商标主体信息(主体类型03,04,05)--组织机构代码tabName
+    @BindView(R.id.tvObligeeName4TradeMarkEntityType5)TextView tvObligeeName4TradeMarkEntityType5;      //商标主体信息(主体类型null)--权利人名称
+    @BindView(R.id.tvChineseName4TradeMarkAgent)TextView tvChineseName4TradeMarkAgent;  //商标代理人信息--中文名称
+    @BindView(R.id.tvEnglishName4TradeMarkAgent)TextView tvEnglishName4TradeMarkAgent;  //商标代理人信息--外文名称
+    @BindView(R.id.tvContactor4TradeMarkAgent)TextView tvContactor4TradeMarkAgent;  //商标代理人信息--联系人
+    @BindView(R.id.tvAddress4TradeMarkAgent)TextView tvAddress4TradeMarkAgent;  //商标代理人信息--地址
+    @BindView(R.id.tvMobile4TradeMarkAgent)TextView tvMobile4TradeMarkAgent;  //商标代理人信息--手机号码
+    @BindView(R.id.tvEMail4TradeMarkAgent)TextView tvEMail4TradeMarkAgent;  //商标代理人信息--E_Mail
+    @BindView(R.id.tvEconemyState4TradeMarkAgent)TextView tvEconemyState4TradeMarkAgent;  //商标代理人信息--经济性质
+    @BindView(R.id.tvCreditCode4TradeMarkAgent)TextView tvCreditCode4TradeMarkAgent;  //商标代理人信息--证件编码
+    @BindView(R.id.tvState4TradeMarkAgent)TextView tvState4TradeMarkAgent;  //商标代理人信息--代理人状态
+    @BindView(R.id.tvChineseAddress4TradeMarkAgent)TextView tvChineseAddress4TradeMarkAgent;  //商标代理人信息--中文地址
+    @BindView(R.id.tvEnglishAddress4TradeMarkAgent)TextView tvEnglishAddress4TradeMarkAgent;  //商标代理人信息--外文地址
+    @BindView(R.id.tvPostCode4TradeMarkAgent)TextView tvPostCode4TradeMarkAgent;  //商标代理人信息--邮编
+    @BindView(R.id.tvTelephone4TradeMarkAgent)TextView tvTelephone4TradeMarkAgent;  //商标代理人信息--电话
+    @BindView(R.id.tvFex4TradeMarkAgent)TextView tvFex4TradeMarkAgent;  //商标代理人信息--传真
+    @BindView(R.id.tvAgentStates4TradeMarkAgent)TextView tvAgentStates4TradeMarkAgent;  //商标代理人信息--代理人类型
+    @BindView(R.id.tvCertificateName4TradeMarkAgent)TextView tvCertificateName4TradeMarkAgent;  //商标代理人信息--证件名称
+    @BindView(R.id.tvDistrict4TradeMarkAgent)TextView tvDistrict4TradeMarkAgent;  //商标代理人信息--行政划区
+    @BindView(R.id.tvComment4TradeMarkAgent)TextView tvComment4TradeMarkAgent;  //商标代理人信息--备注
+    @BindView(R.id.tvDate4TradeMarkPriority)TextView tvDate4TradeMarkPriority;    //商标优先权信息--优先权日期
+    @BindView(R.id.tvGoods4TradeMarkPriority)TextView tvGoods4TradeMarkPriority;    //商标优先权信息--优先权商品
+    @BindView(R.id.tvType4TradeMarkPriority)TextView tvType4TradeMarkPriority;    //商标优先权信息--优先权种类
+    @BindView(R.id.tvCountry4TradeMarkPriority)TextView tvCountry4TradeMarkPriority;    //商标优先权信息--优先权国家
+    @BindView(R.id.tvIsValide4TradeMarkPriority)TextView tvIsValide4TradeMarkPriority;    //商标优先权信息--是否有效
+    @BindView(R.id.tvIsFamousMark4TradeMarkOtherInfo)TextView tvIsFamousMark4TradeMarkOtherInfo;    //商标其他信息--是否名牌产品
+    @BindView(R.id.tvIsNewGoods4TradeMarkOtherInfo)TextView tvIsNewGoods4TradeMarkOtherInfo;    //商标其他信息--是否地标产品
+    @BindView(R.id.tvIsHighTech4TradeMarkOtherInfo)TextView tvIsHighTech4TradeMarkOtherInfo;    //商标其他信息--是否高新技术企业
+    @BindView(R.id.tvIsOldMark4TradeMarkOtherInfo)TextView tvIsOldMark4TradeMarkOtherInfo;    //商标其他信息--是否中华老字号
+    @BindView(R.id.tvIsProvinceMark4TradeMarkOtherInfo)TextView tvIsProvinceMark4TradeMarkOtherInfo;    //商标其他信息--是否**省/市老字号
+    @BindView(R.id.tvIsZoneCompany4TradeMarkOtherInfo)TextView tvIsZoneCompany4TradeMarkOtherInfo;    //商标其他信息--是否园区企业
+    @BindView(R.id.tvFamousMarkDate4TradeMarkOtherInfo)TextView tvFamousMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
+    @BindView(R.id.tvGetLandMarkDate4TradeMarkOtherInfo)TextView tvGetLandMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
+    @BindView(R.id.tvGetHighTec4TradeMarkOtherInfo)TextView tvGetHighTec4TradeMarkOtherInfo;    //商标其他信息--获得年份
+    @BindView(R.id.tvGetOldMarkDate4TradeMarkOtherInfo)TextView tvGetOldMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
+    @BindView(R.id.tvGetProvinceMarkDate4TradeMarkOtherInfo)TextView tvGetProvinceMarkDate4TradeMarkOtherInfo;    //商标其他信息--获得年份
+    @BindView(R.id.tvZoneName4TradeMarkOtherInfo)TextView tvZoneName4TradeMarkOtherInfo;    //商标其他信息--园区名称
+    @BindView(R.id.tvComments4TradeMarkOtherInfo)TextView tvComments4TradeMarkOtherInfo;    //商标其他信息--备注
 
-
+    @BindView(R.id.llBaseInfoTitle4TradeMarkDetail)LinearLayout llBaseInfoTitle4TradeMarkDetail;//商标基本信息
+    @BindView(R.id.llApplierInfoTitle4TradeMarkDetail)LinearLayout llApplierInfoTitle4TradeMarkDetail;//商标申请人信息
+    @BindView(R.id.llEntityInfoTitle4TradeMarkDetail)LinearLayout llEntityInfoTitle4TradeMarkDetail;//商标主体信息
+    @BindView(R.id.llAgentTitle4TradeMarkDetail)LinearLayout llAgentTitle4TradeMarkDetail;//商标代理人信息
+    @BindView(R.id.llPriorityTitle4TradeMarkDetail)LinearLayout llPriorityTitle4TradeMarkDetail;//商标优先权信息
+    @BindView(R.id.llOtherInfoTitle4TradeMarkDetail)LinearLayout llOtherInfoTitle4TradeMarkDetail;//商标其他信息
+    @BindView(R.id.llPledgeTitle4TradeMarkDetail)LinearLayout llPledgeTitle4TradeMarkDetail;//商标质押信息
+    @BindView(R.id.llGoodsServiceTitle4TradeMarkDetail)LinearLayout llGoodsServiceTitle4TradeMarkDetail;//商标商品服务信息
+    @BindView(R.id.llCommonOwnerTitle4TradeMarkDetail)LinearLayout llCommonOwnerTitle4TradeMarkDetail;//商标共有人信息
+    @BindView(R.id.llInterRegTitle4TradeMarkDetail)LinearLayout llInterRegTitle4TradeMarkDetail;//国际注册信息
+    @BindView(R.id.llPermitTitle4TradeMarkDetail)LinearLayout llPermitTitle4TradeMarkDetail;//商标许可信息
+    @BindView(R.id.llContactor4TradeMarkDetail)LinearLayout llContactor4TradeMarkDetail;//商标联络人信息
 
     private List<ProductService> goodsServiceList;     //商品服务信息列表
     private GoodsServiceAdapter goodsServiceAdapter;
@@ -247,37 +258,45 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
         });
     }
 
+    //解析json数据
     private void parseObject(String type, List<JsonElement> elementsList) {
         if(elementsList == null || elementsList.get(0) == null)
             return;
         try{
             if(type.equals("tmRegInfo")){//商标基本信息,//商标申请人信息
                 Basic basic = gson.fromJson(elementsList.get(0),Basic.class);
-                initBasicView(basic);
-                initApplierView(basic);
+                initBasicView(basic);//商标基本信息界面初始化
+                initApplierView(basic);//商标申请人信息界面初始化
+                llBaseInfoTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
+                llApplierInfoTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
             }else if(type.equals("tmRegister")){//商标主体信息
                 Entity entity = gson.fromJson(elementsList.get(0), Entity.class);
-                if(entity.getRegisterType() == null){
+                if(entity.getRegisterType() == null){//registerType (01企业，02个体)	主体类型
                     return;
                 }else if("".equals(entity.getRegisterType())){
                     if(entity.getRegisterName()!=null)
-                        tvObligeeName4TradeMarkEntityType5.setText(entity.getRegisterName());
-                }else if(("01").equals(entity.getRegisterType()) || ("02").equals(entity.getRegisterType())){
+                        tvObligeeName4TradeMarkEntityType5.setText(entity.getRegisterName());//商标主体信息(主体类型null)--权利人名称
+                }else if(("01").equals(entity.getRegisterType()) || ("02").equals(entity.getRegisterType())){//商标主体信息(主体类型01,02)，(01企业，02个体)
                     initMainEntityType12View(entity);
                 }else if(("03").equals(entity.getRegisterType()) || ("04").equals(entity.getRegisterType()) || ("05").equals(entity.getRegisterType())){
-                    initMainEntityType345View(entity);
+                    initMainEntityType345View(entity);//商标主体信息(主体类型03,04,05)，03"事业单位"，04"社会组织"，05自然人
                 }
                 strRegisterType = entity.getRegisterType();
+                llEntityInfoTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
             }else if(type.equals("agent")){//商标代理人信息
                 Agent agent = gson.fromJson(elementsList.get(0), Agent.class);
                 initAgentView(agent);
+                llAgentTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
             }else if(type.equals("tmPriorityInfo")){//商标优先权信息
                 Priority tmPriorityInfo = gson.fromJson(elementsList.get(0), Priority.class);
                 initPriorityView(tmPriorityInfo);
+                llPriorityTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
             }else if(type.equals("tmOther")){//商标其他信息
                 Other tmOther = gson.fromJson(elementsList.get(0), Other.class);
                 initOthersInfoView(tmOther);
+                llOtherInfoTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
             }else if(type.equals("tmPledgeList")){//商标质押信息
+                llPledgeTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
                 if(elementsList!=null && elementsList.size()>0){
                     pledgesList = new ArrayList<Pledge>();
                     for(int i=0; i<elementsList.size(); i++){
@@ -288,6 +307,7 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
                     lvPledge.setAdapter(pledgeAdapter);
                 }
             }else if(type.equals("tmProductList")){//商标商品服务信息
+                llGoodsServiceTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
                 if(elementsList!=null && elementsList.size()>0){
                     goodsServiceList = new ArrayList<ProductService>();
                     for(int i=0; i<elementsList.size(); i++){
@@ -299,6 +319,7 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
                 }
 
             }else if(type.equals("commonerList")){//商标共有人信息
+                llCommonOwnerTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
                 if(elementsList!=null && elementsList.size()>0){
                     commonOwnerList = new ArrayList<Commmer>();
                     for(int i=0; i<elementsList.size(); i++){
@@ -310,6 +331,7 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
                 }
 
             }else if(type.equals("tmRegInternationalInfoList")){//国际注册信息
+                llInterRegTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
                 if(elementsList!=null && elementsList.size()>0){
                     interRegisterList = new ArrayList<RegInternational>();
                     for(int i=0; i<elementsList.size(); i++){
@@ -321,6 +343,7 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
                 }
 
             }else if(type.equals("permitList")){//商标许可信息
+                llPermitTitle4TradeMarkDetail.setVisibility(View.VISIBLE);
                 if(elementsList!=null && elementsList.size()>0){
                     permitInfoList = new ArrayList<BrandPermit>();
                     for(int i=0; i<elementsList.size(); i++){
@@ -332,6 +355,7 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
                 }
 
             }else if(type.equals("contactPersonList")){//商标联络人信息
+                llContactor4TradeMarkDetail.setVisibility(View.VISIBLE);
                 if(elementsList!=null && elementsList.size()>0){
                     contactorsList = new ArrayList<ContactPerson>();
                     for(int i=0; i<elementsList.size(); i++){
@@ -356,11 +380,13 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
         if(data.getClassId()!=null)
             tvType4TradeMarkDetail.setText(data.getClassId());
         if(data.getIsCommon()!=null)
-            tvComTrade4TradeMarkDetail.setText(data.getIsCommon());
+            tvComTrade4TradeMarkDetail.setText(getBooleanValue(data.getIsCommon()));
         if(data.getGeographyRemark()!=null)
-            tvGeoGraphyTrade4TradeMarkDetail.setText(data.getGeographyRemark());
-        if(data.getFamousId()!=null)
-            tvFamousTrade4TradeMarkDetail.setText(data.getFamousId());
+            tvGeoGraphyTrade4TradeMarkDetail.setText(getBooleanValue(data.getGeographyRemark()));
+        if(data.getFamousId()!=null && !data.getFamousId().equals(""))
+            tvFamousTrade4TradeMarkDetail.setText("是");
+        else
+            tvFamousTrade4TradeMarkDetail.setText("否");
         if(data.getFirstTrailIssue()!=null)
             tvExameNotifyNo4TradeMarkDetail.setText(data.getFirstTrailIssue());
         if(data.getRegIssue()!=null)
@@ -382,11 +408,11 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
         if(data.getFormType()!=null)
             tvFormType4TradeMarkDetail.setText(data.getFormType());
         if(data.getSolidRemark()!=null)
-            tv3DTrade4TradeMarkDetail.setText(data.getSolidRemark());
+            tv3DTrade4TradeMarkDetail.setText(getBooleanValue(data.getSolidRemark()));
         if(data.getExistStatus()!=null)
             tvTradestate4TradeMarkDetail.setText(data.getExistStatus());
         if(data.getReputedRemark()!=null)
-            tvWellKnownTrade4TradeMarkDetail.setText(data.getReputedRemark());
+            tvWellKnownTrade4TradeMarkDetail.setText(getBooleanValue(data.getReputedRemark()));
         if(data.getFirstIssueDate()!=null)
             tvExameNotifyDate4TradeMarkDetail.setText(data.getFirstIssueDate());
         if(data.getRegAppDate()!=null)
@@ -519,23 +545,23 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
         if(data.getPriorityCtry()!=null)
             tvCountry4TradeMarkPriority.setText(data.getPriorityCtry());
         if(data.getPriorityValidInfo()!=null)
-            tvIsValide4TradeMarkPriority.setText(data.getPriorityValidInfo());
+            tvIsValide4TradeMarkPriority.setText(getBooleanValue(data.getPriorityValidInfo()));
     }
 
     //商标其他信息界面初始化
     private void initOthersInfoView(Other data){
         if(data.getIsMingpai()!=null)
-            tvIsFamousMark4TradeMarkOtherInfo.setText(data.getIsMingpai());
+            tvIsFamousMark4TradeMarkOtherInfo.setText(getBooleanValue(data.getIsMingpai()));
         if(data.getIsDibiao()!=null)
-            tvIsNewGoods4TradeMarkOtherInfo.setText(data.getIsDibiao());
+            tvIsNewGoods4TradeMarkOtherInfo.setText(getBooleanValue(data.getIsDibiao()));
         if(data.getIsGaoxin()!=null)
-            tvIsHighTech4TradeMarkOtherInfo.setText(data.getIsGaoxin());
+            tvIsHighTech4TradeMarkOtherInfo.setText(getBooleanValue(data.getIsGaoxin()));
         if(data.getIsZhonghua()!=null)
-            tvIsOldMark4TradeMarkOtherInfo.setText(data.getIsZhonghua());
+            tvIsOldMark4TradeMarkOtherInfo.setText(getBooleanValue(data.getIsZhonghua()));
         if(data.getIsShengshi()!=null)
-            tvIsProvinceMark4TradeMarkOtherInfo.setText(data.getIsShengshi());
+            tvIsProvinceMark4TradeMarkOtherInfo.setText(getBooleanValue(data.getIsShengshi()));
         if(data.getIsYuanqu()!=null)
-            tvIsZoneCompany4TradeMarkOtherInfo.setText(data.getIsYuanqu());
+            tvIsZoneCompany4TradeMarkOtherInfo.setText(getBooleanValue(data.getIsYuanqu()));
         if(data.getMingpaiDate()!=null)
             tvFamousMarkDate4TradeMarkOtherInfo.setText(data.getMingpaiDate());
         if(data.getDibiaoDate()!=null)
@@ -1026,6 +1052,15 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
         listView.setLayoutParams(params);
     }
 
+    private String getBooleanValue(String strValue){
+        if(strValue == null || strValue.equals(""))
+            return "";
+        else if(strValue.equals("0"))
+            return "否";
+        else
+            return "是";
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -1309,7 +1344,7 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
 
     //商标主体信息
     public class Entity{
-        private String registerType;   // (01企业，02个体)	主体类型
+        private String registerType;   // //商标主体信息(主体类型01,02)，(01企业，02个体),(03"事业单位"，04"社会组织"，05自然人)
         private String registerName;   //	企业/个体名称
         private String registerRegNo;   //	注册号
         private String registerUniScid;   //	统一社会信用代码

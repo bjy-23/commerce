@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -51,10 +51,10 @@ import retrofit.Retrofit;
 public class CaseRecordEnquireActivity extends AppCompatActivity {
 
     private String TAG = "CaseEnquireActivity";
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.components_LinearLayout)LinearLayout componentsLinearLayout;        //控件显示部分（动态添加控件）
-    @Bind(R.id.commit_record_Button)Button commitButton;                        //提交按钮
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.components_LinearLayout)LinearLayout componentsLinearLayout;        //控件显示部分（动态添加控件）
+    @BindView(R.id.commit_record_Button)Button commitButton;                        //提交按钮
 
     private String clueNo = null;                       //线索号
     private String serialNo = null;                     //序列号

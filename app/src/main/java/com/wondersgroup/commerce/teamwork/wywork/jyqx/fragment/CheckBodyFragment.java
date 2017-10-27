@@ -13,7 +13,7 @@ import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.teamwork.myxqzgdq.CheckJGJLBean;
 import com.wondersgroup.commerce.teamwork.wywork.jyqx.JyqxdqQyxxJgjlActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -22,29 +22,29 @@ import butterknife.ButterKnife;
  */
 public class CheckBodyFragment extends Fragment {
 
-    @Bind(R.id.tv_company_name)
+    @BindView(R.id.tv_company_name)
     TextView tvCompanyName;
-    @Bind(R.id.tv_manager_type)
+    @BindView(R.id.tv_manager_type)
     TextView tvManagerType;
-    @Bind(R.id.tv_register_no)
+    @BindView(R.id.tv_register_no)
     TextView tvRegisterNo;
-    @Bind(R.id.tv_legal_person)
+    @BindView(R.id.tv_legal_person)
     TextView tvLegalPerson;
-    @Bind(R.id.tv_register_addr)
+    @BindView(R.id.tv_register_addr)
     TextView tvRegisterAddr;
-    @Bind(R.id.tv_id_no)
+    @BindView(R.id.tv_id_no)
     TextView tvIdNo;
-    @Bind(R.id.tv_reg_gno)
+    @BindView(R.id.tv_reg_gno)
     TextView tvRegGno;
-    @Bind(R.id.tv_check_territory)
+    @BindView(R.id.tv_check_territory)
     TextView tvCheckTerritory;
-    @Bind(R.id.tv_real_addr)
+    @BindView(R.id.tv_real_addr)
     TextView tvRealAddr;
-    @Bind(R.id.tv_real_entity)
+    @BindView(R.id.tv_real_entity)
     TextView tvRealEntity;
-    @Bind(R.id.tv_contact_person)
+    @BindView(R.id.tv_contact_person)
     TextView tvContactPerson;
-    @Bind(R.id.tv_contact_num)
+    @BindView(R.id.tv_contact_num)
     TextView tvContactNum;
     private AppCompatActivity context;
     private View view;
@@ -104,6 +104,5 @@ public class CheckBodyFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

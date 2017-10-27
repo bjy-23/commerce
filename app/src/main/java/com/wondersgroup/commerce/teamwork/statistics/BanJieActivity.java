@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -48,43 +48,43 @@ import retrofit.Retrofit;
  * 消费维权投诉举报统计
  */
 public class BanJieActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.divider)
+    @BindView(R.id.divider)
     View divider;
-    @Bind(R.id.location)
+    @BindView(R.id.location)
     TextView location;
-    @Bind(R.id.startDate)
+    @BindView(R.id.startDate)
     TextView mStartDate;
-    @Bind(R.id.endDate)
+    @BindView(R.id.endDate)
     TextView mEndDate;
-    @Bind(R.id.linear_date)
+    @BindView(R.id.linear_date)
     LinearLayout mLinearDate;
-    @Bind(R.id.totalNum)
+    @BindView(R.id.totalNum)
     TextView totalNum;
-    @Bind(R.id.bjl_ts)
+    @BindView(R.id.bjl_ts)
     TextView bjlTs;
-    @Bind(R.id.bjl_jb)
+    @BindView(R.id.bjl_jb)
     TextView bjlJb;
-    @Bind(R.id.bjli_ts)
+    @BindView(R.id.bjli_ts)
     TextView bjliTs;
-    @Bind(R.id.bjli_jb)
+    @BindView(R.id.bjli_jb)
     TextView bjliJb;
-    @Bind(R.id.wbjl_ts)
+    @BindView(R.id.wbjl_ts)
     TextView wbjlTs;
-    @Bind(R.id.wbjl_jb)
+    @BindView(R.id.wbjl_jb)
     TextView wbjlJb;
-    @Bind(R.id.djl_ts)
+    @BindView(R.id.djl_ts)
     TextView djlTs;
-    @Bind(R.id.djl_jb)
+    @BindView(R.id.djl_jb)
     TextView djlJb;
-    @Bind(R.id.fsl_ts)
+    @BindView(R.id.fsl_ts)
     TextView fslTs;
-    @Bind(R.id.fsl_jb)
+    @BindView(R.id.fsl_jb)
     TextView fslJb;
-    @Bind(R.id.iv_select)
+    @BindView(R.id.iv_select)
     ImageView mIVSelect;
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
     private HashMap<String, String> params = new HashMap<>();

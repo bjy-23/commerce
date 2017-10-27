@@ -56,10 +56,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -73,23 +72,23 @@ import static com.wondersgroup.commerce.activity.ViewPagerActivity.BUENT_ID;
  * 抽查检查录入、公文检索结果、收件箱
  */
 public class RecyclerActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.search_bar)
+    @BindView(R.id.search_bar)
     LinearLayout searchBar;
-    @Bind(R.id.searchtxt)
+    @BindView(R.id.searchtxt)
     EditText searchTxt;
-    @Bind(R.id.activity_recycler)
+    @BindView(R.id.activity_recycler)
     RecyclerView recycler;
-    @Bind(R.id.layout_search)
+    @BindView(R.id.layout_search)
     View layoutSearch;
-    @Bind(R.id.view_error)
+    @BindView(R.id.view_error)
     View viewError;
-    @Bind(R.id.tv_error)
+    @BindView(R.id.tv_error)
     TextView tvError;
-    @Bind(R.id.searchLayout)
+    @BindView(R.id.searchLayout)
     SearchLayout searchLayout;
 
     private String doctype;
@@ -174,7 +173,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         CaseQueryViewModel caseQueryViewModel = (CaseQueryViewModel) viewModels.get(position);
                         Intent intent = new Intent(RecyclerActivity.this, CaseQueryDetailActivity.class);
                         intent.putExtra("clueNo", caseQueryViewModel.getBean().getClueNo());
-                        intent.putExtra(Constants.TYPE, Constants.SC);
+                        intent.putExtra(Constants.TYPE, Constants.AREA_SC);
                         startActivity(intent);
                     }
                 });
@@ -189,6 +188,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
                 break;
             case "email"://收件箱
+                searchLayout.setVisibility(View.VISIBLE);
                 searchLayout.setSearchListenr(new SearchLayout.SearchListener() {
                     @Override
                     public void search(String content) {
@@ -226,7 +226,6 @@ public class RecyclerActivity extends AppCompatActivity {
 
                 break;
             case "gglb"://广告列表
-                searchLayout.setVisibility(View.GONE);
                 if (getIntent().getExtras() != null && getIntent().getExtras().getSerializable("PARAMS") != null) {
                     Map<String, String> map = (Map<String, String>) getIntent().getExtras().getSerializable("PARAMS");
                     param.putAll(map);
@@ -258,7 +257,6 @@ public class RecyclerActivity extends AppCompatActivity {
                 textWpicAdapter.setOnItemClickListener(new TextWpicAdapter.OnItemClickListener() {
                     @Override
                     public void OnItemClick(View view, int position) {
-                        //Toast.makeText(getActivity(), "HAHAHA", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RecyclerActivity.this, ViewPagerActivity.class);
                         intent.putExtra("title", dataList.get(position).getTitle());
                         intent.putExtra("type", "GWJSXQ");
@@ -495,14 +493,16 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     public void getCCJCCX() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(RecyclerActivity.this);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(RecyclerActivity.this)
+                .build();
+        loadingDialog.show();
         param = (HashMap<String, String>) getIntent().getSerializableExtra("body");
         param.put(Constants.PAGE_NO, pageNo + "");
         Call<CCCXResult> call = ApiManager.ccjcApi.ccCX(param);
         call.enqueue(new Callback<CCCXResult>() {
             @Override
             public void onResponse(Response<CCCXResult> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 isLoaded = true;
                 pageMax = response.body().getPageCount();
                 totalRecord = response.body().getTotalRecord();
@@ -551,7 +551,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 isLoaded = true;
                 Toast.makeText(RecyclerActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -559,7 +559,9 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     public void getCCJCDB() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(RecyclerActivity.this);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(RecyclerActivity.this)
+                .build();
+        loadingDialog.show();
         param.put("wsCodeReq", "000201");
         param.put(Constants.PAGE_NO, pageNo + "");
         param.put("userId", userId);
@@ -571,7 +573,7 @@ public class RecyclerActivity extends AppCompatActivity {
         call.enqueue(new Callback<CCToDoResult>() {
             @Override
             public void onResponse(Response<CCToDoResult> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 isLoaded = true;
                 pageMax = response.body().getPageCount();
                 totalRecord = response.body().getTotalRecord();
@@ -626,7 +628,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 isLoaded = true;
                 layoutSearch.setVisibility(View.GONE);
                 viewError.setVisibility(View.VISIBLE);
@@ -685,7 +687,7 @@ public class RecyclerActivity extends AppCompatActivity {
     }
 
     public void getEmail() {
-        final Dialog loadingDialog = LoadingDialog.showCanCancelable(this);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(RecyclerActivity.this).build();
         loadingDialog.show();
         Call<Result<EmailResult>> call = ApiManager.oaApi.getEmail(param);
         call.enqueue(new Callback<Result<EmailResult>>() {
@@ -755,7 +757,7 @@ public class RecyclerActivity extends AppCompatActivity {
      * 广告查询
      */
     private void getAdQuery() {
-        final Dialog loadingDialog = LoadingDialog.showCanCancelable(this);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(RecyclerActivity.this).build();
         loadingDialog.show();
         param.put("pageNo", (pageNo + 1) + "");
         param.put("pageSize", "10");
@@ -817,14 +819,13 @@ public class RecyclerActivity extends AppCompatActivity {
     public void getCaseQueryList() {
         String url = CaseApi.URL_CASE_1 + CaseApi.TO_CASE_QUERY;
         Call<Result<List<CaseQueryBean>>> call = ApiManager.caseApi.toCaseQuery(url, param);
-        final Dialog dialog = LoadingDialog.showCanCancelable(this);
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(RecyclerActivity.this).build();
+        loadingDialog.show();
         call.enqueue(new Callback<Result<List<CaseQueryBean>>>() {
             @Override
             public void onResponse(Response<Result<List<CaseQueryBean>>> response, Retrofit retrofit) {
                 isLoaded = true;
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                loadingDialog.dismiss();
                 if (response.body() != null && response.body().getObject() != null
                         && response.body().getObject().size() != 0) {
                     pageMax = response.body().getPageCount();
@@ -847,8 +848,7 @@ public class RecyclerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 isLoaded = true;
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                loadingDialog.dismiss();
                 viewError.setVisibility(View.VISIBLE);
             }
         });

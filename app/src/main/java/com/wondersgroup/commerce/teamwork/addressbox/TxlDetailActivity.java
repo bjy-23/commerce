@@ -20,8 +20,6 @@ import com.wondersgroup.commerce.widget.LoadingDialog;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -61,7 +59,9 @@ public class TxlDetailActivity extends RootActivity {
     }
 
     private void getTxlDetail() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(TxlDetailActivity.this)
+                .build();
+        loadingDialog.show();
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "07010004");
         map.put("addlistId", userId);
@@ -69,7 +69,7 @@ public class TxlDetailActivity extends RootActivity {
         call.enqueue(new Callback<AddressDetail>() {
                          @Override
                          public void onResponse(Response<AddressDetail> response, Retrofit retrofit) {
-
+                             loadingDialog.dismiss();
                              if (response.isSuccess()) {
 
                                  AddressDetail address = response.body();
@@ -86,19 +86,14 @@ public class TxlDetailActivity extends RootActivity {
                                      ybTv.setText(address.getResult().getPostalcode());
                                      dwTv.setText(address.getResult().getUnit());
                                      nameTv.setText(address.getResult().getName());
-
-                                     dialog.dismiss();
                                  } else {
-                                     getResources().getString(R.string.error_data);
-
-                                     dialog.dismiss();
                                  }
                              }
                          }
 
                          @Override
                          public void onFailure(Throwable t) {
-                             dialog.dismiss();
+                             loadingDialog.dismiss();
                              Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
                          }
                      }

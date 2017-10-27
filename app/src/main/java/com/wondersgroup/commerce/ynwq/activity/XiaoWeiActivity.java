@@ -21,7 +21,7 @@ import com.wondersgroup.commerce.ynwq.bean.XiaoWeiResult;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -29,9 +29,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class XiaoWeiActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.xiaowei_recycler)RecyclerView recycler;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.xiaowei_recycler)RecyclerView recycler;
     XiaoWeiAdapter adapter;
     String supportId;
     String etpsId;

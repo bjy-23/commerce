@@ -220,8 +220,8 @@ public class TableRowUtils {
     }
 
     public void getDoc(String attachId){
-        final Dialog dialog = LoadingDialog.showCanCancelable(context);
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(context).build();
+        loadingDialog.show();
         HashMap<String, String> param = new HashMap<>();
         param.put(Constants.WS_CODE_REQ, "03010016");
         param.put("attachId", attachId);
@@ -230,7 +230,7 @@ public class TableRowUtils {
         call.enqueue(new Callback<Result<AttachBean>>() {
             @Override
             public void onResponse(Response<Result<AttachBean>> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 if(200 == response.body().getCode()){
                     FileUtils fileUtils = new FileUtils();
                     try {
@@ -248,7 +248,7 @@ public class TableRowUtils {
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(context, "下载失败", Toast.LENGTH_SHORT).show();
             }
         });

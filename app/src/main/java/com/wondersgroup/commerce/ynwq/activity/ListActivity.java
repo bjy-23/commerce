@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -38,9 +38,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class ListActivity extends AppCompatActivity {
-    @Bind(R.id.list_list)ListView list;
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
+    @BindView(R.id.list_list)ListView list;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
     private ArrayList<String> items=new ArrayList<>();
     private List<DicItem> dicItems=new ArrayList<>();
     private String type;

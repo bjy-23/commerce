@@ -37,8 +37,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -148,64 +146,6 @@ public class DominationSelectActivity extends RootActivity implements View.OnCli
 
         Intent intent = new Intent(context, DominationDeptActivity.class);
         startActivityForResult(intent, 0);
-
-    }
-
-    private void getDataWithNet(String orginId, String name) {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "07010003");
-        map.put("pageNo", "1");
-        map.put("pageSize", "100");
-        map.put("contactOrganId", "1");
-        map.put("contactUserName", "");
-        map.put("userId", loginBean.getResult().getUserId());
-        map.put("deptId", loginBean.getResult().getDeptId());
-        map.put("organId", loginBean.getResult().getOrganId());
-
-
-        Call<Address> call = ApiManager.oaApi.address(map);
-//        call.enqueue(new Callback<Address>() {
-//            @Override
-//            public void onResponse(Response<Address> response, Retrofit retrofit) {
-//
-//                if (response.isSuccess()) {
-//                    Address address = response.body();
-//
-//
-//                    if (address == null) {
-//                        dialog.dismiss();
-//                        Toast.makeText(DominationSelectActivity.this, "没有返回数据", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    if (address.getResult().getAddlistPersonalInfo() == null) {
-//                        dialog.dismiss();
-//                        lvData.clear();
-//                        Toast.makeText(context, "没有找到相关人员", Toast.LENGTH_SHORT).show();
-//
-//                        adapter.notifyDataSetChanged();
-//
-//                        return;
-//                    }
-//
-//                    lvData = address.getResult().getAddlistPersonalInfo();
-//
-//                    adapter.notifyDataSetChanged();
-//
-//                    dialog.dismiss();
-//                } else {
-//                    getResources().getString(R.string.error_data);
-//
-//                    dialog.dismiss();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable t) {
-//                dialog.dismiss();
-//                Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
     }
 

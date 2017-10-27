@@ -18,8 +18,6 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
-import com.wondersgroup.commerce.R;
-import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.MenuBean;
 import com.wondersgroup.commerce.model.MenuInfo;
 import com.wondersgroup.commerce.model.TotalLoginBean;
@@ -119,9 +117,9 @@ public class RootAppcation extends MultiDexApplication {
         config.writeDebugLogs();
         ImageLoader.getInstance().init(config.build());
 
-        Hawk.init(getApplicationContext())
-                .setEncryptionMethod(HawkBuilder.EncryptionMethod.NO_ENCRYPTION)
-                .setStorage(HawkBuilder.newSharedPrefStorage(getApplicationContext()))
+        Hawk.init(this)
+                .setEncryptionMethod(HawkBuilder.EncryptionMethod.MEDIUM)
+                .setStorage(HawkBuilder.newSqliteStorage(this))
                 .setLogLevel(LogLevel.FULL)
                 .build();
 

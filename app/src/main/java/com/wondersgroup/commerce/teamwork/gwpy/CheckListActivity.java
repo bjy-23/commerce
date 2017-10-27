@@ -21,7 +21,7 @@ import com.wondersgroup.commerce.model.SwTypeBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
@@ -30,9 +30,9 @@ import butterknife.OnItemClick;
  */
 public class CheckListActivity extends AppCompatActivity {
 
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.activity_checklist_list) ListView listView;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.activity_checklist_list) ListView listView;
 
     private String type;
 

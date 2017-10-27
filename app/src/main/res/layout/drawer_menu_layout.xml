@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="立案日期"
+        android:text="处罚日期"
         android:textSize="13sp"
         android:textColor="@color/deep_gray"
         android:layout_marginTop="11dp"

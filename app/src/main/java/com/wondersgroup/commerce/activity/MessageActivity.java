@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,14 +37,14 @@ import retrofit.Retrofit;
  */
 public class MessageActivity extends AppCompatActivity implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener,RecyclerAdapter.OnItemTouchListener{
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_txt) TextView title;
-    @Bind(R.id.toolbar_btn) Button button;
-    @Bind(R.id.toolbar_btn2) Button btn;
-    @Bind(R.id.msg_swipe)
+    @BindView(R.id.toolbar_txt) TextView title;
+    @BindView(R.id.toolbar_btn) Button button;
+    @BindView(R.id.toolbar_btn2) Button btn;
+    @BindView(R.id.msg_swipe)
     SwipeRefreshLayout swipe;
-    @Bind(R.id.msg_recycler)RecyclerView recyclerView;
+    @BindView(R.id.msg_recycler)RecyclerView recyclerView;
 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;

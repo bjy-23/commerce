@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -149,50 +148,6 @@ public class DominationDeptActivity extends RootActivity {
             setResult(levelNo, data);
             finish();
         }
-    }
-
-    private void getAllDept() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "00000001");
-        map.put("loginName", "xtywz");
-        map.put("password", "xdrcft56");
-        map.put("userId", "a0a0e39441ad45050141b068ab9803a8");
-        map.put("version", "1.0.2");
-        map.put("organId", "130000000");
-        map.put("deptId", "13000000001");
-
-        Call<Dept> call = ApiManager.hbApi.deptAll(map);
-//        call.enqueue(new Callback<Dept>() {
-//            @Override
-//            public void onResponse(Response<Dept> response, Retrofit retrofit) {
-//
-//                if (response.isSuccess()) {
-//                    Dept dept = response.body();
-//
-//                    if (dept.getResult() != null) {
-//                        assambleDept(dept.getResult().getOrganInfo());
-//
-//                    } else {
-//                        Toast.makeText(context, "服务器数据出错", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    dialog.dismiss();
-//                } else {
-//                    getResources().getString(R.string.error_data);
-//
-//                    dialog.dismiss();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable t) {
-//                dialog.dismiss();
-//                Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
     }
 
     class ChoiceListAdapter extends BaseAdapter {

@@ -3,9 +3,11 @@ package com.wondersgroup.commerce.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.teamwork.statistics.AnnalsActivity;
 import com.wondersgroup.commerce.teamwork.statistics.BanJieActivity;
 import com.wondersgroup.commerce.teamwork.statistics.BanLiActivity;
@@ -16,7 +18,8 @@ import com.wondersgroup.commerce.widget.InfoSelectBar;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -25,24 +28,18 @@ import butterknife.OnClick;
  */
 
 public class QueryCountActivity extends BaseActivity {
-
-    @Bind({R.id.qynb_link_1, R.id.qynb_link_2, R.id.qynb_link_3, R.id.qynb_link_4, R.id.qynb_link_5,
+    @BindViews({R.id.qynb_link_1, R.id.qynb_link_2, R.id.qynb_link_3, R.id.qynb_link_4, R.id.qynb_link_5,
             R.id.qynb_link_6, R.id.qynb_link_7, R.id.qynb_link_8, R.id.xwxx_link_1, R.id.xwxx_link_2,
             R.id.xwxx_link_3, R.id.xwxx_link_4, R.id.xwxx_link_5, R.id.jyyc_link_1, R.id.jyyc_link_2,
             R.id.jyyc_link_3, R.id.jyyc_link_4, R.id.jyyc_link_5, R.id.jyyc_link_6, R.id.gtgsh_link_1,
             R.id.gtgsh_link_2, R.id.gtgsh_link_3, R.id.gtgsh_link_4, R.id.gtgsh_link_5, R.id.gtgsh_link_6,
             R.id.gtgsh_link_7, R.id.gtgsh_link_8, R.id.bj, R.id.bl})
     List<InfoSelectBar> layoutList;
-    @Bind(R.id.nb)
-    InfoSelectBar nb;
-    @Bind(R.id.bj)
-    InfoSelectBar bj;
-    @Bind(R.id.bl)
-    InfoSelectBar bl;
-    @Bind(R.id.agr_annal)
-    InfoSelectBar agrAnnal;
-    @Bind(R.id.ywcx)
-    InfoSelectBar ywcx;
+
+    @BindView(R.id.layout_yn)
+    LinearLayout layoutYn;
+    @BindView(R.id.shjg)
+    InfoSelectBar shjg;
 
     private int[] iconList = {R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0
             , R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0, R.drawable.icons_0,
@@ -60,20 +57,16 @@ public class QueryCountActivity extends BaseActivity {
         ButterKnife.bind(this);
         tvTitle.setText("统计分析");
 
-        //        tjTitle = getResources().getStringArray(R.array.tj_item);
         tjTitle = getResources().getStringArray(R.array.tj_item_yn);
         for (int i = 0; i < tjTitle.length; i++) {
             layoutList.get(i).setText(tjTitle[i]);
             layoutList.get(i).setIcon(iconList[i]);
         }
 
-        bj.setText("消费维权投诉举报统计");
-        bj.setIcon(R.drawable.icons_0);
-        bl.setText("工商案件系统办理数统计");
-        bl.setIcon(R.drawable.icons_0);
-        agrAnnal.setText("农专年报进度统计");
-        ywcx.setText("市场主体户数统计");
-        nb.setText("年报情况统计");
+        if (Constants.AREA.equals(Constants.AREA_SC)){
+            layoutYn.setVisibility(View.GONE);
+            shjg.setVisibility(View.GONE);
+        }
     }
 
     @OnClick({R.id.qynb_link_1, R.id.qynb_link_2, R.id.qynb_link_3, R.id.qynb_link_4, R.id.qynb_link_5,
@@ -173,8 +166,10 @@ public class QueryCountActivity extends BaseActivity {
         startActivity(intent);
     }
 
-@OnClick({R.id.ywcx, R.id.nb, R.id.bj, R.id.bl, R.id.shy, R.id.agr_annal, R.id.yc, R.id.shjg, R.id.lryc
-            })    void onTextClick(View view) {        switch (view.getId()) {
+    @OnClick({R.id.ywcx, R.id.nb, R.id.bj, R.id.bl, R.id.agr_annal, R.id.yc, R.id.shjg, R.id.lryc
+    })
+    void onTextClick(View view) {
+        switch (view.getId()) {
             case R.id.ywcx://业务查询
                 startActivity(new Intent(this, QueryActivity.class));
                 break;
@@ -187,11 +182,6 @@ public class QueryCountActivity extends BaseActivity {
             case R.id.bl://办理
                 startActivity(new Intent(this, BanLiActivity.class));
                 break;
-            case R.id.shy://三合一案件系统办理数统计
-                Intent intent = new Intent(this, BanLiActivity.class);
-                intent.putExtra("KEY_TYPE", "SHY");
-                startActivity(intent);
-                break;
             case R.id.agr_annal://农专年报
 //                startActivity(new Intent(this, AgrAnnalActivity.class));
                 break;
@@ -202,8 +192,10 @@ public class QueryCountActivity extends BaseActivity {
                 startActivity(new Intent(this, OutActivity.class));
                 break;
             case R.id.shjg:
-                Toast.makeText(QueryCountActivity.this, "功能正在开发中", Toast.LENGTH_SHORT).show();
-            break;
+                Intent intent = new Intent(this, BanLiActivity.class);
+                intent.putExtra("KEY_TYPE", "SHY");
+                startActivity(intent);
+                break;
         }
     }
 

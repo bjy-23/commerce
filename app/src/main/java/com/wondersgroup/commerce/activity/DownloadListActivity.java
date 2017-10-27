@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,11 +37,11 @@ import retrofit.Retrofit;
 
 public class DownloadListActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.recycler)
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
     private List<SendDetailBean.Result.DocAttachFile> dataList;
@@ -137,8 +137,9 @@ public class DownloadListActivity extends AppCompatActivity {
 
     //下载附件
     public void getDoc(int pos){
-        final Dialog dialog = LoadingDialog.showCanCancelable(this);
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(DownloadListActivity.this)
+                .build();
+        loadingDialog.show();
         Map<String, String> body = new HashMap<>();
         body.put("wsCodeReq", "07010013");
         body.put("attachId", dataList.get(pos).getAttachId());
@@ -146,7 +147,7 @@ public class DownloadListActivity extends AppCompatActivity {
         call.enqueue(new Callback<FileBean>() {
             @Override
             public void onResponse(Response<FileBean> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 if(response!=null && response.body()!=null){
                     if("200".equals(response.body().getCode())){
                         FileUtils fileUtils = new FileUtils();
@@ -166,7 +167,7 @@ public class DownloadListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(DownloadListActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
             }
         });

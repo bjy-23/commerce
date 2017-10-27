@@ -112,22 +112,8 @@ public class DailyFragment extends Fragment {
 		view = inflater.inflate(R.layout.mode_expandablelist, container, false);
 		activity = (AppCompatActivity) getActivity();
 		application = (RootAppcation) activity.getApplication();
-		progressDialog = LoadingDialog.showCanCancelable(getActivity());
-		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
-//		title.setText(application.getBigBean().getEtpsInfoVo().get("etpsName"));
-
-		// mLocationClient = application.mLocationClient;
-		// mLocationClient.registerLocationListener(new BDLocationListener() {
-		//
-		// @Override
-		// public void onReceiveLocation(BDLocation arg0) {
-		// gpsString = "(" + arg0.getLatitude() + ","
-		// + arg0.getLongitude() + ");" + arg0.getAddrStr();
-		// Log.e("gpsString", gpsString);
-		// gpsInfo.setText(gpsString);
-		// }
-		// });
-		// mLocationClient.requestLocation();
+		progressDialog = new LoadingDialog.Builder(getActivity())
+				.build();
 		headView = inflater.inflate(R.layout.q_dailycheck_up, null);
 		footView = inflater.inflate(R.layout.q_dailycheck_down, null);
 

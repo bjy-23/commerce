@@ -41,17 +41,20 @@
                 {
                     "menuName":"案件调查",
                     "authId":"03010033",
-                    "type":0
+                    "type":0,
+                    "isShow":true
                 },
                 {
                     "menuName":"我的案件查询",
                     "authId":"03010033",
-                    "type":0
+                    "type":0,
+                    "isShow":true
                 },
                 {
                     "menuName":"案件查询",
                     "authId":"03010009",
-                    "type":"0"
+                    "type":"0",
+                    "isShow":true
                 }
                     ],
             "isShow":true
@@ -62,12 +65,14 @@
                  {
                      "menuName":"案件调查",
                      "authId":"03040033",
-                     "type":0
+                     "type":0,
+                     "isShow":true
                  },
                  {
                      "menuName":"我的案件查询",
                      "authId":"03040033",
-                     "type":0
+                     "type":0,
+                     "isShow":true
                  }
                      ],
              "isShow":true
@@ -78,12 +83,14 @@
                  {
                      "menuName":"抽查检查录入\n(实地核查)",
                      "authId":"05021530,05022530,05023530,05024530",
-                     "type":1
+                     "type":1,
+                     "isShow":true
                  },
                  {
                      "menuName":"抽查检查查询",
                      "authId":"05021580,05022580,05023580,05024580",
-                     "type":1
+                     "type":1,
+                     "isShow":true
                  }
                      ],
              "isShow":false
@@ -94,12 +101,14 @@
                   {
                      "menuName":"投诉举报处理",
                      "authId":"02050141",
-                     "type":0
+                     "type":0,
+                     "isShow":true
                   },
                   {
                      "menuName":"投诉举报查询",
                      "authId":"02050214",
-                     "type":0
+                     "type":0,
+                     "isShow":true
                   }
                      ],
              "isShow":true
@@ -110,12 +119,14 @@
                   {
                      "menuName":"非公党建管理",
                      "authId":"01120603",
-                     "type":0
+                     "type":0,
+                     "isShow":true
                   },
                   {
                      "menuName":"非公党建查询",
                      "authId":"01120602",
-                     "type":0
+                     "type":0,
+                     "isShow":true
                   }
                      ],
              "isShow":true
@@ -126,7 +137,8 @@
                   {
                      "menuName":"微企财补初审",
                      "authId":"01103000",
-                     "type":0
+                     "type":0,
+                     "isShow":true
                   }
                      ],
              "isShow":true

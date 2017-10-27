@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -47,39 +47,39 @@ import retrofit.Retrofit;
  * 工商案件系统办理数统计
  */
 public class BanLiActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.divider)
+    @BindView(R.id.divider)
     View divider;
-    @Bind(R.id.location)
+    @BindView(R.id.location)
     TextView location;
-    @Bind(R.id.lian_total)
+    @BindView(R.id.lian_total)
     TextView lianTotal;
-    @Bind(R.id.lian_normal)
+    @BindView(R.id.lian_normal)
     TextView lianNormal;
-    @Bind(R.id.lian_percent)
+    @BindView(R.id.lian_percent)
     TextView lianPercent;
-    @Bind(R.id.jiean_total)
+    @BindView(R.id.jiean_total)
     TextView jieanTotal;
-    @Bind(R.id.jiean_normal)
+    @BindView(R.id.jiean_normal)
     TextView jieanNormal;
-    @Bind(R.id.jiean_percent)
+    @BindView(R.id.jiean_percent)
     TextView jieanPercent;
-    @Bind(R.id.famo_total)
+    @BindView(R.id.famo_total)
     TextView famoTotal;
-    @Bind(R.id.famo_tall)
+    @BindView(R.id.famo_tall)
     TextView famoTall;
-    @Bind(R.id.famo_percent)
+    @BindView(R.id.famo_percent)
     TextView famoPercent;
-    @Bind(R.id.startDate)
+    @BindView(R.id.startDate)
     TextView mStartDate;
-    @Bind(R.id.endDate)
+    @BindView(R.id.endDate)
     TextView mEndDate;
-    @Bind(R.id.linear_date)
+    @BindView(R.id.linear_date)
     LinearLayout mLinearDate;
-    @Bind(R.id.iv_select)
+    @BindView(R.id.iv_select)
     ImageView mIVSelect;
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
     private HashMap<String, String> params = new HashMap<>();

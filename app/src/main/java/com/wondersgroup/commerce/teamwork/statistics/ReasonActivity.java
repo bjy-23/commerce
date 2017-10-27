@@ -32,7 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.Response;
@@ -42,13 +42,13 @@ import retrofit.Retrofit;
  * 移入移出原因
  */
 public class ReasonActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.recycler)
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
-    @Bind(R.id.reason)
+    @BindView(R.id.reason)
     TextView reason;
     private HashMap<String, String> params = new HashMap<>();
     private ReasonAdapter adapter;

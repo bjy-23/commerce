@@ -17,20 +17,20 @@ import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.utils.CheckUtil;
 
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class YDJYXZActivity extends AppCompatActivity{
 
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView toolTitle;
-    @Bind(R.id.btn_check)
+    @BindView(R.id.btn_check)
     Button btnCheck;
-    @Bind(R.id.name)
+    @BindView(R.id.name)
     EditText etName;
-    @Bind(R.id.zch)
+    @BindView(R.id.zch)
     EditText etZch;
 
     private int type;

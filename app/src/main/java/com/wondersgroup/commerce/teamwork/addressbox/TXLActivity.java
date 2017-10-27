@@ -36,8 +36,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -212,7 +210,9 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
     }
 
     private void getDataWithNet(String orginId, String name) {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(TXLActivity.this)
+                .build();
+        loadingDialog.show();
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "07010003");
         map.put("pageNo", "1");
@@ -228,18 +228,16 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
         call.enqueue(new Callback<Address>() {
             @Override
             public void onResponse(Response<Address> response, Retrofit retrofit) {
-
+                loadingDialog.dismiss();
                 if (response.isSuccess()) {
                     Address address = response.body();
 
 
                     if (address == null) {
-                        dialog.dismiss();
                         Toast.makeText(TXLActivity.this, "没有返回数据", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (address.getResult().getAddlistPersonalInfo() == null) {
-                        dialog.dismiss();
                         lvData.clear();
                         Toast.makeText(context, "没有找到相关人员", Toast.LENGTH_SHORT).show();
 
@@ -256,16 +254,14 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
 
                     adapter.notifyDataSetChanged();
 
-                    dialog.dismiss();
                 } else {
                     Toast.makeText(mContext, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
         });

@@ -37,10 +37,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -50,23 +49,23 @@ import retrofit.Retrofit;
  * Created by kangrenhui on 2016/1/19.
  */
 public class FragmentFour extends RootFragment {
-    @Bind(R.id.img_head)
+    @BindView(R.id.img_head)
     ImageView imgHead;
-    @Bind(R.id.setting_name)
+    @BindView(R.id.setting_name)
     TextView nameTxt;
-    @Bind(R.id.setting_organ)
+    @BindView(R.id.setting_organ)
     TextView organTxt;
-    @Bind(R.id.setting_dept)
+    @BindView(R.id.setting_dept)
     TextView deptTxt;
-    @Bind(R.id.setting_dept_img)
+    @BindView(R.id.setting_dept_img)
     ImageView deptImg;
-    @Bind(R.id.btn_check)
+    @BindView(R.id.btn_check)
     TextView btnCheck;
-    @Bind(R.id.version)
+    @BindView(R.id.version)
     TextView version;
-    @Bind(R.id.btn_about)
+    @BindView(R.id.btn_about)
     TextView btnAbout;
-    @Bind(R.id.btn_exit)
+    @BindView(R.id.btn_exit)
     TextView btnExit;
 
     FragmentManager fm;
@@ -116,7 +115,6 @@ public class FragmentFour extends RootFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @OnClick({R.id.setting_dept_layout, R.id.btn_check, R.id.btn_about, R.id.btn_exit})
@@ -191,7 +189,6 @@ public class FragmentFour extends RootFragment {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         pos = which;
-                        deptNet();
                         return true;
                     }
                 })
@@ -201,64 +198,6 @@ public class FragmentFour extends RootFragment {
     }
 
 
-    /**
-     * 工商切换部门网络请求
-     */
-    private void deptNet() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(getActivity());
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "00000001");
-        map.put("loginName", (String) dataShared.get("name", ""));
-        map.put("password", (String) dataShared.get("pwd", ""));
-        map.put("deptId", deptList.get(pos).split(",")[0]);
-
-        Call<TotalLoginBean> call;
-        if("湖南".equals(rootApplication.getVersion())) {
-            call = ApiManager.hnApi.login(map);
-        }else {
-            call = ApiManager.hbApi.login(map);
-        }
-        call.enqueue(new Callback<TotalLoginBean>() {
-            @Override
-            public void onResponse(Response<TotalLoginBean> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-
-                    TotalLoginBean login = response.body();
-
-                    if ((null == login) || (null == login.getResult()) || !(null == login.getResult().getErrorMsg())) {
-                        Toast.makeText(getActivity(), "出现未知错误", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                        return;
-                    }else{
-                        DataShared dataShared = new DataShared(getActivity());
-                        dataShared.put("userId",login.getResult().getUserId());
-                        dataShared.put("deptId",login.getResult().getDeptId());
-                        dataShared.put("organId",login.getResult().getOrganId());
-                        dataShared.put("userName",login.getResult().getUserName());
-                        dataShared.put("deptName",login.getResult().getDeptName());
-                        dataShared.put("organName",login.getResult().getOrganName());
-                    }
-                    rootApplication.setTotalLoginBean(login);
-                    organTxt.setText(login.getResult().getOrganName());
-                    deptTxt.setText(login.getResult().getDeptName());
-
-                } else {
-
-                    Toast.makeText(getActivity(), getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
-                }
-
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                if(dialog.isShowing())dialog.dismiss();
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     /**
      * 获取当前版本号

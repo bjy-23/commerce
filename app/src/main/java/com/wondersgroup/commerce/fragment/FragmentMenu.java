@@ -24,7 +24,7 @@ import com.wondersgroup.commerce.utils.DividerItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -33,11 +33,11 @@ import butterknife.ButterKnife;
  */
 
 public class FragmentMenu extends Fragment {
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private List<MenuInfo> data;

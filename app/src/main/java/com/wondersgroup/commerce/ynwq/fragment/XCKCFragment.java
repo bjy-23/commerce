@@ -47,7 +47,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.picasso.Picasso;
-import com.wondersgroup.commerce.Manifest;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
@@ -78,9 +77,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
@@ -97,35 +95,35 @@ import retrofit.Retrofit;
  * 现场勘查
  */
 public class XCKCFragment extends Fragment implements View.OnClickListener, PicShowActivity.DeleteListener {
-    @Bind(R.id.xckc_entName)
+    @BindView(R.id.xckc_entName)
     LabelText entName;
-    @Bind(R.id.xckc_legRpName)
+    @BindView(R.id.xckc_legRpName)
     LabelText person;
-    @Bind(R.id.xckc_phone)
+    @BindView(R.id.xckc_phone)
     LabelText phone;
-    @Bind(R.id.xckc_addr)
+    @BindView(R.id.xckc_addr)
     LabelInput addr;
-    @Bind(R.id.xckc_addrType)
+    @BindView(R.id.xckc_addrType)
     LabelInput addrType;
-    @Bind(R.id.xckc_area)
+    @BindView(R.id.xckc_area)
     LabelNum area;
-    @Bind(R.id.xckc_isRight)
+    @BindView(R.id.xckc_isRight)
     LabelSwitch isRight;
-    @Bind(R.id.xckc_isNecessary)
+    @BindView(R.id.xckc_isNecessary)
     LabelSwitch isNecessary;
-    @Bind(R.id.xckc_assess)
+    @BindView(R.id.xckc_assess)
     LabelInput assess;
-    @Bind(R.id.xckc_checkMan)
+    @BindView(R.id.xckc_checkMan)
     TextView checkTitle;
-    @Bind(R.id.xckc_checkManOne)
+    @BindView(R.id.xckc_checkManOne)
     EditText firstBlood;
-    @Bind(R.id.xckc_checkManTwo)
+    @BindView(R.id.xckc_checkManTwo)
     EditText doubleKill;
-    @Bind(R.id.xckc_note)
+    @BindView(R.id.xckc_note)
     LabelInput note;
-    @Bind(R.id.xckc_submit)
+    @BindView(R.id.xckc_submit)
     Button submit;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private static final String ARG_ID = "paramId";
@@ -147,7 +145,7 @@ public class XCKCFragment extends Fragment implements View.OnClickListener, PicS
     private XckcAdapter mAdapter;
     private List<PicBean> images;
     private final static int IMG_PICKER = 10000;
-    private SweetAlertDialog loadingDialog;
+    private LoadingDialog loadingDialog;
 
     private Handler handler = new Handler() {
         @Override
@@ -299,8 +297,9 @@ public class XCKCFragment extends Fragment implements View.OnClickListener, PicS
         if (v.equals(submit)) {
             if (isAllFilled()) {
                 if (downSum == 0){
-                    loadingDialog = LoadingDialog.showCanCancelable(getActivity());
-                    loadingDialog.setTitleText("提交中...");
+                    loadingDialog = new LoadingDialog.Builder(getActivity())
+                            .msg("提交中...")
+                            .build();
                     loadingDialog.show();
                     Map<String, String> body = new HashMap<>();
                     body.put("wsCodeReq", "01100001");

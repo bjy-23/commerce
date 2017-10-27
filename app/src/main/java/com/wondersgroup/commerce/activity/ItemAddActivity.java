@@ -12,11 +12,11 @@ import com.wondersgroup.commerce.utils.TableRowUtils;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ItemAddActivity extends BaseActivity {
-    @Bind(R.id.layout_add)
+    @BindView(R.id.layout_add)
     LinearLayout layoutAdd;
 
     private String type;

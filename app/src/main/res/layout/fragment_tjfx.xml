@@ -39,86 +39,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="业务查询"
-                    app:content="业务查询" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    app:content="市场主体户数统计" />
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/nb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="年报"
-                    app:content="年报" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    app:content="市场主体年报进度情况统计" />
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/bj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    android:background="@color/white"
+                    app:content="消费维权投诉举报统计"/>
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/bl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/shy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:text="三合一案件系统办理数统计"
-                    app:content="三合一案件系统办理数统计" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    app:content="工商案件系统办理数统计"/>
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/agr_annal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:visibility="gone" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    app:content="农专年报进度统计"/>
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/lryc"
@@ -127,26 +77,12 @@
                     android:background="@color/white"
                     app:content="列入经营异常名录统计" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/yc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     app:content="移出经营异常名录统计" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/shjg"
@@ -160,415 +96,262 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:id="@+id/layout_yn"
+                android:visibility="visible">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:background="@color/tjnz"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="企业年报"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="33dp"
+                        android:background="@color/tjnz"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="企业年报"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:background="@color/gray_dark" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/qynb_link_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                </LinearLayout>
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_7"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="33dp"
+                        android:background="@color/tjwz"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="小微信息"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/qynb_link_8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/xwxx_link_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-            </LinearLayout>
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/xwxx_link_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/xwxx_link_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:background="@color/tjwz"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="小微信息"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/xwxx_link_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/xwxx_link_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/xwxx_link_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                </LinearLayout>
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/xwxx_link_2"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="33dp"
+                        android:background="@color/tjwq"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="经营异常"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/xwxx_link_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/jyyc_link_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/jyyc_link_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/xwxx_link_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/jyyc_link_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/jyyc_link_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/xwxx_link_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/jyyc_link_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-            </LinearLayout>
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/jyyc_link_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:background="@color/tjwq"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="经营异常"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/jyyc_link_1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="33dp"
+                        android:background="@color/tjcf"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="个体工商户"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/jyyc_link_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/jyyc_link_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/jyyc_link_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/jyyc_link_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
+                    <com.wondersgroup.commerce.widget.InfoSelectBar
+                        android:id="@+id/gtgsh_link_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
 
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/jyyc_link_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="33dp"
-                    android:background="@color/tjcf"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="个体工商户"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:background="@color/gray_dark" />
-
-                <com.wondersgroup.commerce.widget.InfoSelectBar
-                    android:id="@+id/gtgsh_link_8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white" />
-
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

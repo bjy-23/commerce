@@ -53,7 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -71,29 +71,29 @@ import retrofit.Retrofit;
 public class CaseInvestigateActivity extends AppCompatActivity {
 
     private final String TAG = "CaseInvestigateActivity";
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.simple_navigation_drawer)
+    @BindView(R.id.simple_navigation_drawer)
     DrawerLayout drawerLayout;
-    @Bind(R.id.search_bar)
+    @BindView(R.id.search_bar)
     RelativeLayout searchBar;
-    @Bind(R.id.searchtxt)
+    @BindView(R.id.searchtxt)
     EditText searchEdit;
-    @Bind(R.id.drawer_btn_list)
+    @BindView(R.id.drawer_btn_list)
     RecyclerView casestageRecyclerView;
-    @Bind(R.id.date1)
+    @BindView(R.id.date1)
     LinearLayout startDateLayout;
-    @Bind(R.id.date1txt)
+    @BindView(R.id.date1txt)
     TextView startDateTxt;
-    @Bind(R.id.date2)
+    @BindView(R.id.date2)
     LinearLayout endDateLayout;
-    @Bind(R.id.date2txt)
+    @BindView(R.id.date2txt)
     TextView endDateTxt;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.layout_error)
     View layoutError;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private CaseAdapter caseAdapter;
@@ -172,7 +172,7 @@ public class CaseInvestigateActivity extends AppCompatActivity {
                 } else {
                     Intent mIntent = new Intent(CaseInvestigateActivity.this, CaseQueryDetailActivity.class);
                     mIntent.putExtra("clueNo", data.getClueNo());
-                    mIntent.putExtra(Constants.TYPE, Constants.SC);
+                    mIntent.putExtra(Constants.TYPE, Constants.AREA_SC);
                     startActivity(mIntent);
                 }
             }
@@ -379,7 +379,6 @@ public class CaseInvestigateActivity extends AppCompatActivity {
                     CaseInvestigateListBean caseList = response.body();
                     totalRecord = caseList.getResult().getTotalRecord();
                     pageMax = caseList.getResult().getPageCount();
-
                     if (caseStatusMap == null && caseList.getCaseStatus() != null) {
                         caseStatusMap = DataUtils.makeDicFromJson(caseList.getCaseStatus());
                         stateBtnStr.addAll(DataUtils.makeDicList(caseList.getCaseStatus(), false));
@@ -435,6 +434,7 @@ public class CaseInvestigateActivity extends AppCompatActivity {
                     isLoaded = true;
                     CaseQueryResult caseQueryResult = response.body();
                     totalRecord = caseQueryResult.getTotalRecord();
+                    pageMax = caseQueryResult.getPageCount();
                     dataList.addAll(caseQueryResult.getResult());
                     caseAdapter.notifyDataSetChanged();
                 } else {

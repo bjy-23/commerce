@@ -13,7 +13,7 @@ import com.wondersgroup.commerce.R;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -77,10 +77,10 @@ public class InfoItemListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        @Bind(R.id.text1) TextView name;
-        @Bind(R.id.text2) TextView date;
-        @Bind(R.id.img) ImageView rangeImg;
-        @Bind(R.id.text3) TextView rangeName;
+        @BindView(R.id.text1) TextView name;
+        @BindView(R.id.text2) TextView date;
+        @BindView(R.id.img) ImageView rangeImg;
+        @BindView(R.id.text3) TextView rangeName;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -15,7 +15,8 @@ import com.wondersgroup.commerce.teamwork.statistics.bean.In;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 /**
@@ -123,26 +124,26 @@ public class InOutAdapter extends RecyclerView.Adapter<InOutAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.relative)
+        @BindView(R.id.relative)
         RelativeLayout relative;
-        @Bind(R.id.relative_1)
+        @BindView(R.id.relative_1)
         RelativeLayout relative1;
-        @Bind(R.id.relative_2)
+        @BindView(R.id.relative_2)
         RelativeLayout relative2;
-        @Bind(R.id.relative_3)
+        @BindView(R.id.relative_3)
         RelativeLayout relative3;
 
-        @Bind({R.id.title, R.id.title1, R.id.title2, R.id.title3})
+        @BindViews({R.id.title, R.id.title1, R.id.title2, R.id.title3})
         List<TextView> titleList;
-        @Bind(R.id.type)
+        @BindView(R.id.type)
         TextView type;
-        @Bind(R.id.totalNum)
+        @BindView(R.id.totalNum)
         TextView totalNum;
-        @Bind(R.id.totalNum1)
+        @BindView(R.id.totalNum1)
         TextView totalNum1;
-        @Bind(R.id.totalNum2)
+        @BindView(R.id.totalNum2)
         TextView totalNum2;
-        @Bind(R.id.totalNum3)
+        @BindView(R.id.totalNum3)
         TextView totalNum3;
 
         public ViewHolder(View itemView) {

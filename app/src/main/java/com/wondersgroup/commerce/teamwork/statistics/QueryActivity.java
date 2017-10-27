@@ -28,7 +28,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lecho.lib.hellocharts.model.Axis;
@@ -47,39 +48,39 @@ import retrofit.Retrofit;
  */
 public class QueryActivity extends AppCompatActivity {
     public final String unit = "%s件";
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.type)
+    @BindView(R.id.type)
     TextView mType;
-    @Bind(R.id.location)
+    @BindView(R.id.location)
     TextView location;
-    @Bind(R.id.divider)
+    @BindView(R.id.divider)
     View divider;
     private boolean hasAxes = true;
     private boolean hasAxesNames = true;
     private boolean hasLabels = false;
     private boolean hasLabelForSelected = false;
     private ColumnChartData data;
-    @Bind({R.id.legend1, R.id.legend2, R.id.legend3})
+    @BindViews({R.id.legend1, R.id.legend2, R.id.legend3})
     List<TextView> legendList;
-    @Bind(R.id.column_chart)
+    @BindView(R.id.column_chart)
     ColumnChartView chart;
 
-    @Bind({R.id.ent, R.id.nz, R.id.pe})
+    @BindViews({R.id.ent, R.id.nz, R.id.pe})
     List<TextView> typeViewList;
-    @Bind({R.id.total_live, R.id.qy_live, R.id.nz_live, R.id.pe_live})
+    @BindViews({R.id.total_live, R.id.qy_live, R.id.nz_live, R.id.pe_live})
     List<TextView> liveViewList;
-    @Bind({R.id.total_repeal, R.id.qy_repeal, R.id.nz_repeal, R.id.pe_repeal})
+    @BindViews({R.id.total_repeal, R.id.qy_repeal, R.id.nz_repeal, R.id.pe_repeal})
     List<TextView> repealViewList;
-    @Bind({R.id.total_pe, R.id.qy_move, R.id.nz_move, R.id.pe_move})
+    @BindViews({R.id.total_pe, R.id.qy_move, R.id.nz_move, R.id.pe_move})
     List<TextView> moveViewList;
-    @Bind({R.id.label_qy_live, R.id.label_nz_live, R.id.label_pe_live})
+    @BindViews({R.id.label_qy_live, R.id.label_nz_live, R.id.label_pe_live})
     List<TextView> liveLabelList;
-    @Bind({R.id.label_qy_repeal, R.id.label_nz_repeal, R.id.label_pe_repeal})
+    @BindViews({R.id.label_qy_repeal, R.id.label_nz_repeal, R.id.label_pe_repeal})
     List<TextView> repealLabelList;
-    @Bind({R.id.label_qy_move, R.id.label_nz_move, R.id.label_pe_move})
+    @BindViews({R.id.label_qy_move, R.id.label_nz_move, R.id.label_pe_move})
     List<TextView> moveLabelList;
     List<String> statusList = new ArrayList<>();
     List<String> typeList = new ArrayList<>();
@@ -87,13 +88,13 @@ public class QueryActivity extends AppCompatActivity {
     private boolean isZCBJ = true;//1表示获取全局数据，0表示只查本级。
     private int type;
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
-    @Bind(R.id.startDate)
+    @BindView(R.id.startDate)
     TextView mStartDate;
-    @Bind(R.id.endDate)
+    @BindView(R.id.endDate)
     TextView mEndDate;
-    @Bind(R.id.linear_date)
+    @BindView(R.id.linear_date)
     LinearLayout mLinearDate;
-    @Bind(R.id.iv_select)
+    @BindView(R.id.iv_select)
     ImageView mIVSelect;
     private AnnalsDatePopup popup;
     private EtpsAndPeInfo.EtpsAndPeInfoResult etpsAndPeInfoResult;

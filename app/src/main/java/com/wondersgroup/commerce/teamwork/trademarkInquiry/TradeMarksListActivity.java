@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
@@ -39,6 +41,7 @@ import com.wondersgroup.commerce.adapter.Title4RowAdapter;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.CaseInvestigateListBean;
+import com.wondersgroup.commerce.model.Dept;
 import com.wondersgroup.commerce.model.KeyValue;
 import com.wondersgroup.commerce.model.Title4RowItem;
 import com.wondersgroup.commerce.model.TotalLoginBean;
@@ -50,6 +53,7 @@ import com.wondersgroup.commerce.teamwork.simpleprocedurecase.ProcedureCaseListA
 import com.wondersgroup.commerce.teamwork.statistics.DeptActivity;
 import com.wondersgroup.commerce.utils.DataShared;
 import com.wondersgroup.commerce.widget.CusDatePickerDialog;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import java.sql.Date;
@@ -58,13 +62,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+
+import static android.support.v7.recyclerview.R.styleable.RecyclerView;
 
 /*
 * 注册商标 列表页面
@@ -77,43 +83,43 @@ public class TradeMarksListActivity extends AppCompatActivity {
     private final String MARK_CHOOSE_OPTION_NO_LIMITED = "不限";
     private final String MARK_CHOOSE_OPTION_YES = "是";
     private final String MARK_CHOOSE_OPTION_NO = "不是";
-    @Bind(R.id.toolbar_edit)
+    @BindView(R.id.toolbar_edit)
     EditText toolbarEdit;
-    @Bind(R.id.toolbar_clear)
+    @BindView(R.id.toolbar_clear)
     ImageView toolbarClear;
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.searchresult_list)
+    @BindView(R.id.searchresult_list)
     ListView searchRecyclerView;
-    @Bind(R.id.type_txt)
+    @BindView(R.id.type_txt)
     TextView typeTxt;
-    @Bind(R.id.searchresult_type)
+    @BindView(R.id.searchresult_type)
     LinearLayout searchresultType;
-    @Bind(R.id.txt_obligeetype)
+    @BindView(R.id.txt_obligeetype)
     TextView obligeetypeTxt;
-    @Bind(R.id.txt_claim_state)
+    @BindView(R.id.txt_claim_state)
     TextView claimStateTxt;
-    @Bind(R.id.txt_more)
+    @BindView(R.id.txt_more)
     TextView moreTxt;
-    @Bind(R.id.gray_view)
+    @BindView(R.id.gray_view)
     View grayBg;
-    @Bind(R.id.right_btn)
+    @BindView(R.id.right_btn)
     LinearLayout qrBtn;
-    @Bind(R.id.drawer_choose_list)
+    @BindView(R.id.drawer_choose_list)
     ListView chooseMenuOptionsList;
-    @Bind(R.id.date1txt)
+    @BindView(R.id.date1txt)
     TextView date1txt;
-    @Bind(R.id.date1)
+    @BindView(R.id.date1)
     LinearLayout date1;
-    @Bind(R.id.date2txt)
+    @BindView(R.id.date2txt)
     TextView date2txt;
-    @Bind(R.id.date2)
+    @BindView(R.id.date2)
     LinearLayout date2;
-    @Bind(R.id.simple_navigation_drawer)
+    @BindView(R.id.simple_navigation_drawer)
     DrawerLayout drawerLayout;
-    @Bind(R.id.tvDominationName)
+    @BindView(R.id.tvDominationName)
     TextView tvDominationNameSelected;
-    @Bind(R.id.tvRegisterName)
+    @BindView(R.id.tvRegisterName)
     TextView tvRegisterNameSelected;
 
     private String type;
@@ -155,6 +161,7 @@ public class TradeMarksListActivity extends AppCompatActivity {
     private int page = 1;
     private TotalLoginBean loginBean;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,6 +190,7 @@ public class TradeMarksListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        initOnScrollListener();
         marksList = new ArrayList<TradeMarkVoList>();
         checkTypeKeyValueList = new ArrayList<KeyValue>();
         checkTypeList = new ArrayList<String>();
@@ -256,6 +264,50 @@ public class TradeMarksListActivity extends AppCompatActivity {
 
     }
 
+    public void initOnScrollListener() {
+
+        //设置Listview的滑动监听
+        searchRecyclerView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                switch (scrollState) {
+                    //滚动结束
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                        //滚动停止时，判断如果滚动到底部
+                        if (view.getLastVisiblePosition()==marksList.size()-1) {
+                            // 使页数加1
+                            page++;
+                            Toast.makeText(TradeMarksListActivity.this, "page = " + page, Toast.LENGTH_SHORT).show();
+                            getMoreTradeMarksList();
+                        }else if (view.getFirstVisiblePosition()==0) {
+                            //滚动到顶部
+                            // 重新定义为第一页
+                        }
+
+                        break;
+                    //开始滚动
+                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+
+                        break;
+                    //正在滚动
+                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
+    }
+
+
+
     //获取
     private void initNetData() {
         ApiManager.getInstance().unitTestInit();
@@ -315,8 +367,8 @@ public class TradeMarksListActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                     getTradeMarksList();
+
 
                 } else {
                     Toast.makeText(TradeMarksListActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
@@ -366,6 +418,57 @@ public class TradeMarksListActivity extends AppCompatActivity {
                         marksList.addAll(marksData.getResult());
                         marksAdapter = new RegisterMarksAdapter(TradeMarksListActivity.this, marksList);
                         searchRecyclerView.setAdapter(marksAdapter);
+                    }
+
+                } else {
+                    Toast.makeText(TradeMarksListActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(TradeMarksListActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //获取注册商标列表
+    private void getMoreTradeMarksList(){
+        String userId = loginBean.getResult().getUserId();
+        String organId = loginBean.getResult().getOrganId();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        map.put("organId", organId);
+        map.put("pageNo", ""+page);
+        map.put("wsCodeReq", "03019991");
+
+        getConditions(map);
+
+        Call<TradeMarkItemListBean> call;
+        call = ApiManager.tradeMarkApi.getTmRegInfoList(map);
+
+        call.enqueue(new Callback<TradeMarkItemListBean>() {
+            @Override
+            public void onResponse(Response<TradeMarkItemListBean> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    MyProgressDialog.dismiss();
+                    TradeMarkItemListBean marksData = response.body();
+
+                    if ((null == marksData) || (null == marksData.getResult())) {
+                        Toast.makeText(TradeMarksListActivity.this, "获得商标数据错误", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(marksData.getTotalRecord()!=null && marksData.getTotalRecord().equals(String.valueOf(marksList.size()))){
+                        Toast.makeText(TradeMarksListActivity.this, "没有下一页！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (null != marksData.getResult()) {
+
+                        marksList.addAll(marksList.size(),marksData.getResult());
+                        marksAdapter = new RegisterMarksAdapter(TradeMarksListActivity.this, marksList);
+                        searchRecyclerView.setAdapter(marksAdapter);
+                        searchRecyclerView.setSelection((page-1)*25);
                     }
 
                 } else {
@@ -495,8 +598,10 @@ public class TradeMarksListActivity extends AppCompatActivity {
                         typePopup.dismiss();
                         obligeetypeTxt.setText(checkRegisterTypeList.get(position).split("=")[1].trim() + " ▼");
                         for(KeyValue option : checkRegisterTypeKeyValueList)
-                            if(option.getValue().equals(checkRegisterTypeList.get(position).split("=")[1].trim()))
+                            if(option.getValue().equals(checkRegisterTypeList.get(position).split("=")[1].trim())){
                                 typeAuthorChosen = option.getKey();
+                                getTradeMarksList();
+                            }
                     }
                 });
                 typePopup = new PopupWindow(this);
@@ -535,8 +640,10 @@ public class TradeMarksListActivity extends AppCompatActivity {
                         typePopup.dismiss();
                         claimStateTxt.setText(checkAcceptConTypeList.get(position).split("=")[1].trim() + " ▼");
                         for(KeyValue option : checkAcceptConTypeKeyValueList)
-                            if(option.getValue().equals(checkAcceptConTypeList.get(position).split("=")[1].trim()))
+                            if(option.getValue().equals(checkAcceptConTypeList.get(position).split("=")[1].trim())){
                                 typeGetChosen = option.getKey();
+                                getTradeMarksList();
+                            }
                     }
                 });
                 typePopup = new PopupWindow(this);
@@ -676,8 +783,9 @@ public class TradeMarksListActivity extends AppCompatActivity {
             Bundle b = data.getExtras(); //data为B中回传的Intent
             String organId = b.getString("organId");//str即为回传的值
             String organName = b.getString("organName");
+            String gbCode = b.getString("gbCode");
             if(requestCode == 1){
-                managerDepartment = organId;
+                managerDepartment = gbCode;
                 tvDominationNameSelected.setText(organName);
             }
             if(requestCode == 2){

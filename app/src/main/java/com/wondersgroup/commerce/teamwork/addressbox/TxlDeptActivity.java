@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -297,71 +295,10 @@ public class TxlDeptActivity extends RootActivity {
 
     }
 
-    private void getSecondData(String organId, String deptId) {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "00000001");
-        map.put("loginName", "xtywz");
-        map.put("password", "xdrcft56");
-        map.put("userId", "a0a0e39441ad45050141b068ab9803a8");
-        map.put("version", "1.0.2");
-        map.put("organId", organId);
-        map.put("deptId", deptId);
-
-        Call<DeptTwo> call = ApiManager.hbApi.deptOrganId(map);
-        call.enqueue(new Callback<DeptTwo>() {
-            @Override
-            public void onResponse(Response<DeptTwo> response, Retrofit retrofit) {
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                dialog.dismiss();
-                Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void getFirstData() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
-
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("wsCodeReq", "00000001");
-        map.put("loginName", "xtywz");
-        map.put("password", "xdrcft56");
-        map.put("userId", "a0a0e39441ad45050141b068ab9803a8");
-        map.put("version", "1.0.2");
-        map.put("organId", "130000000");
-
-        Call<DeptOne> call = ApiManager.hbApi.deptOrganDept(map);
-        call.enqueue(new Callback<DeptOne>() {
-            @Override
-            public void onResponse(Response<DeptOne> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-
-                    oneAdapter.notifyDataSetChanged();
-
-                    dialog.dismiss();
-                } else {
-                    getResources().getString(R.string.error_data);
-
-                    dialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                dialog.dismiss();
-                Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void getAllDept() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(TxlDeptActivity.this)
+                .build();
+        loadingDialog.show();
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "00000001");
@@ -376,7 +313,7 @@ public class TxlDeptActivity extends RootActivity {
         call.enqueue(new Callback<Dept>() {
             @Override
             public void onResponse(Response<Dept> response, Retrofit retrofit) {
-
+                loadingDialog.dismiss();
                 if (response.isSuccess()) {
                     Dept dept = response.body();
 
@@ -386,18 +323,14 @@ public class TxlDeptActivity extends RootActivity {
                     } else {
                         Toast.makeText(context, "服务器数据出错", Toast.LENGTH_SHORT).show();
                     }
-
-                    dialog.dismiss();
                 } else {
-                    getResources().getString(R.string.error_data);
 
-                    dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
         });
@@ -474,6 +407,16 @@ public class TxlDeptActivity extends RootActivity {
         ArrayList<Dept.OrganInfo> listTwo = new ArrayList<Dept.OrganInfo>();
         ArrayList<Dept.OrganInfo> listThree = new ArrayList<Dept.OrganInfo>();
 
+        //parentId==loginBean.OrganId
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getParentOrganId().equals(loginBean.getResult().getOrganId())) {
+                listOne.add(list.get(i));
+                list.remove(i);
+                i--;
+            }
+
+        }
+
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getRank().equals("2")) {
                 listOne.add(list.get(i));
@@ -486,7 +429,7 @@ public class TxlDeptActivity extends RootActivity {
 
         for (int i = 0; i < listThree.size(); i++) {
             for (int j = 0; j < listTwo.size(); j++) {
-                if (listThree.get(i).getParentOrganId()!=null && listTwo.get(j).getOrganId()!=null){
+                if (listThree.get(i).getParentOrganId() != null && listTwo.get(j).getOrganId() != null) {
                     if (listThree.get(i).getParentOrganId().equals(listTwo.get(j).getOrganId())) {
                         if (listTwo.get(j).getOrganList() == null) {
                             listTwo.get(j).setOrganList(new ArrayList<Dept.OrganInfo>());
@@ -499,7 +442,7 @@ public class TxlDeptActivity extends RootActivity {
 
         for (int i = 0; i < listTwo.size(); i++) {
             for (int j = 0; j < listOne.size(); j++) {
-                if (listTwo.get(i).getParentOrganId()!=null && listOne.get(j).getOrganId()!=null){
+                if (listTwo.get(i).getParentOrganId() != null && listOne.get(j).getOrganId() != null) {
                     if (listTwo.get(i).getParentOrganId().equals(listOne.get(j).getOrganId())) {
                         if (listOne.get(j).getOrganList() == null) {
                             listOne.get(j).setOrganList(new ArrayList<Dept.OrganInfo>());

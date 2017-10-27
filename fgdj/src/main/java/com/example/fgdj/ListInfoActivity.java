@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -49,29 +49,29 @@ import retrofit.Retrofit;
  */
 
 public class ListInfoActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @Bind(R.id.layout_select)
+    @BindView(R.id.layout_select)
     ViewGroup layoutSelect;
-    @Bind(R.id.layout_head)
+    @BindView(R.id.layout_head)
     ViewGroup layoutHead;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.et_search)
+    @BindView(R.id.et_search)
     EditText etSearch;
-    @Bind(R.id.layout_search_item)
+    @BindView(R.id.layout_search_item)
     ViewGroup layoutSearchItem;
-    @Bind(R.id.layout_search)
+    @BindView(R.id.layout_search)
     ViewGroup layoutSearch;
-    @Bind(R.id.tv_search_content)
+    @BindView(R.id.tv_search_content)
     TextView tvSearchContent;
-    @Bind(R.id.tv_cancel)
+    @BindView(R.id.tv_cancel)
     TextView tvCancel;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.layout_search_bg)
+    @BindView(R.id.layout_search_bg)
     FrameLayout layoutSearchBg;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.layout_error)
     View layoutError;
 //
 //    private PopupWindow popupWindow;

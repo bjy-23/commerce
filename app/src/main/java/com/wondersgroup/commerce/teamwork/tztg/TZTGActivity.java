@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import retrofit.Call;
@@ -40,10 +40,10 @@ import retrofit.Retrofit;
  */
 public class TZTGActivity extends AppCompatActivity {
 
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.activity_gg_list) ListView list;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.activity_gg_list) ListView list;
+    @BindView(R.id.layout_error)
     LinearLayout layoutError;
 
     private String TAG = "TZTGActivity";

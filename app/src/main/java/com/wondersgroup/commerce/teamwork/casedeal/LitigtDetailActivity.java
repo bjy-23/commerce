@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -25,9 +25,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class LitigtDetailActivity extends BaseActivity {
-    @Bind(R.id.layout_details)
+    @BindView(R.id.layout_details)
     LinearLayout layoutDetails;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.layout_error)
     LinearLayout layoutError;
 
     @Override

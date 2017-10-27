@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -18,11 +18,11 @@ import butterknife.OnClick;
  * 农专年报
  */
 public class AgrAnnalActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.recycler)
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
     @Override

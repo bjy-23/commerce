@@ -30,7 +30,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.CallAdapter;
@@ -39,15 +39,15 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class LawQueryActivity extends AppCompatActivity {
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @Bind(R.id.img_search)
+    @BindView(R.id.img_search)
     ImageView imgSearch;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.layout_error)
     View layoutError;
 
     private LawQueryAdapter mAdapter;

@@ -84,8 +84,6 @@ public class DailyListSearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if(searchWord.getError()==null&&!searchWord.getText().toString().equals("")){
-                    final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
-                    dialog.show();
 					String keyWord = "";
 					try {
 						keyWord = URLEncoder.encode(searchWord.getText()
@@ -99,12 +97,11 @@ public class DailyListSearchFragment extends Fragment {
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
-                            dialog.dismiss();
                         }
 
                         @Override
                         public void onFailure(Throwable t) {
-                            dialog.dismiss();
+
                         }
                     });
 					String address = Url.QJ_IN_USE + "getEtpsList/"
@@ -115,7 +112,6 @@ public class DailyListSearchFragment extends Fragment {
 
 								@Override
 								public void onFinish(String response) {
-									dialog.dismiss();
                                     Log.e("response", response);
 									Message message = new Message();
 									message.what = SHOW_RESPONSE;
@@ -125,7 +121,6 @@ public class DailyListSearchFragment extends Fragment {
 
 								@Override
 								public void onError(Exception e) {
-                                    dialog.dismiss();
 									Message message = new Message();
 									message.what = SHOW_ERROR;
 									message.obj = e.toString();

@@ -26,7 +26,7 @@ import com.wondersgroup.commerce.widget.TableRow;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -34,9 +34,9 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class TableListActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.rootLayout)LinearLayout rootLayout;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.rootLayout)LinearLayout rootLayout;
 
     private Button btn;
     private String organId;

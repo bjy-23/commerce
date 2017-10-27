@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.teamwork.dailycheck.UtilForFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,11 +18,11 @@ import butterknife.ButterKnife;
  */
 public class HwggdqActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar midToolbar;
-    @Bind(R.id.content)
+    @BindView(R.id.content)
     FrameLayout content;
 
     @Override

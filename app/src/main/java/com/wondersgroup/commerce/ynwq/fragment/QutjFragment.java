@@ -19,7 +19,7 @@ import com.wondersgroup.commerce.ynwq.widget.InfoSelectBar;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,11 +28,11 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class QutjFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.qutj_office)InfoSelectBar office;
-    @Bind(R.id.qutj_date_start)Button btnStart;
-    @Bind(R.id.qutj_date_end)Button btnEnd;
-    @Bind(R.id.tj_btn_submit)Button btnSub;
-    @Bind(R.id.tj_btn_clear)Button btnClear;
+    @BindView(R.id.qutj_office)InfoSelectBar office;
+    @BindView(R.id.qutj_date_start)Button btnStart;
+    @BindView(R.id.qutj_date_end)Button btnEnd;
+    @BindView(R.id.tj_btn_submit)Button btnSub;
+    @BindView(R.id.tj_btn_clear)Button btnClear;
 
     private int selectId=0;
     private CusDatePickerDialog starDate;

@@ -8,12 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ColorTheme" parent="AppTheme">
-        <item name="android:textColorSecondary">@color/white</item>
-        <item name="titleTextColor">@color/white</item>
-        <item name="android:textSize">18sp</item>
-    </style>
-
     <style name="BottomTabLayoutTheme" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorHeight">0dp</item>
         <item name="tabIndicatorColor">@android:color/transparent</item>
@@ -31,8 +25,6 @@
         <item name="tabMode">fixed</item>
         <item name="tabMaxWidth">0dp</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -58,11 +50,6 @@
         <item name="android:headerDividersEnabled">false</item>
         <item name="android:smoothScrollbar">true</item>
         <item name="android:scrollbars">none</item>
-    </style>
-
-    <style name="MIP_theme" parent="AppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="ImageTranslucentTheme" parent="Theme.AppCompat.Light.NoActionBar">

@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import retrofit.Call;
@@ -37,9 +37,9 @@ import retrofit.Retrofit;
  */
 public class PeopleListActivity extends AppCompatActivity {
 
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.activity_checklist_list) ListView listView;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.activity_checklist_list) ListView listView;
 
 
     private NextPeoListBean nextPeoListBean;

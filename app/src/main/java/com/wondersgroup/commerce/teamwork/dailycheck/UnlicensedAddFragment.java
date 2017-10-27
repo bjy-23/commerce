@@ -177,9 +177,6 @@ public class UnlicensedAddFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
-                dialog.dismiss();
-
                 recordId = etpsBeans.get(position).getRecordId();
                 Call<ResponseBody> call = ApiManager.consumerwApi.getRecordInfo(loginBean.getResult().getDeptId(), recordId);
                 call.enqueue(new Callback<ResponseBody>() {

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
+import com.squareup.okhttp.Dispatcher;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.activity.ViewPagerActivity;
@@ -43,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -56,11 +57,11 @@ import retrofit.Retrofit;
  * create an instance of this fragment.
  */
 public class RecyclerFragment extends Fragment {
-    @Bind(R.id.fragment_recycler)
+    @BindView(R.id.fragment_recycler)
     RecyclerView recycler;
-    @Bind(R.id.view_error)
+    @BindView(R.id.view_error)
     View viewError;
-    @Bind(R.id.tv_error)
+    @BindView(R.id.tv_error)
     TextView tvError;
 
     private static final String ARG_TYPE = "type";
@@ -340,8 +341,8 @@ public class RecyclerFragment extends Fragment {
     }
 
     private void getGwData() {
-        final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(getActivity()).build();
+        loadingDialog.show();
         gwData.clear();
         int curSize = textWpicItems.size();
         textWpicItems.clear();
@@ -355,10 +356,11 @@ public class RecyclerFragment extends Fragment {
         if ("DBLB".equals(type)) {
             map.put("businessType", "1");
             Call<BacklogListBean> call = ApiManager.oaApi.apiBacklogList(map);
+//            Dispatcher
             call.enqueue(new Callback<BacklogListBean>() {
                 @Override
                 public void onResponse(Response<BacklogListBean> response, Retrofit retrofit) {
-                    dialog.dismiss();
+                    loadingDialog.dismiss();
                     isLoaded = true;
                     if (response.body() != null) {
                         if (response.body().getResult() != null) {
@@ -394,7 +396,7 @@ public class RecyclerFragment extends Fragment {
 
                 @Override
                 public void onFailure(Throwable t) {
-                    dialog.dismiss();
+                    loadingDialog.dismiss();
                     Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -405,7 +407,7 @@ public class RecyclerFragment extends Fragment {
             call.enqueue(new Callback<BacklogListBean>() {
                 @Override
                 public void onResponse(Response<BacklogListBean> response, Retrofit retrofit) {
-                    dialog.dismiss();
+                    loadingDialog.dismiss();
                     if (response.body() != null) {
                         if (response.body().getResult() != null) {
                             List<BacklogListBean.Result.BackLogVoList> dataList = response.body().getResult().getBackLogVoList();
@@ -438,7 +440,7 @@ public class RecyclerFragment extends Fragment {
 
                 @Override
                 public void onFailure(Throwable t) {
-                    dialog.dismiss();
+                    loadingDialog.dismiss();
                     Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -551,6 +553,5 @@ public class RecyclerFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

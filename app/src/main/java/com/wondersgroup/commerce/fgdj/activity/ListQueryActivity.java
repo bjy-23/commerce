@@ -16,15 +16,15 @@ import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.utils.DWZH;
 import com.wondersgroup.commerce.widget.TableRow;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ListQueryActivity extends AppCompatActivity {
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.layout_query)
+    @BindView(R.id.layout_query)
     LinearLayout layoutQuery;
 
     private Button btn;

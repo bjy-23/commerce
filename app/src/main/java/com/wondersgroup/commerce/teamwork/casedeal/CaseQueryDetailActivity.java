@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -51,8 +51,8 @@ import retrofit.Retrofit;
 public class CaseQueryDetailActivity extends AppCompatActivity {
 
     private String TAG = "CaseQueryDetailActivity";
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
     private RadioGroup radioGroupDealType;              //标签组（案件总览、立案信息）
     private RadioButton caseBrowseRadioButton;          //案件总览按钮
     private ScrollView caseBrowseScrollView;            //案件总览ScrollView
@@ -96,7 +96,7 @@ public class CaseQueryDetailActivity extends AppCompatActivity {
         clueNo = getIntent().getStringExtra("clueNo");
         initView();
         initData();
-        if (Constants.SC.equals(getIntent().getStringExtra(Constants.TYPE))){
+        if (Constants.AREA_SC.equals(getIntent().getStringExtra(Constants.TYPE))){
             radioGroupDealType.setVisibility(View.GONE);
         }else {
             getCaseRegisterData();

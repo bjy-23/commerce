@@ -13,8 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.Dept;
 import com.wondersgroup.commerce.model.ad.AdView;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.utils.DWZH;
@@ -29,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.Response;
@@ -43,10 +45,11 @@ import static com.wondersgroup.commerce.activity.ViewPagerActivity.BUENT_ID;
  */
 
 public class FragmentGGXQ extends Fragment {
-    @Bind(R.id.layout_root)
+    @BindView(R.id.layout_root)
     LinearLayout layoutRoot;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.layout_error)
     View layoutError;
+    private List<Dept.OrganInfo> organInfo = Hawk.get("ORGAN_INFO");
 
     public static FragmentGGXQ newInstance(String type) {
         FragmentGGXQ fragmentGGXQ = new FragmentGGXQ();
@@ -71,7 +74,7 @@ public class FragmentGGXQ extends Fragment {
     }
 
     private void getAdView() {
-        final Dialog loadingDialog = LoadingDialog.showCanCancelable(this.getActivity());
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(getActivity()).build();
         loadingDialog.show();
         Map<String, String> params = new HashMap<>();
         params.put("buentId", BUENT_ID);
@@ -105,11 +108,27 @@ public class FragmentGGXQ extends Fragment {
         });
     }
 
+    /**
+     * 返回机关名称
+     *
+     * @param organId
+     * @return
+     */
+    private String getOrganName(String organId) {
+        if (organInfo != null) {
+            for (Dept.OrganInfo item : organInfo) {
+                if (organId.equals(item.getOrganId()))
+                    return item.getOrganName();
+            }
+        }
+        return "";
+    }
+
     public void jydw(AdView adView) {
         AdView.AdBuentApp adBuentApp = adView.getAdBuentApp();
-        if (adBuentApp != null){
+        if (adBuentApp != null) {
             TableRow jbxx = new TableRow.Builder(getActivity())
-                    .asTitle("广告经营单位基本信息")
+                    .asTitle("广告发布单位基本信息")
                     .marginV(5)
                     .build();
             layoutRoot.addView(jbxx);
@@ -122,7 +141,7 @@ public class FragmentGGXQ extends Fragment {
             layoutRoot.addView(dwmc);
 
             TableRow zzjgdm = new TableRow.Builder(getActivity())
-                    .title("组织机构代码")
+                    .title("统一社会信用代码")
                     .marginV(5)
                     .content(adBuentApp.getUniScid())
                     .build();
@@ -132,7 +151,7 @@ public class FragmentGGXQ extends Fragment {
             TableRow dwxz = new TableRow.Builder(getActivity())
                     .title("单位性质")
                     .marginV(5)
-                    .content(bunetChar.equals("1") ? "企业法人" : bunetChar.equals("3") ? "事业法人" : "")
+                    .content(bunetChar.equals("1") ? "企业法人" : bunetChar.equals("3") ? "事业法人" : "社团法人")
                     .build();
             layoutRoot.addView(dwxz);
 
@@ -153,7 +172,7 @@ public class FragmentGGXQ extends Fragment {
             TableRow djjg = new TableRow.Builder(getActivity())
                     .title("登记机关")
                     .marginV(5)
-                    .content(adBuentApp.getOrganId())
+                    .content(getOrganName(adBuentApp.getOrganId()))
                     .build();
             layoutRoot.addView(djjg);
 
@@ -265,7 +284,7 @@ public class FragmentGGXQ extends Fragment {
         }
 
         List<AdView.AdBntappMediaList> adBntappMediaList = adView.getAdBntappMediaList();
-        if (adBntappMediaList != null && adBntappMediaList.size() != 0){
+        if (adBntappMediaList != null && adBntappMediaList.size() != 0) {
             TableRow mjxx = new TableRow.Builder(getActivity())
                     .asTitle("广告发布媒介信息")
                     .marginV(5)
@@ -365,9 +384,9 @@ public class FragmentGGXQ extends Fragment {
             }
             adBntappPsnList.addAll(adBntappPsnList_03);
         }
-        if (adBntappPsnList.size() == 0){
+        if (adBntappPsnList.size() == 0) {
             layoutError.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             layoutRoot.addView(divide());
             for (int i = 0; i < adBntappPsnList.size(); i++) {
                 View view = View.inflate(getActivity(), R.layout.item_employee, null);
@@ -391,7 +410,7 @@ public class FragmentGGXQ extends Fragment {
 
     public void tjcl(List<AdView.StuffList> stuffList) {
         final String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1505908796812&di=c138eeaba54b0baaddac770379adf708&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F18%2F23%2F90%2F07v58PICWAT_1024.jpg";
-        if (stuffList != null && stuffList.size() != 0){
+        if (stuffList != null && stuffList.size() != 0) {
             layoutRoot.addView(divide());
             for (int i = 0; i < stuffList.size(); i++) {
                 View view = View.inflate(getActivity(), R.layout.item_tjcl, null);
@@ -407,6 +426,9 @@ public class FragmentGGXQ extends Fragment {
 //                    startActivity(intent);
 //                }
 //            });
+                if (TextUtils.isEmpty(stuffList.get(i).getFilePath())) {
+                    mDownload.setVisibility(View.GONE);
+                }
                 mTitle.setText(getNullString(stuffList.get(i).getStuffName()));
                 mPage.setText(getNullString(stuffList.get(i).getPages()) + "页");
                 String status = getNullString(stuffList.get(i).getCommited());
@@ -414,7 +436,7 @@ public class FragmentGGXQ extends Fragment {
                 mDate.setText(StringToDate(getNullString(stuffList.get(i).getCommitDate()), "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd"));
                 layoutRoot.addView(view);
             }
-        }else {
+        } else {
             layoutError.setVisibility(View.VISIBLE);
         }
     }

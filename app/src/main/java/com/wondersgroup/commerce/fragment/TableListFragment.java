@@ -76,9 +76,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -93,13 +92,13 @@ import retrofit.Retrofit;
  * 抽查检查：企业基本信息、核查结果(实地核查)；投诉举报详情/查询
  */
 public class TableListFragment extends Fragment implements ImageTableView.imagePickerListener {
-    @Bind(R.id.table_list_root)
+    @BindView(R.id.table_list_root)
     LinearLayout rootLayout;
-    @Bind(R.id.nodata_img)
+    @BindView(R.id.nodata_img)
     ImageView nodataImg;
-    @Bind(R.id.layout_index)
+    @BindView(R.id.layout_index)
     LinearLayout layoutIndex;
-    @Bind(R.id.scrollView)
+    @BindView(R.id.scrollView)
     ScrollView scrollView;
 
     private static final String ARG_TYPE = "type";
@@ -115,7 +114,6 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
     private TableRow regPer,jbr,tjjsrq,zyje,whjjss,jspc,jbpc,cljg,accType,tjjg,qqlx,clqd,isqz,xzwsh;
     private TableRow jzzk,sjlx,blbm,xzdw;
     private LinkedHashMap<String, String> isqzMap;
-    private SweetAlertDialog dialog;
 
     private CnAccuse cnAccuse;
     private CnProcess cnProcess;
@@ -1517,13 +1515,15 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
     }
 
     private void getTSJBCL(){
-        dialog = LoadingDialog.showNotCancelable(getActivity());
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(getActivity())
+                .build();
+        loadingDialog.show();
         String caseId= Hawk.get("TSJBXQ_caseId");
         Call<CaseBean> call = ApiManager.ynApi.getCaseInfo(caseId,"0205000106");
         call.enqueue(new Callback<CaseBean>() {
             @Override
             public void onResponse(Response<CaseBean> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 if (response.isSuccess() && response.body() != null) {
                     CaseBean result = response.body();
                     if (result.getCode() == 200) {
@@ -1542,7 +1542,7 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
@@ -2007,7 +2007,6 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
         if(type.startsWith("JB")){
             if (!checkJB())
                 return;
-            dialog = LoadingDialog.showNotCancelable(getActivity());
             body.getCnAccuse().setAcceptType(getKey(allDic.getAcceptTypeReMap(),accType.getContent()));
             body.getCnProcess().setFeeRegPer(regPer.getContent());
             if(!"".equals(jzzk.getContent()))
@@ -2035,7 +2034,6 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
         }else {
             if(!checkTS())
                 return;
-            dialog = LoadingDialog.showNotCancelable(getActivity());
             body.getCnAccuse().setAcceptType(getKey(allDic.getAcceptTypeApplMap(),accType.getContent()));
             if(!"".equals(jzzk.getContent()))
                 body.getCnProcess().setHeadState(getKey(allDic.getHeadStateMap(), jzzk.getContent()));
@@ -2071,11 +2069,14 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
 //                }
 //            }
         }
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(getActivity())
+                .build();
+        loadingDialog.show();
         Call<UploadResBean> call = ApiManager.ynApi.saveDealInfo(body);
         call.enqueue(new Callback<UploadResBean>() {
             @Override
             public void onResponse(Response<UploadResBean> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 if(response!=null &&response.body()!=null){
                     if(response.body().getCode()==200){
                         Toast.makeText(getActivity(), "提交成功", Toast.LENGTH_SHORT).show();
@@ -2089,7 +2090,7 @@ public class TableListFragment extends Fragment implements ImageTableView.imageP
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(getActivity(), "网络错误，请重试", Toast.LENGTH_SHORT).show();
             }
         });

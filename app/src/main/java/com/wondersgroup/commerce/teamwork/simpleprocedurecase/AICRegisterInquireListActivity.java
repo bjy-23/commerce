@@ -53,8 +53,10 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
     public static final int REQUEST = 1234;
     public static final String TYPE_PERSONAL_NAME = "personal_name";//个体工商户名称
     public static final String TYPE_PERSONAL_REGISTER = "personal_register";//个体工商户注册号
+    public static final String TYPE_PERSONAL_CREDIT_CODE = "personal_credit_code";//个体统一社会信用代码
     public static final String TYPE_COMPANY_NAME = "company_name";//企业工商户名称
     public static final String TYPE_COMPANY_REGISTER = "company_register";//企业工商户注册号
+    public static final String TYPE_COMPANY_CREDIT_CODE = "company_credit_code";//企业统一社会信用代码
     private Toolbar toolbar;
     private TextView title;
     private DrawerLayout drawerLayout;
@@ -67,6 +69,7 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
     private String paramUnitName = null;
     private String paramRegNo = null;
     private String paramPeName = null;
+    private String paramCreditCode = null;
     private Map<String, String> orgnizationMap = null;      //机关
     private Map<String, String> statusMap = new HashMap<String, String>();           //存续状态
     private RootAppcation app;
@@ -106,10 +109,14 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
             paramPeName = bundle.getString("param");
         else if(activityType.equals(TYPE_PERSONAL_REGISTER))
             paramRegNo = bundle.getString("param");
+        else if(activityType.equals(TYPE_PERSONAL_CREDIT_CODE))
+            paramCreditCode = bundle.getString("param");
         else if(activityType.equals(TYPE_COMPANY_NAME))
             paramUnitName = bundle.getString("param");
         else if(activityType.equals(TYPE_COMPANY_REGISTER))
             paramRegNo = bundle.getString("param");
+        else if(activityType.equals(TYPE_COMPANY_CREDIT_CODE))
+            paramCreditCode = bundle.getString("param");
         SerializableMap serializableOrganIdMapMap = (SerializableMap)bundle.getSerializable("iOrganIdMap");
         if(serializableOrganIdMapMap!=null)
             orgnizationMap = serializableOrganIdMapMap.getMap();
@@ -215,6 +222,9 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
         if(paramRegNo!=null)
             map.put("regNo", paramRegNo);
 
+        if(paramCreditCode!=null)
+            map.put("uniScid", paramCreditCode);
+
         if(!isSelectTextEmpty(organNameRow)){
             String organId = getKeyByValue(orgnizationMap, organNameRow.getTvContent());
             map.put("iOrganId", organId);
@@ -268,6 +278,9 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
         if(paramRegNo!=null)
             map.put("regNo", paramRegNo);
 
+        if(paramCreditCode!=null)
+            map.put("uniScid", paramCreditCode);
+
         if(!isSelectTextEmpty(organNameRow)){
             String organId = getKeyByValue(orgnizationMap, organNameRow.getTvContent());
             map.put("iOrganId", organId);
@@ -312,7 +325,7 @@ public class AICRegisterInquireListActivity extends AppCompatActivity {
 
     private void initData(){
 
-        if(activityType.equals(TYPE_PERSONAL_NAME) || activityType.equals(TYPE_PERSONAL_REGISTER))
+        if(activityType.equals(TYPE_PERSONAL_NAME) || activityType.equals(TYPE_PERSONAL_REGISTER) || activityType.equals(TYPE_PERSONAL_CREDIT_CODE))
             queryPersonList();
         else
             queryCompanyList();

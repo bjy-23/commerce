@@ -124,8 +124,7 @@ public class UnlicensedInfoFragment extends Fragment {
 		application = (RootAppcation) activity.getApplication();
 		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
 		title.setText("无照管理");
-		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
-				"loading");
+		progressDialog = new LoadingDialog.Builder(getActivity()).build();
 
 		// new
 		imageView1 = (ImageView) view.findViewById(R.id.imageView1);

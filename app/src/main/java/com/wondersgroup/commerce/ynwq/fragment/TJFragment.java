@@ -22,7 +22,7 @@ import com.wondersgroup.commerce.ynwq.widget.InfoSelectBar;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -31,13 +31,13 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class TJFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.tj_office)InfoSelectBar office;
-    @Bind(R.id.tj_dept)InfoSelectBar dept;
-    @Bind(R.id.tj_date_start)Button btnStart;
-    @Bind(R.id.tj_date_end)Button btnEnd;
-    @Bind(R.id.tj_btn_submit)Button btnSub;
-    @Bind(R.id.tj_btn_clear)Button btnClear;
-    @Bind(R.id.tj_check)AppCompatCheckBox check;
+    @BindView(R.id.tj_office)InfoSelectBar office;
+    @BindView(R.id.tj_dept)InfoSelectBar dept;
+    @BindView(R.id.tj_date_start)Button btnStart;
+    @BindView(R.id.tj_date_end)Button btnEnd;
+    @BindView(R.id.tj_btn_submit)Button btnSub;
+    @BindView(R.id.tj_btn_clear)Button btnClear;
+    @BindView(R.id.tj_check)AppCompatCheckBox check;
 
     private static final String ARG_TYPE = "type";
 

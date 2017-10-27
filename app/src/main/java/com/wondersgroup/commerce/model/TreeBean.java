@@ -11,7 +11,7 @@ import java.util.List;
  * Created by bjy on 2017/9/19.
  */
 
-public class TreeBean implements Parcelable {
+public class TreeBean implements Parcelable, Cloneable{
     @SerializedName(value = "id", alternate = {"deptId"})
     private String id;
 
@@ -25,6 +25,11 @@ public class TreeBean implements Parcelable {
 
     public TreeBean(){
 
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public String getId() {

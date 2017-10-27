@@ -52,7 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -67,9 +67,9 @@ import retrofit.Retrofit;
 public class CaseDetailActivity extends AppCompatActivity implements CaseDetialXwblAdapter.OnItemTouchListener {
 
     private String TAG = "CaseDetailActivity";
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
     private RadioGroup radioGroupDealType;              //标签组（立案信息、现场笔录、询问笔录）
     private RadioButton caseRegisterRadioButton;        //立案信息选择tab
@@ -420,7 +420,7 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
                 .build();
         caseInfoLinearLayout.addView(title);
 
-        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())) {
+        if (Constants.AREA_SC.equals(RootAppcation.getInstance().getVersion())) {
             TableRow primeType = new TableRow.Builder(this)
                     .title("主要案件类型")
                     .content(caseDetail.getResult().getCaseType())
@@ -508,7 +508,7 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
                 .build();
         caseInfoLinearLayout.addView(t2);
 
-        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())) {
+        if (Constants.AREA_SC.equals(RootAppcation.getInstance().getVersion())) {
             TableRow title3 = new TableRow.Builder(this)
                     .asTitle("法制机构审核意见")
                     .build();

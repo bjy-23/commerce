@@ -69,7 +69,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -84,17 +84,17 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
     private final String TAG = "CaseEnquireActivity";
 
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.components_LinearLayout)
+    @BindView(R.id.components_LinearLayout)
     LinearLayout componentsLinearLayout;        //控件显示部分（动态添加控件）
-    @Bind(R.id.query_button)
+    @BindView(R.id.query_button)
     Button queryButton;                        //查询按钮
-    @Bind(R.id.clear_btn)
+    @BindView(R.id.clear_btn)
     Button clearButton;//清空按钮
-    @Bind(R.id.img_scan)
+    @BindView(R.id.img_scan)
     ImageView imageScan;
 
     private List<DataVolume> componentObjectsList;            //动态控件对象列表
@@ -164,7 +164,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
                     } else {
                         Intent mIntent = new Intent(this, CaseQueryDetailActivity.class);
                         mIntent.putExtra("clueNo", clueNo);
-                        mIntent.putExtra(Constants.TYPE, Constants.SC);
+                        mIntent.putExtra(Constants.TYPE, Constants.AREA_SC);
                         startActivity(mIntent);
                     }
                     break;
@@ -307,7 +307,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
     public void initView2() {
         title.setText("案件查询");
-        if (Constants.SC.equals(RootAppcation.getInstance().getVersion())) {
+        if (Constants.AREA_SC.equals(RootAppcation.getInstance().getVersion())) {
             imageScan.setVisibility(View.VISIBLE);
             imageScan.setOnClickListener(this);
         }
@@ -437,7 +437,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
                             public void back(Date date) {
                                 String time = DateUtil.getYMD(date);
                                 cfrq_1.setContent(time);
-                                queryConditionMap.put("regCaseDateShow1", time);
+                                queryConditionMap.put("pendecissdate1Show", time);
                             }
                         });
                     }
@@ -456,7 +456,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
                             public void back(Date date) {
                                 String time = DateUtil.getYMD(date);
                                 cfrq_2.setContent(time);
-                                queryConditionMap.put("regCaseDateShow2", time);
+                                queryConditionMap.put("pendecissdate2Show", time);
                             }
                         });
                     }
@@ -502,14 +502,15 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         queryConditionMap.remove("regCaseDateShow2");
 
         cfrq_1.setContent("");
-        queryConditionMap.remove("regCaseDateShow1");
+        queryConditionMap.remove("pendecissdate1Show");
         cfrq_2.setContent("");
-        queryConditionMap.remove("regCaseDateShow2");
+        queryConditionMap.remove("pendecissdate2Show");
     }
 
     public void initData2() {
-        final Dialog dialog = LoadingDialog.showCanCancelable(this);
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(CaseEnquireActivity.this)
+                .build();
+        loadingDialog.show();
         String url = CaseApi.URL_CASE_1 + CaseApi.CASE_QUERY_LIST;
         param = new HashMap<>();
         param.put(Constants.WS_CODE_REQ, "03010025");
@@ -520,8 +521,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
         call.enqueue(new Callback<Result<CaseQueryDic>>() {
             @Override
             public void onResponse(Response<Result<CaseQueryDic>> response, Retrofit retrofit) {
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                loadingDialog.dismiss();
                 if (response.body() != null) {
                     caseQueryDic = response.body().getObject();
                     handleDic();
@@ -530,8 +530,7 @@ public class CaseEnquireActivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onFailure(Throwable t) {
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(CaseEnquireActivity.this, "获取查询条件失败，无法选择", Toast.LENGTH_SHORT).show();
             }
         });

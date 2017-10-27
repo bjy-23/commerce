@@ -26,47 +26,47 @@ import com.wondersgroup.commerce.utils.DateUtil;
 
 import java.util.LinkedHashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PartyMemAddActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.tv_save)
+    @BindView(R.id.tv_save)
     TextView tvSave;
-    @Bind(R.id.input_name)
+    @BindView(R.id.input_name)
     InputUnit inputName;
-    @Bind(R.id.select_gender)
+    @BindView(R.id.select_gender)
     SelectUnit selectGender;
-    @Bind(R.id.select_cert_type)
+    @BindView(R.id.select_cert_type)
     SelectUnit selectCertType;
-    @Bind(R.id.input_cert_num)
+    @BindView(R.id.input_cert_num)
     InputUnit inputCertNum;
-    @Bind(R.id.select_nation)
+    @BindView(R.id.select_nation)
     SelectUnit selectNation;
-    @Bind(R.id.time_birth)
+    @BindView(R.id.time_birth)
     TimeUnit timeBirth;
-    @Bind(R.id.select_party_mem_type)
+    @BindView(R.id.select_party_mem_type)
     SelectUnit selectPartyMemType;
-    @Bind(R.id.select_party_position)
+    @BindView(R.id.select_party_position)
     SelectUnit selectPartyPosition;
-    @Bind(R.id.time_join)
+    @BindView(R.id.time_join)
     TimeUnit timeJoin;
-    @Bind(R.id.input_job)
+    @BindView(R.id.input_job)
     InputUnit inputJob;
-    @Bind(R.id.select_edu)
+    @BindView(R.id.select_edu)
     SelectUnit selectEdu;
-    @Bind(R.id.input_tel)
+    @BindView(R.id.input_tel)
     InputUnit inputTel;
-    @Bind(R.id.input_tel_2)
+    @BindView(R.id.input_tel_2)
     InputUnit inputTel2;
-    @Bind(R.id.et_detail)
+    @BindView(R.id.et_detail)
     EditText etDetail;
-    @Bind(R.id.select_party_float)
+    @BindView(R.id.select_party_float)
     SelectUnit selectPartyFloat;
-    @Bind(R.id.input_party_org)
+    @BindView(R.id.input_party_org)
     InputUnit inputPartyOrg;
 
     private PartyMem partyMem;

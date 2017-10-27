@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -32,19 +32,19 @@ import butterknife.OnClick;
 
 public class RCXCFragment extends Fragment {
 
-    @Bind(R.id.rcxc_single_choose)
+    @BindView(R.id.rcxc_single_choose)
     EditText rcxcSingleChoose;
-    @Bind(R.id.name_et)
+    @BindView(R.id.name_et)
     EditText nameEt;
-    @Bind(R.id.regNo_et)
+    @BindView(R.id.regNo_et)
     EditText regNoEt;
-    @Bind(R.id.address_et)
+    @BindView(R.id.address_et)
     EditText addressEt;
-    @Bind(R.id.commit_btn)
+    @BindView(R.id.commit_btn)
     Button commitBtn;
-    @Bind(R.id.clear_btn)
+    @BindView(R.id.clear_btn)
     Button clearBtn;
-    @Bind(R.id.searchpage_layout)
+    @BindView(R.id.searchpage_layout)
     LinearLayout searchpageLayout;
 
     private Map<String,String> checkTypeMap = new HashMap<>();
@@ -75,7 +75,6 @@ public class RCXCFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @OnClick({R.id.commit_btn, R.id.clear_btn})

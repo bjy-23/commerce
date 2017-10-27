@@ -19,7 +19,7 @@ import com.wondersgroup.commerce.ynwq.widget.InfoSelectBar;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,13 +28,13 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class JinduQueryFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.jindu_input)InfoEditBar input;
-    @Bind(R.id.jdcx_date_start)Button dateStart;
-    @Bind(R.id.jdcx_date_end)Button dateEnd;
-    @Bind(R.id.jindu_type)InfoSelectBar typeS;
-    @Bind(R.id.jindu_status)InfoSelectBar statusS;
-    @Bind(R.id.jindu_clear)Button clear;
-    @Bind(R.id.jindu_search)Button search;
+    @BindView(R.id.jindu_input)InfoEditBar input;
+    @BindView(R.id.jdcx_date_start)Button dateStart;
+    @BindView(R.id.jdcx_date_end)Button dateEnd;
+    @BindView(R.id.jindu_type)InfoSelectBar typeS;
+    @BindView(R.id.jindu_status)InfoSelectBar statusS;
+    @BindView(R.id.jindu_clear)Button clear;
+    @BindView(R.id.jindu_search)Button search;
 
     private CusDatePickerDialog startDate;
     private CusDatePickerDialog endDate;

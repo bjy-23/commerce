@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import retrofit.Call;
@@ -51,11 +51,11 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class ToDoActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.yushen_recycler)RecyclerView recycler;
-    @Bind(R.id.view_error) View viewError;
-    @Bind(R.id.tv_error) TextView tvError;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.yushen_recycler)RecyclerView recycler;
+    @BindView(R.id.view_error) View viewError;
+    @BindView(R.id.tv_error) TextView tvError;
     EditText searchText;
     MenuItem searchItem;
     MenuItem filterItem;

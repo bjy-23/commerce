@@ -18,18 +18,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class JCJGBZCActivity extends AppCompatActivity{
 
-    @Bind(R.id.check_date_start)
+    @BindView(R.id.check_date_start)
     TextView startDate;
-    @Bind(R.id.check_date_end)
+    @BindView(R.id.check_date_end)
     TextView endDate;
-    @Bind(R.id.btn_check)
+    @BindView(R.id.btn_check)
     TextView btnCheck;
-    @Bind(R.id.checkType)
+    @BindView(R.id.checkType)
     TextView checkType;
 
     private String strType;

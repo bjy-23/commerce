@@ -11,7 +11,7 @@ import com.wondersgroup.commerce.R;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -51,15 +51,15 @@ public class AnnalsAdapter extends RecyclerView.Adapter<AnnalsAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.nb_type)
+        @BindView(R.id.nb_type)
         TextView nbType;//年报类型
-        @Bind(R.id.y_nb)
+        @BindView(R.id.y_nb)
         TextView ynb;//应年报
-        @Bind(R.id.w_nb)
+        @BindView(R.id.w_nb)
         TextView wnb;//未年报
-        @Bind(R.id.yi_nb)
+        @BindView(R.id.yi_nb)
         TextView yinb;//已年报
-        @Bind(R.id.l_nb)
+        @BindView(R.id.l_nb)
         TextView nbl;//年报率
 
         public ViewHolder(View itemView) {

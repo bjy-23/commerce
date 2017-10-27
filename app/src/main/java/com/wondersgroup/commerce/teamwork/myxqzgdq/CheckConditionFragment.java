@@ -11,42 +11,42 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2016/4/21 0021.
  */
 public class CheckConditionFragment extends Fragment {
-    @Bind(R.id.tv_company_name)
+    @BindView(R.id.tv_company_name)
     TextView tvCompanyName;
-    @Bind(R.id.tv_manager_type)
+    @BindView(R.id.tv_manager_type)
     TextView tvManagerType;
-    @Bind(R.id.tv_register_no)
+    @BindView(R.id.tv_register_no)
     TextView tvRegisterNo;
-    @Bind(R.id.tv_legal_person)
+    @BindView(R.id.tv_legal_person)
     TextView tvLegalPerson;
-    @Bind(R.id.tv_register_addr)
+    @BindView(R.id.tv_register_addr)
     TextView tvRegisterAddr;
-    @Bind(R.id.tv_contact_person)
+    @BindView(R.id.tv_contact_person)
     TextView tvContactPerson;
-    @Bind(R.id.tv_contact_num)
+    @BindView(R.id.tv_contact_num)
     TextView tvContactNum;
-    @Bind(R.id.tv_check_goal)
+    @BindView(R.id.tv_check_goal)
     TextView tvCheckGoal;
-    @Bind(R.id.tv_check_result)
+    @BindView(R.id.tv_check_result)
     TextView tvCheckResult;
-    @Bind(R.id.tv_check_find)
+    @BindView(R.id.tv_check_find)
     TextView tvCheckFind;
-    @Bind(R.id.tv_check_existed)
+    @BindView(R.id.tv_check_existed)
     TextView tvCheckExisted;
-    @Bind(R.id.tv_treatment)
+    @BindView(R.id.tv_treatment)
     TextView tvTreatment;
-    @Bind(R.id.tv_check_organ)
+    @BindView(R.id.tv_check_organ)
     TextView tvCheckOrgan;
-    @Bind(R.id.tv_check_person)
+    @BindView(R.id.tv_check_person)
     TextView tvCheckPerson;
-    @Bind(R.id.tv_note)
+    @BindView(R.id.tv_note)
     TextView tvNote;
     private AppCompatActivity context;
     private View view;
@@ -96,6 +96,5 @@ public class CheckConditionFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 }

@@ -44,7 +44,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -62,27 +62,27 @@ import retrofit.Retrofit;
 public class ProcedureCaseListActivity extends AppCompatActivity {
 
     private final String TAG = "ProcedureCaseListActivity";
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.simple_navigation_drawer)
+    @BindView(R.id.simple_navigation_drawer)
     DrawerLayout drawerLayout;
-    @Bind(R.id.search_bar)
+    @BindView(R.id.search_bar)
     RelativeLayout searchBar;
-    @Bind(R.id.searchtxt)
+    @BindView(R.id.searchtxt)
     EditText searchEdit;
-    @Bind(R.id.case_investigate_ListView)
+    @BindView(R.id.case_investigate_ListView)
     ListView caseListView;
-    @Bind(R.id.date1)
+    @BindView(R.id.date1)
     LinearLayout startDateLayout;
-    @Bind(R.id.date1txt)
+    @BindView(R.id.date1txt)
     TextView startDateTxt;
-    @Bind(R.id.date2)
+    @BindView(R.id.date2)
     LinearLayout endDateLayout;
-    @Bind(R.id.date2txt)
+    @BindView(R.id.date2txt)
     TextView endDateTxt;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView tvTitle;
-    @Bind(R.id.tv_option)
+    @BindView(R.id.tv_option)
     TextView tvOption;
     private CaseInvestigateAdapter caseInvestigateAdapter;
     private List<sampleCaseVoList> dataList = new ArrayList<>();
@@ -450,7 +450,9 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
 
             holder.tv_CaseName.setText(caseDataList.get(position).getCaseName());
             holder.tv_CasePerson.setText(caseDataList.get(position).getLitigtName());
-            holder.tv_PenaltyDate.setText(caseDataList.get(position).getCasefiDate());
+            String date = caseDataList.get(position).getCasefiDate();
+            if(date!=null)
+                holder.tv_PenaltyDate.setText(date.substring(0,date.lastIndexOf(" ")));
             holder.tv_UnderTakePerson.setText(caseDataList.get(position).getUserIdMainName());
 
             return convertView;

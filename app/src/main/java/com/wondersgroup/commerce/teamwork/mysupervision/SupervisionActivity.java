@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SupervisionActivity extends AppCompatActivity {
 
-	@Bind(R.id.mid_toolbar)Toolbar toolbar;
-	@Bind(R.id.toolbar_title)TextView title;
+	@BindView(R.id.mid_toolbar)Toolbar toolbar;
+	@BindView(R.id.toolbar_title)TextView title;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAdapter.OnClickListener{
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private ArrayList<AreaBean> data;
@@ -146,6 +146,15 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
                     TreeBean treeBean = caseQueryList.get(position);
                     if (treeBean.getChilds() != null){
                         //复制一个同数据的对象
+                        TreeBean bean = null;
+                        try {
+                            bean = (TreeBean) treeBean.clone();
+                        } catch (CloneNotSupportedException e) {
+                            e.printStackTrace();
+                        }
+                        if (treeBean.equals(bean)){
+                            Log.e("", "equals");
+                        }
                         TreeBean root = new TreeBean();
                         root.setId(treeBean.getId());
                         root.setName(treeBean.getName());

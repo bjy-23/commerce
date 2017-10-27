@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.activity.RootActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -20,9 +20,9 @@ import butterknife.OnClick;
  * Created by kangrenhui on 2016/3/3.
  */
 public class SettingActivity extends RootActivity {
-    @Bind(R.id.btn_about)
+    @BindView(R.id.btn_about)
     TextView aboutBtn;
-    @Bind(R.id.btn_check)
+    @BindView(R.id.btn_check)
     TextView checkBtn;
 
     @Override

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -40,16 +40,16 @@ import retrofit.Retrofit;
  */
 public class GGDetailActivity extends AppCompatActivity {
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.toolbar_txt) TextView title;
-    @Bind(R.id.toolbar_btn) Button btn;
-    @Bind(R.id.tv1) TextView tv1;
-    @Bind(R.id.tv2) TextView tv2;
-    @Bind(R.id.tv3) TextView tv3;
-    @Bind(R.id.tv4) TextView tv4;
-    @Bind(R.id.tv5) TextView tv5;
-    @Bind(R.id.fujianTitle) TextView doTitle;
-    @Bind(R.id.listview)
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar_txt) TextView title;
+    @BindView(R.id.toolbar_btn) Button btn;
+    @BindView(R.id.tv1) TextView tv1;
+    @BindView(R.id.tv2) TextView tv2;
+    @BindView(R.id.tv3) TextView tv3;
+    @BindView(R.id.tv4) TextView tv4;
+    @BindView(R.id.tv5) TextView tv5;
+    @BindView(R.id.fujianTitle) TextView doTitle;
+    @BindView(R.id.listview)
     ListView listView;
 
     private final String TAG = "GGDetailActivity";
@@ -69,7 +69,7 @@ public class GGDetailActivity extends AppCompatActivity {
 //        app = (CustomApplication) getApplication();
         Intent intent = getIntent();
         bulletinId = intent.getStringExtra("bulletinId");
-        title.setText("通知通告详情");
+        title.setText("通知公告详情");
         toolbar.setTitle("");
         btn.setVisibility(View.INVISIBLE);
         setSupportActionBar(toolbar);

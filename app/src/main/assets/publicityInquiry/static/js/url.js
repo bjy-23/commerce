@@ -3,8 +3,9 @@
  */
 //四川
 //var publicSearchBaseUrl = 'http://182.131.3.110:8012/notice/ws';
-var publicSearchBaseUrl = 'http://sc.gsxt.gov.cn/notice/ws';
-//云南
+//var publicSearchBaseUrl = 'http://sc.gsxt.gov.cn/notice/ws';
+var publicSearchBaseUrl = window.interaction.setBaseUrl() + '/ws';
+//云南、
 //var publicSearchBaseUrl = 'http://220.163.27.42:8021/notice/ws';
 //var publicSearchBaseUrl = 'http://gsxt.ynaic.gov.cn/notice/ws';
 

@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -49,39 +49,39 @@ import retrofit.Retrofit;
  */
 
 public class DangzuzhiEditFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.input_full_name)
+    @BindView(R.id.input_full_name)
     InputUnit inputFullName;
-    @Bind(R.id.input_super_name)
+    @BindView(R.id.input_super_name)
     InputUnit inputSuperName;
-    @Bind(R.id.select_party_level)
+    @BindView(R.id.select_party_level)
     SelectUnit selectPartyLevel;
-    @Bind(R.id.input_all_counts)
+    @BindView(R.id.input_all_counts)
     InputUnit inputAllCounts;
-    @Bind(R.id.input_brunch_counts)
+    @BindView(R.id.input_brunch_counts)
     InputUnit inputBrunchCounts;
-    @Bind(R.id.time_es)
+    @BindView(R.id.time_es)
     TimeUnit timeEs;
-    @Bind(R.id.select_es_way)
+    @BindView(R.id.select_es_way)
     SelectUnit selectEsWay;
-    @Bind(R.id.input_address)
+    @BindView(R.id.input_address)
     InputUnit inputAddress;
-    @Bind(R.id.input_tel)
+    @BindView(R.id.input_tel)
     InputUnit inputTel;
-    @Bind(R.id.select_place)
+    @BindView(R.id.select_place)
     SelectUnit selectPlace;
-    @Bind(R.id.input_secretary_name)
+    @BindView(R.id.input_secretary_name)
     InputUnit inputSecretaryName;
-    @Bind(R.id.input_secretary_tel)
+    @BindView(R.id.input_secretary_tel)
     InputUnit inputSecretaryTel;
-    @Bind(R.id.input_secretary_dept)
+    @BindView(R.id.input_secretary_dept)
     InputUnit inputSecretaryDept;
-    @Bind(R.id.select_funds)
+    @BindView(R.id.select_funds)
     SelectUnit selectFunds;
-    @Bind(R.id.select_area)
+    @BindView(R.id.select_area)
     SelectUnit selectArea;
-    @Bind(R.id.layout_all_counts)
+    @BindView(R.id.layout_all_counts)
     LinearLayout layoutAllCounts;
-    @Bind(R.id.layout_brunch_counts)
+    @BindView(R.id.layout_brunch_counts)
     LinearLayout layoutBrunchCounts;
 
     private PartyInfo partyInfo;
@@ -309,8 +309,8 @@ public class DangzuzhiEditFragment extends Fragment implements View.OnClickListe
     }
 
     public void getAreaCode(){
-        final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(getActivity()).build();
+        loadingDialog.show();
         HashMap hashMap = new HashMap();
         hashMap.put(Constants.USER_ID,loginBean.getResult().getUserId());
         hashMap.put(Constants.DEPT_ID,loginBean.getResult().getDeptId());
@@ -319,25 +319,23 @@ public class DangzuzhiEditFragment extends Fragment implements View.OnClickListe
         call.enqueue(new Callback<Result<List<AreaBean>>>() {
             @Override
             public void onResponse(Response<Result<List<AreaBean>>> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
                 List<AreaBean> list = response.body().getObject();
                 if (list!=null){
                     if (list.size()!=0){
                         handleResult(list);
-                        dialog.dismiss();
                         Hawk.put(Constants.PARTY_AREA_LIST,list);
                     }else {
-                        dialog.dismiss();
                         Toast.makeText(getActivity(),"获取区县信息失败",Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    dialog.dismiss();
                     Toast.makeText(getActivity(),"获取区县信息失败",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(getActivity(),"获取区县信息失败",Toast.LENGTH_SHORT).show();
             }
         });

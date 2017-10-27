@@ -16,47 +16,47 @@ import com.wondersgroup.commerce.R;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class YDJYContentActivity extends AppCompatActivity{
 
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView toolTitle;
 
-    @Bind(R.id.ydjy_name1)
+    @BindView(R.id.ydjy_name1)
     TextView tvName1;
-    @Bind(R.id.ydjy_name2)
+    @BindView(R.id.ydjy_name2)
     TextView tvName2;
-    @Bind(R.id.ydjy_name_zch1)
+    @BindView(R.id.ydjy_name_zch1)
     TextView tvZch1;
-    @Bind(R.id.ydjy_name_zch2)
+    @BindView(R.id.ydjy_name_zch2)
     TextView tvZch2;
-    @Bind(R.id.ydjy_qylx1)
+    @BindView(R.id.ydjy_qylx1)
     TextView tvQylx1;
-    @Bind(R.id.ydjy_qylx2)
+    @BindView(R.id.ydjy_qylx2)
     TextView tvQylx2;
-    @Bind(R.id.ydjy_ssjjxq1)
+    @BindView(R.id.ydjy_ssjjxq1)
     TextView tvSsjjxq1;
-    @Bind(R.id.ydjy_ssjjxq2)
+    @BindView(R.id.ydjy_ssjjxq2)
     TextView tvSsjjxq2;
-    @Bind(R.id.ydjy_ssfj1)
+    @BindView(R.id.ydjy_ssfj1)
     TextView tvSsfj1;
-    @Bind(R.id.ydjy_ssfj2)
+    @BindView(R.id.ydjy_ssfj2)
     TextView tvSsfj2;
-    @Bind(R.id.ydjy_sdgss1)
+    @BindView(R.id.ydjy_sdgss1)
     TextView tvSdgss1;
-    @Bind(R.id.ydjy_sdgss2)
+    @BindView(R.id.ydjy_sdgss2)
     TextView tvSdgss2;
-    @Bind(R.id.ydjy_xzjd1)
+    @BindView(R.id.ydjy_xzjd1)
     TextView tvXzjd1;
-    @Bind(R.id.ydjy_xzjd2)
+    @BindView(R.id.ydjy_xzjd2)
     TextView tvXzjd2;
-    @Bind(R.id.ydjy_dz1)
+    @BindView(R.id.ydjy_dz1)
     TextView tvDz1;
-    @Bind(R.id.ydjy_dz2)
+    @BindView(R.id.ydjy_dz2)
     TextView tvDz2;
 
 

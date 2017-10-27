@@ -130,7 +130,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 //                this.content.setKeyListener(null);
                 this.content.setFocusable(false);
                 this.content.setSingleLine(false);
-                this.content.setMaxLines(3);
+//                this.content.setMaxLines(3);
                 this.content.setEllipsize(TextUtils.TruncateAt.END);
                 this.content.setOnClickListener(this);
                 break;
@@ -231,8 +231,10 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.tvContent.setSingleLine(false);
                 this.tvContent.setMaxLines(2);
                 this.tvContent.setEllipsize(TextUtils.TruncateAt.END);
+                this.tvContent.setHint(mBuilder.selectHint == null ?"":mBuilder.selectHint);
                 this.mapImg.setOnClickListener(this);
-//                this.content.setOnClickListener(this);                break;
+//                this.content.setOnClickListener(this);
+                break;
             case INPUT_WITH_ARROW:
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
                 this.addTitle();
@@ -1010,6 +1012,12 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         public Builder arrowSelect() {
             this.mType = Type.SELECT_WITH_ARROW;
+            return this;
+        }
+
+        public Builder arrowSelect(String hint) {
+            this.mType = Type.SELECT_WITH_ARROW;
+            this.selectHint = hint;
             return this;
         }
 

@@ -303,8 +303,8 @@ public class ListInfoAdapter extends RecyclerView.Adapter implements View.OnClic
 
     //获取暂存数据
     public void getDataEdit(final String entId,final String type){
-        final Dialog dialog = LoadingDialog.showCanCancelable(mContext);
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(mContext).build();
+        loadingDialog.show();
         HashMap map = new HashMap();
         map.put(Constants.USER_ID,loginBean.getResult().getUserId());
         map.put(Constants.ORGAN_ID,loginBean.getResult().getOrganId());
@@ -314,7 +314,7 @@ public class ListInfoAdapter extends RecyclerView.Adapter implements View.OnClic
         ca.enqueue(new Callback<Result<BaseInfoBean>>() {
             @Override
             public void onResponse(Response<Result<BaseInfoBean>> response, Retrofit retrofit) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 BaseInfoBean baseInfoBean = response.body().getObject();
                 EntBaseInfo entBaseInfo = baseInfoBean.getEntBaseInfo();
                 if (entBaseInfo!=null){
@@ -341,7 +341,7 @@ public class ListInfoAdapter extends RecyclerView.Adapter implements View.OnClic
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(mContext,"获取信息失败",Toast.LENGTH_SHORT).show();
             }
         });

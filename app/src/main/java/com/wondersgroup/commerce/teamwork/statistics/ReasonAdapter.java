@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -62,17 +62,17 @@ public class ReasonAdapter extends RecyclerView.Adapter<ReasonAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.linear_left)
+        @BindView(R.id.linear_left)
         LinearLayout mLinearLeft;
-        @Bind(R.id.linear_right)
+        @BindView(R.id.linear_right)
         LinearLayout mLinearRight;
-        @Bind(R.id.reason_left)
+        @BindView(R.id.reason_left)
         TextView mReasonLeft;
-        @Bind(R.id.reason_right)
+        @BindView(R.id.reason_right)
         TextView mReasonRight;
-        @Bind(R.id.value_left)
+        @BindView(R.id.value_left)
         TextView mValueLeft;
-        @Bind(R.id.value_right)
+        @BindView(R.id.value_right)
         TextView mValueRight;
 
         public ViewHolder(View itemView) {

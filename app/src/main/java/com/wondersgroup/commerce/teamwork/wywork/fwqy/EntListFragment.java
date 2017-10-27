@@ -60,8 +60,7 @@ public class EntListFragment extends Fragment {
 
 
 		application = (RootAppcation) activity.getApplication();
-		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
-				"loading");
+		progressDialog = new LoadingDialog.Builder(getActivity()).build();
 		initComplanList();
 		setHasOptionsMenu(true);
 		return view;

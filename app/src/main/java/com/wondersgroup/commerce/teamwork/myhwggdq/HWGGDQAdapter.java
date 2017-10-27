@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -68,11 +68,11 @@ public class HWGGDQAdapter extends BaseAdapter {
 
 
     static class ViewHolder {
-        @Bind(R.id.tv_ad_name)
+        @BindView(R.id.tv_ad_name)
         TextView tvAdName;
-        @Bind(R.id.tv_release_organization)
+        @BindView(R.id.tv_release_organization)
         TextView tvReleaseOrganization;
-        @Bind(R.id.tv_release_time)
+        @BindView(R.id.tv_release_time)
         TextView tvReleaseTime;
 
         public TextView getTvAdName() {

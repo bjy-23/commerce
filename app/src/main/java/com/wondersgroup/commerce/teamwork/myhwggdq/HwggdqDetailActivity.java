@@ -13,7 +13,7 @@ import com.wondersgroup.commerce.widget.MyProgressDialog;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -25,35 +25,35 @@ import retrofit.Retrofit;
  */
 public class HwggdqDetailActivity extends AppCompatActivity {
 
-    @Bind(R.id.tv_realNo)
+    @BindView(R.id.tv_realNo)
     TextView tvRealNo;
-    @Bind(R.id.tv_createDate)
+    @BindView(R.id.tv_createDate)
     TextView tvCreateDate;
-    @Bind(R.id.tv_unitName)
+    @BindView(R.id.tv_unitName)
     TextView tvUnitName;
-    @Bind(R.id.tv_appName)
+    @BindView(R.id.tv_appName)
     TextView tvAppName;
-    @Bind(R.id.tv_customerName)
+    @BindView(R.id.tv_customerName)
     TextView tvCustomerName;
-    @Bind(R.id.tv_startDate)
+    @BindView(R.id.tv_startDate)
     TextView tvStartDate;
-    @Bind(R.id.tv_endDate)
+    @BindView(R.id.tv_endDate)
     TextView tvEndDate;
-    @Bind(R.id.tv_adModeName)
+    @BindView(R.id.tv_adModeName)
     TextView tvAdModeName;
-    @Bind(R.id.tv_adModeId)
+    @BindView(R.id.tv_adModeId)
     TextView tvAdModeId;
-    @Bind(R.id.tv_equStartDate)
+    @BindView(R.id.tv_equStartDate)
     TextView tvEquStartDate;
-    @Bind(R.id.tv_equEndDate)
+    @BindView(R.id.tv_equEndDate)
     TextView tvEquEndDate;
-    @Bind(R.id.tv_posKindName)
+    @BindView(R.id.tv_posKindName)
     TextView tvPosKindName;
-    @Bind(R.id.tv_posTypeName)
+    @BindView(R.id.tv_posTypeName)
     TextView tvPosTypeName;
-    @Bind(R.id.tv_posOwnerName)
+    @BindView(R.id.tv_posOwnerName)
     TextView tvPosOwnerName;
-    @Bind(R.id.tv_moneyCostStr)
+    @BindView(R.id.tv_moneyCostStr)
     TextView tvMoneyCostStr;
 
     private String adNo;

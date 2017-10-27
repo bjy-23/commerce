@@ -98,7 +98,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -114,19 +114,19 @@ import retrofit.Retrofit;
 public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
     private String TAG = "ProcedureCaseDetailActivity";
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.picLayout)
+    @BindView(R.id.picLayout)
     LinearLayout picLayout;                                  //附件显示部分
-    @Bind(R.id.pic1)
+    @BindView(R.id.pic1)
     ImageView pic1;
-    @Bind(R.id.pic2)
+    @BindView(R.id.pic2)
     ImageView pic2;
-    @Bind(R.id.pic3)
+    @BindView(R.id.pic3)
     ImageView pic3;
-    @Bind(R.id.commit_record_Button)
+    @BindView(R.id.commit_record_Button)
     Button submitButton;
     private CaseInvestigateTitle caseInvestigateTitle;  //查询案件目录对象
     private ScrollView caseBrowseScrollView;            //案件总览ScrollView
@@ -160,7 +160,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
     private List<ProcedureCaseActnItemsVo> illegalLawList;         //违法行为定性和处罚依据List
     private ProcedureCasePunishVo submitPunishVo = null;       //处罚部分
     private RootAppcation app;
-    private TableRow personType, inquiryNameRow, inquiryRegisterRow, idTypeRow, idNumber, sexTypeRow, caseAreaCityRow, caseAreaDistrictRow, caseSourceRow,
+    private TableRow personType, inquiryNameRow, inquiryRegisterRow, inquiryCreditCode, idTypeRow, idNumber, sexTypeRow, caseAreaCityRow, caseAreaDistrictRow, caseSourceRow,
             illegalBigTypeRow, illegalSmallTypeRow, illegalCodeRow, illegalBehaviorType, qualitativeTypeRow, punishTypeRow,
             punishValue, penaltyDateRow, penaltyLetterNumRow, handlePersonRow;
     private LinearLayout brandLinearLayout, safeguarderLinearLayout;     //商标部分的LinearLayout
@@ -960,11 +960,11 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 String title = widget.getTitle();
                 if (widget.getTitle() == null)//蓝色标题，不用取值------------1960(父一级)
                     continue;
-                if (widget.getTitle().equals("* 单位名称")) {
+                if (widget.getTitle().equals("* 单位名称/字号名称")) {
                     widget.setContent(companyData.getLitigtName());
                 } else if (widget.getTitle().equals("* 注册号")) {
                     widget.setContent(companyData.getRegNo());
-                } else if (widget.getTitle().equals("* 法定代表人经营者")) {
+                } else if (widget.getTitle().equals("* 法定代表人/经营者")) {
                     widget.setContent(companyData.getLegalName());
                 } else if (widget.getTitle().equals("* 现居住地/经营场所")) {
                     widget.setContent(companyData.getAddress());
@@ -1019,7 +1019,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                     widget.setContent(personData.getOccupation());
                 } else if (widget.getTitle().equals("* 邮政编码(G)")) {
                     widget.setContent(personData.getPostalcode());
-                } else if (widget.getTitle().equals("* 法定代表人经营者")) {
+                } else if (widget.getTitle().equals("* 法定代表人/经营者")) {
                     widget.setContent(personData.getLegalName());
                 } else if (widget.getTitle().equals("* 现居住地/经营场所")) {
                     widget.setContent(personData.getAddress());
@@ -1058,8 +1058,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         personType = new TableRow.Builder(this)
                 .title("当事人分类")
-                .input("请选择当事人类别")
-                .arrowSelect()
+                .arrowSelect("请选择当事人类别")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1146,9 +1145,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         //
         idTypeRow = new TableRow.Builder(this)
                 .title("证件类型(G)")
-                .input("请选择证件类型")
                 .required()
-                .arrowSelect()
+                .arrowSelect("请选择证件类型")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1196,9 +1194,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         caseAreaCityRow = new TableRow.Builder(this)
                 .title("案发地区（市）")
-                .input("请选择案发地区")
                 .required()
-                .arrowSelect()
+                .arrowSelect("请选择案发地区")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1251,9 +1248,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         handlePersonRow = new TableRow.Builder(this)
                 .title("办案人员")
-                .input("请选择办案人员")
                 .required()
-                .arrowSelect()
+                .arrowSelect("请选择办案人员")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1297,9 +1293,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         caseSourceRow = new TableRow.Builder(this)
                 .title("案件来源")
-                .input("请选择案件来源")
                 .required()
-                .arrowSelect()
+                .arrowSelect("请选择案件来源")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1350,8 +1345,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         caseBrowseLinearlayout.addView(illegalActTitle);
         illegalBigTypeRow = new TableRow.Builder(this)
                 .title("违法行为大类")
-                .input("请选择违法行为")
-                .arrowSelect()
+                .arrowSelect("请选择违法行为")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1438,8 +1432,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         qualitativeTypeRow = new TableRow.Builder(this)
                 .title("定性依据(G)")
-                .input("请选择定性依据")
-                .arrowSelect()
+                .arrowSelect("请选择定性依据")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1465,8 +1458,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         punishTypeRow = new TableRow.Builder(this)
                 .title("处罚依据(G)")
-                .input("请选择处罚依据")
-                .arrowSelect()
+                .arrowSelect("请选择处罚依据")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -1592,8 +1584,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         penaltyDateRow = new TableRow.Builder(this)
                 .title("处罚日期")
-                .input("请选择处罚日期")
-                .arrowSelect()
+                .arrowSelect("请选择处罚日期")
                 .onSelect(null)
                 .build();
         caseBrowseLinearlayout.addView(penaltyDateRow);
@@ -2516,9 +2507,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         sexTypeRow = new TableRow.Builder(this)
                 .title("性别(G)")
-                .input("性别选择")
                 .required()
-                .arrowSelect()
+                .arrowSelect("性别选择")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -2753,6 +2743,31 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                     })
                     .build();
             personOrCompanyLinearlayout.addView(inquiryRegisterRow);
+            inquiryCreditCode = new TableRow.Builder(this)
+                    .title("统一社会信用代码")
+                    .arrowSelectWithEditText()
+                    .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getUniScid())
+                    .required()
+                    .editTextSelectorHint("请输入完整的统一社会信用代码！")
+                    .onSelect(new TableRow.SelectCallBack() {
+                        @Override
+                        public void onSelect(TableRow row, int which) {
+                            if (isEditTextEmpty(inquiryCreditCode)) {
+                                Toast.makeText(ProcedureCaseDetailActivity.this, "统一社会信用代码不能为空！", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Bundle bundle = new Bundle();
+                            bundle.putString("activityType", AICRegisterInquireListActivity.TYPE_PERSONAL_CREDIT_CODE);
+                            bundle.putString("param", inquiryCreditCode.getContent().toString());
+                            bundle.putSerializable("iOrganIdMap", serializableOrganIdMapMap);
+                            Intent intent = new Intent(ProcedureCaseDetailActivity.this, AICRegisterInquireListActivity.class);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, AICRegisterInquireListActivity.REQUEST);
+
+                        }
+                    })
+                    .build();
+            personOrCompanyLinearlayout.addView(inquiryCreditCode);
         } else {//"非本省登记个体工商户"
             TableRow typeRegisterName = new TableRow.Builder(this)
                     .title("个体工商户名称")
@@ -2770,8 +2785,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             personOrCompanyLinearlayout.addView(typeRegisterNo);
         }
         TableRow typeRegisterCorporation = new TableRow.Builder(this)
-                .title("法定代表人经营者")
-                .input("请输入法定代表人经营者")
+                .title("法定代表人/经营者")
+                .input("请输入法定代表人/经营者")
                 .required()
                 .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getLegalName())
                 .build();
@@ -2801,9 +2816,14 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .msgWithTitle(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getRegNo())
                 .build();
         personOrCompanyLinearlayout.addView(inquiryRegisterRow);
+        inquiryCreditCode = new TableRow.Builder(this)
+                .title("统一社会信用代码")
+                .msgWithTitle(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getUniScid())
+                .build();
+        personOrCompanyLinearlayout.addView(inquiryCreditCode);
 
         TableRow typeRegisterCorporation = new TableRow.Builder(this)
-                .title("法定代表人经营者")
+                .title("法定代表人/经营者")
                 .msgWithTitle(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getLegalName())
                 .build();
         personOrCompanyLinearlayout.addView(typeRegisterCorporation);
@@ -2821,7 +2841,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         personOrCompanyLinearlayout.removeAllViews();
         if (documentType.equals("1")) {//"本省登记企业"
             inquiryNameRow = new TableRow.Builder(this)
-                    .title("单位名称")
+                    .title("单位名称/字号名称")
                     .editTextSelectorHint("请输入至少四个汉字！ ")
                     .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getLegalName())
                     .arrowSelectWithEditText()
@@ -2830,7 +2850,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         @Override
                         public void onSelect(TableRow row, int which) {
                             if (isEditTextEmpty(inquiryNameRow)) {
-                                Toast.makeText(ProcedureCaseDetailActivity.this, "查询单位名称不能为空！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProcedureCaseDetailActivity.this, "查询单位名称/字号名称不能为空！", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             Bundle bundle = new Bundle();
@@ -2868,10 +2888,34 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                     })
                     .build();
             personOrCompanyLinearlayout.addView(inquiryRegisterRow);
+            inquiryCreditCode = new TableRow.Builder(this)
+                    .title("统一社会信用代码")
+                    .arrowSelectWithEditText()
+                    .required()
+                    .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getUniScid())
+                    .editTextSelectorHint("请输入完整统一社会信用代码！")
+                    .onSelect(new TableRow.SelectCallBack() {
+                        @Override
+                        public void onSelect(TableRow row, int which) {
+                            if (isEditTextEmpty(inquiryCreditCode)) {
+                                Toast.makeText(ProcedureCaseDetailActivity.this, "查询统一社会信用代码不能为空！", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Bundle bundle = new Bundle();
+                            bundle.putString("activityType", AICRegisterInquireListActivity.TYPE_COMPANY_CREDIT_CODE);
+                            bundle.putString("param", inquiryCreditCode.getContent().toString());
+                            bundle.putSerializable("iOrganIdMap", serializableOrganIdMapMap);
+                            Intent intent = new Intent(ProcedureCaseDetailActivity.this, AICRegisterInquireListActivity.class);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, AICRegisterInquireListActivity.REQUEST);
+                        }
+                    })
+                    .build();
+            personOrCompanyLinearlayout.addView(inquiryCreditCode);
         } else {//其他组织/其他组织，其他组织/非本省登记企业
             TableRow typeRegisterName = new TableRow.Builder(this)
-                    .title("单位名称")
-                    .input("请输入单位名称")
+                    .title("单位名称/字号名称")
+                    .input("请输入单位名称/字号名称")
                     .required()
                     .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getLegalName())
                     .build();
@@ -2885,8 +2929,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             personOrCompanyLinearlayout.addView(typeRegisterNo);
         }
         TableRow typeRegisterCorporation = new TableRow.Builder(this)
-                .title("法定代表人经营者")
-                .input("请输入法定代表人经营者")
+                .title("法定代表人/经营者")
+                .input("请输入法定代表人/经营者")
                 .required()
                 .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getLegalName())
                 .build();
@@ -2913,7 +2957,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         personOrCompanyLinearlayout.removeAllViews();
         //"本省登记企业",其他组织/其他组织，其他组织/非本省登记企业----都一样显示，因为不能修改
         inquiryNameRow = new TableRow.Builder(this)
-                .title("单位名称")
+                .title("单位名称/字号名称")
                 .msgWithTitle(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getLegalName())
                 .build();
         personOrCompanyLinearlayout.addView(inquiryNameRow);
@@ -2922,8 +2966,13 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .msgWithTitle(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getRegNo())
                 .build();
         personOrCompanyLinearlayout.addView(inquiryRegisterRow);
+        inquiryCreditCode = new TableRow.Builder(this)
+                .title("统一社会信用代码")
+                .msgWithTitle(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getUniScid())
+                .build();
+        personOrCompanyLinearlayout.addView(inquiryCreditCode);
         TableRow typeRegisterCorporation = new TableRow.Builder(this)
-                .title("法定代表人经营者")
+                .title("法定代表人/经营者")
                 .msgWithTitle(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getLegalName())
                 .build();
         personOrCompanyLinearlayout.addView(typeRegisterCorporation);
@@ -2945,9 +2994,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         districtAreaLinearlayout.removeAllViews();
         caseAreaDistrictRow = new TableRow.Builder(this)
                 .title("案发地区（区）")
-                .content("请选择案发地区")
                 .required()
-                .arrowSelect()
+                .arrowSelect("请选择案发地区")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -2998,8 +3046,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         illegalLinearLayout.removeAllViews();
         illegalSmallTypeRow = new TableRow.Builder(this)
                 .title("违法行为小类")
-                .input("请选择违法行为")
-                .arrowSelect()
+                .arrowSelect("请选择违法行为")
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
                     public void onSelect(TableRow row, int which) {
@@ -3408,7 +3455,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             String type = bundle.getString("activityType");
             String entityId = bundle.getString("entityId");
 //            Log.d(TAG, "checkValue() --------------- AICRegisterInquireListActivity .entityId = " + entityId);
-            if (type.equals(AICRegisterInquireListActivity.TYPE_PERSONAL_NAME) || type.equals(AICRegisterInquireListActivity.TYPE_PERSONAL_REGISTER))
+            if (type.equals(AICRegisterInquireListActivity.TYPE_PERSONAL_NAME) || type.equals(AICRegisterInquireListActivity.TYPE_PERSONAL_REGISTER)
+                    || type.equals(AICRegisterInquireListActivity.TYPE_PERSONAL_CREDIT_CODE))
                 queryPersonSelected(entityId);
             else
                 queryEtpsSelected(entityId);
@@ -3862,10 +3910,10 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setLitigtName(widget.getClearEditText());
                                 continue;
                             }
-                        }else if (widget.getTitle().equals("* 单位名称")) {
+                        }else if (widget.getTitle().equals("* 单位名称/字号名称")) {
                             if (documentType.equals("1")) {//"本省登记过的企业"
                                 if (isEditTextEmpty(widget)) {
-                                    Toast.makeText(ProcedureCaseDetailActivity.this, "请输入单位名称", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ProcedureCaseDetailActivity.this, "请输入单位名称/字号名称", Toast.LENGTH_SHORT).show();
                                     return false;
                                 } else {
                                     submitCase.getmLitigtInfoVo().setLitigtName(widget.getContent());
@@ -3873,7 +3921,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 }
                             }else{
                                 if (isClearEditTextEmpty(widget)) {
-                                    Toast.makeText(ProcedureCaseDetailActivity.this, "请输入单位名称", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ProcedureCaseDetailActivity.this, "请输入单位名称/字号名称", Toast.LENGTH_SHORT).show();
                                     return false;
                                 } else {
                                     submitCase.getmLitigtInfoVo().setLitigtName(widget.getClearEditText());
@@ -3924,9 +3972,9 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                     continue;
                                 }
                             }
-                        } else if (widget.getTitle().equals("* 法定代表人经营者")) {
+                        } else if (widget.getTitle().equals("* 法定代表人/经营者")) {
                             if (isClearEditTextEmpty(widget)) {
-                                Toast.makeText(ProcedureCaseDetailActivity.this, "请输入法定代表人经营者", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProcedureCaseDetailActivity.this, "请输入法定代表人/经营者", Toast.LENGTH_SHORT).show();
                                 return false;
                             } else {
                                 submitCase.getmLitigtInfoVo().setLegalName(widget.getClearEditText());

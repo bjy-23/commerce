@@ -15,7 +15,8 @@ import com.wondersgroup.commerce.widget.InfoSelectBar;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -24,7 +25,7 @@ import butterknife.OnClick;
  */
 public class TJFXFragment extends Fragment {
 
-//    @Bind({R.id.neizi_hushu, R.id.neizi_zhuceziben, R.id.neizi_guimo, R.id.waizi_zhuti,
+//    @BindView({R.id.neizi_hushu, R.id.neizi_zhuceziben, R.id.neizi_guimo, R.id.waizi_zhuti,
 //            R.id.waizi_chengbaoshang, R.id.waizi_guimo, R.id.weiquan_zixun,
 //            R.id.weiquan_shangpin, R.id.weiquan_fuwu, R.id.weiquan_qushi,R.id.chufa_bqja,
 //            R.id.chufa_fgaj,R.id.chufa_lnaj})
@@ -36,7 +37,7 @@ public class TJFXFragment extends Fragment {
 //            R.drawable.icons_10,R.drawable.icons_10,R.drawable.icons_10,R.drawable.icons_10,
 //            R.drawable.icons_10,R.drawable.icons_10,R.drawable.icons_10};
 
-    @Bind({R.id.qynb_link_1,R.id.qynb_link_2,R.id.qynb_link_3,R.id.qynb_link_4,R.id.qynb_link_5,
+    @BindViews({R.id.qynb_link_1,R.id.qynb_link_2,R.id.qynb_link_3,R.id.qynb_link_4,R.id.qynb_link_5,
             R.id.qynb_link_6,R.id.qynb_link_7,R.id.qynb_link_8,R.id.xwxx_link_1,R.id.xwxx_link_2,
             R.id.xwxx_link_3,R.id.xwxx_link_4,R.id.xwxx_link_5,R.id.jyyc_link_1,R.id.jyyc_link_2,
             R.id.jyyc_link_3,R.id.jyyc_link_4,R.id.jyyc_link_5,R.id.jyyc_link_6,R.id.gtgsh_link_1,

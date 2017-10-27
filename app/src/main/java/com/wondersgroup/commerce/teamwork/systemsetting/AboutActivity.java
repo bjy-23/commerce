@@ -8,18 +8,18 @@ import com.wondersgroup.commerce.activity.BaseActivity;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by kangrenhui on 2016/3/4.
  */
 public class AboutActivity extends BaseActivity {
-    @Bind(R.id.tv_dept)
+    @BindView(R.id.tv_dept)
     TextView tvDept;
-    @Bind(R.id.tv_version)
+    @BindView(R.id.tv_version)
     TextView tvVersion;
-    @Bind(R.id.tv_bottom)
+    @BindView(R.id.tv_bottom)
     TextView tvBottom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

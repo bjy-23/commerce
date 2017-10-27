@@ -16,16 +16,17 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.constant.Constants;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GSActivity extends AppCompatActivity {
 
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     WebView webView;
 
     @SuppressLint("JavascriptInterface")
@@ -82,12 +83,28 @@ public class GSActivity extends AppCompatActivity {
             }
         });
 
-        webView.addJavascriptInterface(new JsInteration(), "interaction");
+        JsInteration jsInteration = new JsInteration();
+        String url = "";
+        if (Constants.AREA.equals(Constants.AREA_SC)){
+            if (Constants.VERSION.equals(Constants.VERSION_R))
+                url = Constants.GS_URL_SC_2;
+            else
+                url = Constants.GS_URL_SC_1;
+        }else if (Constants.AREA.equals(Constants.AREA_YN)){
+            if (Constants.VERSION.equals(Constants.VERSION_R))
+                url = Constants.GS_URL_YN_2;
+            else
+                url = Constants.GS_URL_YN_1;
+        }
+        jsInteration.url = url;
+        webView.addJavascriptInterface(jsInteration, "interaction");
         //webView.loadUrl("http://10.10.16.163:8080/public/publicityInquiry/app/index.html#/entInfoQuery?searchType=1&backUrl=home");
         webView.loadUrl("file:///android_asset/publicityInquiry/app/index.html#/entInfoQuery?searchType=1&backUrl=home");
     }
 
     public class JsInteration {
+        public String url;
+
         @JavascriptInterface
         public void goBackHunan() {
             //Toast.makeText(GSActivity.this, "aaaaaa", Toast.LENGTH_SHORT).show();
@@ -97,6 +114,11 @@ public class GSActivity extends AppCompatActivity {
         @JavascriptInterface
         public void onSumResult(int result) {
             Log.i("aaa", "onSumResult result=" + result);
+        }
+
+        @JavascriptInterface
+        public String setBaseUrl(){
+            return url;
         }
     }
 }

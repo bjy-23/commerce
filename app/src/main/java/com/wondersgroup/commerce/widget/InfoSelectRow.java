@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -20,8 +20,8 @@ import butterknife.ButterKnife;
  * Created by 薛定猫 on 2015/10/23.
  */
 public class InfoSelectRow extends RelativeLayout {
-    @Bind(R.id.info_bar_title)  TextView titleText;
-    @Bind(R.id.info_bar_text) TextView editText;
+    @BindView(R.id.info_bar_title)  TextView titleText;
+    @BindView(R.id.info_bar_text) TextView editText;
     private Context context;
 
     public InfoSelectRow(Context context) {

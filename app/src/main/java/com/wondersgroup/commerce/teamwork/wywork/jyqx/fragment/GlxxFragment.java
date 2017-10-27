@@ -25,7 +25,7 @@ import com.wondersgroup.commerce.widget.MyProgressDialog;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,30 +37,30 @@ import retrofit.Retrofit;
  */
 public class GlxxFragment extends Fragment implements View.OnClickListener{
 
-    @Bind(R.id.fragment_glxx_tv_gllb)
+    @BindView(R.id.fragment_glxx_tv_gllb)
     TextView tvGllb;
-    @Bind(R.id.fragment_glxx_tv_xyfl)
+    @BindView(R.id.fragment_glxx_tv_xyfl)
     TextView tvXyfl;
-    @Bind(R.id.fragment_glxx_tv_zdjgdx)
+    @BindView(R.id.fragment_glxx_tv_zdjgdx)
     TextView tvZdjgdx;
-    @Bind(R.id.fragment_glxx_tv_tsbs)
+    @BindView(R.id.fragment_glxx_tv_tsbs)
     TextView tvTsbs;
-    @Bind(R.id.fragment_glxx_tv_rdhy)
+    @BindView(R.id.fragment_glxx_tv_rdhy)
     TextView tvRdhy;
-    @Bind(R.id.fragment_glxx_tv_zdqy)
+    @BindView(R.id.fragment_glxx_tv_zdqy)
     TextView tvZdqy;
 
-//    @Bind(R.id.glxx_jgjl_listview)
+//    @BindView(R.id.glxx_jgjl_listview)
 //    ListView lvJgjl;
-//    @Bind(R.id.glxx_njqk_listview)
+//    @BindView(R.id.glxx_njqk_listview)
 //    ListView lvNjqk;
-//    @Bind(R.id.glxx_jkzk_listview)
+//    @BindView(R.id.glxx_jkzk_listview)
 //    ListView lvJkzk;
-//    @Bind(R.id.glxx_wfwg_listview)
+//    @BindView(R.id.glxx_wfwg_listview)
 //    ListView lvWfwg;
-//    @Bind(R.id.glxx_frdbgj_listview)
+//    @BindView(R.id.glxx_frdbgj_listview)
 //    ListView lvFrdbgj;
-//    @Bind(R.id.glxx_frdbsh_listview)
+//    @BindView(R.id.glxx_frdbsh_listview)
 //    ListView lvFrdbsh;
     private String entityId;
     private JyqxdqGlxxBean jyqxdqGlxxBean;

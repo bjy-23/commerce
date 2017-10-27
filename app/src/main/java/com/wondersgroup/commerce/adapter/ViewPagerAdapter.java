@@ -28,7 +28,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         switch (type){
             case "GGXQ":
                 data = new ArrayList<>(Arrays.asList(
-                        new VpType("广告经营单位", "jydw"),
+                        new VpType("广告发布单位", "jydw"),
                         new VpType("广告从业人员", "cyry"),
                         new VpType("提交材料" ,"tjcl")
                 ));

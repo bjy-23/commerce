@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,11 +37,11 @@ import retrofit.Retrofit;
  */
 
 public class LeagueMemFragment extends Fragment{
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @Bind(R.id.layout_add)
+    @BindView(R.id.layout_add)
     ViewGroup layoutAdd;
-    @Bind(R.id.layout_add_bg)
+    @BindView(R.id.layout_add_bg)
     ViewGroup layoutAddBg;
 
     private LeagueMemAdapter adapter;

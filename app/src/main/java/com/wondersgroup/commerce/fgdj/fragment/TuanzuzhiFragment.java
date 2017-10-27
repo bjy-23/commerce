@@ -21,7 +21,7 @@ import com.wondersgroup.commerce.service.Result;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -33,45 +33,45 @@ import retrofit.Retrofit;
  */
 
 public class TuanzuzhiFragment extends Fragment {
-    @Bind(R.id.tv_full_name)
+    @BindView(R.id.tv_full_name)
     TextView tvFullName;
-    @Bind(R.id.tv_short_name)
+    @BindView(R.id.tv_short_name)
     TextView tvShortName;
-    @Bind(R.id.tv_super_name)
+    @BindView(R.id.tv_super_name)
     TextView tvSuperName;
-    @Bind(R.id.tv_level)
+    @BindView(R.id.tv_level)
     TextView tvLevel;
-    @Bind(R.id.tv_address)
+    @BindView(R.id.tv_address)
     TextView tvAddres;
-    @Bind(R.id.tv_es_date)
+    @BindView(R.id.tv_es_date)
     TextView tvEsDate;
-    @Bind(R.id.tv_es_way)
+    @BindView(R.id.tv_es_way)
     TextView tvEsWay;
-    @Bind(R.id.tv_tel)
+    @BindView(R.id.tv_tel)
     TextView tvTel;
-    @Bind(R.id.tv_over_num)
+    @BindView(R.id.tv_over_num)
     TextView tvOverNum;
-    @Bind(R.id.tv_aff_num)
+    @BindView(R.id.tv_aff_num)
     TextView tvAffNum;
-    @Bind(R.id.tv_ft_aff_num)
+    @BindView(R.id.tv_ft_aff_num)
     TextView tvFtAffNum;
-    @Bind(R.id.tv_secretary_name)
+    @BindView(R.id.tv_secretary_name)
     TextView tvSecretaryName;
-    @Bind(R.id.tv_secretary_tel)
+    @BindView(R.id.tv_secretary_tel)
     TextView tvSecretaryTel;
-    @Bind(R.id.tv_instructor_name)
+    @BindView(R.id.tv_instructor_name)
     TextView tvInstructorName;
-    @Bind(R.id.tv_instructor_tel)
+    @BindView(R.id.tv_instructor_tel)
     TextView tvInstructorTel;
-    @Bind(R.id.tv_instructor_from)
+    @BindView(R.id.tv_instructor_from)
     TextView tvInstructorFrom;
-    @Bind(R.id.tv_budget_inv)
+    @BindView(R.id.tv_budget_inv)
     TextView tvBudgetInv;
-    @Bind(R.id.tv_dues_inv)
+    @BindView(R.id.tv_dues_inv)
     TextView tvDuesInv;
-    @Bind(R.id.tv_ent_inv)
+    @BindView(R.id.tv_ent_inv)
     TextView tvEntInv;
-    @Bind(R.id.tv_other_inv)
+    @BindView(R.id.tv_other_inv)
     TextView tvOtherInv;
 
     private String entId;

@@ -27,11 +27,11 @@ import com.wondersgroup.commerce.fragment.FragmentSetting;
 import com.wondersgroup.commerce.fragment.FragmentSix;
 import com.wondersgroup.commerce.utils.FragmentHelper;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends RootActivity {
-    @Bind(R.id.menu_layout)
+    @BindView(R.id.menu_layout)
     public TabLayout menuLayout;
 
     RootAppcation appcation;
@@ -123,11 +123,11 @@ public class MainActivity extends RootActivity {
             menuLayout.setVisibility(View.GONE);
         }
 
-        if (Constants.SC.equals(appcation.getVersion())){
+        if (Constants.AREA_SC.equals(appcation.getVersion())){
             FragmentSc fragmentSc = new FragmentSc();
             FragmentHelper.replaceFragmentNoBack(fm,fragmentSc,"",null,R.id.layout_fragment);
             menuLayout.setVisibility(View.GONE);
-        }else if (Constants.YN.equals(appcation.getVersion())){
+        }else if (Constants.AREA_YN.equals(appcation.getVersion())){
             FragmentOne fOne = new FragmentOne();
             FragmentHelper.replaceFragmentNoBack(fm, fOne, "首页", null, R.id.layout_fragment);
         }

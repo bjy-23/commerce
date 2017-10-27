@@ -16,7 +16,7 @@ import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -27,9 +27,9 @@ import retrofit.Retrofit;
  * Created by Administrator on 2016/4/21 0021.
  */
 public class JyqxdqQyxxJgjlActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
 
     public static int currTab = 0;

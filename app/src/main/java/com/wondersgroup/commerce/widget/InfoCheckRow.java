@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -17,8 +17,8 @@ import butterknife.ButterKnife;
  * Created by yclli on 2015/3/14.
  */
 public class InfoCheckRow extends RelativeLayout {
-    @Bind(R.id.info_bar_text) TextView editText;
-    @Bind(R.id.info_bar_check) CheckBox checkBox;
+    @BindView(R.id.info_bar_text) TextView editText;
+    @BindView(R.id.info_bar_check) CheckBox checkBox;
     private Context context;
     private Boolean isChecked = true;
 

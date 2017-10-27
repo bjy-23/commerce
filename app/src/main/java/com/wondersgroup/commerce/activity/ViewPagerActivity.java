@@ -10,17 +10,17 @@ import android.widget.TextView;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.adapter.ViewPagerAdapter;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ViewPagerActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.report_tab)
+    @BindView(R.id.report_tab)
     TabLayout tabs;
-    @Bind(R.id.report_vp)
+    @BindView(R.id.report_vp)
     ViewPager viewPager;
 
     private String titleString;

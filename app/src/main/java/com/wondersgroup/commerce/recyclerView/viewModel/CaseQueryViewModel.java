@@ -33,8 +33,8 @@ public class CaseQueryViewModel extends ViewModel {
     public void dataBind(RecyclerView.ViewHolder holder) {
         ViewHolder viewHolder = (ViewHolder) holder;
 
-        viewHolder.tvNo.setText(bean.getCaseNo());
-        viewHolder.tvCaseName.setText("案件名称：" + bean.getCaseName());
+        viewHolder.tvNo.setText(bean.getCaseName());
+        viewHolder.tvCaseName.setText("案件编号：" + bean.getCaseNo());
         viewHolder.tvOrgan.setText("立案机关：" + bean.getTransactOrganShow());
         viewHolder.tvRegDate.setText("立案日期：" + bean.getRegCaseDateShow1());
         viewHolder.tvPunishOrgan.setText("处罚决定机关：" + bean.getPunishOrgan());

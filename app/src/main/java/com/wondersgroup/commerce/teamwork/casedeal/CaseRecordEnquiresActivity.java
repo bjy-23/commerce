@@ -63,10 +63,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -80,14 +79,14 @@ import retrofit.Retrofit;
 public class CaseRecordEnquiresActivity extends AppCompatActivity {
 
     private String TAG = "CaseEnquireActivity";
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.components_LinearLayout)LinearLayout componentsLinearLayout;        //控件显示部分（动态添加控件）
-    @Bind(R.id.picLayout) LinearLayout picLayout;                                  //附件显示部分
-    @Bind(R.id.pic1) ImageView pic1;
-    @Bind(R.id.pic2) ImageView pic2;
-    @Bind(R.id.pic3) ImageView pic3;
-    @Bind(R.id.commit_record_Button)Button commitButton;                        //提交按钮
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.components_LinearLayout)LinearLayout componentsLinearLayout;        //控件显示部分（动态添加控件）
+    @BindView(R.id.picLayout) LinearLayout picLayout;                                  //附件显示部分
+    @BindView(R.id.pic1) ImageView pic1;
+    @BindView(R.id.pic2) ImageView pic2;
+    @BindView(R.id.pic3) ImageView pic3;
+    @BindView(R.id.commit_record_Button)Button commitButton;                        //提交按钮
 
     private String clueNo = null;                       //线索号
     private String serialNo = null;                     //序列号
@@ -466,7 +465,8 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
     //新增、修改记录
     private void commitRecord() {
 
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(this);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(CaseRecordEnquiresActivity.this)
+                .build();
         Map<String, String> map = new HashMap<String, String>();
         Map<String, String> mapValue = new HashMap<String, String>();
         map.put("wsCodeReq", "03010012");
@@ -532,8 +532,8 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
         call.enqueue(new Callback<BackResultObject>() {
             @Override
             public void onResponse(Response<BackResultObject> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
                 if (response.isSuccess()) {
-                    dialog.dismiss();
                     BackResultObject result = response.body();
                     if (result.getCode().equals(ApiManager.RESULT_SUCCESS)){
                         CaseRecordEnquiresActivity.this.setResult(resultCode, null);
@@ -544,7 +544,6 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    dialog.dismiss();
                     Log.d(TAG, "CaseEnquireActivity --------------- response.is not Success()");
                     Toast.makeText(CaseRecordEnquiresActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
                 }
@@ -552,7 +551,7 @@ public class CaseRecordEnquiresActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(CaseRecordEnquiresActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
         });

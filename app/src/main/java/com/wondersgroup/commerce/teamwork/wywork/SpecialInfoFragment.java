@@ -107,8 +107,7 @@ public class SpecialInfoFragment extends Fragment {
 		application = (RootAppcation) activity.getApplication();
 		TextView title = (TextView) activity.findViewById(R.id.toolbar_title);
 		title.setText(application.getInfoBean().getEtpsInfoVo().get("etpsName"));
-		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
-				"loading");
+		progressDialog = new LoadingDialog.Builder(getActivity()).build();
 
 		// new
 		imageView1 = (ImageView) view.findViewById(R.id.imageView1);

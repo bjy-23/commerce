@@ -115,8 +115,7 @@ public class DailyCheckInfoFragment extends Fragment {
 		title.setText(application.getInfoBean().getEtpsInfoVo().get("etpsName"));
 		// view = inflater.inflate(R.layout.q_dailycheck_info, null);
 		// headView = inflater.inflate(R.layout.q_dailycheck_up, null);
-		progressDialog = LoadingDialog.createLoadingDialog(getActivity(),
-				"loading");
+		progressDialog = new LoadingDialog.Builder(getActivity()).build();
 		expandableListView = (AnimatedExpandableListView) view
 				.findViewById(R.id.doubleList);
 

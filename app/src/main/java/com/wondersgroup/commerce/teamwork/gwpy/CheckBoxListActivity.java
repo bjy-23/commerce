@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -41,11 +41,11 @@ import retrofit.Retrofit;
  * Created by yclli on 2015/12/11.
  */
 public class CheckBoxListActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.list_checkbox_select_all) Button allBtn;
-    @Bind(R.id.list_checkbox_confirm) Button confirmBtn;
-    @Bind(R.id.activity_peoplelist_list) ListView listView;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.list_checkbox_select_all) Button allBtn;
+    @BindView(R.id.list_checkbox_confirm) Button confirmBtn;
+    @BindView(R.id.activity_peoplelist_list) ListView listView;
 
     private CheckBoxListAdapter adapter;
     private NextPeoListBean nextPeoListBean;
@@ -270,8 +270,8 @@ public class CheckBoxListActivity extends AppCompatActivity {
         }
 
         public class ViewHolder{
-            public @Bind(R.id.list_checkbox_check)CheckBox checkbox;
-            @Bind(R.id.list_checkbox_name)TextView name;
+            public @BindView(R.id.list_checkbox_check)CheckBox checkbox;
+            @BindView(R.id.list_checkbox_name)TextView name;
 
             public ViewHolder(View view) {
                 ButterKnife.bind(this,view);

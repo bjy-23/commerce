@@ -61,6 +61,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:visibility="gone"
         app:hint="搜索"/>
 
     <include layout="@layout/error_1"

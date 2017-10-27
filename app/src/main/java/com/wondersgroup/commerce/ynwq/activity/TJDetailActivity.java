@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import retrofit.Call;
@@ -31,11 +31,11 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class TJDetailActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.tjdetail_recycler)RecyclerView recycler;
-    @Bind(R.id.net_area)RelativeLayout netArea;
-    @Bind(R.id.net_msg)TextView netMsg;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.tjdetail_recycler)RecyclerView recycler;
+    @BindView(R.id.net_area)RelativeLayout netArea;
+    @BindView(R.id.net_msg)TextView netMsg;
 
     private TongJiAdapter adapter;
     private List<StatItem> items;

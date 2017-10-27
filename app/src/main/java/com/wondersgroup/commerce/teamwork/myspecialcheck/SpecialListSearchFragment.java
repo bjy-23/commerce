@@ -96,7 +96,8 @@ public class SpecialListSearchFragment extends Fragment {
         searchWord = (TextView) view.findViewById(R.id.searchWord);
         CheckUtil.limitCheckMinCount(searchWord, Constants.inputMinCount);
         CheckUtil.limitCheckMaxCount(searchWord, Constants.inputMaxCount);
-        loadingDialog = LoadingDialog.showCanCancelable(getActivity());
+        loadingDialog = new LoadingDialog.Builder(getActivity()).build();
+        loadingDialog.show();
         queryButton = (Button) view.findViewById(R.id.queryButton);
         queryButton.setOnClickListener(new OnClickListener() {
 
@@ -109,7 +110,7 @@ public class SpecialListSearchFragment extends Fragment {
                         searchWord.setError("输入字数不得少于" + Constants.inputMinCount);
                     }
                 } else {
-                    loadingDialog = LoadingDialog.showCanCancelable(getActivity());
+                    loadingDialog =  new LoadingDialog.Builder(getActivity()).build();
                     loadingDialog.show();
                     String keyWord = "";
                     try {

@@ -31,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import retrofit.Call;
@@ -47,8 +47,8 @@ import retrofit.Retrofit;
  * 小微企业信息、经办信息
  */
 public class ProcessFragment extends Fragment {
-    @Bind(R.id.process_recycler)RecyclerView recycler;
-    @Bind(R.id.layout_error)
+    @BindView(R.id.process_recycler)RecyclerView recycler;
+    @BindView(R.id.layout_error)
     View layoutError;
     private JingBanAdapter jingBanAdapter;
     private XiaoWeiAdapter xiaoWeiAdapter;

@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -48,17 +48,17 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class DjxxActivity extends AppCompatActivity implements BaseInfoEditFragment.FragmentListener{
-    @Bind(R.id.layout_tab)
+    @BindView(R.id.layout_tab)
     TabLayout tabLayout;
-    @Bind(R.id.viewPager)
+    @BindView(R.id.viewPager)
     ViewPager viewPager;
-    @Bind(R.id.move_bg)
+    @BindView(R.id.move_bg)
     View moveBg;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.img_op)
+    @BindView(R.id.img_op)
     ImageView imgOp;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
 
     private DjxxAdapter djxxAdapter;

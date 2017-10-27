@@ -27,7 +27,7 @@ import com.wondersgroup.commerce.utils.FragmentHelper;
 
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -36,11 +36,11 @@ import butterknife.OnClick;
  */
 public class FragmentSix extends RootFragment {
 
-    @Bind(R.id.fragment_six_mine)
+    @BindView(R.id.fragment_six_mine)
     ImageView mineBtn;
-    @Bind(R.id.layout_home_menu)
+    @BindView(R.id.layout_home_menu)
     LinearLayout homeMenuLayout;
-//    @Bind(R.id.fragment_six_version)
+//    @BindView(R.id.fragment_six_version)
 //    TextView versionTxt;
 
     private RootAppcation rootAppcation;

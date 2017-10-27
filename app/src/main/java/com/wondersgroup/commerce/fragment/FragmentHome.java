@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -52,13 +52,13 @@ import retrofit.Retrofit;
  * Created by kangrenhui on 2016/1/19.
  */
 public class FragmentHome extends RootFragment {
-    @Bind(R.id.indicate_view)
+    @BindView(R.id.indicate_view)
     ImageIndicatorView imageIndicatorView;
-    @Bind(R.id.layout_home_menu)
+    @BindView(R.id.layout_home_menu)
     LinearLayout homeMenuLayout;
-    @Bind(R.id.fragment_ydbg_list_sw)
+    @BindView(R.id.fragment_ydbg_list_sw)
     ForScrollListView gwListView;
-    @Bind(R.id.viewpager_tztg)
+    @BindView(R.id.viewpager_tztg)
     ViewPager viewPagerTZTG;
 
     private RootAppcation rootAppcation;
@@ -305,9 +305,9 @@ public class FragmentHome extends RootFragment {
     }
 
     static class ViewHolder {
-        @Bind(R.id.tv_content) TextView contentTv;
-        @Bind(R.id.tv_date) TextView dateTv;
-        @Bind(R.id.tv_type) TextView typeTv;
+        @BindView(R.id.tv_content) TextView contentTv;
+        @BindView(R.id.tv_date) TextView dateTv;
+        @BindView(R.id.tv_type) TextView typeTv;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

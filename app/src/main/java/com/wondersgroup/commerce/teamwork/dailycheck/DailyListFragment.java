@@ -77,8 +77,7 @@ public class DailyListFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
-				dialog.show();
+
 				application.setCaseId(application.getEtpsBeans().get(position)
 						.getEtpsId());
 				// 河北接口
@@ -92,7 +91,6 @@ public class DailyListFragment extends Fragment {
 							@Override
 							public void onFinish(String response) {
                                 isLoaded = true;
-								dialog.dismiss();
 								Log.e("response", response);
 								Message message = new Message();
 								message.what = SHOW_RESPONSE;
@@ -102,7 +100,6 @@ public class DailyListFragment extends Fragment {
 
 							@Override
 							public void onError(Exception e) {
-								dialog.dismiss();
 								Message message = new Message();
 								message.what = SHOW_ERROR;
 								message.obj = e.toString();

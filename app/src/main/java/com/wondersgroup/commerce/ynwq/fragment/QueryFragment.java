@@ -18,7 +18,7 @@ import com.wondersgroup.commerce.ynwq.widget.InfoEditBar;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,8 +27,8 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class QueryFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.query_input)InfoEditBar input;
-    @Bind(R.id.query_btn)Button search;
+    @BindView(R.id.query_input)InfoEditBar input;
+    @BindView(R.id.query_btn)Button search;
 
     private static final String ARG_TYPE = "type";
 

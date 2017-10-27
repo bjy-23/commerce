@@ -30,8 +30,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -95,7 +93,7 @@ public class DeptActivity extends RootActivity {
                         intent = new Intent();
                         intent.putExtra("organName", organList.get(selectItem).getOrganName());
                         intent.putExtra("organId", organList.get(selectItem).getOrganId());
-
+                        intent.putExtra("gbCode", organList.get(selectItem).getGbCode());
                         setResult(RESULT_OK, intent);
 
                         finish();
@@ -108,6 +106,7 @@ public class DeptActivity extends RootActivity {
                         intent = new Intent();
                         intent.putExtra("organName", organList.get(one).getOrganList().get(selectItem).getOrganName());
                         intent.putExtra("organId", organList.get(one).getOrganList().get(selectItem).getOrganId());
+                        intent.putExtra("gbCode", organList.get(one).getOrganList().get(selectItem).getGbCode());
                         setResult(RESULT_OK, intent);
                         finish();
                         break;
@@ -117,6 +116,7 @@ public class DeptActivity extends RootActivity {
                         intent = new Intent();
                         intent.putExtra("organName", organList.get(one).getOrganList().get(two).getOrganList().get(selectItem).getOrganName());
                         intent.putExtra("organId", organList.get(one).getOrganList().get(two).getOrganList().get(selectItem).getOrganId());
+                        intent.putExtra("gbCode", organList.get(one).getOrganList().get(two).getOrganList().get(selectItem).getGbCode());
                         setResult(RESULT_OK, intent);
                         finish();
                         break;
@@ -258,7 +258,8 @@ public class DeptActivity extends RootActivity {
     }
 
     private void getAllDept() {
-        final SweetAlertDialog dialog = LoadingDialog.showNotCancelable(mContext);
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(DeptActivity.this)
+                .build();
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("wsCodeReq", "00000001");
@@ -273,6 +274,7 @@ public class DeptActivity extends RootActivity {
         call.enqueue(new Callback<Dept>() {
             @Override
             public void onResponse(Response<Dept> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
                 if (response.isSuccess()) {
                     Dept dept = response.body();
                     if (dept.getResult() != null) {
@@ -280,16 +282,15 @@ public class DeptActivity extends RootActivity {
                     } else {
                         Toast.makeText(context, "服务器数据出错", Toast.LENGTH_SHORT).show();
                     }
-                    dialog.dismiss();
+
                 } else {
                     Toast.makeText(context, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
+            }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(mContext, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
             }
         });

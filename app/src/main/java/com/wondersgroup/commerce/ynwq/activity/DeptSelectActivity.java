@@ -23,16 +23,16 @@ import com.wondersgroup.commerce.ynwq.bean.DicT;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DeptSelectActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.dept_select_recycler)RecyclerView recycler;
-    @Bind(R.id.dept_select_pre)Button pre;
-    @Bind(R.id.dept_select_ok)Button ok;
-    @Bind(R.id.dept_select_next)Button next;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.dept_select_recycler)RecyclerView recycler;
+    @BindView(R.id.dept_select_pre)Button pre;
+    @BindView(R.id.dept_select_ok)Button ok;
+    @BindView(R.id.dept_select_next)Button next;
 
     private DeptSelectAdapter adapter;
     private Tree root;

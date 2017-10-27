@@ -8,13 +8,27 @@ import java.util.HashMap;
  * Created by yclli on 2015/12/1.
  */
 public class Constants {
-    public final static String SC = "四川";
-    public final static String YN = "云南";
-    public final static String MODE_1 = "release";
-    public final static String MODE_2 = "debug";
+    public final static String AREA_SC = "四川";
+    public final static String AREA_YN = "云南";
 
-    public final static String VERSION = SC;
-    public final static String MODE = MODE_1;
+    public final static String VERSION_R = "正式";
+    public final static String VERSION_D = "测试";
+
+    public final static String LOGIN_MODE_1 = "登录&有权限";
+    public final static String LOGIN_MODE_2 = "登录&无权限";
+    public final static String LOGIN_MODE_3 = "免登录";
+
+    /*
+    * 云南正式环境先屏蔽“案件查询”，注意修改配置文件
+    * */
+    public final static String AREA = AREA_SC;
+    public final static String VERSION = VERSION_D;
+    public final static String LOGIN_MODE = LOGIN_MODE_2;
+
+    public final static String GS_URL_SC_1="http://182.131.3.110:8012/notice";
+    public final static String GS_URL_SC_2="http://sc.gsxt.gov.cn/notice";
+    public final static String GS_URL_YN_1="http://220.163.27.42:8021/notice";
+    public final static String GS_URL_YN_2="http://gsxt.ynaic.gov.cn/notice";
 
     public static HashMap<String,Integer> firstColorMap;
     public static HashMap<String,Integer> menuIconMapYN;
@@ -56,7 +70,6 @@ public class Constants {
     public final static String YWBL_MNEUINFO = "ywblMenuInfo";
     public final static String MESSAGE_MENUINFO = "messageMenuInfo";
     public final static String MENU_SC = "menuSC";
-
 
     /*
     * 中文

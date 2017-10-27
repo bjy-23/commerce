@@ -51,7 +51,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Call;
@@ -65,19 +65,19 @@ import retrofit.Retrofit;
  */
 
 public class FragmentSetting extends Fragment implements View.OnClickListener {
-    @Bind(R.id.tv_name)
+    @BindView(R.id.tv_name)
     TextView tvName;
-    @Bind(R.id.tv_organ)
+    @BindView(R.id.tv_organ)
     TextView tvOrgan;
-    @Bind(R.id.tv_department)
+    @BindView(R.id.tv_department)
     TextView tvDepartment;
-    @Bind(R.id.layout_about)
+    @BindView(R.id.layout_about)
     View viewAbout;
-    @Bind(R.id.layout_update)
+    @BindView(R.id.layout_update)
     View viewUpdate;
-    @Bind(R.id.tv_exit)
+    @BindView(R.id.tv_exit)
     TextView tvExit;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView mImgBack;
 
     private ProgressBar progressBar;

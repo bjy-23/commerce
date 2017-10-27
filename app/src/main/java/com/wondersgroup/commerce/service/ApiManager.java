@@ -1,9 +1,11 @@
 package com.wondersgroup.commerce.service;
 
+import android.app.AlertDialog;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.Connection;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -12,11 +14,14 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import com.wondersgroup.commerce.BuildConfig;
 import com.wondersgroup.commerce.adapter.NullStringToEmptyAdapterFactory;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.okhttp.LoggingInterceptor;
 
 import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.GsonConverterFactory;
@@ -33,17 +38,14 @@ public class ApiManager {
     private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
     private static final String BASE_URL_2 = "http://172.28.129.42/";//云南内网正式
     private static final String BASE_URL_3 ="http://182.131.3.114/";//四川正式
-    private static final String BASE_URL = BASE_URL_2;
-//    public String API_TJ = BASE_URL + "mds/";//测试
-    public String API_TJ = BASE_URL + "mds2/";//正式
 
-    private static final String SHY_URL_1 = "http://172.28.129.29:8041/shy/services/mobile/";//云南市场监督管理局行政执法系统测试
-    private static final String SHY_URL_2 = "http://172.28.129.18:8031/shy/services/mobile/";//云南市场监督管理局行政执法系统正式
+    private static final String SHY_URL_1 = "http://172.28.129.29:8041/shy/services/mobile/";//云南市场监督管理局行政执法系统 测试
+    private static final String SHY_URL_2 = "http://172.28.129.18:8031/shy/services/mobile/";//云南市场监督管理局行政执法系统 正式
 
     //版本更新
-    public static String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试
-    public static String VERSION_URL_2 = "http://172.28.129.42/zfMobileService/";//正式
-    public static String VERSION_URL = VERSION_URL_2;
+    public static final String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试
+    public static final String VERSION_URL_2 = "http://172.28.129.42/zfMobileService/";//正式
+    public static String VERSION_URL ;
     private String API_CASE;//案件
     private String API_OA;
     private String API_HB_ROOT;
@@ -54,18 +56,18 @@ public class ApiManager {
     public static String API_RE_ROOT;
     public String API_FGDJ_ROOT;
     public String API_LAW_ROOT;
+    private String API_TJ;
+    private String API_AD;
 
-    private static final String API_CASE_1 = BASE_URL_3;
+    private static final String API_CASE_1 = "http://182.131.3.99:8006/";
     private static final String API_CASE_2 = "http://10.1.192.40:8006/";
-    private static final String API_CASE_3 = "http://10.2.18.102:8080/";
-    private static final String API_OA_1 = BASE_URL_3 + "oa/";
-    private static final String API_OA_3 = "http://10.1.192.40:8013/oa/";
-    private static final String API_OA_2 = "http://10.1.8.205:8013/oa/";
-    private static final String API_HB_ROOT_1 = BASE_URL_3;//工商一体化
-    private static final String API_HB_ROOT_2 = "http://10.1.8.205:8001/";
-    private static final String API_HB_ROOT_3 = "http://10.1.192.40:8001/";
+    private static final String API_CASE_3 = "http://182.131.3.99:8006/";
+    private static final String API_OA_1 = "http://182.131.3.99:8013/oa/";
+    private static final String API_OA_2 = "http://10.1.192.40:8013/oa/";
+    private static final String API_HB_ROOT_1 = "http://182.131.3.99:8001/";
+    private static final String API_HB_ROOT_2 = "http://10.1.192.40:8001/";
     private static final String API_HB_ROOT_4 = "http://10.2.14.102:8080/";
-    private static final String API_TJ_1 = BASE_URL_3 + "mds/";
+    private static final String API_TJ_1 = "http://182.131.3.99:8028/mds/";
     private static final String API_TJ_2 = "http://10.1.192.40:8028/mds/";
     private static final String API_YN_ROOT_1 = "http://10.1.8.130:8010/";
     private static final String API_YN_ROOT_2 = "http://10.2.18.108:8080/";
@@ -75,18 +77,10 @@ public class ApiManager {
     public static final String API_RE_ROOT_2 = "http://10.2.103.41:8080/";
     public static final String API_FGDJ_ROOT_1 = "http://220.163.27.42:8024/";
     public static final String API_LAW_ROOT_1 = "http://10.1.8.130:8006/";
-    public static final String API_AD = "http://10.1.192.40:8008/ad/";//广告
+    public static final String API_AD_1 = "http://10.1.192.40:8008/ad/";//广告
     public static final String API_COMSUMER_1 = "http://10.1.192.40:8010/consumerw/";
     public static final String API_COMSUMER_2 = "http://10.2.103.208:8080/consumerw/";
 
-    public static final String API_ROOT = "http://gsxt.ynaic.gov.cn/netme/services/mobile/";//外网正式
-    //    public static final String API_ROOT="http://10.1.8.130:8007/netme/services/mobile/";//外网测试
-//    public static final String API_ROOT2="http://gsxt.ynaic.gov.cn/netme/";
-    public static final String API_ROOT2 = "http://10.1.8.130:8009/me/";
-    //    public static final String API_ROOT2="http://10.10.16.204:8080/me/";
-    private static final String API_HN_ROOT = "http://gsxt.hnaic.gov.cn:8019/deliver/services/ws/";     //----现场根地址
-    //private static final String API_HN_ROOT = "http://10.1.8.133:8023/deliver/services/ws/";        //----公司根地址
-    //private static final String API_HN_ROOT = "http://172.25.130.61:8023/deliver/services/ws/";
     private static final String API_TEST = "http://10.1.192.40:8006/case/";
     private static final String TRADEMARK_API_TEST = "http://10.1.192.40:8008/tm/";
     private static final String API_SH_ROOT = "";
@@ -142,22 +136,30 @@ public class ApiManager {
         gson = new GsonBuilder().registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory<>()).create();
         RootAppcation appcation = RootAppcation.getInstance();
         switch (appcation.getVersion()) {
-            case "云南":
-                API_CASE = BASE_URL;
-                API_SHY = SHY_URL_2;
-                API_HB_ROOT = BASE_URL;
-//                API_HB_ROOT = API_HB_ROOT_4;
-
-                API_YN_ROOT = BASE_URL + "consumer/services/ws/app/";
-//                API_YN_ROOT = API_YN_ROOT_2 + "consumer/services/ws/app/";
-                CCJC_ROOT = BASE_URL + "noticemana/services/check/";
-//                CCJC_ROOT = CCJC_ROOT_2 + "noticemana/services/check/";
-                API_RE_ROOT = BASE_URL + "me/";
-//                API_RE_ROOT = API_RE_ROOT_2 + "netme/services/mobile/";
-                API_FGDJ_ROOT = BASE_URL + "fgdj/app/";
-
-                API_LAW_ROOT = BASE_URL + "case/services/mobile/";
-//                API_LAW_ROOT = "http://10.2.18.104:8080/sccase/services/mobile/";
+            case Constants.AREA_YN:
+                if (Constants.VERSION.equals(Constants.VERSION_R)){
+                    API_CASE = BASE_URL_2;
+                    API_SHY = SHY_URL_2;
+                    API_HB_ROOT = BASE_URL_2;
+                    API_YN_ROOT = BASE_URL_2 + "consumer/services/ws/app/";
+                    CCJC_ROOT = BASE_URL_2 + "noticemana/services/check/";
+                    API_RE_ROOT = BASE_URL_2 + "me/";
+                    API_FGDJ_ROOT = BASE_URL_2 + "fgdj/app/";
+                    API_LAW_ROOT = BASE_URL_2 + "case/services/mobile/";
+                    VERSION_URL = VERSION_URL_2;
+                    API_TJ = BASE_URL_2 + "mds2/";
+                }else {
+                    API_CASE = BASE_URL_1;
+                    API_SHY = SHY_URL_1;
+                    API_HB_ROOT = BASE_URL_1;
+                    API_YN_ROOT = BASE_URL_1 + "consumer/services/ws/app/";
+                    CCJC_ROOT = BASE_URL_1 + "noticemana/services/check/";
+                    API_RE_ROOT = BASE_URL_1 + "me/";
+                    API_FGDJ_ROOT = BASE_URL_1 + "fgdj/app/";
+                    API_LAW_ROOT = BASE_URL_1 + "case/services/mobile/";
+                    VERSION_URL = VERSION_URL_1;
+                    API_TJ = BASE_URL_1 + "mds/";
+                }
 
                 caseInit();
                 ynInit();
@@ -169,12 +171,22 @@ public class ApiManager {
                 tjInit();
                 shyInit();
                 break;
-            case "四川":
-                API_CASE = API_CASE_1;
-                API_HB_ROOT = API_HB_ROOT_1;
-                API_OA = API_OA_1;
-                API_TJ = API_TJ_1;//统计四川测试地址
-                API_CONSUMERW = API_COMSUMER_1;
+            case Constants.AREA_SC:
+                if (Constants.VERSION.equals(Constants.VERSION_R)){
+                    API_CASE = BASE_URL_3;
+                    API_HB_ROOT = BASE_URL_3;
+                    API_OA = BASE_URL_3 + "oa/";
+                    API_TJ = BASE_URL_3 + "mds/";
+                    API_CONSUMERW = API_COMSUMER_1;
+                    API_AD = API_AD_1;
+                }else {
+                    API_CASE = API_CASE_2;
+                    API_HB_ROOT = API_HB_ROOT_2;
+                    API_OA = API_OA_2;
+                    API_TJ = API_TJ_2;
+                    API_CONSUMERW = API_COMSUMER_1;
+                    API_AD = API_AD_1;
+                }
                 caseInit();
                 oaInit();
                 hbInit();
@@ -204,6 +216,8 @@ public class ApiManager {
                             return chain.proceed(request);
                         }
                     });
+//                    Connection
+//                    Proxy
                     HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
                     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                     httpClient.interceptors().add(interceptor);
@@ -223,9 +237,7 @@ public class ApiManager {
             synchronized (OaApi.class) {
                 if (oaApi == null) {
                     OkHttpClient httpClient = new OkHttpClient();
-                    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-                    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                    httpClient.interceptors().add(interceptor);
+                    httpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(API_OA)
                             .addConverterFactory(GsonConverterFactory.create())
@@ -325,31 +337,6 @@ public class ApiManager {
         }
     }
 
-    public synchronized void hnInit() {
-        if (hnApi == null) {
-            synchronized (HNApi.class) {
-                if (hnApi == null) {
-                    httpClient = new OkHttpClient();
-                    httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setReadTimeout(60, TimeUnit.SECONDS);
-                    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-                    if (BuildConfig.DEBUG)
-                        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                    else
-                        interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-                    httpClient.interceptors().add(interceptor);
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(API_HN_ROOT)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .client(httpClient)
-                            .build();
-                    hnApi = retrofit.create(HNApi.class);
-                }
-            }
-        }
-    }
-
     public void ynInit() {
         if (ynApi == null) {
 
@@ -401,9 +388,9 @@ public class ApiManager {
                     return chain.proceed(request);
                 }
             });
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            httpClient.interceptors().add(interceptor);
+            httpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+//            LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
+//            httpClient.interceptors().add(loggingInterceptor);
             httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
             httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
             httpClient.setReadTimeout(60, TimeUnit.SECONDS);

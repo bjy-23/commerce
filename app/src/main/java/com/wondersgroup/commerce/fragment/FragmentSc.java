@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -47,13 +47,13 @@ import retrofit.Retrofit;
  */
 
 public class FragmentSc extends Fragment implements View.OnClickListener {
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @Bind(R.id.tv_gg)
+    @BindView(R.id.tv_gg)
     TextView tvGG;
-    @Bind(R.id.tv_option)
+    @BindView(R.id.tv_option)
     TextView tvOption;
-    @Bind(R.id.img_mine)
+    @BindView(R.id.img_mine)
     ImageView imgMine;
 
     private List<MenuInfo> data;

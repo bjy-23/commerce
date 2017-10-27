@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,35 +13,43 @@ import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
-import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.Dept;
 import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.addressbox.TxlDeptActivity;
-import com.wondersgroup.commerce.utils.DWZH;
+import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.widget.MaxHeightView;
 import com.wondersgroup.commerce.widget.TableRow;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
+/**
+ * 广告查询
+ */
 public class QueryActivity extends AppCompatActivity {
-    @Bind(R.id.maxHeightView)
+    @BindView(R.id.maxHeightView)
     MaxHeightView maxHeightView;
-    @Bind(R.id.scrollView)
+    @BindView(R.id.scrollView)
     ScrollView scrollView;
-    @Bind(R.id.layout_add)
+    @BindView(R.id.layout_add)
     LinearLayout layoutAdd;
-    @Bind(R.id.btn_clear)
+    @BindView(R.id.btn_clear)
     Button btnClear;
-    @Bind(R.id.btn_query)
+    @BindView(R.id.btn_query)
     Button btnQuery;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.img_back)
+    @BindView(R.id.img_back)
     ImageView imgBack;
     private TableRow djbh, dwmc, djjg, slsj;
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
@@ -58,6 +65,8 @@ public class QueryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         params.put("organId", loginBean.getResult().getOrganId());
         initView();
+        if (Hawk.get("ORGAN_INFO") == null)
+            getAllDept();
     }
 
     public void initView() {
@@ -141,6 +150,46 @@ public class QueryActivity extends AppCompatActivity {
         timeEnd = "";
         djjg.setTvContent(loginBean.getResult().getOrganName());
         params.put("organId", loginBean.getResult().getOrganId());
+    }
+
+    private void getAllDept() {
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(QueryActivity.this)
+                .build();
+        loadingDialog.show();
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("wsCodeReq", "00000001");
+        map.put("loginName", Hawk.get(Constants.LOGIN_NAME).toString());
+        map.put("password", Hawk.get(Constants.PASSWORD).toString());
+        map.put("userId", loginBean.getResult().getUserId());
+        map.put("version", "1.0.2");
+        map.put("organId", loginBean.getResult().getOrganId());
+        map.put("deptId", loginBean.getResult().getDeptId());
+
+        Call<Dept> call = ApiManager.hbApi.deptAll(map);
+        call.enqueue(new Callback<Dept>() {
+            @Override
+            public void onResponse(Response<Dept> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
+                if (response.isSuccess()) {
+                    Dept dept = response.body();
+                    if (dept.getResult() != null) {
+                        Hawk.put("ORGAN_INFO", dept.getResult().getOrganInfo());
+                    } else {
+                        Toast.makeText(QueryActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(QueryActivity.this, getResources().getString(R.string.error_data), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                loadingDialog.dismiss();
+                Toast.makeText(QueryActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

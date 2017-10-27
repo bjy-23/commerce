@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -47,15 +47,15 @@ public class TJCLAdapter extends RecyclerView.Adapter<TJCLAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.title)
+        @BindView(R.id.title)
         TextView mTitle;
-        @Bind(R.id.status)
+        @BindView(R.id.status)
         TextView mStatus;
-        @Bind(R.id.date)
+        @BindView(R.id.date)
         TextView mDate;
-        @Bind(R.id.page)
+        @BindView(R.id.page)
         TextView mPage;
-        @Bind(R.id.download)
+        @BindView(R.id.download)
         TextView mDownload;
 
         public ViewHolder(View itemView) {

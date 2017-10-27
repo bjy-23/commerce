@@ -9,6 +9,7 @@
 
     <declare-styleable name="InfoSelectBar">
         <attr name="content" format="string"/>
+        <attr name="hasUnderline" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="searchLayout">

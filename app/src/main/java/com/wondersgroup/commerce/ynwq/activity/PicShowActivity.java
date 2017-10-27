@@ -25,7 +25,7 @@ import com.wondersgroup.commerce.ynwq.bean.PicBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -33,17 +33,17 @@ import butterknife.ButterKnife;
  */
 
 public class PicShowActivity extends AppCompatActivity implements View.OnClickListener {
-    @Bind(R.id.viewPager)
+    @BindView(R.id.viewPager)
     ViewPager mViewPager;
-    @Bind(R.id.layout_tab_img_show)
+    @BindView(R.id.layout_tab_img_show)
     ViewGroup layoutTab;
-    @Bind(R.id.tv_index)
+    @BindView(R.id.tv_index)
     TextView tvIndex;
-    @Bind(R.id.tv_sum)
+    @BindView(R.id.tv_sum)
     TextView tvSum;
-    @Bind(R.id.layout_back)
+    @BindView(R.id.layout_back)
     ViewGroup layoutBack;
-    @Bind(R.id.img_delete)
+    @BindView(R.id.img_delete)
     ImageView imgDelete;
 
     private ArrayList<PicBean> images;

@@ -13,19 +13,20 @@ import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by yclli on 16/8/31.
  */
 public class InfoSelectBar extends RelativeLayout {
-    @Bind(R.id.info_bar_icon)
+    @BindView(R.id.info_bar_icon)
     ImageView icon;
-    @Bind(R.id.info_bar_text)
+    @BindView(R.id.info_bar_text)
     TextView editText;
     private Context context;
     private String content;
+    private boolean hasUnderline;
 
     public InfoSelectBar(Context context) {
         this(context,null);
@@ -36,6 +37,7 @@ public class InfoSelectBar extends RelativeLayout {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs,R.styleable.InfoSelectBar);
         content = array.getString(R.styleable.InfoSelectBar_content);
+        hasUnderline = array.getBoolean(R.styleable.InfoSelectBar_hasUnderline, true);
         init(context);
     }
 
@@ -44,6 +46,10 @@ public class InfoSelectBar extends RelativeLayout {
         View v = View.inflate(context, R.layout.view_info_select_bar, this);
         TextView textView = (TextView) v.findViewById(R.id.info_bar_text);
         textView.setText(content);
+
+        View viewUnderline = v.findViewById(R.id.view_underline);
+        if (!hasUnderline)
+            viewUnderline.setVisibility(GONE);
 
         ButterKnife.bind(v, this);
     }

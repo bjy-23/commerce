@@ -20,7 +20,7 @@ import com.wondersgroup.commerce.model.Memo;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,12 +28,12 @@ import butterknife.ButterKnife;
  */
 public class MemoActivity extends AppCompatActivity implements MemoAdapter.OnItemTouchListener{
 
-    @Bind(R.id.recyclerview)
+    @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
-    @Bind(R.id.add)
+    @BindView(R.id.add)
     Button addbtn;
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
 
     private ArrayList<Memo> memos;
     private DbHelper dbHelper;

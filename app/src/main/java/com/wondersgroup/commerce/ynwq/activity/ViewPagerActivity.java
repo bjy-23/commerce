@@ -15,14 +15,14 @@ import com.wondersgroup.commerce.ynwq.adapter.ViewPagerAdapter;
 import com.wondersgroup.commerce.ynwq.fragment.XCKCFragment;
 
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ViewPagerActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)Toolbar toolbar;
-    @Bind(R.id.toolbar_title)TextView title;
-    @Bind(R.id.vp_tabs)TabLayout tabs;
-    @Bind(R.id.vp_viewpager)ViewPager viewPager;
+    @BindView(R.id.mid_toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_title)TextView title;
+    @BindView(R.id.vp_tabs)TabLayout tabs;
+    @BindView(R.id.vp_viewpager)ViewPager viewPager;
     private ViewPagerAdapter adapter;
     private String type;
     private String xckcType=null;

@@ -402,6 +402,25 @@ public class AdView {
         private String commited;//是否提交（1、提交2、未提交）
         private String commitDate;//提交时间
         private String remark;//备注
+        private String filePath;//文件路径
+
+        public String getFilePath() {
+            return filePath;
+        }
+
+        public void setFilePath(String filePath) {
+            this.filePath = filePath;
+        }
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
+        }
+
+        private String fileName;//文件名称
 
         public String getStuffName() {
             return stuffName;

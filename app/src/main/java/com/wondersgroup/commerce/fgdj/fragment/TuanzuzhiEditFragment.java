@@ -30,7 +30,7 @@ import com.wondersgroup.commerce.utils.DateUtil;
 
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -42,45 +42,45 @@ import retrofit.Retrofit;
  */
 
 public class TuanzuzhiEditFragment extends Fragment implements View.OnClickListener {
-    @Bind(R.id.input_full_name)
+    @BindView(R.id.input_full_name)
     InputUnit inputFullName;
-    @Bind(R.id.input_short_name)
+    @BindView(R.id.input_short_name)
     InputUnit inputShortName;
-    @Bind(R.id.input_super_name)
+    @BindView(R.id.input_super_name)
     InputUnit inputSuperName;
-    @Bind(R.id.select_league_level)
+    @BindView(R.id.select_league_level)
     SelectUnit selectLeagueLevel;
-    @Bind(R.id.input_address)
+    @BindView(R.id.input_address)
     InputUnit inputAddress;
-    @Bind(R.id.time_es)
+    @BindView(R.id.time_es)
     TimeUnit timeEs;
-    @Bind(R.id.select_es_way)
+    @BindView(R.id.select_es_way)
     SelectUnit selectEsWay;
-    @Bind(R.id.input_tel)
+    @BindView(R.id.input_tel)
     InputUnit inputTel;
-    @Bind(R.id.input_over_num)
+    @BindView(R.id.input_over_num)
     InputUnit inputOverNum;
-    @Bind(R.id.input_aff_num)
+    @BindView(R.id.input_aff_num)
     InputUnit inputAffNum;
-    @Bind(R.id.input_special_aff_num)
+    @BindView(R.id.input_special_aff_num)
     InputUnit inputSpecialAffNum;
-    @Bind(R.id.input_secretary_name)
+    @BindView(R.id.input_secretary_name)
     InputUnit inputSecretaryName;
-    @Bind(R.id.input_secretary_tel)
+    @BindView(R.id.input_secretary_tel)
     InputUnit inputSecretaryTel;
-    @Bind(R.id.input_instructor_name)
+    @BindView(R.id.input_instructor_name)
     InputUnit inputInstructorName;
-    @Bind(R.id.input_instructor_tel)
+    @BindView(R.id.input_instructor_tel)
     InputUnit inputInstructorTel;
-    @Bind(R.id.input_instructor_from)
+    @BindView(R.id.input_instructor_from)
     InputUnit inputInstructorFrom;
-    @Bind(R.id.input_budget_inv)
+    @BindView(R.id.input_budget_inv)
     InputUnit inputBudgetInv;
-    @Bind(R.id.input_dues_inv)
+    @BindView(R.id.input_dues_inv)
     InputUnit inputDuesInv;
-    @Bind(R.id.input_ent_inv)
+    @BindView(R.id.input_ent_inv)
     InputUnit inputEntInv;
-    @Bind(R.id.input_other_inv)
+    @BindView(R.id.input_other_inv)
     InputUnit inputtOtherInv;
 
     private LeagueInfo leagueInfo;

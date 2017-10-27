@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit.Callback;
@@ -39,26 +39,26 @@ import retrofit.Retrofit;
  * 列入经营异常名录统计
  */
 public class InActivity extends AppCompatActivity {
-    @Bind(R.id.mid_toolbar)
+    @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.toolbar_title)
+    @BindView(R.id.toolbar_title)
     TextView title;
-    @Bind(R.id.location)
+    @BindView(R.id.location)
     TextView location;
-    @Bind(R.id.divider)
+    @BindView(R.id.divider)
     View divider;
-    @Bind(R.id.recycler)
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
     private HashMap<String, String> params = new HashMap<>();
     private boolean isZCBJ = true;//1表示获取全局数据，0表示只查本级。
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
-    @Bind(R.id.startDate)
+    @BindView(R.id.startDate)
     TextView mStartDate;
-    @Bind(R.id.endDate)
+    @BindView(R.id.endDate)
     TextView mEndDate;
-    @Bind(R.id.linear_date)
+    @BindView(R.id.linear_date)
     LinearLayout mLinearDate;
-    @Bind(R.id.iv_select)
+    @BindView(R.id.iv_select)
     ImageView mIVSelect;
     private AnnalsDatePopup popup;
     private InOutAdapter adapter;

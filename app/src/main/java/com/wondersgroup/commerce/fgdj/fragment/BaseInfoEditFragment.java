@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
@@ -49,53 +49,53 @@ import retrofit.Retrofit;
  */
 
 public class BaseInfoEditFragment extends Fragment implements View.OnClickListener{
-    @Bind(R.id.tv_ent_name)
+    @BindView(R.id.tv_ent_name)
     TextView tvEntName;
-    @Bind(R.id.tv_ent_type)
+    @BindView(R.id.tv_ent_type)
     TextView tvEntType;
-    @Bind(R.id.tv_ent_id)
+    @BindView(R.id.tv_ent_id)
     TextView tvEntId;
-    @Bind(R.id.input_enp_num)
+    @BindView(R.id.input_enp_num)
     InputUnit inputEnpNum;//从业人员
-    @Bind(R.id.tv_es_date)
+    @BindView(R.id.tv_es_date)
     TextView tvEsDate;
-    @Bind(R.id.input_vend_inc)
+    @BindView(R.id.input_vend_inc)
     InputUnit inputVendInc;//年营业收入
-    @Bind(R.id.tv_address)
+    @BindView(R.id.tv_address)
     TextView tvAddress;
-    @Bind(R.id.select_area)
+    @BindView(R.id.select_area)
     SelectUnit selectArea;//所属乡镇
-    @Bind(R.id.select_market)
+    @BindView(R.id.select_market)
     SelectUnit selectMarket;//是否经营场所
-    @Bind(R.id.select_party)
+    @BindView(R.id.select_party)
     SelectUnit selectParty;//是否组建党组织
-    @Bind(R.id.select_league)
+    @BindView(R.id.select_league)
     SelectUnit selectLeague;//是否组建团组织
-    @Bind(R.id.select_instructor)
+    @BindView(R.id.select_instructor)
     SelectUnit selectInstructor;//是否派驻党建指导员
-    @Bind(R.id.select_wf)
+    @BindView(R.id.select_wf)
     SelectUnit selectWF;//是否组建妇联
-    @Bind(R.id.select_union)
+    @BindView(R.id.select_union)
     SelectUnit selectUnion;//是否组建工会
-    @Bind(R.id.input_tel)
+    @BindView(R.id.input_tel)
     InputUnit inputTel;//联系电话
-    @Bind(R.id.select_social_duty)
+    @BindView(R.id.select_social_duty)
     SelectUnit selectSocialDuty;//主要社会职务
-    @Bind(R.id.select_political_status)
+    @BindView(R.id.select_political_status)
     SelectUnit selectPoliticalStatus;//政治面貌
-    @Bind(R.id.layout_political_status_add)
+    @BindView(R.id.layout_political_status_add)
     LinearLayout layoutPoliticalStatusAdd;
-    @Bind(R.id.select_secretary)
+    @BindView(R.id.select_secretary)
     SelectUnit selectSecretary;//是否党、团组织书记
-    @Bind(R.id.input_organization_name)
+    @BindView(R.id.input_organization_name)
     InputUnit inputOrganizationName;//党、团组织名称
-    @Bind(R.id.tv_person_name)
+    @BindView(R.id.tv_person_name)
     TextView tvPersonName;
-    @Bind(R.id.tv_sex)
+    @BindView(R.id.tv_sex)
     TextView tvSex;
-    @Bind(R.id.tv_cert_type)
+    @BindView(R.id.tv_cert_type)
     TextView tvCertType;
-    @Bind(R.id.tv_cert_no)
+    @BindView(R.id.tv_cert_no)
     TextView tvCertNo;
 
     private String entId,entType;
@@ -393,8 +393,9 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
     }
 
     public void getAreaCode(){
-        final Dialog dialog = LoadingDialog.showCanCancelable(getActivity());
-        dialog.show();
+        final LoadingDialog loadingDialog = new LoadingDialog.Builder(getActivity())
+                .build();
+        loadingDialog.show();
         HashMap hashMap = new HashMap();
         hashMap.put(Constants.USER_ID,loginBean.getResult().getUserId());
         hashMap.put(Constants.DEPT_ID,loginBean.getResult().getDeptId());
@@ -404,11 +405,10 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         call.enqueue(new Callback<Result<List<AreaBean>>>() {
             @Override
             public void onResponse(Response<Result<List<AreaBean>>> response, Retrofit retrofit) {
+                loadingDialog.dismiss();
                 List<AreaBean> arrayList = response.body().getObject() ;
-
                 if (arrayList.size()!=0){
                     handleResult(arrayList);
-                    dialog.dismiss();
                     Hawk.put(Constants.BASE_AREA_LIST,arrayList);
                 }else {
                     Toast.makeText(getActivity(),"获取乡镇信息失败",Toast.LENGTH_SHORT).show();
@@ -417,7 +417,7 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void onFailure(Throwable t) {
-                dialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(getActivity(),"获取乡镇信息失败",Toast.LENGTH_SHORT).show();
             }
         });
