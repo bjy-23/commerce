@@ -63,7 +63,7 @@ public class InputUnit extends RelativeLayout {
         etInput.setFocusable(false);
         etInput.setHint(hint);
         etInput.setTextSize(14);
-        etInput.setBackground(null);
+        etInput.setBackgroundDrawable(null);
         etInput.setMaxWidth(300);
         etInput.setOnClickListener(new OnClickListener() {
             @Override

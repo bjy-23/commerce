@@ -285,7 +285,6 @@ public class RecyclerFragment extends Fragment {
         int curSize = title4RowItems.size();
         title4RowItems.clear();
         title4RowAdapter.notifyItemRangeRemoved(0, curSize);
-        ApiManager.getInstance().ynInit();
         TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
         String userId = loginBean.getResult().getUserId();
         String organId = loginBean.getResult().getOrganId();
@@ -361,7 +360,7 @@ public class RecyclerFragment extends Fragment {
                 @Override
                 public void onResponse(Response<BacklogListBean> response, Retrofit retrofit) {
                     loadingDialog.dismiss();
-                    isLoaded = true;
+                    //isLoaded = true;
                     if (response.body() != null) {
                         if (response.body().getResult() != null) {
                             List<BacklogListBean.Result.BackLogVoList> dataList = response.body().getResult().getBackLogVoList();

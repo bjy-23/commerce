@@ -29,6 +29,7 @@ import com.wondersgroup.commerce.fgdj.widget.SelectUnit;
 import com.wondersgroup.commerce.interface_.TextChanger;
 import com.wondersgroup.commerce.model.KeyValue;
 import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.model.TreeBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.Result;
 import com.wondersgroup.commerce.widget.LoadingDialog;
@@ -401,12 +402,12 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         hashMap.put(Constants.DEPT_ID,loginBean.getResult().getDeptId());
         hashMap.put(Constants.ORGAN_ID,loginBean.getResult().getOrganId());
         hashMap.put(Constants.ENT_ID,entId);
-        Call<Result<List<AreaBean>>> call = ApiManager.fgdjApi.queryArea(hashMap);
-        call.enqueue(new Callback<Result<List<AreaBean>>>() {
+        Call<Result<List<TreeBean>>> call = ApiManager.fgdjApi.queryArea(hashMap);
+        call.enqueue(new Callback<Result<List<TreeBean>>>() {
             @Override
-            public void onResponse(Response<Result<List<AreaBean>>> response, Retrofit retrofit) {
+            public void onResponse(Response<Result<List<TreeBean>>> response, Retrofit retrofit) {
                 loadingDialog.dismiss();
-                List<AreaBean> arrayList = response.body().getObject() ;
+                List<TreeBean> arrayList = response.body().getObject() ;
                 if (arrayList.size()!=0){
                     handleResult(arrayList);
                     Hawk.put(Constants.BASE_AREA_LIST,arrayList);
@@ -423,13 +424,13 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         });
     }
 
-    public void handleResult(List<AreaBean> list){
+    public void handleResult(List<TreeBean> list){
         int rankLow = list.get(0).getRank();
         for (int i=1;i<list.size();i++){
             if (list.get(i).getRank()<rankLow)
                 rankLow = list.get(1).getRank();
         }
-        ArrayList<AreaBean> data = new ArrayList<>();
+        ArrayList<TreeBean> data = new ArrayList<>();
         for (int i=0;i<list.size();i++){
             if (rankLow == list.get(i).getRank())
                 data.add(list.get(i));
@@ -448,7 +449,7 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         Intent intent = new Intent(getActivity(), SingleChoiceActivity.class);
         intent.putExtra(Constants.TITLE,"所属乡镇（街道）");
         intent.putExtra(Constants.TYPE, Constants.BASE_AREA_LIST);
-        intent.putExtra(Constants.AREA_LIST,data);
+        intent.putParcelableArrayListExtra(Constants.ARRAY, data);
         startActivityForResult(intent, Constants.REQUEST_AREA_CODE);
     }
 
@@ -533,11 +534,11 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
                 hashMap.put(Constants.DEPT_ID,loginBean.getResult().getDeptId());
                 hashMap.put(Constants.ORGAN_ID,loginBean.getResult().getOrganId());
                 hashMap.put(Constants.ENT_ID,entId);
-                Call<Result<List<AreaBean>>> call = ApiManager.fgdjApi.queryArea(hashMap);
-                call.enqueue(new Callback<Result<List<AreaBean>>>() {
+                Call<Result<List<TreeBean>>> call = ApiManager.fgdjApi.queryArea(hashMap);
+                call.enqueue(new Callback<Result<List<TreeBean>>>() {
                     @Override
-                    public void onResponse(Response<Result<List<AreaBean>>> response, Retrofit retrofit) {
-                        List<AreaBean> arrayList = response.body().getObject() ;
+                    public void onResponse(Response<Result<List<TreeBean>>> response, Retrofit retrofit) {
+                        List<TreeBean> arrayList = response.body().getObject() ;
                         if (arrayList.size()!=0){
                             Hawk.put(Constants.BASE_AREA_LIST,arrayList);
                             setSelectArea(arrayList);
@@ -554,11 +555,11 @@ public class BaseInfoEditFragment extends Fragment implements View.OnClickListen
         }
     }
 
-    public void setSelectArea(List<AreaBean> list){
+    public void setSelectArea(List<TreeBean> list){
         String area = "";
-        for (AreaBean areaBean : list){
-            if (entBaseInfo.getAreaCode().equals(areaBean.getId())){
-                area = areaBean.getName();
+        for (TreeBean treeBean : list){
+            if (entBaseInfo.getAreaCode().equals(treeBean.getId())){
+                area = treeBean.getName();
                 break;
             }
         }

@@ -50,6 +50,7 @@ import com.squareup.picasso.Picasso;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.model.ccjc.DicItem;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.widget.LoadingDialog;
@@ -146,6 +147,7 @@ public class XCKCFragment extends Fragment implements View.OnClickListener, PicS
     private List<PicBean> images;
     private final static int IMG_PICKER = 10000;
     private LoadingDialog loadingDialog;
+    private TotalLoginBean loginBean;
 
     private Handler handler = new Handler() {
         @Override
@@ -211,6 +213,7 @@ public class XCKCFragment extends Fragment implements View.OnClickListener, PicS
         if (getArguments() != null) {
             mParamId = getArguments().getString(ARG_ID);
             xckcType = getArguments().getString(ARG_XCKCTYPE);
+            loginBean = Hawk.get(Constants.LOGIN_BEAN);
         }
     }
 
@@ -303,6 +306,9 @@ public class XCKCFragment extends Fragment implements View.OnClickListener, PicS
                     loadingDialog.show();
                     Map<String, String> body = new HashMap<>();
                     body.put("wsCodeReq", "01100001");
+                    body.put(Constants.USER_ID, loginBean.getResult().getUserId());
+                    body.put(Constants.ORGAN_ID, loginBean.getResult().getOrganId());
+                    body.put(Constants.DEPT_ID, loginBean.getResult().getDeptId());
                     body.put("meId", mParamId);
                     body.put("runAddress", addr.getText());
                     body.put("runSpaceType", runSpaceType);
@@ -627,6 +633,18 @@ public class XCKCFragment extends Fragment implements View.OnClickListener, PicS
                         RequestBody.create(null, mParamId))
                 .addPart(Headers.of(
                         "Content-Disposition",
+                        "form-data; name=\"userId\""),
+                        RequestBody.create(null, loginBean.getResult().getUserId()))
+                .addPart(Headers.of(
+                        "Content-Disposition",
+                        "form-data; name=\"organId\""),
+                        RequestBody.create(null, loginBean.getResult().getOrganId()))
+                .addPart(Headers.of(
+                        "Content-Disposition",
+                        "form-data; name=\"deptId\""),
+                        RequestBody.create(null, loginBean.getResult().getDeptId()))
+                .addPart(Headers.of(
+                        "Content-Disposition",
                         "form-data; name=\"mFile\"; filename=" + name), fileBody)
                 .build();
         String baseUrl = "";
@@ -636,7 +654,7 @@ public class XCKCFragment extends Fragment implements View.OnClickListener, PicS
                 .post(requestBody)
                 .build();
 
-        ApiManager.getInstance().httpClient.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
+        ApiManager.getInstance().okHttpClient.newCall(request).enqueue(new com.squareup.okhttp.Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {

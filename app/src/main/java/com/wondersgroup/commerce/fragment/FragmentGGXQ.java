@@ -211,27 +211,27 @@ public class FragmentGGXQ extends Fragment {
                     .build();
             layoutRoot.addView(email);
 
-            TableRow sqlxr = new TableRow.Builder(getActivity())
-                    .title("申请联系人")
-                    .marginV(5)
-                    .content(adBuentApp.getAdAppPerson())
-                    .build();
-            layoutRoot.addView(sqlxr);
-
-            TableRow sqlxdh = new TableRow.Builder(getActivity())
-                    .title("申请联系电话")
-                    .marginV(5)
-                    .content(adBuentApp.getAdAppContact())
-                    .build();
-            layoutRoot.addView(sqlxdh);
-
-            String adAppType = getNullString(adBuentApp.getAdAppType());
-            TableRow lxfs = new TableRow.Builder(getActivity())
-                    .title("申请方式")
-                    .marginV(5)
-                    .content(adAppType.equals("1") ? "到登记场所直接申请" : adAppType.equals("9") ? "其他" : "")
-                    .build();
-            layoutRoot.addView(lxfs);
+//            TableRow sqlxr = new TableRow.Builder(getActivity())
+//                    .title("申请联系人")
+//                    .marginV(5)
+//                    .content(adBuentApp.getAdAppPerson())
+//                    .build();
+//            layoutRoot.addView(sqlxr);
+//
+//            TableRow sqlxdh = new TableRow.Builder(getActivity())
+//                    .title("申请联系电话")
+//                    .marginV(5)
+//                    .content(adBuentApp.getAdAppContact())
+//                    .build();
+//            layoutRoot.addView(sqlxdh);
+//
+//            String adAppType = getNullString(adBuentApp.getAdAppType());
+//            TableRow lxfs = new TableRow.Builder(getActivity())
+//                    .title("申请方式")
+//                    .marginV(5)
+//                    .content((TextUtils.isEmpty(adAppType) || adAppType.equals("1")) ? "到登记场所直接申请" : adAppType.equals("9") ? "其他" : "")
+//                    .build();
+//            layoutRoot.addView(lxfs);
 
             AdView.AdBntappLeader leader = adView.getAdBntappLeader();
             TableRow fddbr = new TableRow.Builder(getActivity())

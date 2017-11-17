@@ -3,14 +3,14 @@ package com.wondersgroup.commerce.teamwork.dailycheck;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.activity.FragmentActivity;
 
 
-public class UnlicensedActivity extends ActionBarActivity {
+public class UnlicensedActivity extends FragmentActivity {
 
 	private ActionBar actionBar;
 

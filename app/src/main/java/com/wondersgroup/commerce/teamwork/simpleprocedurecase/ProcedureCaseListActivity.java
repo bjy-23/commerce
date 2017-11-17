@@ -107,9 +107,9 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
         app = (RootAppcation) getApplication();
         TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
         userId = loginBean.getResult().getUserId();
-        ApiManager.getInstance().unitTestInit();
         initView();
         initData();
+        searchBar.setVisibility(View.GONE);
     }
 
     private void initView() {

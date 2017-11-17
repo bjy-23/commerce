@@ -261,13 +261,11 @@ public class FragmentHome extends RootFragment {
                     Intent intent = new Intent(getActivity(), CaseEnquireActivity.class);
                     startActivity(intent);
                 }else if(((TextView)v).getText().toString().equals("抽查检查待办")){
-                    ApiManager.getInstance().ccInit();
                     Intent intent=new Intent(getActivity(),RecyclerActivity.class);
                     intent.putExtra("type","CCJCDB");
                     intent.putExtra("title",Constants.ccjcdb);
                     startActivity(intent);
                 }else if(((TextView)v).getText().toString().equals("抽查检查查询")){
-                    ApiManager.getInstance().ccInit();
                     Intent intent=new Intent(getActivity(), TableListActivity.class);
                     intent.putExtra("title",Constants.ccjccx);
                     intent.putExtra("type","CCJCCX");

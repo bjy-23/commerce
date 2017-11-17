@@ -23,7 +23,9 @@ import com.wondersgroup.commerce.adapter.TextWpicAdapter;
 import com.wondersgroup.commerce.adapter.Title3RowAdapter;
 import com.wondersgroup.commerce.adapter.Title4RowAdapter;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.ClueRegisterItemBean;
 import com.wondersgroup.commerce.recyclerView.viewModel.CaseQueryViewModel;
+import com.wondersgroup.commerce.recyclerView.viewModel.ClueRegisterViewModel;
 import com.wondersgroup.commerce.recyclerView.viewModel.EmailViewModel;
 import com.wondersgroup.commerce.recyclerView.ViewModel;
 import com.wondersgroup.commerce.model.ad.AdQuery;
@@ -120,6 +122,7 @@ public class RecyclerActivity extends AppCompatActivity {
     private Gson gson;
     private RecyclerView.OnScrollListener onScrollListener;
     private LinearLayoutManager linearLayoutManager;
+    private DividerItemDecoration dividerItemDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +151,7 @@ public class RecyclerActivity extends AppCompatActivity {
         initOnScrollListener();
 
         linearLayoutManager = new LinearLayoutManager(this);
+        dividerItemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST);
         recycler.setLayoutManager(linearLayoutManager);
         recycler.setItemAnimator(new DefaultItemAnimator());
 
@@ -165,8 +169,29 @@ public class RecyclerActivity extends AppCompatActivity {
         adapter = new CommonAdapter(this, viewModels);
 
         switch (type) {
+            case Constants.XSDJ_NAME_SC:
+                recycler.addItemDecoration(dividerItemDecoration);
+                adapter.setOnItemClick(new CommonAdapter.OnItemClick() {
+                    @Override
+                    public void onClick(int position) {
+                        Intent intent = new Intent(RecyclerActivity.this, ItemAddActivity.class);
+                        intent.putExtra(Constants.TYPE, Constants.XSDJ_NAME_SC);
+                        startActivity(intent);
+                    }
+                });
+                searchLayout.setVisibility(View.VISIBLE);
+                recycler.setAdapter(adapter);
+                for (int i=0; i<10; i++){
+                    ClueRegisterItemBean clueRegisterItemBean = new ClueRegisterItemBean();
+                    clueRegisterItemBean.setId(clueRegisterItemBean.hashCode() + "");
+                    clueRegisterItemBean.setName("四川工商"+i);
+                    clueRegisterItemBean.setTime("2017-11-16");
+                    ClueRegisterViewModel clueRegisterViewModel = new ClueRegisterViewModel(clueRegisterItemBean);
+                    viewModels.add(clueRegisterViewModel);
+                }
+                adapter.notifyDataSetChanged();
+                break;
             case "casequery"://案件查询
-                searchLayout.setVisibility(View.GONE);
                 adapter.setOnItemClick(new CommonAdapter.OnItemClick() {
                     @Override
                     public void onClick(int position) {
@@ -830,7 +855,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         && response.body().getObject().size() != 0) {
                     pageMax = response.body().getPageCount();
                     totalRecord = response.body().getTotalRecord();
-                    List<ViewModel> array = converToViewModel(CaseQueryViewModel.class, response.body().getObject());
+//                    List<ViewModel> array = converToViewModel(CaseQueryViewModel.class, response.body().getObject());
                     List<CaseQueryViewModel> list = new ArrayList<CaseQueryViewModel>();
                     for (CaseQueryBean caseQueryBean: response.body().getObject()){
                         CaseQueryViewModel viewModel = new CaseQueryViewModel(caseQueryBean);

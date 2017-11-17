@@ -2,10 +2,10 @@ package com.wondersgroup.commerce.teamwork.dailycheck;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +21,7 @@ public class UnlicensedItemFragment extends Fragment {
 	private View view;
 	private ViewPager pager;
 	private FragmentManager fragmentManager;
-	private ActionBarActivity activity;
+	private FragmentActivity activity;
 
 	private SlidingTabLayout tabLayout;
 	private ArrayList<Fragment> fragments;
@@ -31,7 +31,7 @@ public class UnlicensedItemFragment extends Fragment {
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.tab_viewpager_fragment, container,
 				false);
-		activity = (ActionBarActivity) getActivity();
+		activity = (FragmentActivity) getActivity();
 		fragmentManager = getChildFragmentManager();
 		fragments = new ArrayList<Fragment>();
 		fragments.add(new UnlicensedItemBaseInfoFragment());

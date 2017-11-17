@@ -28,7 +28,6 @@ public interface TjApi {
     String GET_CONSUMER_INFO = BASE + "getConsumerInfo";//消费维权投诉举报统计
     String GET_CASE_INFO = BASE + "getCaseInfo ";//工商案件系统办理数统计
     String GET_CASE_N_INFO = BASE + "getCaseNInfo ";//案件三合一
-    String API_VERSION = "commerceInfo";//版本更新
     String GET_ETPS_AND_PE_INFO = BASE + "getEtpsAndPeInfo";//市场主体户数统计
     String GET_ANNL_STAT_INFO = BASE + "getAnnlStatInfo";//年报情况统计
     String GET_EXCEPT_STAT_INFO = BASE + "getExceptStatInfo";//经营异常名录统计
@@ -48,9 +47,6 @@ public interface TjApi {
     @POST(GET_CASE_N_INFO)
     @FormUrlEncoded
     Call<BaLiResult> getCaseNInfo(@FieldMap Map<String, String> params);
-
-    @GET(API_VERSION)
-    Call<Version> apiUpdate();
 
     @POST(GET_ETPS_AND_PE_INFO)
     @FormUrlEncoded

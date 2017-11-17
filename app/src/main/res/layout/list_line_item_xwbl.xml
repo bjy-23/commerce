@@ -33,7 +33,7 @@
                 style="@style/listview_item_linearlayout">
                 <TextView
                     style="@style/listview_item_tab"
-                    android:text="询问次数"/>
+                    android:text="询问次序"/>
                 <TextView
                     android:id="@+id/enquire_times_textview"
                     style="@style/listview_item_value"

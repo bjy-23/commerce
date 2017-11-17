@@ -417,8 +417,8 @@ public class TradeMarkDetailActivity extends AppCompatActivity {
             tvExameNotifyDate4TradeMarkDetail.setText(data.getFirstIssueDate());
         if(data.getRegAppDate()!=null)
             tvRegisterNotifyDate4TradeMarkDetail.setText(data.getRegAppDate());
-        if(data.getSpecialEndDate()!=null)
-            tvPrivateRightDate4TradeMarkDetail.setText(data.getSpecialEndDate());
+        if(data.getSpecialStartDate()!=null && data.getSpecialEndDate()!=null)
+            tvPrivateRightDate4TradeMarkDetail.setText(data.getSpecialStartDate()+" 至 "+data.getSpecialEndDate());
         if(data.getColorNum()!=null)
             tvColorNum4TradeMarkDetail.setText(data.getColorNum());
         if(data.getMemo()!=null)

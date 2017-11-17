@@ -105,7 +105,7 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                         intent = new Intent(context, DailyCheckActivity.class);
                         context.startActivity(intent);
                         break;
-                    case Constants.GGCX_NAME:
+                    case Constants.GGCX_NAME_SC:
                         intent = new Intent(context, QueryActivity.class);
                         context.startActivity(intent);
                         break;
@@ -123,8 +123,16 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                         intent.putExtra(Constants.TYPE, "email");
                         context.startActivity(intent);
                         break;
-                    case Constants.tj:
+                    case Constants.TJ_NAME_SC:
                         intent = new Intent(context, QueryCountActivity.class);
+                        context.startActivity(intent);
+                        break;
+                    case Constants.TXL_NAME_SC:
+                        intent = new Intent(context, TXLActivity.class);
+                        context.startActivity(intent);
+                        break;
+                    case Constants.TZGG_NAME_SC:
+                        intent = new Intent(context, TZTGActivity.class);
                         context.startActivity(intent);
                         break;
                 }
@@ -150,11 +158,13 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                 }
                 break;
             case Constants.AJCX_ID:
+            case Constants.AJCX_ID_SC:
                 intent = new Intent(context, CaseEnquireActivity.class);
                 intent.putExtra(Constants.TYPE,Constants.AJCX_ID);
                 context.startActivity(intent);
                 break;
             case Constants.JYCX_ID:
+            case Constants.JYCX_ID_SC:
                 bundle = new Bundle();
                 bundle.putString("activityType", ApiManager.caseApi.INVESTIGATE_CASE_LIST);
                 intent = new Intent(context, ProcedureCaseListActivity.class);
@@ -162,7 +172,6 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                 context.startActivity(intent);
                 break;
             case Constants.CCJCLR_ID:
-                ApiManager.getInstance().ccInit();
                 intent = new Intent(context, RecyclerActivity.class);
                 intent.putExtra("type", "CCJCDB");
                 intent.putExtra("title", Constants.ccjcdb);
@@ -195,6 +204,7 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                 context.startActivity(intent);
                 break;
             case Constants.GWPY_ID:
+            case Constants.GWPY_ID_SC:
                 intent = new Intent(context, ViewPagerActivity.class);
                 intent.putExtra("title", "公文批阅");
                 intent.putExtra("type", "GWPY");

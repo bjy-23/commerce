@@ -30,7 +30,7 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private ArrayList<AreaBean> data;
+    private ArrayList<TreeBean> array;
     private SingleChoiceAdapter adapter;
 
     private String type;
@@ -46,7 +46,9 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
         ButterKnife.bind(this);
 
         Log.e("endTime", System.currentTimeMillis()+"");
-        tvTitle.setText(getIntent().getStringExtra(Constants.TITLE));
+        tvTitle.setText("请选择");
+        if(getIntent().getStringExtra(Constants.TITLE) != null)
+            tvTitle.setText(getIntent().getStringExtra(Constants.TITLE));
         type = getIntent().getStringExtra(Constants.TYPE);
         if ("caseQuery".equals(type)){//多层，树
             tvOption.setVisibility(View.VISIBLE);
@@ -214,9 +216,63 @@ public class SingleChoiceActivity extends BaseActivity implements SingleChoiceAd
             });
             recyclerView.setAdapter(adapter);
         }else {
-            data =  getIntent().getParcelableArrayListExtra(Constants.AREA_LIST);
-            adapter = new SingleChoiceAdapter(this,data);
-            adapter.setOnClickListener(this);
+            tvOption.setVisibility(View.VISIBLE);
+            tvOption.setText("确认");
+            tvOption.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int positon = positionMap.get("position");
+                    if (positon == -1)
+                        Toast.makeText(SingleChoiceActivity.this, "请选择！", Toast.LENGTH_SHORT).show();
+                    else {
+                        Intent intent = new Intent();
+                        intent.putExtra(Constants.TREE_BEAN, array.get(positon));
+                        setResult(-1, intent);
+                        finish();
+                    }
+                }
+            });
+
+            positionMap = new HashMap<>();
+            positionMap.put("position", -1);
+            array =  getIntent().getParcelableArrayListExtra(Constants.ARRAY);
+            adapter = new SingleChoiceAdapter(this, array, 1);
+            adapter.setOnClick(new SingleChoiceAdapter.OnClick() {
+                @Override
+                public void back(int position) {
+                    TreeBean treeBean = array.get(position);
+                    if (treeBean.getChilds() != null){
+                        //复制一个同数据的对象
+                        TreeBean bean = null;
+                        try {
+                            bean = (TreeBean) treeBean.clone();
+                        } catch (CloneNotSupportedException e) {
+                            e.printStackTrace();
+                        }
+                        if (treeBean.equals(bean)){
+                            Log.e("", "equals");
+                        }
+                        TreeBean root = new TreeBean();
+                        root.setId(treeBean.getId());
+                        root.setName(treeBean.getName());
+                        Intent intent = new Intent(SingleChoiceActivity.this, SingleChoiceActivity.class);
+                        intent.putExtra("root", root);
+                        intent.putExtra(Constants.TYPE, "caseQuery");
+                        startActivityForResult(intent, 10);
+                    }else {
+                        int oldPosition = positionMap.get("position");
+                        if (oldPosition == position)
+                            return;
+                        else {
+                            if (oldPosition != -1)
+                                array.get(oldPosition).setSelected(false);
+                            array.get(position).setSelected(true);
+                            positionMap.put("position", position);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            });
             recyclerView.setAdapter(adapter);
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));

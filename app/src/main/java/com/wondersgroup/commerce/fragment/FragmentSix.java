@@ -126,13 +126,11 @@ public class FragmentSix extends RootFragment {
             public void onClick(View view) {
                 Log.d("FragmentSix","setMenuOnClick()--------in");
                 if(txt.equals(Constants.ccjcdb)){
-                    ApiManager.getInstance().ccInit();
                     Intent intent=new Intent(getActivity(),RecyclerActivity.class);
                     intent.putExtra("type","CCJCDB");
                     intent.putExtra("title",Constants.ccjcdb);
                     startActivity(intent);
                 }else if(txt.equals(Constants.ccjgcx)){
-                    ApiManager.getInstance().ccInit();
                     Intent intent=new Intent(getActivity(), TableListActivity.class);
                     intent.putExtra("title",Constants.ccjccx);
                     intent.putExtra("type","CCJCCX");

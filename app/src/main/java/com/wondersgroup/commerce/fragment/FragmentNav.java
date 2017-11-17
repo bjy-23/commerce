@@ -445,7 +445,6 @@ public class FragmentNav extends RootFragment {
                     menuLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ApiManager.getInstance().ccInit();
                             Intent intent=new Intent(getActivity(),RecyclerActivity.class);
                             intent.putExtra("type","CCJCDB");
                             intent.putExtra("title",Constants.ccjcdb);
@@ -459,7 +458,6 @@ public class FragmentNav extends RootFragment {
                     menuLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ApiManager.getInstance().ccInit();
                             Intent intent=new Intent(getActivity(), TableListActivity.class);
                             intent.putExtra("title",Constants.ccjccx);
                             intent.putExtra("type","CCJCCX");

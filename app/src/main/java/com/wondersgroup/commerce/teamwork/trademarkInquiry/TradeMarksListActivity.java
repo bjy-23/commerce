@@ -310,7 +310,6 @@ public class TradeMarksListActivity extends AppCompatActivity {
 
     //获取
     private void initNetData() {
-        ApiManager.getInstance().unitTestInit();
         getDictsList();
     }
 

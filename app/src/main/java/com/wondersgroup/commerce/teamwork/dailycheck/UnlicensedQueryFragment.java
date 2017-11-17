@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +28,7 @@ public class UnlicensedQueryFragment extends Fragment {
 	private String[] items = { "转案源", "上报抄告", "责令改正", "其他" };
 	private View view;
 	private Button queryButton;
-	private ActionBarActivity activity;
+	private FragmentActivity activity;
 
 	// @Override
 	// public void onAttach(Activity activity) {
@@ -46,7 +46,7 @@ public class UnlicensedQueryFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.unlicensed_query_fragment, null);
-		activity = (ActionBarActivity) getActivity();
+		activity = (FragmentActivity) getActivity();
 
 		listView = new ListView(activity);
 		StringAdapter adapter = new StringAdapter(activity,

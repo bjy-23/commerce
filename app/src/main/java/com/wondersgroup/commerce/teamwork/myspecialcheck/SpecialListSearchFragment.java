@@ -30,8 +30,8 @@ import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsAdapter;
 import com.wondersgroup.commerce.teamwork.dailycheck.EtpsBean;
+import com.wondersgroup.commerce.teamwork.dailycheck.EtpsFirstBean;
 import com.wondersgroup.commerce.teamwork.dailycheck.InfoBean;
-import com.wondersgroup.commerce.teamwork.mysupervision.EtpsFirstBean;
 import com.wondersgroup.commerce.teamwork.mysupervision.HttpCallbackListener;
 import com.wondersgroup.commerce.teamwork.mysupervision.HttpClientUtil;
 import com.wondersgroup.commerce.teamwork.mysupervision.Url;
@@ -173,18 +173,26 @@ public class SpecialListSearchFragment extends Fragment {
         param.put("checkType", "3");
         param.put("organId", loginBean.getResult().getOrganId());
         param.put("tmpFlag", "1");
-        Call<ResponseBody> call = ApiManager.consumerwApi.searchList(param);
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
-//                loadingDialog.show();
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable t) {
-//                loadingDialog.show();
-//            }
-//        });
+        Call<EtpsFirstBean> call = ApiManager.consumerwApi.searchList(param);
+        call.enqueue(new Callback<EtpsFirstBean>() {
+            @Override
+            public void onResponse(Response<EtpsFirstBean> response, Retrofit retrofit) {
+                EtpsFirstBean firstSelfBean = response.body();
+                if (firstSelfBean != null && firstSelfBean.getCode() == 200) {
+                    etpsBeans = firstSelfBean.getResult();
+                    EtpsAdapter adapter = new EtpsAdapter(getActivity(),
+                            R.layout.mode_list_item1, etpsBeans);
+                    listView.setAdapter(adapter);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
         String address = Url.QJ_IN_USE + "searchList";
         JSONObject jsonObject = new JSONObject();
         try {

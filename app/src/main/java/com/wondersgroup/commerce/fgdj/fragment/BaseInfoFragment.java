@@ -19,6 +19,7 @@ import com.wondersgroup.commerce.fgdj.bean.DicBean;
 import com.wondersgroup.commerce.fgdj.bean.EntBaseInfo;
 import com.wondersgroup.commerce.fgdj.bean.LeaderInfo;
 import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.model.TreeBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.service.Result;
 import com.wondersgroup.commerce.widget.LoadingDialog;
@@ -176,15 +177,15 @@ public class BaseInfoFragment extends Fragment {
         hashMap.put(Constants.DEPT_ID,loginBean.getResult().getDeptId());
         hashMap.put(Constants.ORGAN_ID,loginBean.getResult().getOrganId());
         hashMap.put(Constants.ENT_ID,entId);
-        Call<Result<List<AreaBean>>> call = ApiManager.fgdjApi.queryArea(hashMap);
-        call.enqueue(new Callback<Result<List<AreaBean>>>() {
+        Call<Result<List<TreeBean>>> call = ApiManager.fgdjApi.queryArea(hashMap);
+        call.enqueue(new Callback<Result<List<TreeBean>>>() {
             @Override
-            public void onResponse(Response<Result<List<AreaBean>>> response, Retrofit retrofit) {
-                List<AreaBean> arrayList = response.body().getObject() ;
+            public void onResponse(Response<Result<List<TreeBean>>> response, Retrofit retrofit) {
+                List<TreeBean> arrayList = response.body().getObject() ;
                 if (arrayList.size()!=0 && !TextUtils.isEmpty(entBaseInfo.getAreaCode())){
-                    for (AreaBean areaBean : arrayList){
-                        if(entBaseInfo.getAreaCode().equals(areaBean.getId())){
-                            tvTown.setText(areaBean.getName());
+                    for (TreeBean treeBean : arrayList){
+                        if(entBaseInfo.getAreaCode().equals(treeBean.getId())){
+                            tvTown.setText(treeBean.getName());
                             break;
                         }
                     }

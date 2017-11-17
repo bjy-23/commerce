@@ -264,7 +264,7 @@ public class FragmentSetting extends Fragment implements View.OnClickListener {
     }
 
     public void ynUpdate() {
-        createApi().apiUpdate().enqueue(new Callback<Version>() {
+        ApiManager.commonApi.apiUpdate().enqueue(new Callback<Version>() {
             @Override
             public void onResponse(Response<Version> response, Retrofit retrofit) {
                 if (response != null && response.body() != null && response.body().getApkInfo() != null) {
@@ -274,46 +274,19 @@ public class FragmentSetting extends Fragment implements View.OnClickListener {
                         downloadUrl = response.body().getApkInfo().getUrl();
                         totalSize = Integer.parseInt(response.body().getApkInfo().getSize());
                         showUpdateDialog();
+                    }else {
+                        Toast.makeText(app, "当前已是最新版本！", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(app, "当前已是最新版本！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(app, "服务器返回数据异常！", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e("","");
+                Toast.makeText(app, "连接服务器失败！", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private TjApi createApi() {
-        OkHttpClient httpClient = new OkHttpClient();
-        httpClient.interceptors().add(new Interceptor() {
-            @Override
-            public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-
-                Request request = original.newBuilder()
-                        .header("User-Agent", "yn-Android")
-                        .header("Content-Type", "application/json;charset=UTF-8")
-                        .header("Accept", "application/json")
-                        .method(original.method(), original.body())
-                        .build();
-
-                return chain.proceed(request);
-            }
-        });
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(interceptor);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiManager.VERSION_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
-
-        return retrofit.create(TjApi.class);
     }
 
     private String getVersionName() {

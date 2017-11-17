@@ -4,99 +4,137 @@
         "menus":[
             {
                 "menuName":"公文批阅",
-                "authId":"08011003",
+                "authId":"07010503",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"公文检索",
-                "authId":"08011004",
+                "authId":"07010503",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"通讯录",
-                "authId":"08013001",
+                "authId":"999",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"通知公告",
-                "authId":"08013003",
+                "authId":"999",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"收件箱",
                 "authId":"999",
+                "type":0,
                 "isShow":true
             }
-                ]
+                ],
+        "isShow":true
     },
     {
         "title":"执法办案",
         "menus":[
             {
                 "menuName":"案件调查",
-                "authId":"03010033",
+                "authId":"03010033,03010101",
+                "type":1,
                 "isShow":true
             },
             {
                 "menuName":"案件查询",
-                "authId":"03010009",
+                "authId":"03010009,04131203",
+                "type":1,
                 "isShow":true
             },
             {
                 "menuName":"简易程序处理",
-                "authId":"08011007",
+                "authId":"08011007,03010007",
+                "type":1,
+                "isShow":true
+            },
+            {
+                "menuName":"线索登记",
+                "authId":"999",
+                "type":0,
+                "isShow":true
+            },
+            {
+                "menuName":"线索维护",
+                "authId":"999",
+                "type":0,
+                "isShow":true
+            },
+            {
+                "menuName":"线索查询",
+                "authId":"999",
+                "type":0,
                 "isShow":true
             }
-                ]
+                ],
+        "isShow":true
     },
     {
         "title":"综合监管",
         "menus":[
             {
                 "menuName":"双随机录入",
-                "authId":"999",
+                "authId":"0502B000",
+                "type":0,
                 "isShow":false
             },
             {
                 "menuName":"日常监管",
                 "authId":"999",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"专项整治",
                 "authId":"999",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"无证经营",
                 "authId":"999",
+                "type":0,
                 "isShow":true
             }
-                ]
+                ],
+        "isShow":false
     },
     {
         "title":"查询统计",
         "menus":[
             {
                 "menuName":"公示信息查询",
-                "authId":"08012001",
+                "authId":"999",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"注册商标查询",
                 "authId":"02077110",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"广告查询",
                 "authId":"999",
+                "type":0,
                 "isShow":true
             },
             {
                 "menuName":"统计",
                 "authId":"999",
+                "type":0,
                 "isShow":true
             }
-                ]
+                ],
+        "isShow":true
     }
 ]

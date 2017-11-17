@@ -6,6 +6,7 @@ import com.wondersgroup.commerce.fgdj.bean.AreaBean;
 import com.wondersgroup.commerce.fgdj.bean.BaseInfoBean;
 import com.wondersgroup.commerce.fgdj.bean.DicBean;
 import com.wondersgroup.commerce.fgdj.bean.FgdjEntList;
+import com.wondersgroup.commerce.model.TreeBean;
 
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +68,7 @@ public interface FGDJApi {
     Call<Result<String>> cancelClaimEnt(@FieldMap Map data);
 
     @GET(QUERY_AREA)
-    Call<Result<List<AreaBean>>> queryArea(@QueryMap Map data);
+    Call<Result<List<TreeBean>>> queryArea(@QueryMap Map data);
 
     @GET(QUERY_PARTY_AREA)
     Call<Result<List<AreaBean>>> queryPartyArea(@QueryMap Map data);

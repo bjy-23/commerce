@@ -113,11 +113,7 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
     public void initView(){
         layoutBack.setOnClickListener(this);
         imgUp.setOnClickListener(this);
-        imgUp.setImageResource(R.mipmap.arrow_top_light);
-        imgUp.setTag(R.mipmap.arrow_top_light);
         imgDown.setOnClickListener(this);
-        imgDown.setImageResource(R.mipmap.arrow_bottom_light);
-        imgDown.setTag(R.mipmap.arrow_bottom_light);
         layoutContent.setVisibility(View.GONE);
 
         setImgState();
@@ -214,14 +210,18 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
     public void setImgState(){
         if (position == 0){
             imgUp.setImageResource(R.mipmap.arrow_top_gray);
+            imgUp.setTag(R.mipmap.arrow_top_gray);
         }else{
             imgUp.setImageResource(R.mipmap.arrow_top_light);
+            imgUp.setTag(R.mipmap.arrow_top_light);
         }
 
         if (position == emailBeanList.size() -1){
             imgDown.setImageResource(R.mipmap.arrow_bottom_gray);
+            imgDown.setTag(R.mipmap.arrow_bottom_gray);
         }else {
             imgDown.setImageResource(R.mipmap.arrow_bottom_light);
+            imgDown.setTag(R.mipmap.arrow_bottom_light);
         }
     }
 

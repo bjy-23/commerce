@@ -1,5 +1,7 @@
 package com.wondersgroup.commerce.okhttp;
 
+import android.content.Context;
+
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -21,6 +23,7 @@ public class LoggingInterceptor implements Interceptor {
                 request.url(), chain.connection(), request.headers()));
 
         Response response = chain.proceed(request);
+        Context context = null;
 
         long t2 = System.nanoTime();
         logger.info(String.format("Received response for %s in %.1fms%n%s",

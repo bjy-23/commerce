@@ -54,6 +54,8 @@ public class Constants {
     public final static String TITLE = "title";
     public final static String PARAM = "param";
     public final static String POSITION = "position";
+    public final static String ARRAY = "array";
+    public final static String TREE_BEAN = "treeBean";
 
     /*
     * 通用操作符
@@ -77,7 +79,6 @@ public class Constants {
 
     public final static String ADD_CHS = "添加";
     public final static String DEPT = "省工商行政管理局";
-
 
     /*
     * 抽查检查
@@ -138,12 +139,126 @@ public class Constants {
     public static final String TXL_NAME = "通讯录";
     public static final String TZGG_ID = "08013003";
     public static final String TZGG_NAME = "通知公告";
-    public static final String GWPY_ID = "08011003";
+    public static final String GWPY_ID = "08011003,07010131,07010165,07010161,07010144,07010146,07010149";
     public static final String GWPY_NAME = "公文批阅";
-    public static final String GWJS_ID = "08011004";
+    public static final String GWJS_ID = "08011004,07010527";
     public static final String GWJS_NAME = "公文检索";
     public static final String XWQYCX = "小微企业查询";
     public static final String XWQYFCQKCX = "小微企业扶持/n情况查询";
+    //云南
+
+    //四川
+    public static final String GW_ID_SC = "07010503";
+    public static final String GWPY_ID_SC = GW_ID_SC;
+    public static final String GWPY_NAME_SC = "公文批阅";
+    public static final String GWJS_ID_SC = GW_ID_SC;
+    public static final String GWJS_NAME_SC = "公文检索";
+    public static final String TXL_ID_SC = COMMON_ID;
+    public static final String TXL_NAME_SC = "通讯录";
+    public static final String TZGG_ID_SC = COMMON_ID;
+    public static final String TZGG_NAME_SC = "通知公告";
+    public static final String EMAIL_ID_SC = COMMON_ID;
+    public static final String EMAIL_NAME_SC = "收件箱";
+    public static final String AJDC_ID_SC = "03010033,03010101";
+    public static final String AJDC_NAME_SC = "案件调查";
+    public static final String AJCX_ID_SC = "03010009,04131203";
+    public static final String AJCX_NAME_SC = "案件查询";
+    public static final String JYCX_ID_SC = "08011007,03010007";
+    public static final String JYCX_NAME_SC = "简易程序处理";
+    public static final String SSJLR_ID_SC = "0502B000";
+    public static final String SSJLR_NAME_SC = "双随机录入";
+    public static final String RCJG_ID_SC = COMMON_ID;
+    public static final String RCJG_NAME_SC = "日常监管";
+    public static final String ZXZZ_ID_SC = COMMON_ID;
+    public static final String ZXZZ_NAME_SC = "专项整治";
+    public static final String WZJY_ID_SC = COMMON_ID;
+    public static final String WZJY_NAME_SC = "无证经营";
+    public static final String GSXX_ID_SC = COMMON_ID;
+    public static final String GSXX_NAME_SC = "公示信息查询";
+    public static final String SBCX_ID_SC = "02077110";
+    public static final String SBCX_NAME_SC = "注册商标查询";
+    public static final String GGCX_ID_SC = COMMON_ID;
+    public static final String GGCX_NAME_SC = "广告查询";
+    public static final String TJ_ID_SC = COMMON_ID;
+    public static final String TJ_NAME_SC = "统计";
+    public static final String XSDJ_ID_SC = COMMON_ID;
+    public static final String XSDJ_NAME_SC = "线索登记";
+    public static final String XSWH_ID_SC = COMMON_ID;
+    public static final String XSWH_NAME_SC = "线索维护";
+    public static final String XSCX_ID_SC = COMMON_ID;
+    public static final String XSCX_NAME_SC = "线索查询";
+
+      /*
+    * 首页图标颜色设置-云南
+    * */
+
+    public static HashMap<String,Integer> firstColorMap(){
+        if (firstColorMap == null){
+            firstColorMap = new HashMap<>();
+            firstColorMap.put(Constants.TSJBCL_ID, R.drawable.circle_blue);
+            firstColorMap.put(Constants.CCJCLR_ID, R.drawable.circle_yellow);
+            firstColorMap.put(Constants.WQCB_ID, R.drawable.circle_green);
+        }
+
+        return firstColorMap;
+    }
+
+    /*
+    * 菜单图标配置-云南
+    * */
+
+    public static HashMap<String, Integer> menuIconMapYN(){
+        if (menuIconMapYN == null){
+            menuIconMapYN = new HashMap<>();
+            menuIconMapYN.put(Constants.AJDC_ID + Constants.AJDC_NAME,R.mipmap.icon_ajdc);
+            menuIconMapYN.put(Constants.WDAJCX_ID + Constants.WDAJCX_NAME,R.mipmap.icon_wdajcx);
+            menuIconMapYN.put(Constants.AJCX_ID + Constants.AJCX_NAME,R.mipmap.icon_ajcx);
+            menuIconMapYN.put(Constants.AJDC_ID_2 + Constants.AJDC_NAME_2,R.mipmap.icon_ajdc);
+            menuIconMapYN.put(Constants.WDAJCX_ID_2 + Constants.WDAJCX_NAME_2,R.mipmap.icon_wdajcx);
+            menuIconMapYN.put(Constants.CCJCLR_ID + Constants.CCJCLR_NAME,R.mipmap.icon_cclr);
+            menuIconMapYN.put(Constants.CCJCCX_ID + Constants.CCJCCX_NAME,R.mipmap.icon_cccx);
+            menuIconMapYN.put(Constants.TSJBCL_ID + Constants.TSJBCL_NAME,R.mipmap.icon_tsjbcl);
+            menuIconMapYN.put(Constants.TSJBCX_ID + Constants.TSJBCX_NAME,R.mipmap.icon_tsjbcx);
+            menuIconMapYN.put(Constants.FGDJGL_ID + Constants.FGDJGL_NAME,R.mipmap.icon_djgl);
+            menuIconMapYN.put(Constants.FGDJCX_ID + Constants.FGDJCX_NAME,R.mipmap.icon_djcx);
+            menuIconMapYN.put(Constants.WQCB_ID + Constants.WQCB_NAME,R.mipmap.icon_cbcs);
+            menuIconMapYN.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.icon_gsxx);
+            menuIconMapYN.put(Constants.FLFG_ID + Constants.FLFG_NAME,R.mipmap.icon_flfg);
+            menuIconMapYN.put(Constants.CXTJ_ID + Constants.CXTJ_NAME,R.mipmap.cxtj);
+        }
+        return menuIconMapYN;
+    }
+
+    /*
+   * 菜单图标配置-四川
+   * */
+    public static HashMap<String,Integer> menuIconMapSC(){
+        if (menuIconMapSC == null){
+            menuIconMapSC = new HashMap<>();
+            menuIconMapSC.put(Constants.AJDC_ID_SC + Constants.AJDC_NAME_SC, R.mipmap.ajdc_sc_2);
+            menuIconMapSC.put(Constants.AJCX_ID_SC + Constants.AJCX_NAME_SC, R.mipmap.ajcx_sc_2);
+            menuIconMapSC.put(Constants.JYCX_ID_SC + Constants.JYCX_NAME_SC, R.mipmap.jycx_sc_2);
+            menuIconMapSC.put(Constants.GWPY_ID_SC + Constants.GWPY_NAME_SC, R.mipmap.gwpy_sc);
+            menuIconMapSC.put(Constants.GWJS_ID_SC + Constants.GWJS_NAME_SC, R.mipmap.gwjs_sc);
+            menuIconMapSC.put(Constants.GSXX_ID_SC + Constants.GSXX_NAME_SC, R.mipmap.gsxx_sc);
+            menuIconMapSC.put(Constants.SBCX_ID_SC + Constants.SBCX_NAME_SC, R.mipmap.sbcx_sc);
+            menuIconMapSC.put(Constants.TZGG_ID_SC + Constants.TZGG_NAME_SC, R.mipmap.tzgg_sc_2);
+            menuIconMapSC.put(Constants.TXL_ID_SC + Constants.TXL_NAME_SC, R.mipmap.txl_sc_2);
+            menuIconMapSC.put(Constants.WZJY_ID_SC + Constants.WZJY_NAME_SC, R.mipmap.wzjg_sc);
+            menuIconMapSC.put(Constants.ZXZZ_ID_SC + Constants.ZXZZ_NAME, R.mipmap.zxzz_sc);
+            menuIconMapSC.put(Constants.EMAIL_ID_SC + Constants.EMAIL_NAME, R.mipmap.gryj_sc);
+            menuIconMapSC.put(Constants.GGCX_ID_SC + Constants.GGCX_NAME, R.mipmap.ggfb_sc);
+            menuIconMapSC.put(Constants.TJ_ID_SC + Constants.TJ_NAME_SC, R.mipmap.ywtj_sc);
+            menuIconMapSC.put(Constants.SSJLR_ID_SC + Constants.SSJLR_NAME_SC, R.mipmap.ssjlr_sc);
+            menuIconMapSC.put(Constants.RCJG_ID_SC + Constants.RCJG, R.mipmap.rcjg_sc);
+            menuIconMapSC.put(Constants.XSDJ_ID_SC + Constants.XSDJ_NAME_SC, R.mipmap.rcjg_sc);
+            menuIconMapSC.put(Constants.XSWH_ID_SC + Constants.XSWH_NAME_SC, R.mipmap.rcjg_sc);
+            menuIconMapSC.put(Constants.XSCX_ID_SC + Constants.XSCX_NAME_SC, R.mipmap.rcjg_sc);
+        }
+
+        return menuIconMapSC;
+    }
+
 
     public final static String REMIND = "消息提醒";
     public final static String ABOUT_US = "关于我们";
@@ -363,72 +478,4 @@ public class Constants {
     public final static String TIME_CLOCK = "timeClock";
 
 
-    /*
-    * 首页图标颜色设置-云南
-    * */
-
-    public static HashMap<String,Integer> firstColorMap(){
-        if (firstColorMap == null){
-            firstColorMap = new HashMap<>();
-            firstColorMap.put(Constants.TSJBCL_ID, R.drawable.circle_blue);
-            firstColorMap.put(Constants.CCJCLR_ID, R.drawable.circle_yellow);
-            firstColorMap.put(Constants.WQCB_ID, R.drawable.circle_green);
-        }
-
-        return firstColorMap;
-    }
-
-    /*
-    * 菜单图标配置-云南
-    * */
-
-    public static HashMap<String, Integer> menuIconMapYN(){
-        if (menuIconMapYN == null){
-            menuIconMapYN = new HashMap<>();
-            menuIconMapYN.put(Constants.AJDC_ID + Constants.AJDC_NAME,R.mipmap.icon_ajdc);
-            menuIconMapYN.put(Constants.WDAJCX_ID + Constants.WDAJCX_NAME,R.mipmap.icon_wdajcx);
-            menuIconMapYN.put(Constants.AJCX_ID + Constants.AJCX_NAME,R.mipmap.icon_ajcx);
-            menuIconMapYN.put(Constants.AJDC_ID_2 + Constants.AJDC_NAME_2,R.mipmap.icon_ajdc);
-            menuIconMapYN.put(Constants.WDAJCX_ID_2 + Constants.WDAJCX_NAME_2,R.mipmap.icon_wdajcx);
-            menuIconMapYN.put(Constants.CCJCLR_ID + Constants.CCJCLR_NAME,R.mipmap.icon_cclr);
-            menuIconMapYN.put(Constants.CCJCCX_ID + Constants.CCJCCX_NAME,R.mipmap.icon_cccx);
-            menuIconMapYN.put(Constants.TSJBCL_ID + Constants.TSJBCL_NAME,R.mipmap.icon_tsjbcl);
-            menuIconMapYN.put(Constants.TSJBCX_ID + Constants.TSJBCX_NAME,R.mipmap.icon_tsjbcx);
-            menuIconMapYN.put(Constants.FGDJGL_ID + Constants.FGDJGL_NAME,R.mipmap.icon_djgl);
-            menuIconMapYN.put(Constants.FGDJCX_ID + Constants.FGDJCX_NAME,R.mipmap.icon_djcx);
-            menuIconMapYN.put(Constants.WQCB_ID + Constants.WQCB_NAME,R.mipmap.icon_cbcs);
-            menuIconMapYN.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.icon_gsxx);
-            menuIconMapYN.put(Constants.FLFG_ID + Constants.FLFG_NAME,R.mipmap.icon_flfg);
-            menuIconMapYN.put(Constants.CXTJ_ID + Constants.CXTJ_NAME,R.mipmap.cxtj);
-        }
-        return menuIconMapYN;
-    }
-
-    /*
-   * 菜单图标配置-四川
-   * */
-    public static HashMap<String,Integer> menuIconMapSC(){
-        if (menuIconMapSC == null){
-            menuIconMapSC = new HashMap<>();
-            menuIconMapSC.put(Constants.AJDC_ID + Constants.AJDC_NAME,R.mipmap.ajdc_sc_2);
-            menuIconMapSC.put(Constants.WDAJCX_ID + Constants.WDAJCX_NAME,R.mipmap.ajcx_sc);
-            menuIconMapSC.put(Constants.AJCX_ID + Constants.AJCX_NAME,R.mipmap.ajcx_sc_2);
-            menuIconMapSC.put(Constants.JYCX_ID + Constants.JYCX_NAME,R.mipmap.jycx_sc_2);
-            menuIconMapSC.put(Constants.GWPY_ID + Constants.GWPY_NAME,R.mipmap.gwpy_sc);
-            menuIconMapSC.put(Constants.GWJS_ID + Constants.GWJS_NAME,R.mipmap.gwjs_sc);
-            menuIconMapSC.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.gsxx_sc);
-            menuIconMapSC.put(Constants.SBCX_ID + Constants.SBCX_NAME,R.mipmap.sbcx_sc);
-            menuIconMapSC.put(Constants.TZGG_ID + Constants.TZGG_NAME,R.mipmap.tzgg_sc_2);
-            menuIconMapSC.put(Constants.TXL_ID + Constants.TXL_NAME,R.mipmap.txl_sc_2);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.WZJY_NAME,R.mipmap.wzjg_sc);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.ZXZZ_NAME,R.mipmap.zxzz_sc);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.EMAIL_NAME,R.mipmap.gryj_sc);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.GGCX_NAME,R.mipmap.ggfb_sc);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.tj,R.mipmap.ywtj_sc);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.SSJLR,R.mipmap.ssjlr_sc);
-            menuIconMapSC.put(Constants.COMMON_ID + Constants.RCJG,R.mipmap.rcjg_sc);
-        }
-
-        return menuIconMapSC;
-    }
 }

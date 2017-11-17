@@ -46,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    app:content="市场主体年报进度情况统计" />
+                 	app:content="市场主体年报进度情况统计" />
 
                 <com.wondersgroup.commerce.widget.InfoSelectBar
                     android:id="@+id/bj"

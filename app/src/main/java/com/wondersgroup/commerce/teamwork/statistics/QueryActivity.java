@@ -125,8 +125,8 @@ public class QueryActivity extends AppCompatActivity {
         typeList.add("个体工商户");
         params.put("organId", loginBean.getResult().getOrganId());
 //        params.put("organId", "510000000");
-        params.put("startDate", AnnalsDatePopup.StringToDate(getFirstDay(), "yyyy/MM/dd", "yyyy-MM-dd"));
-        params.put("endDate", AnnalsDatePopup.StringToDate(getToday(), "yyyy/MM/dd", "yyyy-MM-dd"));
+//        params.put("startDate", AnnalsDatePopup.StringToDate(getFirstDay(), "yyyy/MM/dd", "yyyy-MM-dd"));
+//        params.put("endDate", AnnalsDatePopup.StringToDate(getToday(), "yyyy/MM/dd", "yyyy-MM-dd"));
         params.put("allFlag", isZCBJ ? "0" : "1");//0表示获取全局数据，1表示只查本级。
         initData();
     }
@@ -162,7 +162,11 @@ public class QueryActivity extends AppCompatActivity {
 
     @OnClick(R.id.location)
     void OnLocationClick(View view) {
-        startActivityForResult(new Intent(this, DeptActivity.class), 0);
+        Intent intent = new Intent(this, DeptActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "登记机关");
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 0);
     }
 
     @OnClick(R.id.linear_date)
@@ -188,8 +192,8 @@ public class QueryActivity extends AppCompatActivity {
                     mEndDate.setText(endDate);
                     endDate = AnnalsDatePopup.StringToDate(endDate, "yyyy/MM/dd", "yyyy-MM-dd");
                 }
-                params.put("startDate", startDate);
-                params.put("endDate", endDate);
+//                params.put("startDate", startDate);
+//                params.put("endDate", endDate);
                 initData();
             }
         });

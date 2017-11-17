@@ -231,7 +231,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.tvContent.setSingleLine(false);
                 this.tvContent.setMaxLines(2);
                 this.tvContent.setEllipsize(TextUtils.TruncateAt.END);
-                this.tvContent.setHint(mBuilder.selectHint == null ?"":mBuilder.selectHint);
+                this.tvContent.setHint(mBuilder.selectHint == null ? "" : mBuilder.selectHint);
                 this.mapImg.setOnClickListener(this);
 //                this.content.setOnClickListener(this);
                 break;
@@ -239,9 +239,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
                 this.addTitle();
                 this.addEditTextWithArrowImg();
-                this.content.setInputType(InputType.TYPE_NULL);
+//                this.content.setInputType(InputType.TYPE_NULL);
                 this.content.setHint(mBuilder.inputHint);
-                this.content.setTextIsSelectable(true);
+//                this.content.setTextIsSelectable(true);
                 this.content.setSingleLine(false);
                 this.content.setMaxLines(2);
                 this.content.setEllipsize(TextUtils.TruncateAt.END);
@@ -281,15 +281,17 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         title.setTextColor(mBuilder.titleColor);
         setTitle(mBuilder.titleString);
         contentLayout.addView(title);
+        if (mBuilder.isRequired)
+            addRequiredMark();
     }
 
-    private void addColon(){
+    private void addColon() {
         Context context = mBuilder.mContext;
         colon = new TextView(context);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.CENTER_VERTICAL);
-        lp.setMargins(DWZH.dp(140),0,0,0);
+        lp.setMargins(DWZH.dp(140), 0, 0, 0);
         colon.setLayoutParams(lp);
         colon.setText(":");
         contentLayout.addView(colon);
@@ -311,11 +313,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         contentLayout.addView(content);
     }
 
-    private void addIndex(){
+    private void addIndex() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(DWZH.dp(10), DWZH.dp(10));
         lp.addRule(RelativeLayout.CENTER_VERTICAL);
         lp.addRule(RelativeLayout.ALIGN_PARENT_END);
-        lp.setMargins(0,0,DWZH.dp(15),0);
+        lp.setMargins(0, 0, DWZH.dp(15), 0);
         ImageView imageView = new ImageView(mBuilder.mContext);
         imageView.setLayoutParams(lp);
         imageView.setImageResource(R.drawable.right_arrow);
@@ -483,7 +485,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         LinearLayout.LayoutParams linearLp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
-        for (int i=0; i<mBuilder.childRows.size(); i++){
+        for (int i = 0; i < mBuilder.childRows.size(); i++) {
             TableRow tableRow = mBuilder.childRows.get(i);
             tableRow.setLayoutParams(linearLp);
             root.addView(tableRow);
@@ -492,7 +494,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         contentLayout.addView(root);
     }
 
-    private void addTimes(){
+    private void addTimes() {
         LinearLayout root = new LinearLayout(mBuilder.mContext);
         root.setOrientation(LinearLayout.VERTICAL);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -502,9 +504,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         int size = mBuilder.times.size();
         LinearLayout.LayoutParams lp1 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //分割线的参数
-        LinearLayout.LayoutParams lp2 = new LayoutParams(LayoutParams.MATCH_PARENT,1);
+        LinearLayout.LayoutParams lp2 = new LayoutParams(LayoutParams.MATCH_PARENT, 1);
         lp2.setMargins(0, 0, DWZH.dp(10), 0);
-        for (int i=0; i<size; i++){
+        for (int i = 0; i < size; i++) {
             final TextView textView = new TextView(mBuilder.mContext);
             textView.setLayoutParams(lp1);
             textView.setTextSize(14);
@@ -530,7 +532,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             root.addView(textView);
 
             //添加分割线
-            if (i <size -1){
+            if (i < size - 1) {
                 View line = new View(mBuilder.mContext);
                 line.setLayoutParams(lp2);
                 line.setBackgroundResource(R.color.linecolor);
@@ -542,10 +544,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
     }
 
     public void clearTime() {
-        int size = mBuilder.times.size();
+        int size = mBuilder.timeHints.size();
         for (int i = 0; i < size; i++) {
-            TextView tv = (TextView) contentLayout.findViewWithTag(mBuilder.times.get(i));
-            tv.setText("");
+            TextView tv = (TextView) contentLayout.findViewWithTag(mBuilder.timeHints.get(i));
+            if (tv != null)
+                tv.setText("");
         }
     }
 
@@ -660,15 +663,21 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         contentLayout.addView(root);
     }
 
+    public void addRequiredMark() {
+        RelativeLayout.LayoutParams remarkParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        remarkParams.addRule(RelativeLayout.CENTER_VERTICAL);
+        remarkParams.setMargins((int) mBuilder.marginH - 40, 0, 0, 0);
+        TextView remark = new TextView(mBuilder.mContext);
+        remark.setLayoutParams(remarkParams);
+        SpannableString sb = new SpannableString("* ");
+        sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.red)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        remark.setText(sb);
+        contentLayout.addView(remark);
+    }
+
     public void setTitle(String title) {
         if (this.title != null) {
-            if (mBuilder.isRequired) {
-                SpannableString sb = new SpannableString("* " + title);
-                sb.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.red)), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                this.title.setText(sb);
-            } else {
-                this.title.setText(title);
-            }
+            this.title.setText(title);
         }
     }
 
@@ -676,7 +685,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         if (this.content != null) {
             this.content.setText(content);
         }
-        if(this.clearEditText!=null){
+        if (this.clearEditText != null) {
             this.clearEditText.setText(content);
         }
     }
@@ -698,7 +707,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    public String getMultiOne(){
+    public String getMultiOne() {
         if (this.content != null && (mBuilder.mType == Type.MULTIINPUT || mBuilder.mType == Type.MULTISELECT)) {
             return content.getText().toString();
         }
@@ -711,9 +720,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    public String getMultiTwo(){
+    public String getMultiTwo() {
         if (this.content2 != null && (mBuilder.mType == Type.MULTIINPUT || mBuilder.mType == Type.MULTISELECT)) {
-           return content2.getText().toString();
+            return content2.getText().toString();
         }
         return "";
     }
@@ -738,10 +747,10 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    public String getClearEditText(){
-        if(this.clearEditText != null){
+    public String getClearEditText() {
+        if (this.clearEditText != null) {
             return this.clearEditText.getText().toString();
-        }else
+        } else
             return "";
     }
 
@@ -770,8 +779,8 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         return tvContent;
     }
 
-    public void setEllipsize(TextUtils.TruncateAt ellipsis){
-        if(content!=null)
+    public void setEllipsize(TextUtils.TruncateAt ellipsis) {
+        if (content != null)
             content.setEllipsize(ellipsis);
     }
 
@@ -787,8 +796,8 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         return content;
     }
 
-    public void setTvContentOnToucher(View.OnTouchListener touchListener){
-        if(tvContent!=null){
+    public void setTvContentOnToucher(View.OnTouchListener touchListener) {
+        if (tvContent != null) {
             tvContent.setOnTouchListener(touchListener);
         }
     }
@@ -841,7 +850,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             hasIndex = true;
         }
 
-        public Builder tag(Object tag){
+        public Builder tag(Object tag) {
             this.tag = tag;
             return this;
         }
@@ -873,13 +882,13 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         }
 
 
-        public Builder msgWithTitle(String msgString){
+        public Builder msgWithTitle(String msgString) {
             this.mType = Type.MSG_WITH_TITLE;
             this.msgString = msgString;
             return this;
         }
 
-        public Builder msgWithMutiplyLine(String msgString){
+        public Builder msgWithMutiplyLine(String msgString) {
             this.mType = Type.MSG_MULTIPLE_LINE;
             this.msgString = msgString;
             return this;
@@ -890,22 +899,22 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
-        public Builder time(String... times){
+        public Builder time(String... times) {
             this.mType = Type.TIME;
             this.times = Arrays.asList(times);
             return this;
         }
 
-        public Builder timeHints(String... hints){
+        public Builder timeHints(String... hints) {
             this.mType = Type.TIME;
-            this.timeHints= Arrays.asList(hints);
+            this.timeHints = Arrays.asList(hints);
             return this;
         }
 
-        public Builder timeBack(TimeListener timeListener){
+        public Builder timeBack(TimeListener timeListener) {
             this.timeListener = timeListener;
-            if (timeHints != null){
-                for (int i=0; i<timeHints.size(); i++){
+            if (timeHints != null) {
+                for (int i = 0; i < timeHints.size(); i++) {
                     timeListener.timeBack(timeHints.get(i), times.get(i));
                 }
             }
@@ -923,7 +932,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
-        public Builder hasIndex(boolean hasIndex){
+        public Builder hasIndex(boolean hasIndex) {
             this.hasIndex = hasIndex;
             return this;
         }
@@ -968,7 +977,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
-        public Builder addChild(TableRow... childRows){
+        public Builder addChild(TableRow... childRows) {
             this.mType = Type.MULTI_SELECT_2;
             this.childRows = Arrays.asList(childRows);
             return this;
@@ -1074,7 +1083,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return mContext;
         }
 
-        public interface TimeListener{
+        public interface TimeListener {
             void timeBack(String key, String value);
         }
 
@@ -1087,7 +1096,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         void onSelect(TableRow row, int which);
     }
 
-    public interface OnMultiClick{
+    public interface OnMultiClick {
         void onClick(int position);
     }
 

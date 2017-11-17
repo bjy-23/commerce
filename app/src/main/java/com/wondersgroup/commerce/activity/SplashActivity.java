@@ -72,7 +72,7 @@ public class SplashActivity extends AppCompatActivity {
     private RootAppcation app;
     private String downloadUrl = "", updateContent = "", versionName = "";
     private int totalSize;
-    private TextView tvSpeed, tvProgress, tvTotal,tvVersion;
+    private TextView tvSpeed, tvProgress, tvTotal;
     private ProgressBar progressBar;
     @BindView(R.id.view_bg)
     ImageView viewBg;
@@ -113,46 +113,16 @@ public class SplashActivity extends AppCompatActivity {
         switch (app.getVersion()) {
             case "四川":
                 viewBg.setImageResource(R.drawable.splash_sc);
-                handler.postDelayed(new splashhandler(), 500);
                 break;
             case "云南":
                 viewBg.setImageResource(R.drawable.boot_yunnan);
-                ynUpdate();
                 break;
         }
-    }
-
-    private TjApi createApi() {
-        OkHttpClient httpClient = new OkHttpClient();
-        httpClient.interceptors().add(new Interceptor() {
-            @Override
-            public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-
-                Request request = original.newBuilder()
-                        .header("User-Agent", "yn-Android")
-                        .header("Content-Type", "application/json;charset=UTF-8")
-                        .header("Accept", "application/json")
-                        .method(original.method(), original.body())
-                        .build();
-
-                return chain.proceed(request);
-            }
-        });
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(interceptor);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiManager.VERSION_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
-                .build();
-
-        return retrofit.create(TjApi.class);
+        ynUpdate();
     }
 
     public void ynUpdate() {
-        createApi().apiUpdate().enqueue(new Callback<Version>() {
+        ApiManager.commonApi.apiUpdate().enqueue(new Callback<Version>() {
             @Override
             public void onResponse(Response<Version> response, Retrofit retrofit) {
                 if (response != null && response.body() != null && response.body().getApkInfo() != null) {
@@ -160,8 +130,10 @@ public class SplashActivity extends AppCompatActivity {
                     if (info.getVersionName().compareTo(getVersionName()) > 0) {
                         downloadUrl = response.body().getApkInfo().getUrl();
                         totalSize = Integer.parseInt(response.body().getApkInfo().getSize());
-                        for (String item : info.getUpdateList()) {
-                            updateContent += item + "\n";
+                        if (info.getUpdateList() != null){
+                            for (String item : info.getUpdateList()) {
+                                updateContent += item + "\n";
+                            }
                         }
                         versionName = info.getVersionName();
                         update();

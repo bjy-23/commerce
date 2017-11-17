@@ -271,7 +271,11 @@ public class BanLiActivity extends AppCompatActivity {
 //        dialog.show();
 //        dialog.setCancelable(true);
 //        dialog.setCanceledOnTouchOutside(true);
-        startActivityForResult(new Intent(this, DeptActivity.class), 0);
+        Intent intent = new Intent(this, DeptActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "统计机关");
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 0);
     }
 
     @OnClick(R.id.linear_date)

@@ -73,7 +73,7 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
 
         findView();
 
-        getDataWithNet("1", "");
+        getDataWithNet(loginBean.getResult().getOrganId(), "");
     }
 
     @Override
@@ -200,8 +200,7 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
 
                 deptSelect.setText(organName);
 //                String deptId = b.getString("deptId");
-
-                getDataWithNet(organId, "");
+                getDataWithNet(organId, organName);
 
                 break;
             default:
@@ -209,7 +208,7 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
         }
     }
 
-    private void getDataWithNet(String orginId, String name) {
+    private void getDataWithNet(String organId, String name) {
         final LoadingDialog loadingDialog = new LoadingDialog.Builder(TXLActivity.this)
                 .build();
         loadingDialog.show();
@@ -217,12 +216,8 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
         map.put("wsCodeReq", "07010003");
         map.put("pageNo", "1");
         map.put("pageSize", "100");
-        map.put("contactOrganId", orginId);
+        map.put("contactOrganId", organId);
         map.put("contactUserName", name);
-        map.put("userId", loginBean.getResult().getUserId());
-        map.put("deptId", loginBean.getResult().getDeptId());
-        map.put("organId", loginBean.getResult().getOrganId());
-
 
         Call<Address> call = ApiManager.oaApi.address(map);
         call.enqueue(new Callback<Address>() {

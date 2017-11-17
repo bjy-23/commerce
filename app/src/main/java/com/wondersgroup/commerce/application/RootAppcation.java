@@ -43,8 +43,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;import java.util.List;
 
-import cn.jpush.android.api.JPushInterface;
-
 /**
  * Created by kangrenhui on 2016/1/18.
  */

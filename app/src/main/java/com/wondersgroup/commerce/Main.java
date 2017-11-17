@@ -15,23 +15,27 @@ import java.net.URLEncoder;
 
 public class Main {
     public static void main(String[] args){
-        TreeBean bean1 = new TreeBean();
-        bean1.setSelected(true);
-        bean1.setpId("1000");
-        bean1.setName("bjy");
-        bean1.setId("66");
-
-        try {
-            TreeBean bean2 = (TreeBean) bean1.clone();
-            System.out.println(bean1.getpId());
-            System.out.println(bean2.getpId());
-            System.out.println(bean1.getId());
-            System.out.println(bean2.getId());
-            System.out.println(bean1.getName());
-            System.out.println(bean2.getName());
-
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+//        TreeBean bean1 = new TreeBean();
+//        bean1.setSelected(true);
+//        bean1.setpId("1000");
+//        bean1.setName("bjy");
+//        bean1.setId("66");
+//
+//        try {
+//            TreeBean bean2 = (TreeBean) bean1.clone();
+//            System.out.println(bean1.getpId());
+//            System.out.println(bean2.getpId());
+//            System.out.println(bean1.getId());
+//            System.out.println(bean2.getId());
+//            System.out.println(bean1.getName());
+//            System.out.println(bean2.getName());
+//
+//        } catch (CloneNotSupportedException e) {
+//            e.printStackTrace();
+//        }
+        int i = 0;
+        while(i --> 10){
+            System.out.println(i + "");
         }
     }
 }

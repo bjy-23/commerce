@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -41,7 +42,7 @@ public class DailyCheckInfoFragment extends Fragment {
 	private List<String> strings = new ArrayList<String>();
 	private EtpsInfoAdapter adapter;
 	private Dialog progressDialog;
-	private ActionBarActivity activity;
+	private FragmentActivity activity;
 	// private List<CnApp> complainCnApps = new ArrayList<CnApp>();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
@@ -102,17 +103,12 @@ public class DailyCheckInfoFragment extends Fragment {
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.q_dailycheck_info, container, false);
 
-		activity = (ActionBarActivity) getActivity();
+		activity = getActivity();
 		application = (RootAppcation) activity.getApplication();
 		// application.setProblemName(application.getInfoBean()
 		// .getAppRecordContentVo().getProblemName());
 		// application.setProblem(application.getInfoBean()
 		// .getAppRecordContentVo().getProblem());
-		ActionBar actionBar = activity.getSupportActionBar();
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setTitle(application.getInfoBean().getEtpsInfoVo()
-				.get("etpsName"));
 		// view = inflater.inflate(R.layout.q_dailycheck_info, null);
 		// headView = inflater.inflate(R.layout.q_dailycheck_up, null);
 

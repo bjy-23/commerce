@@ -13,6 +13,7 @@ import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
 
+
 /**
  * Created by 薛定猫 on 2016/4/18.
  */

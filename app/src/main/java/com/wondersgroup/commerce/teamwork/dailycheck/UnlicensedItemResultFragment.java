@@ -5,7 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,13 +27,13 @@ public class UnlicensedItemResultFragment extends Fragment {
 	// private TextView spinnerTextView;
 	private String[] items =  { "转案源", "上报抄告", "责令改正", "其他"  };
 	private View view;
-	private ActionBarActivity activity;
+	private FragmentActivity activity;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.unlicensed_item_result_fragment, null);
-		activity = (ActionBarActivity) getActivity();
+		activity = (FragmentActivity) getActivity();
 
 		listView = new ListView(activity);
 		StringAdapter adapter = new StringAdapter(activity,

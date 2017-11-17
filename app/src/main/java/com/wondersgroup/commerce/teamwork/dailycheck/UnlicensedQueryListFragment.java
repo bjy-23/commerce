@@ -2,7 +2,7 @@ package com.wondersgroup.commerce.teamwork.dailycheck;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,13 +23,13 @@ public class UnlicensedQueryListFragment extends Fragment {
 	private ListView demoList;
 	private List<DemoBean> demoBeans = new ArrayList<DemoBean>();
 	private DemoAdapter4 adapter;
-	private ActionBarActivity activity;
+	private FragmentActivity activity;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.mode_list, container, false);
-		activity = (ActionBarActivity) getActivity();
+		activity = (FragmentActivity) getActivity();
 		initDemoList();
 		setHasOptionsMenu(true);
 		return view;

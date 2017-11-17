@@ -251,7 +251,6 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
         map.put("userId", userId);
         map.put("deptId", deptId);
         Call<ProcedureCaseDetail> call;
-        ApiManager.getInstance().unitTestInit();
         call = ApiManager.caseApi.getProcedureCaseDetail(map);
         call.enqueue(new Callback<ProcedureCaseDetail>() {
             @Override
@@ -464,7 +463,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                         if(subType != null){
                             for (Map.Entry<String, String> entry : brandType2LevelMap.entrySet())
                                 if (subType.equals(entry.getKey()))
-                                    brandKind2Level.setTvContent(entry.getValue());
+                                    brandKind2Level.setTvContent(entry.getValue().substring(4));
                         }
                     }
                 } else {
@@ -964,6 +963,8 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                     widget.setContent(companyData.getLitigtName());
                 } else if (widget.getTitle().equals("* 注册号")) {
                     widget.setContent(companyData.getRegNo());
+                }  else if (widget.getTitle().equals("* 统一社会信用代码")){
+                    widget.setContent(companyData.getUniScid());
                 } else if (widget.getTitle().equals("* 法定代表人/经营者")) {
                     widget.setContent(companyData.getLegalName());
                 } else if (widget.getTitle().equals("* 现居住地/经营场所")) {
@@ -1004,7 +1005,9 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                     widget.setContent(personData.getLitigtName());
                 } else if (widget.getTitle().equals("* 注册号")) {
                     widget.setContent(personData.getRegNo());
-                } else if (widget.getTitle().equals("* 年龄(G)")) {
+                } else if (widget.getTitle().equals("* 统一社会信用代码")){
+                    widget.setContent(personData.getUniScid());
+                }else if (widget.getTitle().equals("* 年龄(G)")) {
                     widget.setContent(personData.getAge());
                 } else if (widget.getTitle().equals("* 性别(G)")) {
                     if (dicVo != null && dicVo.getDicSexMap() != null)
@@ -1685,9 +1688,11 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
 
         String mainType = null;
         String subType = null;
-        if(caseTrademark!=null && caseTrademark.getInfringerGood()!=null && brandType2LevelMap!=null){
+        if(caseTrademark!=null && caseTrademark.getInfringerGood()!=null && !caseTrademark.getInfringerGood().equals("")){
             subType = caseTrademark.getInfringerGood();
             mainType = subType.substring(0, 2);
+            getBrandSecondTypeMap(mainType, subType);
+            mainType = dicVo.getDicGooMapTop().get(mainType);
         }
 
 
@@ -1695,7 +1700,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .title("侵权商品/服务种类")
                 .input("请选择侵权商品/服务种类")
                 .required()
-                .content(mainType == null ? "" : dicVo.getDicGooMapTop().get(mainType))
+                .content(mainType == null ? "" : mainType!=null?mainType.substring(2):"")
                 .arrowSelect()
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
@@ -1735,7 +1740,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .title("侵权商品/服务种类二级")
                 .input("请选择二级侵权商品/服务种类")
                 .required()
-                .content(subType == null ?"" : brandType2LevelMap.get(subType))
+                .content(subType == null ?"" : subType!=null?subType:"")
                 .arrowSelect()
                 .onSelect(new TableRow.SelectCallBack() {
                     @Override
@@ -2117,19 +2122,16 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .build();
         brandLinearLayout.addView(brankMain);
 
-        String type = caseTrademark.getInfringerGood();
+        String typeId, typeContent = null;
+        if(caseTrademark != null && caseTrademark.getInfringerGood()!=null && !caseTrademark.getInfringerGood().equals("")){
+            typeId = caseTrademark.getInfringerGood();
+            typeContent = dicVo.getDicGooMapTop().get(typeId.substring(0, 2));
+        }
         brandKind = new TableRow.Builder(this)
                 .title("侵权商品/服务种类")
-                .msgWithTitle(caseTrademark == null ? "" : dicVo.getDicGooMapTop().get(type.substring(0, 2)))
+                .msgWithTitle(typeContent == null ? "" : typeContent!=null?typeContent.substring(2):"")
                 .build();
         brandLinearLayout.addView(brandKind);
-        getBrandSecondTypeMap(type.substring(0, 2), type);
-
-        brandKind2Level = new TableRow.Builder(this)
-                .title("侵权商品/服务种类二级")
-                .msgWithTitle("")
-                .build();
-        brandLinearLayout.addView(brandKind2Level);
 
         brandGetTools = new TableRow.Builder(this)
                 .title("没收伪造注册商标标识的工具(件)")
@@ -2179,6 +2181,11 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .build();
         brandLinearLayout.addView(brandViolateFamous);
         caseBrowseLinearlayout.addView(tradeMarkView);
+        if(caseTrademark != null && caseTrademark.getTrademarkName()!=null && !caseTrademark.getTrademarkName().equals(""))
+            tradeMarkView.setVisibility(View.VISIBLE);
+        else
+            tradeMarkView.setVisibility(View.GONE);
+
     }
 
     //添加无法修改的商标维权人信息
@@ -2246,6 +2253,10 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .build();
         safeguarderLinearLayout.addView(safeguarderPostCode);
         caseBrowseLinearlayout.addView(safeguarderInfoView);
+        if(caseTrademarkActivistInfo!=null && caseTrademarkActivistInfo.getTrademarkSerialNo()!=null && !caseTrademarkActivistInfo.getTrademarkSerialNo().equals(""))
+            safeguarderInfoView.setVisibility(View.VISIBLE);
+        else
+            safeguarderInfoView.setVisibility(View.GONE);
     }
 
     //添加无法修改的基本信息
@@ -2486,6 +2497,14 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                 .msgWithTitle(submitPunishVo == null ? "" : submitPunishVo.getPenDecWriteNo())
                 .build();
         caseBrowseLinearlayout.addView(penaltyLetterNumRow);
+
+        if(bCanNotModify == false){
+            brandInformation();
+            safeguardPersonInfo();
+        }else{
+            brandInformationWithNoModify();
+            safeguardPersonInfoWithNoModify();
+        }
 
 //        fj =new ImageTableView(ProcedureCaseDetailActivity.this);
 //        fj.setTitle("附件");
@@ -2927,6 +2946,31 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                     .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getRegNo())
                     .build();
             personOrCompanyLinearlayout.addView(typeRegisterNo);
+            inquiryCreditCode = new TableRow.Builder(this)
+                    .title("统一社会信用代码")
+                    .arrowSelectWithEditText()
+                    .content(caseDetail == null ? "" : caseDetail.getResult().getmLitigtInfoVo().getUniScid())
+                    .required()
+                    .editTextSelectorHint("请输入完整的统一社会信用代码！")
+                    .onSelect(new TableRow.SelectCallBack() {
+                        @Override
+                        public void onSelect(TableRow row, int which) {
+                            if (isEditTextEmpty(inquiryCreditCode)) {
+                                Toast.makeText(ProcedureCaseDetailActivity.this, "统一社会信用代码不能为空！", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            Bundle bundle = new Bundle();
+                            bundle.putString("activityType", AICRegisterInquireListActivity.TYPE_PERSONAL_CREDIT_CODE);
+                            bundle.putString("param", inquiryCreditCode.getContent().toString());
+                            bundle.putSerializable("iOrganIdMap", serializableOrganIdMapMap);
+                            Intent intent = new Intent(ProcedureCaseDetailActivity.this, AICRegisterInquireListActivity.class);
+                            intent.putExtras(bundle);
+                            startActivityForResult(intent, AICRegisterInquireListActivity.REQUEST);
+
+                        }
+                    })
+                    .build();
+            personOrCompanyLinearlayout.addView(inquiryCreditCode);
         }
         TableRow typeRegisterCorporation = new TableRow.Builder(this)
                 .title("法定代表人/经营者")
@@ -3936,7 +3980,16 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
                                 submitCase.getmLitigtInfoVo().setAddress(widget.getClearEditText());
                                 continue;
                             }
-                        } else if (widget.getTitle().equals("* 个体工商户名称")) {
+                        }else if(widget.getTitle().equals("* 统一社会信用代码")) {
+                            if (isEditTextEmpty(widget)) {
+                                Toast.makeText(ProcedureCaseDetailActivity.this, "请输入统一社会信用代码", Toast.LENGTH_SHORT).show();
+                                return false;
+                            } else {
+                                submitCase.getmLitigtInfoVo().setUniScid(widget.getContent());
+                                continue;
+                            }
+
+                        }else if (widget.getTitle().equals("* 个体工商户名称")) {
                             if (documentType.equals("1")) {//"本省登记过的工商户"
                                 if (isEditTextEmpty(widget)) {
                                     Toast.makeText(ProcedureCaseDetailActivity.this, "请输入个体工商户名称", Toast.LENGTH_SHORT).show();

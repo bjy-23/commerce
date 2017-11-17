@@ -226,7 +226,6 @@ public class LoginActivity extends RootActivity {
             map.put("deptId", deptId);
             map.put("loginName", loginName);
             map.put("password", password);
-
             Call<TotalLoginBean> call = ApiManager.hbApi.login(map);
             call.enqueue(new Callback<TotalLoginBean>() {
                 @Override
@@ -397,6 +396,9 @@ public class LoginActivity extends RootActivity {
             String result = FileHelper.getFromAssets("config_sc.txt", this);
             ArrayList<MenuInfo> menuList = gson.fromJson(result, new TypeToken<ArrayList<MenuInfo>>() {
             }.getType());
+
+            //删除不需要展示的项
+            deleteBurden(menuList);
 
             //根据权限动态配置
             if (checkable)

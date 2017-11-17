@@ -52,7 +52,7 @@ public class CaseDetialXwblAdapter extends RecyclerView.Adapter{
         swipeHolder.tv_enquiredPerson.setText(list.get(position).getInquiredname());
         swipeHolder.tv_enquireTimes.setText(list.get(position).getEnqordNo());
         swipeHolder.tv_enquireStartTime.setText(list.get(position).getEnqTimeStart());
-        swipeHolder.tv_enquireEndTime.setText(list.get(position).getEnqTimeStart());
+        swipeHolder.tv_enquireEndTime.setText(list.get(position).getEnqTimeEnd());
         swipeHolder.delete.setText("删除");
     }
 

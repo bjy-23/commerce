@@ -28,10 +28,10 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getSupportFragmentManager().getBackStackEntryCount() != 0)
+                if (BaseActivity.this.getSupportFragmentManager().getBackStackEntryCount() != 0)
                     UtilForFragment.popBackStack(BaseActivity.this);
                 else
-                    finish();
+                    BaseActivity.this.finish();
             }
         });
 

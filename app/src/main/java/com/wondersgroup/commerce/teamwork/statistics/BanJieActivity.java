@@ -128,7 +128,11 @@ public class BanJieActivity extends AppCompatActivity {
 //        dialog.show();
 //        dialog.setCancelable(true);
 //        dialog.setCanceledOnTouchOutside(true);
-        startActivityForResult(new Intent(this, DeptActivity.class), 0);
+        Intent intent = new Intent(this, DeptActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "所属机关");
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 0);
     }
 
     @OnClick(R.id.only_local)

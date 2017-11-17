@@ -89,7 +89,7 @@ public class TableRowView extends RelativeLayout{
         row.content.setText(content);
         row.content.setInputType(InputType.TYPE_NULL);
         row.content.setSingleLine(false);
-        row.content.setMaxLines(2);
+        //row.content.setMaxLines(2);
         row.content.setEllipsize(TextUtils.TruncateAt.END);
         return row;
     }

@@ -98,7 +98,6 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
     private int deleteInspectIndex = -1;                //现场检查删除记录序号
     private int deleteEnquireIndex = -1;                //询问笔录删除记录序号
     private int requestCode;
-    private RootAppcation app;
     private String clueNo;
 
     @Override
@@ -110,7 +109,6 @@ public class CaseDetailActivity extends AppCompatActivity implements CaseDetialX
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        app = (RootAppcation) getApplication();
 
         paramstemp.weight = 2;
         paramsedittext.weight = 5;

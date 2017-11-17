@@ -15,14 +15,13 @@ import android.widget.TextView;
 
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
-import com.wondersgroup.commerce.adapter.MenuAdapter;
-import com.wondersgroup.commerce.application.RootAppcation;
-import com.wondersgroup.commerce.adapter.FirstPageAdapter;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.Ggcx;
-import com.wondersgroup.commerce.model.MenuBean;
 import com.wondersgroup.commerce.model.MenuInfo;
 import com.wondersgroup.commerce.model.TotalLoginBean;
+import com.wondersgroup.commerce.recyclerView.CommonAdapter;
+import com.wondersgroup.commerce.recyclerView.ViewModel;
+import com.wondersgroup.commerce.recyclerView.viewModel.FirstPageScViewModel;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.tztg.GGDetailActivity;
 import com.wondersgroup.commerce.teamwork.tztg.TZTGActivity;
@@ -56,8 +55,8 @@ public class FragmentSc extends Fragment implements View.OnClickListener {
     @BindView(R.id.img_mine)
     ImageView imgMine;
 
-    private List<MenuInfo> data;
-    private MenuAdapter adapter;
+    private List<ViewModel> viewModels;
+    private CommonAdapter adapter;
     private TotalLoginBean loginBean;
 
     @Nullable
@@ -73,15 +72,22 @@ public class FragmentSc extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
 
         loginBean = Hawk.get(Constants.LOGIN_BEAN);
-        data = Hawk.get(Constants.MENU_SC);
-        if (data == null)
-            data = new ArrayList<>();
 
-        adapter = new MenuAdapter(getActivity(), data, 2);
+        //组装recyclerView
+        List<MenuInfo> data = Hawk.get(Constants.MENU_SC);
+        viewModels = new ArrayList<>();
+        if (data != null){
+            for (MenuInfo menuInfo: data){
+                FirstPageScViewModel firstPageScViewModel = new FirstPageScViewModel(getActivity(), menuInfo);
+                viewModels.add(firstPageScViewModel);
+            }
+        }
+        adapter = new CommonAdapter(getActivity(), viewModels);
         recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
         getTZGG();
+
         tvOption.setOnClickListener(this);
         imgMine.setOnClickListener(this);
     }

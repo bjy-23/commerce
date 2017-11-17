@@ -106,7 +106,11 @@ public class InActivity extends AppCompatActivity {
 
     @OnClick(R.id.location)
     void OnLocationClick(View view) {
-        startActivityForResult(new Intent(this, DeptActivity.class), 0);
+        Intent intent = new Intent(this, DeptActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "列入登记机关");
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 0);
     }
 
     @OnClick(R.id.linear_date)

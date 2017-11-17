@@ -146,23 +146,30 @@ public class DailyListSearchFragment extends Fragment {
 	}
 
 	private void initSelfList() {
-        HashMap<String, String> param = new HashMap<>();
-        param.put("checkType", "1");
-        param.put("organId", loginBean.getResult().getOrganId());
-        param.put("tmpFlag", "1");
-        param.put("submitUser", loginBean.getResult().getUserId());
-        Call<ResponseBody> call = ApiManager.consumerwApi.searchList(param);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+//        HashMap<String, String> param = new HashMap<>();
+//        param.put("checkType", "1");
+//        param.put("organId", loginBean.getResult().getOrganId());
+//        param.put("tmpFlag", "1");
+//        param.put("submitUser", loginBean.getResult().getUserId());
+//        Call<EtpsFirstBean> call = ApiManager.consumerwApi.searchList(param);
+//        call.enqueue(new Callback<EtpsFirstBean>() {
+//            @Override
+//            public void onResponse(Response<EtpsFirstBean> response, Retrofit retrofit) {
+//				EtpsFirstBean firstSelfBean = response.body();
+//                if (firstSelfBean != null && firstSelfBean.getCode() == 200) {
+//					etpsBeans = firstSelfBean.getResult();
+//					EtpsAdapter adapter = new EtpsAdapter(getActivity(),
+//							R.layout.mode_list_item1, etpsBeans);
+//					listView.setAdapter(adapter);
+//				}
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//
+//            }
+//        });
 
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
 		String address = Url.QJ_IN_USE + "searchList";
 		JSONObject jsonObject = new JSONObject();
 		try {
@@ -195,13 +202,12 @@ public class DailyListSearchFragment extends Fragment {
 
 					}
 				});
-		listView = (ListView) view.findViewById(R.id.demo_list);
+		listView = view.findViewById(R.id.demo_list);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
 				recordId = etpsBeans.get(position).getRecordId();
 				String netAddress = Url.QJ_IN_USE + "getRecordInfo/1/"
 						+ loginBean.getResult().getDeptId() + "/"
@@ -226,7 +232,6 @@ public class DailyListSearchFragment extends Fragment {
 								message.what = SHOW_ERROR;
 								message.obj = e.toString();
 								handler.sendMessage(message);
-
 							}
 						});
 

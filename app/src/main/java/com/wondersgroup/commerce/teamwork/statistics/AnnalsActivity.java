@@ -72,8 +72,7 @@ public class AnnalsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        title.setText("市场主体年报进度情况统计");
-        location.setText(loginBean.getResult().getOrganName());
+		title.setText("市场主体年报进度情况统计");        location.setText(loginBean.getResult().getOrganName());
         initView();
     }
 
@@ -105,7 +104,11 @@ public class AnnalsActivity extends AppCompatActivity {
 
     @OnClick(R.id.location)
     void OnLocationClick(View view) {
-        startActivityForResult(new Intent(this, DeptActivity.class), 0);
+        Intent intent = new Intent(this, DeptActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TITLE, "登记机关");
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 0);
     }
 
 

@@ -157,16 +157,6 @@ public class SupervisionFragment extends Fragment {
                 }
 
                 String address = Url.QJ_IN_USE + "searchList";
-                // JSONObject jsonObject = new JSONObject();
-                // try {
-                // jsonObject.put("checkType", "1");
-                //
-                // jsonObject.put("organId", application.getLoginUserInfo()
-                // .getOrganId());
-                // } catch (JSONException e1) {
-                // // TODO Auto-generated catch block
-                // e1.printStackTrace();
-                // }
                 HttpClientUtil.callWebService(jsonObject.toString(), address,
                         new HttpCallbackListener() {
 

@@ -40,8 +40,6 @@ public class DailyCheckActivity extends AppCompatActivity {
         switch (requestCode) {
 
             default:
-                Log.e("default", "-------------------");
-                Log.e("requestCode", requestCode + "");
                 if (resultCode == RESULT_OK
                         && (requestCode == 51 || requestCode == 52 || requestCode == 53)) {
                     DailyFragment dailyFragment = (DailyFragment) getSupportFragmentManager()

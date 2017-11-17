@@ -366,7 +366,7 @@ public class DangzuzhiEditFragment extends Fragment implements View.OnClickListe
         Intent intent = new Intent(getActivity(), SingleChoiceActivity.class);
         intent.putExtra(Constants.TITLE,"党组织所在区县");
         intent.putExtra(Constants.TYPE, Constants.PARTY_AREA_LIST);
-        intent.putExtra(Constants.AREA_LIST,data);
+        intent.putExtra(Constants.ARRAY,data);
         startActivityForResult(intent, Constants.REQUEST_AREA_CODE);
     }
 

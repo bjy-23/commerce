@@ -1,22 +1,17 @@
 package com.wondersgroup.commerce.adapter;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
@@ -30,29 +25,22 @@ import com.wondersgroup.commerce.activity.ViewPagerActivity;
 import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.fgdj.activity.ListInfoActivity;
 import com.wondersgroup.commerce.fgdj.activity.ListQueryActivity;
-import com.wondersgroup.commerce.fragment.TJFXFragment;
 import com.wondersgroup.commerce.law_rule.LawQueryActivity;
-import com.wondersgroup.commerce.model.Menu;
 import com.wondersgroup.commerce.model.MenuBean;
-import com.wondersgroup.commerce.model.MenuFirstPage;
 import com.wondersgroup.commerce.model.MenuInfo;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
-import com.wondersgroup.commerce.service.CaseApi;
 import com.wondersgroup.commerce.teamwork.addressbox.TXLActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseEnquireActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseInvestigateActivity;
-import com.wondersgroup.commerce.teamwork.dailycheck.DailyCheckActivity;
 import com.wondersgroup.commerce.teamwork.myspecialcheck.SpecialCheckActivity;
 import com.wondersgroup.commerce.teamwork.simpleprocedurecase.ProcedureCaseListActivity;
 import com.wondersgroup.commerce.teamwork.trademarkInquiry.TradeMarksListActivity;
 import com.wondersgroup.commerce.teamwork.tztg.TZTGActivity;
 import com.wondersgroup.commerce.utils.DWZH;
-import com.wondersgroup.commerce.utils.FragmentHelper;
 import com.wondersgroup.commerce.widget.ExpandableRecyclerView;
 import com.wondersgroup.commerce.ynwq.activity.ToDoActivity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,7 +68,7 @@ public class MenuAdapter extends RecyclerView.Adapter {
         if (type == 1)
             return new FirstPageViewHolder(inflater.inflate(R.layout.item_fragment_menu, parent, false));
         else if (type ==2)
-            return new FirstPageViewHolder2(inflater.inflate(R.layout.item_fragment_menu_2, parent, false));
+            return new FirstPageViewHolder2(inflater.inflate(R.layout.first_page_sc_item, parent, false));
 
         return null;
     }
@@ -184,6 +172,9 @@ public class MenuAdapter extends RecyclerView.Adapter {
                         intent = new Intent(context, QueryCountActivity.class);
                         context.startActivity(intent);
                         break;
+                    case Constants.TXL_NAME_SC:
+                        intent = new Intent(context, TXLActivity.class);
+                        context.startActivity(intent);
                 }
                 break;
             //我的案件
@@ -241,6 +232,7 @@ public class MenuAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
                 break;
             case Constants.GWPY_ID:
+            case Constants.GWPY_ID_SC:
                 intent = new Intent(context, ViewPagerActivity.class);
                 intent.putExtra("title", "公文批阅");
                 intent.putExtra("type", "GWPY");
@@ -278,7 +270,6 @@ public class MenuAdapter extends RecyclerView.Adapter {
                 break;
             //抽查检查录入
             case Constants.CCJCLR_ID:
-                ApiManager.getInstance().ccInit();
                 intent = new Intent(context, RecyclerActivity.class);
                 intent.putExtra("type", "CCJCDB");
                 intent.putExtra("title", Constants.ccjcdb);
@@ -286,7 +277,6 @@ public class MenuAdapter extends RecyclerView.Adapter {
                 break;
             //抽查检查查询
             case Constants.CCJCCX_ID:
-                ApiManager.getInstance().ccInit();
                 intent = new Intent(context, TableListActivity.class);
                 intent.putExtra("title", Constants.ccjccx);
                 intent.putExtra("type", "CCJCCX");

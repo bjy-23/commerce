@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -54,7 +54,7 @@ public class KeyInfoFragment extends Fragment {
 	private LinearLayoutForListView dailyList;
 	private EtpsInfoAdapter adapter;
 	private Dialog progressDialog;
-	private ActionBarActivity activity;
+	private FragmentActivity activity;
 	// private List<CnApp> complainCnApps = new ArrayList<CnApp>();
 	public static final int SHOW_RESPONSE = 1;
 	public static final int SHOW_ERROR = 2;
@@ -113,13 +113,13 @@ public class KeyInfoFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.q_key_info, container, false);
-		activity = (ActionBarActivity) getActivity();
+		activity = (FragmentActivity) getActivity();
 		application = (RootAppcation) activity.getApplication();
-		ActionBar actionBar = activity.getSupportActionBar();
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setTitle(application.getInfoBean().getEtpsInfoVo()
-				.get("etpsName"));
+//		ActionBar actionBar = activity.getSupportActionBar();
+//		actionBar.setDisplayShowTitleEnabled(true);
+//		actionBar.setDisplayShowHomeEnabled(false);
+//		actionBar.setTitle(application.getInfoBean().getEtpsInfoVo()
+//				.get("etpsName"));
 
 
 		// new

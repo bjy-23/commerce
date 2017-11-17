@@ -15,7 +15,6 @@ import com.wondersgroup.commerce.BuildConfig;
 import com.wondersgroup.commerce.adapter.NullStringToEmptyAdapterFactory;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
-import com.wondersgroup.commerce.okhttp.LoggingInterceptor;
 
 import java.io.IOException;
 import java.net.CookieHandler;
@@ -45,7 +44,11 @@ public class ApiManager {
     //版本更新
     public static final String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试
     public static final String VERSION_URL_2 = "http://172.28.129.42/zfMobileService/";//正式
-    public static String VERSION_URL ;
+    //Sc
+    public static final String VERSION_URL_3 = "http://10.1.192.40:8001/zfMobileService/";//公司
+    public static final String VERSION_URL_4 = "http://182.131.3.110:8001/";//现场测试
+    public static final String VERSION_URL_5 = "http://182.131.3.112:8001/";//现场正式
+    private String VERSION_URL ;
     private String API_CASE;//案件
     private String API_OA;
     private String API_HB_ROOT;
@@ -69,24 +72,15 @@ public class ApiManager {
     private static final String API_HB_ROOT_4 = "http://10.2.14.102:8080/";
     private static final String API_TJ_1 = "http://182.131.3.99:8028/mds/";
     private static final String API_TJ_2 = "http://10.1.192.40:8028/mds/";
-    private static final String API_YN_ROOT_1 = "http://10.1.8.130:8010/";
-    private static final String API_YN_ROOT_2 = "http://10.2.18.108:8080/";
-    private static final String CCJC_ROOT_1 = "http://10.1.8.133:8012/";
-    private static final String CCJC_ROOT_2 = "http://10.2.14.158:8080/";
-    public static final String API_RE_ROOT_1 = "http://10.1.8.130:8009/";
-    public static final String API_RE_ROOT_2 = "http://10.2.103.41:8080/";
-    public static final String API_FGDJ_ROOT_1 = "http://220.163.27.42:8024/";
-    public static final String API_LAW_ROOT_1 = "http://10.1.8.130:8006/";
     public static final String API_AD_1 = "http://10.1.192.40:8008/ad/";//广告
     public static final String API_COMSUMER_1 = "http://10.1.192.40:8010/consumerw/";
     public static final String API_COMSUMER_2 = "http://10.2.103.208:8080/consumerw/";
-
-    private static final String API_TEST = "http://10.1.192.40:8006/case/";
-    private static final String TRADEMARK_API_TEST = "http://10.1.192.40:8008/tm/";
-    private static final String API_SH_ROOT = "";
+    public static final String TRADEMARK_API_TEST = "http://10.1.192.40:8008/tm/";
 
     public static String RESULT_SUCCESS = "200";    //code="200"表示请求执行成功
     private volatile static ApiManager instance;
+    private Retrofit.Builder retrofitBuilder;
+    public static CommonApi commonApi;
     public static ShyApi shyApi;
     public static TjApi tjApi;
     public static AdApi adApi;
@@ -103,7 +97,7 @@ public class ApiManager {
     public static FGDJApi fgdjApi;
     public static LawApi lawApi;
     private static Retrofit retrofit;
-    public static OkHttpClient httpClient;
+    public OkHttpClient okHttpClient;
     private static String token = "";
     public static int caseType = 1;//1:工商行政执法系统;2:市场监督管理局行政执法系统
     private Gson gson;
@@ -132,9 +126,19 @@ public class ApiManager {
     }
 
     public synchronized void init() {
-
         gson = new GsonBuilder().registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory<>()).create();
         RootAppcation appcation = RootAppcation.getInstance();
+
+        okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+        okHttpClient.setWriteTimeout(60, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
+        okHttpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+
+        retrofitBuilder = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient);
+
         switch (appcation.getVersion()) {
             case Constants.AREA_YN:
                 if (Constants.VERSION.equals(Constants.VERSION_R)){
@@ -160,7 +164,7 @@ public class ApiManager {
                     VERSION_URL = VERSION_URL_1;
                     API_TJ = BASE_URL_1 + "mds/";
                 }
-
+                commonInit();
                 caseInit();
                 ynInit();
                 hbInit();
@@ -179,6 +183,7 @@ public class ApiManager {
                     API_TJ = BASE_URL_3 + "mds/";
                     API_CONSUMERW = API_COMSUMER_1;
                     API_AD = API_AD_1;
+                    VERSION_URL = VERSION_URL_3;
                 }else {
                     API_CASE = API_CASE_2;
                     API_HB_ROOT = API_HB_ROOT_2;
@@ -186,14 +191,58 @@ public class ApiManager {
                     API_TJ = API_TJ_2;
                     API_CONSUMERW = API_COMSUMER_1;
                     API_AD = API_AD_1;
+                    VERSION_URL = VERSION_URL_3;
                 }
+                commonInit();
                 caseInit();
                 oaInit();
                 hbInit();
                 tjInit();
                 adInit();
                 consumerwInit();
+                tradeMarkInit();
                 break;
+        }
+    }
+
+    public void tradeMarkInit() {//调试服务器初始化
+        if (tradeMarkApi == null) {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.interceptors().add(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request original = chain.request();
+
+                    Request request = original.newBuilder()
+                            .header("User-Agent", "hb-Android")
+                            .header("token", getInstance().token)
+                            .method(original.method(), original.body())
+                            .build();
+
+                    return chain.proceed(request);
+                }
+            });
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okHttpClient.interceptors().add(interceptor);
+            retrofit = retrofitBuilder
+                    .baseUrl(TRADEMARK_API_TEST)
+                    .client(okHttpClient)
+                    .build();
+            tradeMarkApi = retrofit.create(TradeMarkApi.class);
+        }
+    }
+
+    public void commonInit(){
+        if (commonApi == null){
+            synchronized (ApiManager.class){
+                if (commonApi == null){
+                    Retrofit retrofit = retrofitBuilder
+                            .baseUrl(VERSION_URL)
+                            .build();
+                    commonApi = retrofit.create(CommonApi.class);
+                }
+            }
         }
     }
 
@@ -201,8 +250,9 @@ public class ApiManager {
         if (caseApi == null) {
             synchronized (ApiManager.class) {
                 if (caseApi == null) {
-                    httpClient = new OkHttpClient();
-                    httpClient.interceptors().add(new Interceptor() {
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    okHttpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+                    okHttpClient.interceptors().add(new Interceptor() {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
                             Request original = chain.request();
@@ -216,15 +266,9 @@ public class ApiManager {
                             return chain.proceed(request);
                         }
                     });
-//                    Connection
-//                    Proxy
-                    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-                    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                    httpClient.interceptors().add(interceptor);
-                    Retrofit retrofit = new Retrofit.Builder()
+                    Retrofit retrofit = retrofitBuilder
                             .baseUrl(API_CASE)
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .client(httpClient)
+                            .client(okHttpClient)
                             .build();
                     caseApi = retrofit.create(CaseApi.class);
                 }
@@ -236,12 +280,8 @@ public class ApiManager {
         if (oaApi == null) {
             synchronized (OaApi.class) {
                 if (oaApi == null) {
-                    OkHttpClient httpClient = new OkHttpClient();
-                    httpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
-                    Retrofit retrofit = new Retrofit.Builder()
+                    Retrofit retrofit = retrofitBuilder
                             .baseUrl(API_OA)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .client(httpClient)
                             .build();
                     oaApi = retrofit.create(OaApi.class);
                 }
@@ -253,10 +293,8 @@ public class ApiManager {
         if (ccjcApi == null) {
             synchronized (CCJCApi.class) {
                 if (ccjcApi == null) {
-                    Retrofit retrofit = new Retrofit.Builder()
+                    Retrofit retrofit = retrofitBuilder
                             .baseUrl(CCJC_ROOT)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .client(httpClient)
                             .build();
                     ccjcApi = retrofit.create(CCJCApi.class);
                 }
@@ -268,13 +306,8 @@ public class ApiManager {
         if (tjApi == null) {
             synchronized (ApiManager.class) {
                 if (tjApi == null) {
-                    httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setReadTimeout(60, TimeUnit.SECONDS);
-                    Retrofit retrofit = new Retrofit.Builder()
+                    Retrofit retrofit = retrofitBuilder
                             .baseUrl(API_TJ)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .client(httpClient)
                             .build();
                     tjApi = retrofit.create(TjApi.class);
                 }
@@ -286,13 +319,8 @@ public class ApiManager {
         if (shyApi == null) {
             synchronized (ApiManager.class) {
                 if (shyApi == null) {
-                    httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setReadTimeout(60, TimeUnit.SECONDS);
-                    Retrofit retrofit = new Retrofit.Builder()
+                    Retrofit retrofit = retrofitBuilder
                             .baseUrl(API_SHY)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .client(httpClient)
                             .build();
                     shyApi = retrofit.create(ShyApi.class);
                 }
@@ -307,13 +335,8 @@ public class ApiManager {
         if (adApi == null) {
             synchronized (ApiManager.class) {
                 if (adApi == null) {
-                    httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
-                    httpClient.setReadTimeout(60, TimeUnit.SECONDS);
-                    Retrofit retrofit = new Retrofit.Builder()
+                    Retrofit retrofit =retrofitBuilder
                             .baseUrl(API_AD)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .client(httpClient)
                             .build();
                     adApi = retrofit.create(AdApi.class);
                 }
@@ -324,13 +347,8 @@ public class ApiManager {
     public synchronized void consumerwInit(){
         if (consumerwApi == null){
             synchronized (ConsumerwApi.class){
-                httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-                httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
-                httpClient.setReadTimeout(60, TimeUnit.SECONDS);
-                Retrofit retrofit = new Retrofit.Builder()
+                Retrofit retrofit = retrofitBuilder
                         .baseUrl(API_CONSUMERW)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .client(httpClient)
                         .build();
                 consumerwApi = retrofit.create(ConsumerwApi.class);
             }
@@ -339,9 +357,9 @@ public class ApiManager {
 
     public void ynInit() {
         if (ynApi == null) {
-
-            OkHttpClient httpClient = new OkHttpClient();
-            httpClient.interceptors().add(new Interceptor() {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+            okHttpClient.interceptors().add(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
@@ -356,13 +374,9 @@ public class ApiManager {
                     return chain.proceed(request);
                 }
             });
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            httpClient.interceptors().add(interceptor);
-            Retrofit retrofit = new Retrofit.Builder()
+            Retrofit retrofit = retrofitBuilder
                     .baseUrl(API_YN_ROOT)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(httpClient)
+                    .client(okHttpClient)
                     .build();
 
             ynApi = retrofit.create(YnApi.class);
@@ -372,9 +386,9 @@ public class ApiManager {
     private void hbInit() {
         getInstance().token = token;
         if (hbApi == null) {
-            //if (retrofit == null) {
-            httpClient = new OkHttpClient();
-            httpClient.interceptors().add(new Interceptor() {
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+            okHttpClient.interceptors().add(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
@@ -388,17 +402,10 @@ public class ApiManager {
                     return chain.proceed(request);
                 }
             });
-            httpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
-//            LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
-//            httpClient.interceptors().add(loggingInterceptor);
-            httpClient.setConnectTimeout(60, TimeUnit.SECONDS);
-            httpClient.setWriteTimeout(60, TimeUnit.SECONDS);
-            httpClient.setReadTimeout(60, TimeUnit.SECONDS);
-            Retrofit retrofit = new Retrofit.Builder()
+
+            Retrofit retrofit = retrofitBuilder
                     .baseUrl(API_HB_ROOT)
-//                        .addConverterFactory(StringConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(httpClient)
+                    .client(okHttpClient)
                     .build();
             hbApi = retrofit.create(HbApi.class);
         }
@@ -406,49 +413,10 @@ public class ApiManager {
         // }
     }
 
-    private void shInit() {
-        getInstance().token = token;
-        if (shApi == null) {
-            if (retrofit == null) {
-                httpClient = new OkHttpClient();
-
-                CookieManager cookieManager = new CookieManager();
-                CookieHandler.setDefault(cookieManager);
-                cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-                httpClient.setCookieHandler(cookieManager);
-
-                httpClient.interceptors().add(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request original = chain.request();
-
-                        Request request = original.newBuilder()
-                                .header("User-Agent", "sh-Android")
-                                .header("token", getInstance().token)
-                                .method(original.method(), original.body())
-                                .build();
-
-                        return chain.proceed(request);
-                    }
-                });
-                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-                httpClient.interceptors().add(interceptor);
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(API_SH_ROOT)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .addConverterFactory(new ResponseConvertStringFactory())
-                        .client(httpClient)
-                        .build();
-                shApi = retrofit.create(ShApi.class);
-            }
-
-        }
-    }
-
     private void wqInit() {
-        httpClient = new OkHttpClient();
-        httpClient.interceptors().add(new Interceptor() {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        okHttpClient.interceptors().add(new Interceptor() {
             @Override
             public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request original = chain.request();
@@ -461,82 +429,26 @@ public class ApiManager {
                 return chain.proceed(request);
             }
         });
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(interceptor);
-        retrofit = new Retrofit.Builder()
+
+        retrofit = retrofitBuilder
                 .baseUrl(API_RE_ROOT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
+                .client(okHttpClient)
                 .build();
         ynWqApi = retrofit.create(YnWqApi.class);
     }
 
     private void fgdjInit() {
-        httpClient = new OkHttpClient();
-        httpClient.setConnectTimeout(30, TimeUnit.SECONDS);
-        httpClient.setReadTimeout(30, TimeUnit.SECONDS);
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(interceptor);
-        retrofit = new Retrofit.Builder()
+        retrofit = retrofitBuilder
                 .baseUrl(API_FGDJ_ROOT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
                 .build();
         fgdjApi = retrofit.create(FGDJApi.class);
     }
 
     private void lawInit() {
-        httpClient = new OkHttpClient();
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClient.interceptors().add(interceptor);
-        retrofit = new Retrofit.Builder()
+        retrofit = retrofitBuilder
                 .baseUrl(API_LAW_ROOT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient)
                 .build();
         lawApi = retrofit.create(LawApi.class);
     }
-
-    private void testServiceInit() {//调试服务器初始化
-        getInstance().token = token;
-//        if (caseModule == null) {
-        if (tradeMarkApi == null) {
-            httpClient = new OkHttpClient();
-            httpClient.interceptors().add(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request original = chain.request();
-
-                    Request request = original.newBuilder()
-                            .header("User-Agent", "hb-Android")
-                            .header("token", getInstance().token)
-                            .method(original.method(), original.body())
-                            .build();
-
-                    return chain.proceed(request);
-                }
-            });
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            httpClient.interceptors().add(interceptor);
-            retrofit = new Retrofit.Builder()
-                    //.baseUrl(API_TEST)
-                    .baseUrl(TRADEMARK_API_TEST)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(httpClient)
-                    .build();
-//        caseModule = retrofit.create(CaseModule.class);
-            tradeMarkApi = retrofit.create(TradeMarkApi.class);
-        }
-    }
-
-    //单独某个接口测试，临时改变仅仅此一个接口的服务器IP地址，其他接口的服务器ip不变，情况下使用
-    public synchronized void unitTestInit() {
-        testServiceInit();
-    }
-
 
 }

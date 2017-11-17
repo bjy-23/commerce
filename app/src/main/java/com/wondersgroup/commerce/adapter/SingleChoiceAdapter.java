@@ -26,14 +26,14 @@ import java.util.List;
 
 public class SingleChoiceAdapter extends RecyclerView.Adapter{
     private Activity activity;
-    private ArrayList<AreaBean> data;
+    private ArrayList<TreeBean> data;
     private List<TreeBean> treeData;
     private LayoutInflater inflater;
     private OnClickListener onClickListener;
     private OnClick onClick;
     private int type;
 
-    public SingleChoiceAdapter(Activity activity, ArrayList<AreaBean> data) {
+    public SingleChoiceAdapter(Activity activity, ArrayList<TreeBean> data) {
         this.activity = activity;
         this.data = data;
         inflater = LayoutInflater.from(activity);

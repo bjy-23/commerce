@@ -50,13 +50,10 @@ public class DeptActivity extends RootActivity {
 
     private FirstAdapter oneAdapter;
     private int selectItem = -1;
-    private String deptId;
 
     private ArrayList<Dept.OrganInfo> organList = new ArrayList<Dept.OrganInfo>();
-
-    private int one = -1;
-    private int two = -1;
-
+    private List<Integer> stateList = new ArrayList<>(4);
+    private Dept.OrganInfo selectOrganInfo;
 
     private int currentState = 0;
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
@@ -73,55 +70,25 @@ public class DeptActivity extends RootActivity {
     }
 
     private void findView() {
+        Bundle bundle = getIntent().getExtras();
+        String title = bundle.getString(Constants.TITLE, "");
         oneAdapter = new FirstAdapter();
-
         confirmBtn = (Button) findViewById(R.id.btn_confirm);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectItem == -1) {
+
+                if (selectOrganInfo != null) {
+                    Toast.makeText(DeptActivity.this, selectOrganInfo.getOrganName(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("organName", selectOrganInfo.getOrganName());
+                    intent.putExtra("organId", selectOrganInfo.getOrganId());
+                    intent.putExtra("gbCode", selectOrganInfo.getGbCode());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                } else {
                     DeptActivity.this.finish();
-
-                    return;
                 }
-
-                Intent intent;
-                switch (currentState) {
-                    case 0:
-                        Toast.makeText(DeptActivity.this, organList.get(selectItem).getOrganName(), Toast.LENGTH_SHORT).show();
-
-                        intent = new Intent();
-                        intent.putExtra("organName", organList.get(selectItem).getOrganName());
-                        intent.putExtra("organId", organList.get(selectItem).getOrganId());
-                        intent.putExtra("gbCode", organList.get(selectItem).getGbCode());
-                        setResult(RESULT_OK, intent);
-
-                        finish();
-
-                        break;
-
-                    case 1:
-                        Toast.makeText(DeptActivity.this, organList.get(one).getOrganList().get(selectItem).getOrganName(), Toast.LENGTH_SHORT).show();
-
-                        intent = new Intent();
-                        intent.putExtra("organName", organList.get(one).getOrganList().get(selectItem).getOrganName());
-                        intent.putExtra("organId", organList.get(one).getOrganList().get(selectItem).getOrganId());
-                        intent.putExtra("gbCode", organList.get(one).getOrganList().get(selectItem).getGbCode());
-                        setResult(RESULT_OK, intent);
-                        finish();
-                        break;
-
-                    case 2:
-                        Toast.makeText(DeptActivity.this, organList.get(one).getOrganList().get(two).getOrganList().get(selectItem).getOrganName(), Toast.LENGTH_SHORT).show();
-                        intent = new Intent();
-                        intent.putExtra("organName", organList.get(one).getOrganList().get(two).getOrganList().get(selectItem).getOrganName());
-                        intent.putExtra("organId", organList.get(one).getOrganList().get(two).getOrganList().get(selectItem).getOrganId());
-                        intent.putExtra("gbCode", organList.get(one).getOrganList().get(two).getOrganList().get(selectItem).getGbCode());
-                        setResult(RESULT_OK, intent);
-                        finish();
-                        break;
-                }
-
             }
         });
 
@@ -129,85 +96,25 @@ public class DeptActivity extends RootActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Dept.OrganInfo> temp;
+                selectOrganInfo = null;
                 selectItem = -1;
-                switch (currentState) {
-                    case 0:
-                        finish();
-                        break;
-
-                    case 1:
-                        titleTv.setText(loginBean.getResult().getOrganName());
-
-                        temp = organList;
-
-                        oneAdapter.setData(temp);
-
-                        oneAdapter.notifyDataSetChanged();
-
-                        currentState--;
-                        break;
-
-                    case 2:
-                        titleTv.setText(organList.get(one).getOrganName());
-
-                        temp = organList.get(one).getOrganList();
-
-                        oneAdapter.setData(temp);
-
-                        oneAdapter.notifyDataSetChanged();
-
-                        currentState--;
-
-                        break;
-
+                if (currentState == 0) {
+                    finish();
+                } else {
+                    ArrayList<Dept.OrganInfo> tmpOrganList = organList;
+                    if (stateList.size() > 0)
+                        stateList.remove(stateList.size() - 1);//移除最后一个
+                    for (Integer index : stateList) {
+                        tmpOrganList = tmpOrganList.get(index).getOrganList();
+                    }
+                    oneAdapter.setData(tmpOrganList);
+                    oneAdapter.notifyDataSetChanged();
+                    currentState--;
                 }
             }
         });
         titleTv = (TextView) findViewById(R.id.tv_title);
-        titleTv.setText(loginBean.getResult().getOrganName());
-        titleTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<Dept.OrganInfo> temp;
-                selectItem = -1;
-
-
-                switch (currentState) {
-                    case 0:
-                        finish();
-                        break;
-
-                    case 1:
-                        titleTv.setText(loginBean.getResult().getOrganName());
-
-                        temp = organList;
-
-
-                        oneAdapter.setData(temp);
-
-                        oneAdapter.notifyDataSetChanged();
-
-                        currentState--;
-                        break;
-
-                    case 2:
-                        titleTv.setText(organList.get(one).getOrganName());
-
-                        temp = organList.get(one).getOrganList();
-
-                        oneAdapter.setData(temp);
-
-                        oneAdapter.notifyDataSetChanged();
-
-                        currentState--;
-
-                        break;
-
-                }
-
-            }
-        });
+        titleTv.setText(title);
 
         oneLv = (ListView) findViewById(R.id.lv_first);
         oneLv.setAdapter(oneAdapter);
@@ -215,42 +122,29 @@ public class DeptActivity extends RootActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        selectOrganInfo = null;
                         selectItem = -1;
-                        if (currentState == 0) {
-                            if (organList.get(position).getOrganList() == null || organList.get(position).getOrganList().size() == 0) {
-                                Toast.makeText(DeptActivity.this, "没有下一级", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
+                        ArrayList<Dept.OrganInfo> tmpOrganList = organList;
+                        int oldSize = stateList.size();
 
-                        } else if (currentState == 1) {
-                            if (organList.get(one).getOrganList().get(position).getOrganList() == null || organList.get(one).getOrganList().get(position).getOrganList().size() == 0) {
-                                Toast.makeText(DeptActivity.this, "没有下一级", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-
+                        if (stateList.size() == (currentState + 1))
+                            stateList.set(currentState, position);
+                        else stateList.add(position);
+                        for (Integer index : stateList) {
+                            tmpOrganList = tmpOrganList.get(index).getOrganList();
                         }
-                        ArrayList<Dept.OrganInfo> temp;
-                        switch (currentState) {
-                            case 0:
-                                one = position;
-                                temp = organList.get(one).getOrganList();
-                                titleTv.setText(organList.get(one).getOrganName());
-                                oneAdapter.setData(temp);
-                                oneAdapter.notifyDataSetChanged();
-                                currentState++;
-                                break;
-                            case 1:
-                                titleTv.setText(loginBean.getResult().getOrganName());
-                                two = position;
-                                temp = organList.get(one).getOrganList().get(two).getOrganList();
-                                titleTv.setText(organList.get(one).getOrganList().get(two).getOrganName());
-                                oneAdapter.setData(temp);
-                                oneAdapter.notifyDataSetChanged();
-                                currentState++;
-                                break;
-                            case 2:
-                                Toast.makeText(DeptActivity.this, "没有下属分局", Toast.LENGTH_SHORT).show();
-                                break;
+                        if (tmpOrganList == null || tmpOrganList.size() == 0) {
+                            //若点击的节点没有下一级,则移除该位置
+                            if (oldSize != (currentState + 1) && stateList.size() > 0) {
+                                stateList.remove(stateList.size() - 1);
+                            }
+                            Toast.makeText(DeptActivity.this, "没有下一级", Toast.LENGTH_SHORT).show();
+                        } else {
+                            currentState++;
+                            if (!isContain(tmpOrganList, oneAdapter.getItem(position).getOrganId()))
+                                tmpOrganList.add(0, createOrganInfo(oneAdapter.getItem(position)));
+                            oneAdapter.setData(tmpOrganList);
+                            oneAdapter.notifyDataSetChanged();
                         }
                     }
                 }
@@ -278,7 +172,7 @@ public class DeptActivity extends RootActivity {
                 if (response.isSuccess()) {
                     Dept dept = response.body();
                     if (dept.getResult() != null) {
-                        assambleDept(dept.getResult().getOrganInfo(), loginBean.getResult().getOrganId());
+                        assambleDept(dept.getResult().getOrganInfo());
                     } else {
                         Toast.makeText(context, "服务器数据出错", Toast.LENGTH_SHORT).show();
                     }
@@ -305,11 +199,7 @@ public class DeptActivity extends RootActivity {
 
         @Override
         public int getCount() {
-            if (dataList == null) {
-                return 0;
-            }
-
-            return dataList.size();
+            return dataList == null ? 0 : dataList.size();
         }
 
         @Override
@@ -344,6 +234,7 @@ public class DeptActivity extends RootActivity {
                 @Override
                 public void onClick(View v) {
                     selectItem = position;
+                    selectOrganInfo = getItem(position);
                     oneAdapter.notifyDataSetChanged();
                 }
             });
@@ -362,6 +253,22 @@ public class DeptActivity extends RootActivity {
     }
 
     /**
+     * 是否包含对象
+     *
+     * @param res
+     * @param organId
+     * @return
+     */
+    private boolean isContain(List<Dept.OrganInfo> res, String organId) {
+        for (Dept.OrganInfo info : res) {
+            if (info.getOrganId().equals(organId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * 获取子区县
      *
      * @param res
@@ -370,17 +277,25 @@ public class DeptActivity extends RootActivity {
      * @return
      */
     private void getChildDept(List<Dept.OrganInfo> res, List<Dept.OrganInfo> src, String organId) {
-        for (Dept.OrganInfo info : src) {
+        for (int i = 0; i < src.size(); i++) {
+            Dept.OrganInfo info = src.get(i);
             if (info.getParentOrganId() != null
                     && info.getOrganId() != null
                     && info.getValid().equals("1")
-                    && info.getParentOrganId().equals(organId)) {
-                res.add(info);
+                    && info.getParentOrganId().equals(organId)
+                    && res.add(info)) {
+                src.remove(i);
+                i--;
             }
         }
         sortByOrganId(res);
     }
 
+    /**
+     * 根据organId排序
+     *
+     * @param res
+     */
     private void sortByOrganId(List<Dept.OrganInfo> res) {
         Collections.sort(res, new Comparator<Dept.OrganInfo>() {
             @Override
@@ -390,54 +305,62 @@ public class DeptActivity extends RootActivity {
         });
     }
 
-//    private void m(List<Dept.OrganInfo> list, String organId) {
-//        int rank = 2;
-//        rank:
-//        for (Dept.OrganInfo info : list) {
-//            if (info.getOrganId().equals(organId)) {
-//                rank = Integer.valueOf(info.getRank());
-//                break rank;
-//            }
-//        }
-//        assambleDept(rank, organList, list, organId);
-//        oneAdapter.setData(organList);
-//        oneAdapter.notifyDataSetChanged();
-//    }
-//
-//    private void assambleDept(int rank, ArrayList<Dept.OrganInfo> res, List<Dept.OrganInfo> src, String organId) {
-//        if (rank <= 4) {
-//            for (Dept.OrganInfo info : src) {
-//                getChildDept(res, src, info.getOrganId());
-//                info.setOrganList(res);
-//            }
-//            ArrayList<Dept.OrganInfo> list = new ArrayList<>();
-//            assambleDept(rank + 1, list, res, organId);
-//        }
-//    }
-
-    private void assambleDept(List<Dept.OrganInfo> list, String organId) {
-        ArrayList<Dept.OrganInfo> listOne = new ArrayList<>();
-//        Dept.OrganInfo organInfo = new Dept().new OrganInfo();
-//        organInfo.setOrganName(loginBean.getResult().getOrganName());
-//        organInfo.setOrganId(loginBean.getResult().getOrganId());
-//        listOne.add(organInfo);
-        getChildDept(listOne, list, organId);//第一层
-        for (Dept.OrganInfo info : listOne) {
-            ArrayList<Dept.OrganInfo> temp = new ArrayList<>();
-            getChildDept(temp, list, info.getOrganId());
-            info.setOrganList(temp);
-            for (Dept.OrganInfo second : temp) {
-                ArrayList<Dept.OrganInfo> inner = new ArrayList<>();
-                getChildDept(inner, list, second.getOrganId());
-                second.setOrganList(inner);
+    /**
+     * 递归封装数据
+     *
+     * @param rank
+     * @param empty
+     * @param list
+     */
+    private void recursion(int rank, List<Dept.OrganInfo> empty, List<Dept.OrganInfo> list) {
+        if (empty.size() != 0) {
+            rank++;
+            for (Dept.OrganInfo info : empty) {
+                ArrayList<Dept.OrganInfo> temp = new ArrayList<>();
+                getChildDept(temp, list, info.getOrganId());
+                info.setOrganList(temp);
+                recursion(rank, temp, list);
             }
+
+//            Log.e("recursion", "rank:" + rank + "organId:" + organId);
         }
-        Dept.OrganInfo organInfo = new Dept().new OrganInfo();
-        organInfo.setOrganName(loginBean.getResult().getOrganName());
-        organInfo.setOrganId(loginBean.getResult().getOrganId());
-        listOne.add(0, organInfo);
+    }
+
+    private void assambleDept(List<Dept.OrganInfo> list) {
+        ArrayList<Dept.OrganInfo> listOne = new ArrayList<>();
+        getChildDept(listOne, list, loginBean.getResult().getOrganId());//第一层
+        int rank = 1;
+        recursion(rank, listOne, list);//获取数据
+        listOne.add(0, createOrganInfo(loginBean.getResult().getOrganId(), loginBean.getResult().getOrganName()));
         organList = listOne;
         oneAdapter.setData(organList);
         oneAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 创建新organInfo
+     *
+     * @param src
+     * @return
+     */
+    private Dept.OrganInfo createOrganInfo(Dept.OrganInfo src) {
+        Dept.OrganInfo organInfo = new Dept().new OrganInfo();
+        organInfo.setOrganName(src.getOrganName());
+        organInfo.setOrganId(src.getOrganId());
+        return organInfo;
+    }
+
+    /**
+     * 创建新organInfo
+     *
+     * @param organId
+     * @param organName
+     * @return
+     */
+    private Dept.OrganInfo createOrganInfo(String organId, String organName) {
+        Dept.OrganInfo organInfo = new Dept().new OrganInfo();
+        organInfo.setOrganName(organName);
+        organInfo.setOrganId(organId);
+        return organInfo;
     }
 }

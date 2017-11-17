@@ -50,6 +50,7 @@ public interface YnWqApi {
     String API_GETCHILDORGAN=BSAE + "getOrganByParent";
     String API_AREASTAT=BSAE + "meAreaStat";//统计，区域
     String API_STATLIST=BSAE + "getStatList";
+    String API_MOBILE_UPLOAD_FILE = "mobileUploadFile.do";
 
     @FormUrlEncoded
     @POST(API_LOGIN)

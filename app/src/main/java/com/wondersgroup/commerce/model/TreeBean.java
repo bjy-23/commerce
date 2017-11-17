@@ -22,9 +22,17 @@ public class TreeBean implements Parcelable, Cloneable{
 
     private List<TreeBean> childs;
     private boolean selected;
+    private int rank;
+    private boolean hasChild;
 
     public TreeBean(){
 
+    }
+
+    public TreeBean(String id, String name, List<TreeBean> childs) {
+        this.id = id;
+        this.name = name;
+        this.childs = childs;
     }
 
     @Override
@@ -72,12 +80,30 @@ public class TreeBean implements Parcelable, Cloneable{
         this.selected = selected;
     }
 
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public boolean isHasChild() {
+        return hasChild;
+    }
+
+    public void setHasChild(boolean hasChild) {
+        this.hasChild = hasChild;
+    }
+
     protected TreeBean(Parcel in) {
         id = in.readString();
         pId = in.readString();
         name = in.readString();
         childs = in.createTypedArrayList(TreeBean.CREATOR);
         selected = in.readByte() != 0;
+        rank = in.readInt();
+        hasChild = in.readByte() != 0;
     }
 
     public static final Creator<TreeBean> CREATOR = new Creator<TreeBean>() {
@@ -104,5 +130,7 @@ public class TreeBean implements Parcelable, Cloneable{
         dest.writeString(name);
         dest.writeTypedList(childs);
         dest.writeByte((byte) (selected ? 1 : 0));
+        dest.writeInt(rank);
+        dest.writeByte((byte) (hasChild ? 1 : 0));
     }
 }

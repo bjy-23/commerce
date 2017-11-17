@@ -1,7 +1,6 @@
 package com.wondersgroup.commerce.teamwork.mysupervision;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -9,10 +8,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.wondersgroup.commerce.R;
+import com.wondersgroup.commerce.activity.FragmentActivity;
 import com.wondersgroup.commerce.application.RootAppcation;
 
 
-public class WebViewActivity extends ActionBarActivity {
+public class WebViewActivity extends FragmentActivity {
 
 	private RootAppcation application;
 
