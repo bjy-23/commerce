@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="35dp">
+        <Button
+            android:id="@+id/home_navi_first"
+            android:drawableTop="@drawable/home_bljd"
+            android:text="@string/app_home_navi_one"
+            style="@style/ButtonHomeNavi" />
+        <Button
+            android:id="@+id/home_navi_second"
+            android:drawableTop="@drawable/home_fuchi"
+            android:text="@string/app_home_navi_two"
+            android:layout_centerHorizontal="true"
+            style="@style/ButtonHomeNavi" />
+        <Button
+            android:id="@+id/home_navi_third"
+            android:drawableTop="@drawable/home_weiqi"
+            android:text="@string/app_home_navi_thr"
+            android:layout_alignParentRight="true"
+            style="@style/ButtonHomeNavi" />
+    </RelativeLayout>
+</LinearLayout>

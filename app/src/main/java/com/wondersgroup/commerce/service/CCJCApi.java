@@ -20,15 +20,16 @@ import retrofit.http.POST;
  * Created by 薛定猫 on 16-5-10.
  */
 public interface CCJCApi {
-    String LOGIN="loginInfo";                   //登陆
-    String DIC="getDicLoad";                    //字典加载
-    String DBLB="getToDoList";                  //代办列表
-    String CCJCCX="getCheckAppList";            //抽查检查查询
-    String CCJGCX="getCheckRecord";             //抽查结果详情
-    String CCBLYJ="getNoticeOpnnList";          //查询办理意见
-    String DBCX="getToDo";                      //查询待办--已废弃
-    String CCXQ="getCheckEntityInfo";           //抽查详情
-    String SDHC="submitLocalRecord";            //提交实地核查信息
+    String PREFIX = "noticemana/services/check/";
+    String LOGIN= PREFIX + "loginInfo";                   //登陆
+    String DIC= PREFIX + "getDicLoad";                    //字典加载
+    String DBLB= PREFIX + "getToDoList";                  //代办列表
+    String CCJCCX= PREFIX + "getCheckAppList";            //抽查检查查询
+    String CCJGCX= PREFIX + "getCheckRecord";             //抽查结果详情
+    String CCBLYJ= PREFIX + "getNoticeOpnnList";          //查询办理意见
+    String DBCX= PREFIX + "getToDo";                      //查询待办--已废弃
+    String CCXQ= PREFIX + "getCheckEntityInfo";           //抽查详情
+    String SDHC= PREFIX + "submitLocalRecord";            //提交实地核查信息
 
     @FormUrlEncoded
     @POST(LOGIN)

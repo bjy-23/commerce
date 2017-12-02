@@ -10,7 +10,7 @@ import retrofit.http.GET;
  */
 
 public interface CommonApi {
-    String API_VERSION = "commerceInfo";//版本更新
+    String API_VERSION = "zfMobileService/commerceInfo";//版本更新
 
     @GET(API_VERSION)
     Call<Version> apiUpdate();

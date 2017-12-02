@@ -158,6 +158,16 @@ app.controller('entInfoResultListCtrl', ['$scope', '$state', '$stateParams', '$h
             }
         }
     };
+    $scope.startSearching = function () {
+        // 跳转到结果列表页进行搜索
+        if (!$scope.searchedKey || $scope.searchedKey == '') {
+            $scope.showAlert("请输入关键字进行查询！");
+        } else {
+            // 更新搜索列表，重新请求数据
+            $scope.updateSearchHistoryArray();
+            $scope.requestData();
+        }
+    };
 
     $scope.goBackHome = function () {
         // 如果是从首页跳进来的，那就回到首页，否则回到搜索页(后面改过了主页的跳转方案，不存在这种情况了)

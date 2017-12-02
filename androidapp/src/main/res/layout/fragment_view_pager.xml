@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wondersgroup.yngs.fragment.ViewPagerFragment">
+    <android.support.design.widget.TabLayout
+        android:id="@+id/vpf_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        style="@style/TopTabLayoutTheme"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/light_gray_2"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpf_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

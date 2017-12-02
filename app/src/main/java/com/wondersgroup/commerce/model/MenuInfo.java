@@ -13,6 +13,10 @@ public class MenuInfo extends Data {
     private List<MenuBean> menus;
     private boolean isShow;
 
+    public MenuInfo(){
+        isShow = true;
+    }
+
     public boolean isShow() {
         return isShow;
     }

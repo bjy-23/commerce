@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/gray_light">
 
     <include layout="@layout/view_mid_toolbar" />
 
@@ -17,57 +17,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:orientation="vertical">
+
             <RelativeLayout
-                android:id="@+id/search_bar"
+                android:id="@+id/search_layout"
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="25dp">
-                <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <com.wondersgroup.commerce.widget.SearchBar
+                    android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/filterbtn"
                     android:layout_marginRight="10dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/rounded_rect_block">
-                    <EditText
-                        android:id="@+id/searchtxt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/searchbtn"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="11dp"
-                        android:textColor="@color/deep_gray"
-                        android:hint="请输入案件名称或编号"
-                        android:textColorHint="@color/light_gray"
-                        android:singleLine="true"
-                        android:background="@android:color/transparent"/>
-                    <LinearLayout
-                        android:id="@id/searchbtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center_vertical">
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/icon_search"
-                            android:layout_margin="6dp"/>
-                    </LinearLayout>
-                </RelativeLayout>
+                    android:layout_marginLeft="10dp"
+                    app:hint="请输入案件名称或编号"/>
 
                 <LinearLayout
                     android:id="@id/filterbtn"
-                    android:layout_width="60dp"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:background="@drawable/rounded_rect_block"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="10dp"
                     android:gravity="center_vertical">
                     <TextView
                         android:layout_width="wrap_content"
@@ -75,11 +50,12 @@
                         android:text="筛选"
                         android:textColor="@color/white_gray"
                         android:textSize="14sp"
-                        android:layout_marginLeft="8dp"/>
+                        android:layout_marginLeft="3dp"/>
                     <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:src="@drawable/icon_screen"/>
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@drawable/icon_screen"
+                        android:scaleType="centerInside"/>
 
                 </LinearLayout>
             </RelativeLayout>

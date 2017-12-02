@@ -121,10 +121,11 @@ public class FragmentSetting extends Fragment implements View.OnClickListener {
         }
 
         TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
-        tvName.setText(loginBean.getResult().getUserName());
-        tvOrgan.setText(loginBean.getResult().getOrganName());
-        tvDepartment.setText(loginBean.getResult().getDeptName());
-
+        if(loginBean != null){
+            tvName.setText(loginBean.getResult().getUserName());
+            tvOrgan.setText(loginBean.getResult().getOrganName());
+            tvDepartment.setText(loginBean.getResult().getDeptName());
+        }
         viewAbout.setOnClickListener(this);
         viewAbout.findViewById(R.id.img_icon).setBackgroundResource(R.mipmap.icon_aboutus);
         ((TextView) viewAbout.findViewById(R.id.tv_content)).setText(Constants.ABOUT_US);

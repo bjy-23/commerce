@@ -60,19 +60,19 @@
                 "menuName":"线索登记",
                 "authId":"999",
                 "type":0,
-                "isShow":true
+                "isShow":false
             },
             {
                 "menuName":"线索维护",
                 "authId":"999",
                 "type":0,
-                "isShow":true
+                "isShow":false
             },
             {
                 "menuName":"线索查询",
                 "authId":"999",
                 "type":0,
-                "isShow":true
+                "isShow":false
             }
                 ],
         "isShow":true

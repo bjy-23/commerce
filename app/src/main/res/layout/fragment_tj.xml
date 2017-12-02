@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ynwq.fragment.TJFragment">
-    <com.wondersgroup.yngs.widget.InfoSelectBar
+    <com.wondersgroup.commerce.ynwq.widget.InfoSelectBar
         android:id="@+id/tj_office"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <com.wondersgroup.yngs.widget.InfoSelectBar
+    <com.wondersgroup.commerce.ynwq.widget.InfoSelectBar
         android:id="@+id/tj_dept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wondersgroup.commerce.R;
@@ -15,6 +16,7 @@ public class BaseActivity extends AppCompatActivity {
     protected TextView tvTitle;
     protected TextView tvOption;
     private FrameLayout layoutContent;
+    private LinearLayout root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +37,14 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
 
-        tvTitle = (TextView) findViewById(R.id.tv_title);
-        tvOption = (TextView) findViewById(R.id.tv_option);
-        layoutContent = (FrameLayout) findViewById(R.id.layout_content);
+        tvTitle = findViewById(R.id.tv_title);
+        tvOption = findViewById(R.id.tv_option);
+        layoutContent = findViewById(R.id.layout_content);
     }
 
     protected void addContentView(int layoutId) {
         View view = LayoutInflater.from(this).inflate(layoutId, null, false);
         layoutContent.addView(view);
-
-
-//        Arrays.asList("a","b").forEach( e -> Log("",e));
     }
-
 
 }

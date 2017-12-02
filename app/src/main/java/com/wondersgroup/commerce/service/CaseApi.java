@@ -1,6 +1,8 @@
 package com.wondersgroup.commerce.service;
 
 import com.squareup.okhttp.ResponseBody;
+import com.wondersgroup.commerce.law_rule.bean.LawDetailsBean;
+import com.wondersgroup.commerce.law_rule.bean.LawTypeBean;
 import com.wondersgroup.commerce.model.AttachBean;
 import com.wondersgroup.commerce.model.AttachResultObject;
 import com.wondersgroup.commerce.model.BackResultObject;
@@ -25,6 +27,7 @@ import com.wondersgroup.commerce.model.ProcedureCaseQueryResult;
 import com.wondersgroup.commerce.teamwork.casedeal.bean.CaseQueryBean;
 import com.wondersgroup.commerce.teamwork.casedeal.bean.LitigtBean;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +62,30 @@ public interface CaseApi {
     public static final String CASE_QUERY_LIST = "caseQuery_list";
     public static final String TO_CASE_QUERY = "toCaseQuery";
     public static final String DOWNLOAD_WRIT_FILE_BY_POST = "downloadWritFileByPost";
+
+    /*
+    * 法律法规
+    * */
+    String TO_LAW_TYPE_QUERY = URL_CASE_1 + "toLawTypeQuery";
+    String TO_QUERY_LAW_BY_NAME = URL_CASE_1 + "toQueryLawByName";
+    String TO_QUERY_LAW_CODE = URL_CASE_1 + "toQueryLawCode";
+    String TO_QUERY_LAW_DETAILS = URL_CASE_1 + "toQueryLawDetail";
+
+    @POST(TO_LAW_TYPE_QUERY)
+    @FormUrlEncoded
+    Call<Result<LinkedHashMap>> lawTypeQuery(@FieldMap Map map);
+
+    @POST(TO_QUERY_LAW_BY_NAME)
+    @FormUrlEncoded
+    Call<Result<List<LawTypeBean>>> lawNameQuery(@FieldMap Map map);
+
+    @POST(TO_QUERY_LAW_CODE)
+    @FormUrlEncoded
+    Call<Result<List<LawTypeBean>>> lawQuery(@FieldMap Map map);
+
+    @POST(TO_QUERY_LAW_DETAILS)
+    @FormUrlEncoded
+    Call<Result<List<LawDetailsBean>>> detailsQuery(@FieldMap Map map);
 
     /*
     * 简易程序

@@ -29,27 +29,27 @@ import retrofit.http.POST;
  */
 
 public interface YnWqApi {
-    String BSAE = "services/mobile/";
-    String API_LOGIN=BSAE + "loginInfo";
-    String API_USER_INFO=BSAE + "getUserInfo";
-    String API_GET_TODO=BSAE + "getToDo";
-    String API_GET_DIC=BSAE + "getDicLoad";
-    String API_GET_TODO_LIST=BSAE + "getToDoList";
-    String API_GET_OPFLOW=BSAE + "getToDoInfo";
-    String API_GET_ENTINFO=BSAE + "getEtpsInfo";
-    String API_GET_SUPPORT_INFO=BSAE + "getMeSupportInfo";
-    String API_SUMITMEEXPLORATION=BSAE + "submitMeExploration";
-    String API_GET_MEINFO=BSAE + "getMeInfo";
-    String API_GET_PROGRESS=BSAE + "getEtpsInfoList";
-    String API_GET_SUPPORT_INFO_LIST =BSAE + "getMeEntityInfoList";
-    String API_GET_SUPPORT=BSAE + "getMeSupport";
-    String API_GET_SUPPORT_LIST=BSAE + "getMeSupportList";
-    String API_DEPTSTAT=BSAE + "meDeptStat";//统计，部门
-    String API_INDUSTAT=BSAE + "meIndustryStat";
-    String API_PROCSTAT=BSAE + "meProcessStat";
-    String API_GETCHILDORGAN=BSAE + "getOrganByParent";
-    String API_AREASTAT=BSAE + "meAreaStat";//统计，区域
-    String API_STATLIST=BSAE + "getStatList";
+    String PREFIX = "me/services/mobile/";
+    String API_LOGIN=PREFIX + "loginInfo";
+    String API_USER_INFO=PREFIX + "getUserInfo";
+    String API_GET_TODO=PREFIX + "getToDo";
+    String API_GET_DIC=PREFIX + "getDicLoad";
+    String API_GET_TODO_LIST=PREFIX + "getToDoList";
+    String API_GET_OPFLOW=PREFIX + "getToDoInfo";
+    String API_GET_ENTINFO=PREFIX + "getEtpsInfo";
+    String API_GET_SUPPORT_INFO=PREFIX + "getMeSupportInfo";
+    String API_SUMITMEEXPLORATION=PREFIX + "submitMeExploration";
+    String API_GET_MEINFO=PREFIX + "getMeInfo";
+    String API_GET_PROGRESS=PREFIX + "getEtpsInfoList";
+    String API_GET_SUPPORT_INFO_LIST =PREFIX + "getMeEntityInfoList";
+    String API_GET_SUPPORT=PREFIX + "getMeSupport";
+    String API_GET_SUPPORT_LIST=PREFIX + "getMeSupportList";
+    String API_DEPTSTAT=PREFIX + "meDeptStat";//统计，部门
+    String API_INDUSTAT=PREFIX + "meIndustryStat";
+    String API_PROCSTAT=PREFIX + "meProcessStat";
+    String API_GETCHILDORGAN=PREFIX + "getOrganByParent";
+    String API_AREASTAT=PREFIX + "meAreaStat";//统计，区域
+    String API_STATLIST=PREFIX + "getStatList";
     String API_MOBILE_UPLOAD_FILE = "mobileUploadFile.do";
 
     @FormUrlEncoded

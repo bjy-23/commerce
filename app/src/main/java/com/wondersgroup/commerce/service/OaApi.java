@@ -31,11 +31,11 @@ import retrofit.http.POST;
 
 public interface OaApi {
     //收发文
-    public static final String URL_1 = "services/mobileDoc/";
+    public static final String URL_1 = "oa/services/mobileDoc/";
     //其他
-    public static final String URL_3 = "services/mobile/";
+    public static final String URL_3 = "oa/services/mobile/";
     //附件
-    public static final String URL_ATTACHMENT = "services/esf/backlogWebService/";
+    public static final String URL_ATTACHMENT = "oa/services/esf/backlogWebService/";
 
     /**
      * 最新10条公文

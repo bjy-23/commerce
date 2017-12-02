@@ -1,0 +1,206 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+
+        <item name="md_dark_theme">false</item>
+        <item name="md_background_color">@color/white</item>
+        <item name="md_title_color">@color/colorPrimary</item>
+    </style>
+    <style name="DialogAbout" parent="AppTheme">
+        <item name="md_title_gravity">center</item>
+        <item name="md_content_gravity">center</item>
+    </style>
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="BottomTabLayoutTheme" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabMaxWidth">0dp</item>
+    </style>
+    <style name="TopTabLayoutTheme" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
+        <item name="tabTextAppearance">@style/UpCustomTabTextAppearance</item>
+    </style>
+    <style name="UpCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white_gray</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="CusTitleTheme" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextItemTitle" parent="AppTheme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextItemContent" parent="AppTheme">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="TextItemContent.Right">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">66dp</item>
+    </style>
+
+    <style name="TextItemContent.Left">
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <style name="SheetCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabPaddingStart">6dp</item>
+        <item name="tabPaddingEnd">6dp</item>
+        <item name="tabPaddingTop">0dp</item>
+        <item name="tabPaddingBottom">0dp</item>
+        <item name="tabTextAppearance">@style/SheetCustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/deep_gray</item>
+        <item name="tabMode">scrollable</item>
+    </style>
+
+    <style name="SheetCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="TextSmall">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextSmall.DeeperBlue">
+        <item name="android:textColor">@color/deeper_blue</item>
+    </style>
+
+    <style name="ButtonSmall">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/deeper_blue</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="ButtonNormal">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="ButtonFull">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <style name="ItemContentTitleLarge">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/deep_gray</item>
+    </style>
+
+    <style name="ItemContentLarger">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ButtonFullLeft">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextItemContent.Right.WithIcon">
+        <item name="android:layout_marginRight">76dp</item>
+    </style>
+
+    <style name="LabelText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/deep_gray</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColorHint">@color/light_gray</item>
+    </style>
+
+    <style name="LabelText.Left">
+        <item name="android:layout_width">@dimen/label_width</item>
+        <item name="android:layout_marginLeft">@dimen/label_margin_left</item>
+    </style>
+    <style name="LabelText.Right">
+        <item name="android:layout_marginLeft">0dp</item>
+    </style>
+
+    <style name="ButtonSmall.Larger">
+        <item name="android:layout_width">100dp</item>
+    </style>
+
+    <style name="ButtonHomeNavi">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+    </style>
+
+    <style name="ButtonNormal.Reverse">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@drawable/rect_button</item>
+    </style>
+
+    <style name="CountBarText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="view_camera">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@drawable/add</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="dialog_camera" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+</resources>

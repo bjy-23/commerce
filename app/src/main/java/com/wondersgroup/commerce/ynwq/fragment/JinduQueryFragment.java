@@ -75,7 +75,6 @@ public class JinduQueryFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_jindu_query, container, false);
         ButterKnife.bind(this,view);
         return view;
@@ -142,10 +141,7 @@ public class JinduQueryFragment extends Fragment implements View.OnClickListener
             startDate.show(getFragmentManager(), "JinDuDateStart");
         }else if(v.equals(dateEnd)){
             endDate.show(getFragmentManager(),"JinDuDateEnd");
-        }else if(v.equals(typeS)){/*
-            Intent intent=new Intent(getContext(), ListActivity.class);
-            intent.putExtra("type", "SQLX");
-            startActivityForResult(intent, 100);*/
+        }else if(v.equals(typeS)){
             ListDialog dialog=ListDialog.newInsance("请选择申请类型","SQLX");
             dialog.setListener(new ListDialog.OnSelected() {
                 @Override
@@ -155,10 +151,7 @@ public class JinduQueryFragment extends Fragment implements View.OnClickListener
                 }
             });
             dialog.show(getChildFragmentManager(),"JinDuSQLX");
-        }else if(v.equals(statusS)){/*
-            Intent intent=new Intent(getContext(), ListActivity.class);
-            intent.putExtra("type", "SQZT");
-            startActivityForResult(intent, 200);*/
+        }else if(v.equals(statusS)){
             ListDialog dialog=ListDialog.newInsance("请选择申请状态","SQZT");
             dialog.setListener(new ListDialog.OnSelected() {
                 @Override

@@ -52,9 +52,9 @@
         android:name=".application.RootAppcation"
         android:allowBackup="true"
         android:icon="@mipmap/logo_mine"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:label="@string/app_name"
         tools:replace="android:icon,android:theme">
         <activity
             android:name=".activity.SplashActivity"
@@ -77,7 +77,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".teamwork.casedeal.CaseInvestigateActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".teamwork.casedeal.CaseDetailActivity"
             android:screenOrientation="portrait" />
@@ -297,18 +298,19 @@
             android:name=".teamwork.statistics.DeptActivity"
             android:screenOrientation="portrait" />
         <!-- Required SDK核心功能 -->
-        <!--<activity-->
-            <!--android:name="cn.jpush.android.ui.PushActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:exported="false"-->
-            <!--android:theme="@android:style/Theme.NoTitleBar">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="cn.jpush.android.ui.PushActivity" />-->
+        <!-- <activity -->
+        <!-- android:name="cn.jpush.android.ui.PushActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden" -->
+        <!-- android:exported="false" -->
+        <!-- android:theme="@android:style/Theme.NoTitleBar"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="cn.jpush.android.ui.PushActivity" /> -->
 
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="${applicationId}" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- <category android:name="${applicationId}" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
@@ -365,9 +367,11 @@
         <activity android:name=".activity.DownloadListActivity" />
         <activity android:name=".teamwork.casedeal.LitigtDetailActivity" />
         <activity android:name=".teamwork.casedeal.CaseQueryActivity" />
-        <activity android:name=".teamwork.email.EmailDetailsActivity"/>
+        <activity android:name=".teamwork.email.EmailDetailsActivity" />
         <activity android:name=".activity.QueryActivity" />
-        <activity android:name=".activity.ItemAddActivity"></activity>
+        <activity android:name=".activity.ItemAddActivity" />
+        <activity android:name=".teamwork.clue.activity.ClueQueryActivity" />
+        <activity android:name=".ynwq.FragmentWrapperActivity"></activity>
     </application>
 
 </manifest>

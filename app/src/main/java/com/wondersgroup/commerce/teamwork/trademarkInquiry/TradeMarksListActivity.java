@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -28,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,12 +85,12 @@ public class TradeMarksListActivity extends AppCompatActivity {
     private final String MARK_CHOOSE_OPTION_NO_LIMITED = "不限";
     private final String MARK_CHOOSE_OPTION_YES = "是";
     private final String MARK_CHOOSE_OPTION_NO = "不是";
-    @BindView(R.id.toolbar_edit)
-    EditText toolbarEdit;
-    @BindView(R.id.toolbar_clear)
-    ImageView toolbarClear;
-    @BindView(R.id.mid_toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.et_search)
+    EditText etSearch;
+    @BindView(R.id.tv_cancel)
+    TextView tvCancel;
+    @BindView(R.id.layout_select)
+    LinearLayout layoutSelect;
     @BindView(R.id.searchresult_list)
     ListView searchRecyclerView;
     @BindView(R.id.type_txt)
@@ -103,8 +105,6 @@ public class TradeMarksListActivity extends AppCompatActivity {
     TextView moreTxt;
     @BindView(R.id.gray_view)
     View grayBg;
-    @BindView(R.id.right_btn)
-    LinearLayout qrBtn;
     @BindView(R.id.drawer_choose_list)
     ListView chooseMenuOptionsList;
     @BindView(R.id.date1txt)
@@ -122,8 +122,6 @@ public class TradeMarksListActivity extends AppCompatActivity {
     @BindView(R.id.tvRegisterName)
     TextView tvRegisterNameSelected;
 
-    private String type;
-    private RootAppcation app;
 
     //筛选相关
     private List<String> typeList;
@@ -167,11 +165,6 @@ public class TradeMarksListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trademarks_list);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.app_back);
-        app = (RootAppcation) getApplication();
         loginBean = Hawk.get(Constants.LOGIN_BEAN);
         initView();
         initData();
@@ -179,6 +172,10 @@ public class TradeMarksListActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        layoutSelect.setVisibility(View.GONE);
+
+        tvCancel.setVisibility(View.VISIBLE);
+        tvCancel.setText("搜索");
 
         menuChooseOption = new ArrayList<MarkChooseOption>();
         searchRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -199,8 +196,21 @@ public class TradeMarksListActivity extends AppCompatActivity {
         checkAcceptConTypeList = new ArrayList<String>();             //认领状态
         checkAcceptConTypeKeyValueList = new ArrayList<KeyValue>();   //认领状态
 
-        toolbarEdit.setHint("请输入商标名称");
-        toolbarEdit.setOnKeyListener(new View.OnKeyListener() {
+        etSearch.setHint("请输入商标名称");
+        etSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!etSearch.hasFocusable()){
+                    etSearch.setFocusable(true);
+                    etSearch.setFocusableInTouchMode(true);
+                    etSearch.requestFocus();
+                    etSearch.requestFocusFromTouch();
+                }
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etSearch, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER){
@@ -212,7 +222,6 @@ public class TradeMarksListActivity extends AppCompatActivity {
                 return false;
             }
         });
-
 
     }
 
@@ -484,8 +493,8 @@ public class TradeMarksListActivity extends AppCompatActivity {
 
     private void getConditions(Map<String, String> map) {
 
-        if(toolbarEdit.getText()!=null && !toolbarEdit.getText().toString().trim().equals("")){
-            map.put("keyword", toolbarEdit.getText().toString().trim());
+        if(etSearch.getText()!=null && !etSearch.getText().toString().trim().equals("")){
+            map.put("keyword", etSearch.getText().toString().trim());
         }
 
         Condition con = new Condition();
@@ -526,17 +535,16 @@ public class TradeMarksListActivity extends AppCompatActivity {
             return "0";
     }
 
-    @OnClick({R.id.toolbar_clear, R.id.right_btn, R.id.searchresult_type, R.id.searchobligee_checktype,
+    @OnClick({R.id.searchresult_type, R.id.searchobligee_checktype,
             R.id.searchresult_result, R.id.searchresult_more, R.id.date1, R.id.date2, R.id.resetbtn, R.id.submitbtn,
-            R.id.llDomination4Trademarks, R.id.llRegister4Trademarks})
+            R.id.llDomination4Trademarks, R.id.llRegister4Trademarks, R.id.tv_cancel, R.id.img_back})
     public void onClick(View view) {
 //        final CusDatePickerDialog dateDialog;
         switch (view.getId()) {
-            case R.id.toolbar_clear:
-                toolbarEdit.setText("");
-                toolbarClear.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.right_btn:
+            case R.id.img_back:
+                finish();
+            case R.id.tv_cancel:
+                getTradeMarksList();
                 break;
             case R.id.searchresult_type://商标类型
                 if (checkTypeList == null || checkTypeList.size() == 0){
@@ -749,7 +757,7 @@ public class TradeMarksListActivity extends AppCompatActivity {
                 menuAdapter.notifyDataSetChanged();
                 tvDominationNameSelected.setText("");
                 tvRegisterNameSelected.setText("");
-                toolbarEdit.setTag("");
+                etSearch.setTag("");
                 typeTxt.setText("商标类型 ▼");
                 obligeetypeTxt.setText("权利人类型 ▼");
                 claimStateTxt.setText("认领状态 ▼");

@@ -1,5 +1,6 @@
 package com.wondersgroup.commerce.constant;
 
+import com.wondersgroup.commerce.BuildConfig;
 import com.wondersgroup.commerce.R;
 
 import java.util.HashMap;
@@ -10,25 +11,17 @@ import java.util.HashMap;
 public class Constants {
     public final static String AREA_SC = "四川";
     public final static String AREA_YN = "云南";
-
-    public final static String VERSION_R = "正式";
-    public final static String VERSION_D = "测试";
+    public final static String AREA = BuildConfig.AREA;
 
     public final static String LOGIN_MODE_1 = "登录&有权限";
     public final static String LOGIN_MODE_2 = "登录&无权限";
     public final static String LOGIN_MODE_3 = "免登录";
+    public final static String LOGIN_MODE = BuildConfig.LOGIN_MODE;
 
     /*
     * 云南正式环境先屏蔽“案件查询”，注意修改配置文件
     * */
-    public final static String AREA = AREA_SC;
-    public final static String VERSION = VERSION_D;
-    public final static String LOGIN_MODE = LOGIN_MODE_2;
 
-    public final static String GS_URL_SC_1="http://182.131.3.110:8012/notice";
-    public final static String GS_URL_SC_2="http://sc.gsxt.gov.cn/notice";
-    public final static String GS_URL_YN_1="http://220.163.27.42:8021/notice";
-    public final static String GS_URL_YN_2="http://gsxt.ynaic.gov.cn/notice";
 
     public static HashMap<String,Integer> firstColorMap;
     public static HashMap<String,Integer> menuIconMapYN;
@@ -125,16 +118,13 @@ public class Constants {
     public static final String FGDJCX_NAME = "非公党建查询";
     public static final String WQCB_ID = "01103000";
     public static final String WQCB_NAME = "微企财补初审";
-    public static final String GSXX_ID = "08012001";
-    public static final String GSXX_NAME = "公示信息查询";
     public static final String SSJLR = "双随机录入";
     public static final String RCJG = "日常监管";
     public static final String SBCX_ID = "02077110";
     public static final String SBCX_NAME = "注册商标查询";
     public static final String FLFG_ID = "03010033";//法律法规的权限和案件调查保持一致
     public static final String FLFG_NAME = "法律法规查询";
-    public static final String CXTJ_ID = "03010502";
-    public static final String CXTJ_NAME = "统计分析";
+
     public static final String TXL_ID = "08013001";
     public static final String TXL_NAME = "通讯录";
     public static final String TZGG_ID = "08013003";
@@ -145,7 +135,21 @@ public class Constants {
     public static final String GWJS_NAME = "公文检索";
     public static final String XWQYCX = "小微企业查询";
     public static final String XWQYFCQKCX = "小微企业扶持/n情况查询";
+
     //云南
+    public static final String BLJDCX_ID_YN = COMMON_ID;
+    public static final String BLJDCX_NAME_YN = "办理进度查询";
+    public static final String WQXXCX_ID_YN = COMMON_ID;
+    public static final String WQXXCX_NAME_YN = "微企信息查询";
+    public static final String FCQKCX_ID_YN = COMMON_ID;
+    public static final String FCQKCX_NAME_YN = "扶持情况查询";
+    public static final String TJWQ_ID_YN = COMMON_ID;
+    public static final String TJWQ_NAME_YN = "统计(微企)";
+    public static final String TJFX_ID_YN = COMMON_ID;
+    public static final String TJFX_NAME_YN = "统计分析";
+    public static final String GSXX_ID_YN = COMMON_ID;
+    public static final String GSXX_NAME_YN = "公示信息查询";
+
 
     //四川
     public static final String GW_ID_SC = "07010503";
@@ -222,9 +226,13 @@ public class Constants {
             menuIconMapYN.put(Constants.FGDJGL_ID + Constants.FGDJGL_NAME,R.mipmap.icon_djgl);
             menuIconMapYN.put(Constants.FGDJCX_ID + Constants.FGDJCX_NAME,R.mipmap.icon_djcx);
             menuIconMapYN.put(Constants.WQCB_ID + Constants.WQCB_NAME,R.mipmap.icon_cbcs);
-            menuIconMapYN.put(Constants.GSXX_ID + Constants.GSXX_NAME,R.mipmap.icon_gsxx);
             menuIconMapYN.put(Constants.FLFG_ID + Constants.FLFG_NAME,R.mipmap.icon_flfg);
-            menuIconMapYN.put(Constants.CXTJ_ID + Constants.CXTJ_NAME,R.mipmap.cxtj);
+            menuIconMapYN.put(Constants.GSXX_ID_YN + Constants.GSXX_NAME_YN,R.mipmap.icon_gsxx);
+            menuIconMapYN.put(Constants.TJFX_ID_YN + Constants.TJFX_NAME_YN,R.mipmap.cxtj);
+            menuIconMapYN.put(Constants.BLJDCX_ID_YN + Constants.BLJDCX_NAME_YN, R.mipmap.cxtj);
+            menuIconMapYN.put(Constants.WQXXCX_ID_YN + Constants.WQXXCX_NAME_YN, R.mipmap.cxtj);
+            menuIconMapYN.put(Constants.FCQKCX_ID_YN + Constants.FCQKCX_NAME_YN, R.mipmap.cxtj);
+            menuIconMapYN.put(Constants.TJWQ_ID_YN + Constants.TJWQ_NAME_YN, R.mipmap.cxtj);
         }
         return menuIconMapYN;
     }

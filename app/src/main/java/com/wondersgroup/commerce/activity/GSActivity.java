@@ -15,8 +15,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.wondersgroup.commerce.BuildConfig;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.service.ApiManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,6 +27,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GSActivity extends AppCompatActivity {
+    public final static String GS_URL_SC_1="http://182.131.3.110:8012/notice";
+    public final static String GS_URL_SC_2="http://sc.gsxt.gov.cn/notice";
+    public final static String GS_URL_YN_1="http://220.163.27.42:8021/notice";
+    public final static String GS_URL_YN_2="http://gsxt.ynaic.gov.cn/notice";
 
     @BindView(R.id.webview)
     WebView webView;
@@ -86,15 +92,15 @@ public class GSActivity extends AppCompatActivity {
         JsInteration jsInteration = new JsInteration();
         String url = "";
         if (Constants.AREA.equals(Constants.AREA_SC)){
-            if (Constants.VERSION.equals(Constants.VERSION_R))
-                url = Constants.GS_URL_SC_2;
+            if (ApiManager.ENVIRONMENT.equals(ApiManager.ENVIRONMENT_PRODUCT_FORMAL))
+                url = GS_URL_SC_2;
             else
-                url = Constants.GS_URL_SC_1;
+                url = GS_URL_SC_1;
         }else if (Constants.AREA.equals(Constants.AREA_YN)){
-            if (Constants.VERSION.equals(Constants.VERSION_R))
-                url = Constants.GS_URL_YN_2;
+            if (ApiManager.ENVIRONMENT.equals(ApiManager.ENVIRONMENT_PRODUCT_FORMAL))
+                url = GS_URL_YN_2;
             else
-                url = Constants.GS_URL_YN_1;
+                url = GS_URL_YN_1;
         }
         jsInteration.url = url;
         webView.addJavascriptInterface(jsInteration, "interaction");

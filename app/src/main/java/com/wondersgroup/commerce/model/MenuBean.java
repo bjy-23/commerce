@@ -19,6 +19,10 @@ public class MenuBean extends Data{
     private String number;
     private String[] menuIdList;
 
+    public MenuBean(){
+        isShow = true;
+    }
+
     public MenuBean(String menuId,int type){
         this.menuId = menuId;
         this.type = type;

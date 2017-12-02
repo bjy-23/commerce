@@ -1,6 +1,5 @@
 package com.wondersgroup.commerce.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +48,7 @@ import com.wondersgroup.commerce.utils.DateUtil;
 import com.wondersgroup.commerce.utils.DividerItemDecoration;
 import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.recyclerView.CommonAdapter;
-import com.wondersgroup.commerce.widget.SearchLayout;
+import com.wondersgroup.commerce.widget.SearchBar;
 import com.wondersgroup.commerce.ynwq.widget.CountBar;
 
 import java.util.ArrayList;
@@ -78,8 +77,8 @@ public class RecyclerActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView title;
-    @BindView(R.id.search_bar)
-    LinearLayout searchBar;
+    @BindView(R.id.search_layout)
+    LinearLayout searchLayout;
     @BindView(R.id.searchtxt)
     EditText searchTxt;
     @BindView(R.id.activity_recycler)
@@ -90,8 +89,8 @@ public class RecyclerActivity extends AppCompatActivity {
     View viewError;
     @BindView(R.id.tv_error)
     TextView tvError;
-    @BindView(R.id.searchLayout)
-    SearchLayout searchLayout;
+    @BindView(R.id.search_bar)
+    SearchBar searchBar;
 
     private String doctype;
     private GwjsCondition condition;
@@ -169,6 +168,7 @@ public class RecyclerActivity extends AppCompatActivity {
         adapter = new CommonAdapter(this, viewModels);
 
         switch (type) {
+            case Constants.XSWH_NAME_SC:
             case Constants.XSDJ_NAME_SC:
                 recycler.addItemDecoration(dividerItemDecoration);
                 adapter.setOnItemClick(new CommonAdapter.OnItemClick() {
@@ -179,7 +179,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                searchLayout.setVisibility(View.VISIBLE);
+                searchBar.setVisibility(View.VISIBLE);
                 recycler.setAdapter(adapter);
                 for (int i=0; i<10; i++){
                     ClueRegisterItemBean clueRegisterItemBean = new ClueRegisterItemBean();
@@ -213,8 +213,8 @@ public class RecyclerActivity extends AppCompatActivity {
 
                 break;
             case "email"://收件箱
-                searchLayout.setVisibility(View.VISIBLE);
-                searchLayout.setSearchListenr(new SearchLayout.SearchListener() {
+                searchBar.setVisibility(View.VISIBLE);
+                searchBar.setSearchListener(new SearchBar.SearchListener() {
                     @Override
                     public void search(String content) {
                         pageNo = 1;
@@ -223,6 +223,7 @@ public class RecyclerActivity extends AppCompatActivity {
                         getEmail();
                     }
                 });
+
                 adapter.setOnItemClick(new CommonAdapter.OnItemClick() {
                     @Override
                     public void onClick(int position) {
@@ -272,7 +273,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 getAdQuery();
                 break;
             case "GWJS":
-                searchBar.setVisibility(View.GONE);
+                searchLayout.setVisibility(View.GONE);
                 doctype = getIntent().getStringExtra("doctype");
                 condition = Hawk.get("gwCondition");
                 dataList = new ArrayList<>();
@@ -406,7 +407,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 getCCJCCX();
                 break;
             case "CCJCDB":
-                searchBar.setVisibility(View.VISIBLE);
+                searchLayout.setVisibility(View.VISIBLE);
                 title4RowItems = new ArrayList<>();
                 title4RowAdapter = new Title4RowAdapter(title4RowItems);
                 recycler.setAdapter(title4RowAdapter);
@@ -724,6 +725,8 @@ public class RecyclerActivity extends AppCompatActivity {
                         && response.body().getObject() != null
                         && response.body().getObject().getEmailList() != null
                         && response.body().getObject().getEmailList().size() != 0) {
+                    totalRecord = response.body().getObject().getTotalRecord();
+                    pageMax = response.body().getObject().getPageCount();
                     List<EmailBean> emails = response.body().getObject().getEmailList();
                     //转换日期格式
                     changeDate(emails);

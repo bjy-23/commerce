@@ -132,9 +132,18 @@ public class RootAppcation extends MultiDexApplication {
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
         widthPixels = dm.widthPixels;
+        //高度值包含了状态栏的高度(华为手机，其他未知)
         heightPixels = dm.heightPixels;
 
-        //百度地图
+        //获取状态栏高度
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0){
+            Log.e("status_bar_height", getResources().getDimensionPixelSize(resourceId) + "");
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+
+        heightPixels -= statusBarHeight;
     }
 
     @Override

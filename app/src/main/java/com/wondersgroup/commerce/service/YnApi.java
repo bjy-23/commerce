@@ -27,12 +27,13 @@ import retrofit.http.Path;
  * Created by kangrenhui on 2016/3/14.
  */
 public interface YnApi {
-    String API_LOGIN = "gsLogin";
-    String API_TODO = "todo/{infoType}/{userId}/{organId}/{deptId}/{pageNo}/{pageSize}";
-    String API_GETCASEINFO = "getCaseInfo/{caseId}/{actId}";
-    String API_SEARCHCASE = "search/{userId}/{infoType}/{basicName}/{accuseName}/{caseId}/{pageNo}/{pageSize}";
-    String API_SAVEDEALINFO = "saveDealInfo";
-    String API_ALLDIC = "getDic/allDic";
+    String PREFIX = "consumer/services/ws/app/";
+    String API_LOGIN = PREFIX + "gsLogin";
+    String API_TODO = PREFIX + "todo/{infoType}/{userId}/{organId}/{deptId}/{pageNo}/{pageSize}";
+    String API_GETCASEINFO = PREFIX + "getCaseInfo/{caseId}/{actId}";
+    String API_SEARCHCASE = PREFIX + "search/{userId}/{infoType}/{basicName}/{accuseName}/{caseId}/{pageNo}/{pageSize}";
+    String API_SAVEDEALINFO = PREFIX + "saveDealInfo";
+    String API_ALLDIC = PREFIX + "getDic/allDic";
 
     @POST(API_LOGIN)
     public Call<YnLoginBean> login(@Body RequestLoginBean body);

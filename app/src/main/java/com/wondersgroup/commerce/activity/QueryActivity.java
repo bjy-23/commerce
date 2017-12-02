@@ -51,10 +51,8 @@ public class QueryActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.img_back)
     ImageView imgBack;
-    private TableRow djbh, dwmc, djjg, slsj;
+    private TableRow djbh, dwmc, djjg, slsj, slsj_start, slsj_end;
     private TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
-
-    private String timeStart = "", timeEnd = "";
     private HashMap<String, String> params = new HashMap<String, String>();
 
 
@@ -91,21 +89,19 @@ public class QueryActivity extends AppCompatActivity {
                     .build();
             layoutAdd.addView(dwmc);
 
+            slsj_start = new TableRow.Builder(QueryActivity.this)
+                    .noTitle()
+                    .time("开始时间")
+                    .build();
+
+            slsj_end = new TableRow.Builder(QueryActivity.this)
+                    .noTitle()
+                    .time("结束时间")
+                    .build();
 
             slsj = new TableRow.Builder(this)
                     .title("受理时间")
-                    .timeHints("开始时间", "结束时间")
-                    .time("", "")
-                    .timeBack(new TableRow.Builder.TimeListener() {
-                        @Override
-                        public void timeBack(String key, String value) {
-                            if ("开始时间".equals(key)) {
-                                timeStart = value;
-                            } else if ("结束时间".equals(key)) {
-                                timeEnd = value;
-                            }
-                        }
-                    })
+                    .addChild(slsj_start, slsj_end)
                     .build();
             layoutAdd.addView(slsj);
 
@@ -128,8 +124,8 @@ public class QueryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 params.put("certNo", djbh.getInput());
                 params.put("adIssEnt", dwmc.getInput());
-                params.put("appDateBegin", timeStart);
-                params.put("appDateEnd", timeEnd);
+                params.put("appDateBegin", slsj_start.getContent());
+                params.put("appDateEnd", slsj_end.getContent());
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("PARAMS", params);
                 Intent intent = new Intent(QueryActivity.this, RecyclerActivity.class);
@@ -145,9 +141,8 @@ public class QueryActivity extends AppCompatActivity {
     public void clear(View v) {
         djbh.setInput("");
         dwmc.setInput("");
-        slsj.clearTime();
-        timeStart = "";
-        timeEnd = "";
+        slsj_start.setContent("");
+        slsj_end.setContent("");
         djjg.setTvContent(loginBean.getResult().getOrganName());
         params.put("organId", loginBean.getResult().getOrganId());
     }

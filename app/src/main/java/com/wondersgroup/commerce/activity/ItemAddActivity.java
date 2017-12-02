@@ -187,8 +187,7 @@ public class ItemAddActivity extends BaseActivity {
         TableRow djsj = new TableRow.Builder(ItemAddActivity.this)
                 .title("登记时间")
                 .required()
-                .timeHints("请选择")
-                .time("")
+                .time("请选择")
                 .build();
         layoutAdd.addView(djsj);
 

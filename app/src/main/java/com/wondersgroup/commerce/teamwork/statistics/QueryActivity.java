@@ -47,7 +47,7 @@ import retrofit.Retrofit;
  * 业务查询市场主体户数统计
  */
 public class QueryActivity extends AppCompatActivity {
-    public final String unit = "%s件";
+    public final String unit = "%s户";
     @BindView(R.id.mid_toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -259,6 +259,75 @@ public class QueryActivity extends AppCompatActivity {
             repealLabelList.get(i).setText(statusList.get(i));
             moveLabelList.get(i).setText(statusList.get(i));
         }
+
+        int liveTotal = 0;
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getQY_LIVE_COUNT()))
+            liveTotal += Integer.valueOf(etpsAndPeInfoResult.getQY_LIVE_COUNT());
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getQY_REPEAL_COUNT()))
+            liveTotal += Integer.valueOf(etpsAndPeInfoResult.getQY_REPEAL_COUNT());
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getQY_MOVE_COUNT()))
+            liveTotal += Integer.valueOf(etpsAndPeInfoResult.getQY_MOVE_COUNT());
+        liveViewList.get(0).setText(format(liveTotal + ""));
+        liveViewList.get(1).setText(format(etpsAndPeInfoResult.getQY_LIVE_COUNT()));
+        liveViewList.get(2).setText(format(etpsAndPeInfoResult.getQY_REPEAL_COUNT()));
+        liveViewList.get(3).setText(format(etpsAndPeInfoResult.getQY_MOVE_COUNT()));
+        int repealTotal = 0;
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getNZ_LIVE_COUNT()))
+            repealTotal += Integer.valueOf(etpsAndPeInfoResult.getNZ_LIVE_COUNT());
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getNZ_REPEAL_COUNT()))
+            repealTotal += Integer.valueOf(etpsAndPeInfoResult.getNZ_REPEAL_COUNT());
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getNZ_MOVE_COUNT()))
+            repealTotal += Integer.valueOf(etpsAndPeInfoResult.getNZ_MOVE_COUNT());
+        repealViewList.get(0).setText(format(repealTotal + ""));
+        repealViewList.get(1).setText(format(etpsAndPeInfoResult.getNZ_LIVE_COUNT()));
+        repealViewList.get(2).setText(format(etpsAndPeInfoResult.getNZ_REPEAL_COUNT()));
+        repealViewList.get(3).setText(format(etpsAndPeInfoResult.getNZ_MOVE_COUNT()));
+        int moveTotal = 0;
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getPE_LIVE_COUNT()))
+            moveTotal += Integer.valueOf(etpsAndPeInfoResult.getPE_LIVE_COUNT());
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getPE_REPEAL_COUNT()))
+            moveTotal += Integer.valueOf(etpsAndPeInfoResult.getPE_REPEAL_COUNT());
+        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getPE_MOVE_COUNT()))
+            moveTotal += Integer.valueOf(etpsAndPeInfoResult.getPE_MOVE_COUNT());
+        moveViewList.get(0).setText(format(moveTotal + ""));
+        moveViewList.get(1).setText(format(etpsAndPeInfoResult.getPE_LIVE_COUNT()));
+        moveViewList.get(2).setText(format(etpsAndPeInfoResult.getPE_REPEAL_COUNT()));
+        moveViewList.get(3).setText(format(etpsAndPeInfoResult.getPE_MOVE_COUNT()));
+
+        chartData.clear();
+        EtpsAndPeInfo.EtpsAndPeInfoItem item = new EtpsAndPeInfo.EtpsAndPeInfoItem();
+        item.setFst(getValue(etpsAndPeInfoResult.getQY_LIVE_COUNT()));
+        item.setSnd(getValue(etpsAndPeInfoResult.getQY_REPEAL_COUNT()));
+        item.setTrd(getValue(etpsAndPeInfoResult.getQY_MOVE_COUNT()));
+        chartData.add(item);
+        item = new EtpsAndPeInfo.EtpsAndPeInfoItem();
+        item.setFst(getValue(etpsAndPeInfoResult.getNZ_LIVE_COUNT()));
+        item.setSnd(getValue(etpsAndPeInfoResult.getNZ_REPEAL_COUNT()));
+        item.setTrd(getValue(etpsAndPeInfoResult.getNZ_MOVE_COUNT()));
+        chartData.add(item);
+        item = new EtpsAndPeInfo.EtpsAndPeInfoItem();
+        item.setFst(getValue(etpsAndPeInfoResult.getPE_LIVE_COUNT()));
+        item.setSnd(getValue(etpsAndPeInfoResult.getPE_REPEAL_COUNT()));
+        item.setTrd(getValue(etpsAndPeInfoResult.getPE_MOVE_COUNT()));
+        chartData.add(item);
+    }
+
+    /**
+     * 按企业状态查看
+     */
+    private void entStatus() {
+        for (int i = 0; i < typeList.size(); i++) {
+            legendList.get(i).setText(typeList.get(i));
+        }
+        for (int i = 0; i < statusList.size(); i++) {
+            typeViewList.get(i).setText(statusList.get(i));
+        }
+        for (int i = 0; i < typeList.size(); i++) {
+            liveLabelList.get(i).setText(typeList.get(i));
+            repealLabelList.get(i).setText(typeList.get(i));
+            moveLabelList.get(i).setText(typeList.get(i));
+        }
+
         int liveTotal = 0;
         if (!TextUtils.isEmpty(etpsAndPeInfoResult.getQY_LIVE_COUNT()))
             liveTotal += Integer.valueOf(etpsAndPeInfoResult.getQY_LIVE_COUNT());
@@ -308,73 +377,6 @@ public class QueryActivity extends AppCompatActivity {
         item = new EtpsAndPeInfo.EtpsAndPeInfoItem();
         item.setFst(getValue(etpsAndPeInfoResult.getQY_MOVE_COUNT()));
         item.setSnd(getValue(etpsAndPeInfoResult.getNZ_MOVE_COUNT()));
-        item.setTrd(getValue(etpsAndPeInfoResult.getPE_MOVE_COUNT()));
-        chartData.add(item);
-    }
-
-    /**
-     * 按企业状态查看
-     */
-    private void entStatus() {
-        for (int i = 0; i < typeList.size(); i++) {
-            legendList.get(i).setText(typeList.get(i));
-        }
-        for (int i = 0; i < statusList.size(); i++) {
-            typeViewList.get(i).setText(statusList.get(i));
-        }
-        for (int i = 0; i < typeList.size(); i++) {
-            liveLabelList.get(i).setText(typeList.get(i));
-            repealLabelList.get(i).setText(typeList.get(i));
-            moveLabelList.get(i).setText(typeList.get(i));
-        }
-        int liveTotal = 0;
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getQY_LIVE_COUNT()))
-            liveTotal += Integer.valueOf(etpsAndPeInfoResult.getQY_LIVE_COUNT());
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getQY_REPEAL_COUNT()))
-            liveTotal += Integer.valueOf(etpsAndPeInfoResult.getQY_REPEAL_COUNT());
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getQY_MOVE_COUNT()))
-            liveTotal += Integer.valueOf(etpsAndPeInfoResult.getQY_MOVE_COUNT());
-        liveViewList.get(0).setText(format(liveTotal + ""));
-        liveViewList.get(1).setText(format(etpsAndPeInfoResult.getQY_LIVE_COUNT()));
-        liveViewList.get(2).setText(format(etpsAndPeInfoResult.getQY_REPEAL_COUNT()));
-        liveViewList.get(3).setText(format(etpsAndPeInfoResult.getQY_MOVE_COUNT()));
-        int repealTotal = 0;
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getNZ_LIVE_COUNT()))
-            repealTotal += Integer.valueOf(etpsAndPeInfoResult.getNZ_LIVE_COUNT());
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getNZ_REPEAL_COUNT()))
-            repealTotal += Integer.valueOf(etpsAndPeInfoResult.getNZ_REPEAL_COUNT());
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getNZ_MOVE_COUNT()))
-            repealTotal += Integer.valueOf(etpsAndPeInfoResult.getNZ_MOVE_COUNT());
-        repealViewList.get(0).setText(format(repealTotal + ""));
-        repealViewList.get(1).setText(format(etpsAndPeInfoResult.getNZ_LIVE_COUNT()));
-        repealViewList.get(2).setText(format(etpsAndPeInfoResult.getNZ_REPEAL_COUNT()));
-        repealViewList.get(3).setText(format(etpsAndPeInfoResult.getNZ_MOVE_COUNT()));
-        int moveTotal = 0;
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getPE_LIVE_COUNT()))
-            moveTotal += Integer.valueOf(etpsAndPeInfoResult.getPE_LIVE_COUNT());
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getPE_REPEAL_COUNT()))
-            moveTotal += Integer.valueOf(etpsAndPeInfoResult.getPE_REPEAL_COUNT());
-        if (!TextUtils.isEmpty(etpsAndPeInfoResult.getPE_MOVE_COUNT()))
-            moveTotal += Integer.valueOf(etpsAndPeInfoResult.getPE_MOVE_COUNT());
-        moveViewList.get(0).setText(format(moveTotal + ""));
-        moveViewList.get(1).setText(format(etpsAndPeInfoResult.getPE_LIVE_COUNT()));
-        moveViewList.get(2).setText(format(etpsAndPeInfoResult.getPE_REPEAL_COUNT()));
-        moveViewList.get(3).setText(format(etpsAndPeInfoResult.getPE_MOVE_COUNT()));
-
-        chartData.clear();
-        EtpsAndPeInfo.EtpsAndPeInfoItem item = new EtpsAndPeInfo.EtpsAndPeInfoItem();
-        item.setFst(getValue(etpsAndPeInfoResult.getQY_LIVE_COUNT()));
-        item.setSnd(getValue(etpsAndPeInfoResult.getQY_REPEAL_COUNT()));
-        item.setTrd(getValue(etpsAndPeInfoResult.getQY_MOVE_COUNT()));
-        chartData.add(item);
-        item = new EtpsAndPeInfo.EtpsAndPeInfoItem();
-        item.setFst(getValue(etpsAndPeInfoResult.getNZ_LIVE_COUNT()));
-        item.setSnd(getValue(etpsAndPeInfoResult.getNZ_REPEAL_COUNT()));
-        item.setTrd(getValue(etpsAndPeInfoResult.getNZ_MOVE_COUNT()));
-        chartData.add(item);
-        item = new EtpsAndPeInfo.EtpsAndPeInfoItem();
-        item.setFst(getValue(etpsAndPeInfoResult.getPE_LIVE_COUNT()));
-        item.setSnd(getValue(etpsAndPeInfoResult.getPE_REPEAL_COUNT()));
         item.setTrd(getValue(etpsAndPeInfoResult.getPE_MOVE_COUNT()));
         chartData.add(item);
     }

@@ -245,7 +245,7 @@ public class LoginActivity extends RootActivity {
                             if (needAuth)
                                 getMenu(body);
                             else {
-                                makeMenu(null, false);
+                                makeMenu(null);
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
                             }
@@ -267,7 +267,7 @@ public class LoginActivity extends RootActivity {
                 }
             });
         } else {
-            makeMenu(null, false);
+            makeMenu(null);
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
@@ -285,11 +285,9 @@ public class LoginActivity extends RootActivity {
                 loadingDialog.dismiss();
                 if (response.body() != null) {
                     List<MenuBean> menus = response.body().getObject().getMenus();
-                    if (menus != null)
-                        makeMenu(menus, true);
+                    makeMenu(menus);
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
-
                 }
             }
 
@@ -302,7 +300,7 @@ public class LoginActivity extends RootActivity {
     }
 
     //配置首页、业务办理、信息查询、统计分析中的菜单、四川的菜单
-    public void makeMenu(List<MenuBean> menus, boolean checkable) {
+    public void makeMenu(List<MenuBean> menus) {
         Gson gson = new Gson();
         //读取本地配置的menu
         if (Constants.AREA_YN.equals(RootAppcation.getInstance().getVersion())) {
@@ -320,8 +318,9 @@ public class LoginActivity extends RootActivity {
                 //首页菜单
                 ArrayList<MenuBean> firstMenus = gson.fromJson(jsonObject.getString("firstMenus"), new TypeToken<ArrayList<MenuBean>>() {
                 }.getType());
+
                 //根据权限按需加载
-                if (checkable)
+                if (menus != null)
                     remakeMenus(firstMenus, menus);
                 //设置颜色
                 for (MenuBean menuBean : firstMenus) {
@@ -337,7 +336,7 @@ public class LoginActivity extends RootActivity {
                 deleteBurden(ywblMenus);
 
                 //根据权限按需加载
-                if (checkable)
+                if (menus != null)
                     for (MenuInfo menuInfo : ywblMenus) {
                         remakeMenus(menuInfo.getMenus(), menus);
                     }
@@ -359,21 +358,15 @@ public class LoginActivity extends RootActivity {
                 //查询统计
                 ArrayList<MenuInfo> tongjiMenus = gson.fromJson(jsonObject.getString("tongjiMenus"), new TypeToken<ArrayList<MenuInfo>>() {
                 }.getType());
-                //公示信息、统计分析两个模块对所有用户放开
-                ArrayList<MenuBean> menusTemp = new ArrayList<>();
-                //公示信息
-                MenuBean bean1 = new MenuBean(Constants.GSXX_ID, 0);
-                menusTemp.add(bean1);
-                //统计分析
-                MenuBean bean2 = new MenuBean(Constants.CXTJ_ID, 0);
-                menusTemp.add(bean2);
-                //根据权限按需加载
-                if (checkable) {
-                    menusTemp.addAll(menus);
+
+                //删除不需要展示的项
+                deleteBurden(tongjiMenus);
+
+                if (menus != null)
                     for (MenuInfo menuInfo : tongjiMenus) {
-                        remakeMenus(menuInfo.getMenus(), menusTemp);
+                        remakeMenus(menuInfo.getMenus(), menus);
                     }
-                }
+
                 //删除子项menus为空的对象
                 for (int i = 0; i < tongjiMenus.size(); i++) {
                     if (tongjiMenus.get(i).getMenus().size() == 0) {
@@ -384,7 +377,8 @@ public class LoginActivity extends RootActivity {
                 //配置图标
                 for (MenuInfo menuInfo : tongjiMenus) {
                     for (MenuBean menuBean : menuInfo.getMenus()) {
-                        menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId() + menuBean.getMenuName()));
+                        if (Constants.menuIconMapYN().get(menuBean.getMenuId() + menuBean.getMenuName()) != null)
+                            menuBean.setResId(Constants.menuIconMapYN().get(menuBean.getMenuId() + menuBean.getMenuName()));
                     }
                 }
                 Hawk.put(Constants.MESSAGE_MENUINFO, tongjiMenus);
@@ -401,7 +395,7 @@ public class LoginActivity extends RootActivity {
             deleteBurden(menuList);
 
             //根据权限动态配置
-            if (checkable)
+            if (menus != null)
                 for (MenuInfo menuInfo : menuList) {
                     remakeMenus(menuInfo.getMenus(), menus);
                 }
@@ -430,36 +424,21 @@ public class LoginActivity extends RootActivity {
     public void remakeMenus(List<MenuBean> menuBeans, List<MenuBean> menus) {
         for (int i = 0; i < menuBeans.size(); i++) {
             MenuBean menuBean = menuBeans.get(i);
-            if (menuBean.getType() == 0) {
-                String menuId = menuBean.getMenuId();
-                boolean isHave = false;
+            String[] menuIds = menuBean.getMenuId().split(",");
+            boolean isHave = false;
+            loop1:
+            for (String menuId : menuIds) {
+                loop2:
                 for (MenuBean bean : menus) {
                     if (menuId.equals(bean.getMenuId())) {
                         isHave = true;
-                        break;
+                        break loop1;
                     }
                 }
-                if (!isHave && !Constants.COMMON_ID.equals(menuBean.getMenuId())) {
-                    menuBeans.remove(i);
-                    i--;
-                }
-            } else {
-                String[] menuIds = menuBean.getMenuId().split(",");
-                boolean isHave = false;
-                loop1:
-                for (String menuId : menuIds) {
-                    loop2:
-                    for (MenuBean bean : menus) {
-                        if (menuId.equals(bean.getMenuId())) {
-                            isHave = true;
-                            break loop1;
-                        }
-                    }
-                }
-                if (!isHave) {
-                    menuBeans.remove(i);
-                    i--;
-                }
+            }
+            if (!isHave && !Constants.COMMON_ID.equals(menuBean.getMenuId())) {
+                menuBeans.remove(i);
+                i--;
             }
         }
     }

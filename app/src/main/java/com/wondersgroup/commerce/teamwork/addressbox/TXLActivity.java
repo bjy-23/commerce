@@ -3,23 +3,16 @@ package com.wondersgroup.commerce.teamwork.addressbox;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.activity.*;
@@ -27,15 +20,19 @@ import com.wondersgroup.commerce.constant.Constants;
 import com.wondersgroup.commerce.model.Address;
 import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
-import com.wondersgroup.commerce.utils.DataShared;
 import com.wondersgroup.commerce.widget.LoadingDialog;
+import com.wondersgroup.commerce.widget.SearchBar;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -44,30 +41,29 @@ import retrofit.Retrofit;
 
 public class TXLActivity extends RootActivity implements View.OnClickListener {
     private Context context;
-
     // 控件
     private IndexView.OnIndexSelectListener listener;
     private IndexView indexView;
     private LinearLayout backBtn;
-
     private TextView tvTitle;
     private ListView lv;
-
-    private LinearLayout deptLayout, layoutFind;
+    private LinearLayout deptLayout;
     private TextView deptSelect;
-
     private List<Address.AddlistPersonalInfo> lvData;
+    private List<Address.AddlistPersonalInfo> lvData2;
+
+    @BindView(R.id.search_bar)
+    SearchBar searchBar;
 
     private Comparator pinyinComparator = new PinyinComparator();
     private SortAdapter adapter = new SortAdapter();
     private TotalLoginBean loginBean;
-    private static final int[] MAN = {R.drawable.man1, R.drawable.man2, R.drawable.man3};
-    private static final int[] GIRL = {R.drawable.girl1, R.drawable.girl2, R.drawable.girl3};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_txl);
+        ButterKnife.bind(this);
         loginBean = Hawk.get(Constants.LOGIN_BEAN);
         context = this;
 
@@ -91,11 +87,25 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
         deptSelect = (TextView) findViewById(R.id.tv_dept_select);
         deptSelect.setText(loginBean.getResult().getOrganName());
 
-        layoutFind = (LinearLayout) findViewById(R.id.layout_find);
-        layoutFind.setOnClickListener(this);
-
         deptLayout = (LinearLayout) findViewById(R.id.layout_dept);
         deptLayout.setOnClickListener(this);
+
+        searchBar.setSearchListener(new SearchBar.SearchListener() {
+            @Override
+            public void search(String content) {
+                lvData.clear();
+                if (TextUtils.isEmpty(content)){
+                    lvData.addAll(lvData2);
+                }else {
+                    for (Address.AddlistPersonalInfo datum: lvData2){
+                        if (datum.getName().contains(content)){
+                            lvData.add(datum);
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         backBtn = (LinearLayout) findViewById(R.id.ll_back);
         backBtn.setOnClickListener(this);
@@ -130,11 +140,6 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             default:
-                break;
-            case R.id.layout_find:
-                Intent intent = new Intent(this, SearchActivity.class);
-                intent.putExtra("data", (Serializable) lvData);
-                startActivity(intent);
                 break;
             case R.id.ll_back:
                 finish();
@@ -227,7 +232,6 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
                 if (response.isSuccess()) {
                     Address address = response.body();
 
-
                     if (address == null) {
                         Toast.makeText(TXLActivity.this, "没有返回数据", Toast.LENGTH_SHORT).show();
                         return;
@@ -241,9 +245,21 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
                         return;
                     }
 
-                    lvData = address.getResult().getAddlistPersonalInfo();
-
+                    lvData2 = address.getResult().getAddlistPersonalInfo();
                     setPinyinLetter();
+                    lvData = new ArrayList<>();
+                    for (Address.AddlistPersonalInfo personalInfo: lvData2){
+                        Address.AddlistPersonalInfo temp = null;
+                        try {
+                            temp = (Address.AddlistPersonalInfo) personalInfo.clone();
+                            lvData.add(temp);
+                        } catch (CloneNotSupportedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    for (Address.AddlistPersonalInfo personalInfo: lvData){
+                        personalInfo.setShow(true);
+                    }
 
                     Collections.sort(lvData, pinyinComparator);
 
@@ -265,16 +281,16 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
 
     private void setPinyinLetter() {
         CharacterParser characterParser = new CharacterParser();
-        for (int i = 0; i < lvData.size(); i++) {
+        for (int i = 0; i < lvData2.size(); i++) {
 
-            String pinyin = characterParser.getSelling(lvData.get(i).getName());
+            String pinyin = characterParser.getSelling(lvData2.get(i).getName());
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
             // 正则表达式，判断首字母是否是英文字母
             if (sortString.matches("[A-Z]")) {
-                lvData.get(i).setSortLetters(sortString.toUpperCase());
+                lvData2.get(i).setSortLetters(sortString.toUpperCase());
             } else {
-                lvData.get(i).setSortLetters("#");
+                lvData2.get(i).setSortLetters("#");
             }
         }
     }
@@ -302,12 +318,10 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             AddressHolder holder;
-
+            boolean isShow = lvData.get(position).isShow();
             if (convertView == null) {
-                convertView = View.inflate(TXLActivity.this, R.layout.item_address_list, null);
-
+                convertView = View.inflate(TXLActivity.this, R.layout.item_address_list, null );
                 holder = new AddressHolder();
-
                 holder.setDeptTv((TextView) convertView.findViewById(R.id.tv_dept));
                 holder.setNameTv((TextView) convertView.findViewById(R.id.tv_name));
                 holder.setPhoneTv((TextView) convertView.findViewById(R.id.tv_phone));
@@ -318,6 +332,10 @@ public class TXLActivity extends RootActivity implements View.OnClickListener {
                 holder = (AddressHolder) convertView.getTag();
             }
 
+            convertView.setVisibility(View.VISIBLE);
+//            if (!isShow){
+//                convertView.setVisibility(View.GONE);
+//            }
 
             holder.nameTv.setText(lvData.get(position).getName());
             holder.deptTv.setText(lvData.get(position).getDept());

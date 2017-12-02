@@ -248,9 +248,10 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
                 this.mapImg.setOnClickListener(this);
                 break;
             case TIME:
-                this.setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
-                this.addTitle();
-                this.addTimes();
+                setBackgroundColor(ContextCompat.getColor(mBuilder.mContext, R.color.white));
+                addTitle();
+                addContent();
+                setTime();
                 break;
             default:
         }
@@ -308,8 +309,9 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         content.setPadding(0, 0, 0, 0);
         content.setTextSize(mBuilder.textSize);
         content.setTextColor(mBuilder.textColor);
+        content.setText(mBuilder.contentString);
         content.setHintTextColor(mBuilder.hintColor);
-        this.content.setText(mBuilder.contentString);
+        content.setHint(mBuilder.hint);
         contentLayout.addView(content);
     }
 
@@ -494,62 +496,20 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         contentLayout.addView(root);
     }
 
-    private void addTimes() {
-        LinearLayout root = new LinearLayout(mBuilder.mContext);
-        root.setOrientation(LinearLayout.VERTICAL);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins((int) mBuilder.titleW, 0, 0, 0);
-        root.setLayoutParams(lp);
-
-        int size = mBuilder.times.size();
-        LinearLayout.LayoutParams lp1 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        //分割线的参数
-        LinearLayout.LayoutParams lp2 = new LayoutParams(LayoutParams.MATCH_PARENT, 1);
-        lp2.setMargins(0, 0, DWZH.dp(10), 0);
-        for (int i = 0; i < size; i++) {
-            final TextView textView = new TextView(mBuilder.mContext);
-            textView.setLayoutParams(lp1);
-            textView.setTextSize(14);
-            textView.setTag(mBuilder.timeHints.get(i));
-            textView.setHint(mBuilder.timeHints.get(i));
-            textView.setHintTextColor(mBuilder.hintColor);
-            textView.setText(mBuilder.times.get(i));
-            textView.setTextColor(mBuilder.textColor);
-            textView.setPadding(0, (int) mBuilder.marginV, 0, (int) mBuilder.marginV);
-            textView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DateUtil.createDatePicker((Activity) mBuilder.mContext, new DateUtil.DateListener() {
-                        @Override
-                        public void back(Date date) {
-                            String time = DateUtil.getYMD(date);
-                            textView.setText(time);
-                            mBuilder.timeListener.timeBack(String.valueOf(textView.getTag()), time);
-                        }
-                    });
-                }
-            });
-            root.addView(textView);
-
-            //添加分割线
-            if (i < size - 1) {
-                View line = new View(mBuilder.mContext);
-                line.setLayoutParams(lp2);
-                line.setBackgroundResource(R.color.linecolor);
-                root.addView(line);
+    public void setTime() {
+        content.setFocusable(false);
+        content.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateUtil.createDatePicker((Activity) mBuilder.mContext, new DateUtil.DateListener() {
+                    @Override
+                    public void back(Date date) {
+                        String time = DateUtil.getTime("yyyy-MM-dd", date);
+                        content.setText(time);
+                    }
+                });
             }
-        }
-
-        contentLayout.addView(root);
-    }
-
-    public void clearTime() {
-        int size = mBuilder.timeHints.size();
-        for (int i = 0; i < size; i++) {
-            TextView tv = (TextView) contentLayout.findViewWithTag(mBuilder.timeHints.get(i));
-            if (tv != null)
-                tv.setText("");
-        }
+        });
     }
 
     @TargetApi(17)
@@ -813,6 +773,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         private int titleColor;
         private int textColor;
         private int hintColor;
+        private String hint;
         private boolean isRequired;
         private boolean showBtmLine;
         private boolean hasIndex;
@@ -830,8 +791,7 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
         private String multiHintTwo;
         private List<TableRow> childRows;
         private String seperator;
-        private List<String> times, timeHints;
-        private TimeListener timeListener;
+        private String time;
 
         public Builder(Context mContext) {
             this.mContext = mContext;
@@ -862,6 +822,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         public Builder title(@StringRes int titleRes) {
             title(this.mContext.getString(titleRes));
+            return this;
+        }
+
+        public Builder content() {
+            this.contentString = "";
             return this;
         }
 
@@ -899,31 +864,24 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
-        public Builder time(String... times) {
-            this.mType = Type.TIME;
-            this.times = Arrays.asList(times);
+        public Builder time() {
+            time("");
             return this;
         }
-
-        public Builder timeHints(String... hints) {
+        public Builder time(String time) {
             this.mType = Type.TIME;
-            this.timeHints = Arrays.asList(hints);
-            return this;
-        }
-
-        public Builder timeBack(TimeListener timeListener) {
-            this.timeListener = timeListener;
-            if (timeHints != null) {
-                for (int i = 0; i < timeHints.size(); i++) {
-                    timeListener.timeBack(timeHints.get(i), times.get(i));
-                }
-            }
+            this.hint = time;
             return this;
         }
 
         public Builder select(String hint) {
             this.mType = Type.SELECT;
             this.selectHint = hint;
+            return this;
+        }
+
+        public Builder select() {
+            select("");
             return this;
         }
 
@@ -939,6 +897,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         public Builder onSelect(SelectCallBack onSelect) {
             this.onSelect = onSelect;
+            return this;
+        }
+
+        public Builder input() {
+            input("");
             return this;
         }
 
@@ -1050,6 +1013,11 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
             return this;
         }
 
+        public Builder noTitle() {
+            titleW(0);
+            return this;
+        }
+
         public Builder titleW(int titleW) {
             this.titleW = DWZH.dp2pt(this.mContext, titleW);
             return this;
@@ -1081,14 +1049,6 @@ public class TableRow extends LinearLayout implements View.OnClickListener {
 
         private Context getContext() {
             return mContext;
-        }
-
-        public interface TimeListener {
-            void timeBack(String key, String value);
-        }
-
-        public void setTimeListener(TimeListener timeListener) {
-            this.timeListener = timeListener;
         }
     }
 

@@ -27,6 +27,7 @@ import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
+import com.wondersgroup.commerce.BuildConfig;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
 import com.wondersgroup.commerce.constant.Constants;
@@ -118,7 +119,11 @@ public class SplashActivity extends AppCompatActivity {
                 viewBg.setImageResource(R.drawable.boot_yunnan);
                 break;
         }
-        ynUpdate();
+
+        if (BuildConfig.DEBUG)
+            handler.postDelayed(new splashhandler(), 500);
+        else
+            ynUpdate();
     }
 
     public void ynUpdate() {

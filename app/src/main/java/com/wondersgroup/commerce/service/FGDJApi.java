@@ -32,16 +32,17 @@ import static com.wondersgroup.commerce.service.FGDJApi.SAVE_FGDJ_ENT;
  */
 
 public interface FGDJApi {
-    String QUERY_FGDJ_ENT_LIST = "query_fgdj_ent_list.do";
-    String GET_FGDJ_ENT_DETAIL = "get_fgdj_ent_detail.do";
-    String GET_DICS = "get_dics.do";
-    String SAVE_FGDJ_ENT = "save_fgdj_ent.do";//提交和暂存
-    String QUERY_FGDJ_INFO_LIST = "query_fgdj_info_list.do";
-    String CLAIM_ENT = "claim_ent.do";
-    String CANCEL_CLAIM_ENT = "cancel_claim_ent.do";
-    String QUERY_AREA = "query_area_code.do";
-    String QUERY_PARTY_AREA = "query_party_area_code.do";
-    String GET_FGDJ_ANNUAL_TEMP = "get_fgdj_annual_temp.do";//获取暂存数据
+    String PREFIX = "fgdj/app/";
+    String QUERY_FGDJ_ENT_LIST = PREFIX + "query_fgdj_ent_list.do";
+    String GET_FGDJ_ENT_DETAIL = PREFIX + "get_fgdj_ent_detail.do";
+    String GET_DICS = PREFIX + "get_dics.do";
+    String SAVE_FGDJ_ENT = PREFIX + "save_fgdj_ent.do";//提交和暂存
+    String QUERY_FGDJ_INFO_LIST = PREFIX + "query_fgdj_info_list.do";
+    String CLAIM_ENT = PREFIX + "claim_ent.do";
+    String CANCEL_CLAIM_ENT = PREFIX + "cancel_claim_ent.do";
+    String QUERY_AREA = PREFIX + "query_area_code.do";
+    String QUERY_PARTY_AREA = PREFIX + "query_party_area_code.do";
+    String GET_FGDJ_ANNUAL_TEMP = PREFIX + "get_fgdj_annual_temp.do";//获取暂存数据
 
     @POST(QUERY_FGDJ_ENT_LIST)
     @FormUrlEncoded

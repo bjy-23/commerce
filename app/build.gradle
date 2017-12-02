@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     sourceSets {
         main {
@@ -29,7 +28,7 @@ android {
     }
 
     signingConfigs {
-        relase {
+        release {
             storeFile file('E:/万达工作项目/wonders.jks')
             storePassword "123456789"
             keyAlias "commerce"
@@ -37,24 +36,57 @@ android {
         }
     }
 
-    flavorDimensions "area"
+    flavorDimensions "AREA", "ENVIRONMENT", "LOGIN_MODE"
     productFlavors {
-        YN {
-            dimension "area"
+        YN_ {
+            dimension "AREA"
             resValue "string", "app_name", "云南工商业务系统(移动版)"
             versionName "1.1.0"
+            buildConfigField("String", "AREA", '"云南"')
         }
-        SC {
-            dimension "area"
+
+        SC_ {
+            dimension "AREA"
             resValue "string", "app_name", "移动工商"
-            versionName "1.2.0"
+            versionName "1.0.0"
+            buildConfigField("String", "AREA", '"四川"')
             applicationIdSuffix ".sc"
+        }
+
+        PRODUCT_FORMAL_ {
+            dimension "ENVIRONMENT"
+            buildConfigField("String", "ENVIRONMENT", '"PRODUCT_FORMAL"')
+        }
+
+        PRODUCT_TEST_ {
+            dimension "ENVIRONMENT"
+            buildConfigField("String", "ENVIRONMENT", '"PRODUCT_TEST"')
+        }
+
+        COMPANY_ {
+            dimension "ENVIRONMENT"
+            buildConfigField("String", "ENVIRONMENT", '"COMPANY"')
+        }
+
+        AUTH_YES_ {
+            dimension "LOGIN_MODE"
+            buildConfigField("String", "LOGIN_MODE", '"登录&有权限"')
+        }
+
+        AUTH_NO_ {
+            dimension "LOGIN_MODE"
+            buildConfigField("String", "LOGIN_MODE", '"登录&无权限"')
+        }
+
+        LOGIN_NO_ {
+            dimension "LOGIN_MODE"
+            buildConfigField("String", "LOGIN_MODE", '"免登录"')
         }
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.relase
+            signingConfig signingConfigs.release
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             android.applicationVariants.all { variant ->
@@ -64,7 +96,14 @@ android {
             }
         }
         debug {
-            signingConfig signingConfigs.relase
+            signingConfig signingConfigs.release
+        }
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (names.contains("YN_") && names.contains("COMPANY_")) {
+            setIgnore(true)
         }
     }
 

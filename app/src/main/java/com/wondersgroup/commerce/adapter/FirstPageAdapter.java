@@ -198,11 +198,6 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
                 intent = new Intent(context, TZTGActivity.class);
                 context.startActivity(intent);
                 break;
-            //公示信息
-            case Constants.GSXX_ID:
-                intent = new Intent(context, GSActivity.class);
-                context.startActivity(intent);
-                break;
             case Constants.GWPY_ID:
             case Constants.GWPY_ID_SC:
                 intent = new Intent(context, ViewPagerActivity.class);
@@ -234,9 +229,9 @@ public class FirstPageAdapter extends RecyclerView.Adapter implements View.OnCli
 
             view = itemView;
             view.setOnClickListener(FirstPageAdapter.this);
-            imgBg = (ImageView) itemView.findViewById(R.id.img_bg);
-            tvNumber = (TextView) itemView.findViewById(R.id.tv_number);
-            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            imgBg = itemView.findViewById(R.id.img_bg);
+            tvNumber = itemView.findViewById(R.id.tv_number);
+            tvName = itemView.findViewById(R.id.tv_name);
         }
     }
 

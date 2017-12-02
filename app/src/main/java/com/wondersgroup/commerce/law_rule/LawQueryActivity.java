@@ -160,7 +160,7 @@ public class LawQueryActivity extends AppCompatActivity {
 
     private void getData() {
         hashMap.put("wsCodeReq", "03010303");
-        Call<Result<LinkedHashMap>> call = ApiManager.lawApi.lawTypeQuery(hashMap);
+        Call<Result<LinkedHashMap>> call = ApiManager.caseApi.lawTypeQuery(hashMap);
         call.enqueue(new Callback<Result<LinkedHashMap>>() {
             @Override
             public void onResponse(Response<Result<LinkedHashMap>> response, Retrofit retrofit) {
@@ -191,7 +191,7 @@ public class LawQueryActivity extends AppCompatActivity {
     }
 
     private void getDataLaw() {
-        Call<Result<List<LawTypeBean>>> call1 = ApiManager.lawApi.lawQuery(hashMap);
+        Call<Result<List<LawTypeBean>>> call1 = ApiManager.caseApi.lawQuery(hashMap);
         call1.enqueue(new Callback<Result<List<LawTypeBean>>>() {
             @Override
             public void onResponse(Response<Result<List<LawTypeBean>>> response, Retrofit retrofit) {
@@ -217,7 +217,7 @@ public class LawQueryActivity extends AppCompatActivity {
     }
 
     private void getDataT() {
-        Call<Result<List<LawDetailsBean>>> call = ApiManager.lawApi.detailsQuery(hashMap);
+        Call<Result<List<LawDetailsBean>>> call = ApiManager.caseApi.detailsQuery(hashMap);
         call.enqueue(new Callback<Result<List<LawDetailsBean>>>() {
             @Override
             public void onResponse(Response<Result<List<LawDetailsBean>>> response, Retrofit retrofit) {
@@ -246,7 +246,7 @@ public class LawQueryActivity extends AppCompatActivity {
 
     private void getLawByName() {
         hashMap.put("wsCodeReq", "03010304");
-        Call<Result<List<LawTypeBean>>> call = ApiManager.lawApi.lawNameQuery(hashMap);
+        Call<Result<List<LawTypeBean>>> call = ApiManager.caseApi.lawNameQuery(hashMap);
         call.enqueue(new Callback<Result<List<LawTypeBean>>>() {
             @Override
             public void onResponse(Response<Result<List<LawTypeBean>>> response, Retrofit retrofit) {

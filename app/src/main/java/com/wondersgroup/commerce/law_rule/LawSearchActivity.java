@@ -71,8 +71,8 @@ public class LawSearchActivity extends AppCompatActivity implements View.OnClick
         if (!firstShow){
             firstShow = true;
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (!imm.hideSoftInputFromWindow(etSearch.getWindowToken(),0))
-                imm.showSoftInput(etSearch,0);
+//            if (!imm.hideSoftInputFromWindow(etSearch.getWindowToken(),0))
+                imm.showSoftInput(etSearch, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 

@@ -23,6 +23,7 @@ import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.teamwork.addressbox.TXLActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseEnquireActivity;
 import com.wondersgroup.commerce.teamwork.casedeal.CaseInvestigateActivity;
+import com.wondersgroup.commerce.teamwork.clue.activity.ClueQueryActivity;
 import com.wondersgroup.commerce.teamwork.dailycheck.DailyCheckActivity;
 import com.wondersgroup.commerce.teamwork.myspecialcheck.SpecialCheckActivity;
 import com.wondersgroup.commerce.teamwork.simpleprocedurecase.ProcedureCaseListActivity;
@@ -118,7 +119,7 @@ public class FirstPageScItemViewModel extends ViewModel implements View.OnClickL
                         context.startActivity(intent);
                         break;
                     case Constants.XSCX_NAME_SC:
-                        intent = new Intent(context, GSActivity.class);
+                        intent = new Intent(context, ClueQueryActivity.class);
                         context.startActivity(intent);
                         break;
                 }

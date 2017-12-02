@@ -68,16 +68,20 @@ app.controller('entInfoQueryCtrl', ['$scope', '$state', '$stateParams', function
         var keyCode = window.event ? event.keyCode : event.which;
         // 如果是回车键
         if (keyCode == 13) {
-            // 跳转到结果列表页进行搜索
-            if (!$scope.searchKey || $scope.searchKey == '') {
-                $scope.showAlert("请输入关键字进行查询！");
-            } else {
-                // 准备要搜索了，将当前的搜索关键字存入搜索列表
-                $state.go('entInfoResultList', {
-                    inputedSearchKey: $scope.searchKey,
-                    searchType: $scope.presentSearchType
-                });
-            }
+            $scope.startSearching();
+        }
+    };
+
+    $scope.startSearching = function () {
+        // 跳转到结果列表页进行搜索
+        if (!$scope.searchKey || $scope.searchKey == '') {
+            $scope.showAlert("请输入关键字进行查询！");
+        } else {
+            // 准备要搜索了，将当前的搜索关键字存入搜索列表
+            $state.go('entInfoResultList', {
+                inputedSearchKey: $scope.searchKey,
+                searchType: $scope.presentSearchType
+            });
         }
     };
 }]);

@@ -29,8 +29,7 @@ public class Address {
     }
 
 
-    public class AddlistPersonalInfo implements Serializable{
-
+    public class AddlistPersonalInfo implements Serializable, Cloneable{
         private String addlistId;
         private String cellphone;
         private String dept;
@@ -38,6 +37,20 @@ public class Address {
         private String tel;
         private String unit;
         private String sortLetters;
+        private boolean isShow;
+
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
+
+        public boolean isShow() {
+            return isShow;
+        }
+
+        public void setShow(boolean show) {
+            isShow = show;
+        }
 
         /**
          *

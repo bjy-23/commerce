@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:background="@color/white">
+    <ImageView
+        android:id="@+id/info_bar_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="12dp"/>
+    <EditText
+        android:id="@+id/info_bar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/info_bar_icon"
+        android:hint="输入..."
+        android:textColorHint="@color/white_gray"
+        android:textColor="@color/deep_gray"
+        android:textSize="14sp"
+        android:background="@android:color/transparent"
+        android:singleLine="true"/>
+    <View android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray"/>
+
+</RelativeLayout>

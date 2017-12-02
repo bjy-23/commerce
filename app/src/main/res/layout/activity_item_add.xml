@@ -23,9 +23,8 @@
     <include layout="@layout/btn_group"
         android:id="@+id/btn_group"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
         android:visibility="gone"
         />
 

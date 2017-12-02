@@ -34,6 +34,11 @@ public class ApiManager {
     注意修改公示信息js配置;
     注意版本更新;
     应用名称；*/
+    public static final String ENVIRONMENT_PRODUCT_FORMAL = "PRODUCT_FORMAL";//现场正式
+    public static final String ENVIRONMENT_PRODUCT_TEST = "PRODUCT_TEST";//现场测试
+    public static final String ENVIRONMENT_COMPANY = "COMPANY";//公司环境
+    public static final String ENVIRONMENT = BuildConfig.ENVIRONMENT;
+
     private static final String BASE_URL_1 = "http://172.28.129.17/";//云南内网测试
     private static final String BASE_URL_2 = "http://172.28.129.42/";//云南内网正式
     private static final String BASE_URL_3 ="http://182.131.3.114/";//四川正式
@@ -41,13 +46,24 @@ public class ApiManager {
     private static final String SHY_URL_1 = "http://172.28.129.29:8041/shy/services/mobile/";//云南市场监督管理局行政执法系统 测试
     private static final String SHY_URL_2 = "http://172.28.129.18:8031/shy/services/mobile/";//云南市场监督管理局行政执法系统 正式
 
-    //版本更新
-    public static final String VERSION_URL_1 = "http://172.28.129.17/zfMobileService/";//测试
-    public static final String VERSION_URL_2 = "http://172.28.129.42/zfMobileService/";//正式
     //Sc
-    public static final String VERSION_URL_3 = "http://10.1.192.40:8001/zfMobileService/";//公司
+    public static final String  VERSION_URL_3 = "http://10.1.192.40:8001/zfMobileService/";//公司
     public static final String VERSION_URL_4 = "http://182.131.3.110:8001/";//现场测试
     public static final String VERSION_URL_5 = "http://182.131.3.112:8001/";//现场正式
+
+    private static final String API_CASE_1 = "http://182.131.3.99:8006/";
+    private static final String API_CASE_2 = "http://10.1.192.40:8006/";
+    private static final String API_OA_1 = "http://182.131.3.99:8013/";
+    private static final String API_OA_2 = "http://10.1.192.40:8013/";
+    private static final String API_HB_ROOT_1 = "http://182.131.3.99:8001/";
+    private static final String API_HB_ROOT_2 = "http://10.1.192.40:8001/";
+    private static final String API_TJ_1 = "http://182.131.3.99:8028/mds/";
+    private static final String API_TJ_2 = "http://10.1.192.40:8028/mds/";
+    public static final String API_AD_1 = "http://10.1.192.40:8008/ad/";//广告
+    public static final String API_COMSUMER_1 = "http://10.1.192.40:8010/consumerw/";
+    public static final String API_COMSUMER_2 = "http://10.2.103.208:8080/consumerw/";
+    public static final String TRADEMARK_API_TEST = "http://10.1.192.40:8008/tm/";
+
     private String VERSION_URL ;
     private String API_CASE;//案件
     private String API_OA;
@@ -58,24 +74,8 @@ public class ApiManager {
     private String API_SHY;
     public static String API_RE_ROOT;
     public String API_FGDJ_ROOT;
-    public String API_LAW_ROOT;
     private String API_TJ;
     private String API_AD;
-
-    private static final String API_CASE_1 = "http://182.131.3.99:8006/";
-    private static final String API_CASE_2 = "http://10.1.192.40:8006/";
-    private static final String API_CASE_3 = "http://182.131.3.99:8006/";
-    private static final String API_OA_1 = "http://182.131.3.99:8013/oa/";
-    private static final String API_OA_2 = "http://10.1.192.40:8013/oa/";
-    private static final String API_HB_ROOT_1 = "http://182.131.3.99:8001/";
-    private static final String API_HB_ROOT_2 = "http://10.1.192.40:8001/";
-    private static final String API_HB_ROOT_4 = "http://10.2.14.102:8080/";
-    private static final String API_TJ_1 = "http://182.131.3.99:8028/mds/";
-    private static final String API_TJ_2 = "http://10.1.192.40:8028/mds/";
-    public static final String API_AD_1 = "http://10.1.192.40:8008/ad/";//广告
-    public static final String API_COMSUMER_1 = "http://10.1.192.40:8010/consumerw/";
-    public static final String API_COMSUMER_2 = "http://10.2.103.208:8080/consumerw/";
-    public static final String TRADEMARK_API_TEST = "http://10.1.192.40:8008/tm/";
 
     public static String RESULT_SUCCESS = "200";    //code="200"表示请求执行成功
     private volatile static ApiManager instance;
@@ -95,7 +95,6 @@ public class ApiManager {
     public static ConsumerwApi consumerwApi;
     public static TradeMarkApi tradeMarkApi;
     public static FGDJApi fgdjApi;
-    public static LawApi lawApi;
     private static Retrofit retrofit;
     public OkHttpClient okHttpClient;
     private static String token = "";
@@ -111,18 +110,6 @@ public class ApiManager {
             }
         }
         return instance;
-    }
-
-    public static void setToken(String token) {
-        getInstance().token = token;
-    }
-
-    public static String getToken() {
-        return token;
-    }
-
-    public static void clearToken() {
-        getInstance().token = "";
     }
 
     public synchronized void init() {
@@ -141,28 +128,29 @@ public class ApiManager {
 
         switch (appcation.getVersion()) {
             case Constants.AREA_YN:
-                if (Constants.VERSION.equals(Constants.VERSION_R)){
-                    API_CASE = BASE_URL_2;
-                    API_SHY = SHY_URL_2;
-                    API_HB_ROOT = BASE_URL_2;
-                    API_YN_ROOT = BASE_URL_2 + "consumer/services/ws/app/";
-                    CCJC_ROOT = BASE_URL_2 + "noticemana/services/check/";
-                    API_RE_ROOT = BASE_URL_2 + "me/";
-                    API_FGDJ_ROOT = BASE_URL_2 + "fgdj/app/";
-                    API_LAW_ROOT = BASE_URL_2 + "case/services/mobile/";
-                    VERSION_URL = VERSION_URL_2;
-                    API_TJ = BASE_URL_2 + "mds2/";
-                }else {
-                    API_CASE = BASE_URL_1;
-                    API_SHY = SHY_URL_1;
-                    API_HB_ROOT = BASE_URL_1;
-                    API_YN_ROOT = BASE_URL_1 + "consumer/services/ws/app/";
-                    CCJC_ROOT = BASE_URL_1 + "noticemana/services/check/";
-                    API_RE_ROOT = BASE_URL_1 + "me/";
-                    API_FGDJ_ROOT = BASE_URL_1 + "fgdj/app/";
-                    API_LAW_ROOT = BASE_URL_1 + "case/services/mobile/";
-                    VERSION_URL = VERSION_URL_1;
-                    API_TJ = BASE_URL_1 + "mds/";
+                switch (ENVIRONMENT){
+                    case ENVIRONMENT_PRODUCT_FORMAL:
+                        API_CASE = BASE_URL_2;
+                        API_SHY = SHY_URL_2;
+                        API_HB_ROOT = BASE_URL_2;
+                        API_YN_ROOT = BASE_URL_2;
+                        CCJC_ROOT = BASE_URL_2;
+                        API_RE_ROOT = BASE_URL_2;
+                        API_FGDJ_ROOT = BASE_URL_2;
+                        VERSION_URL = BASE_URL_2;
+                        API_TJ = BASE_URL_2 + "mds2/";
+                        break;
+                    case ENVIRONMENT_PRODUCT_TEST:
+                        API_CASE = BASE_URL_1;
+                        API_SHY = SHY_URL_1;
+                        API_HB_ROOT = BASE_URL_1;
+                        API_YN_ROOT = BASE_URL_1;
+                        CCJC_ROOT = BASE_URL_1;
+                        API_RE_ROOT = BASE_URL_1;
+                        API_FGDJ_ROOT = BASE_URL_1;
+                        VERSION_URL = BASE_URL_1;
+                        API_TJ = BASE_URL_1 + "mds/";
+                        break;
                 }
                 commonInit();
                 caseInit();
@@ -170,28 +158,39 @@ public class ApiManager {
                 hbInit();
                 wqInit();
                 fgdjInit();
-                lawInit();
                 ccInit();
                 tjInit();
                 shyInit();
                 break;
             case Constants.AREA_SC:
-                if (Constants.VERSION.equals(Constants.VERSION_R)){
-                    API_CASE = BASE_URL_3;
-                    API_HB_ROOT = BASE_URL_3;
-                    API_OA = BASE_URL_3 + "oa/";
-                    API_TJ = BASE_URL_3 + "mds/";
-                    API_CONSUMERW = API_COMSUMER_1;
-                    API_AD = API_AD_1;
-                    VERSION_URL = VERSION_URL_3;
-                }else {
-                    API_CASE = API_CASE_2;
-                    API_HB_ROOT = API_HB_ROOT_2;
-                    API_OA = API_OA_2;
-                    API_TJ = API_TJ_2;
-                    API_CONSUMERW = API_COMSUMER_1;
-                    API_AD = API_AD_1;
-                    VERSION_URL = VERSION_URL_3;
+                switch (ENVIRONMENT){
+                    case ENVIRONMENT_PRODUCT_FORMAL:
+                        API_CASE = BASE_URL_3;
+                        API_HB_ROOT = BASE_URL_3;
+                        API_OA = BASE_URL_3;
+                        API_TJ = BASE_URL_3 + "mds/";
+                        API_CONSUMERW = API_COMSUMER_1;
+                        API_AD = API_AD_1;
+                        VERSION_URL = VERSION_URL_5;
+                        break;
+                    case ENVIRONMENT_PRODUCT_TEST:
+                        API_CASE = API_CASE_1;
+                        API_HB_ROOT = API_HB_ROOT_1;
+                        API_OA = API_OA_1;
+                        API_TJ = API_TJ_1;
+                        API_CONSUMERW = API_COMSUMER_1;
+                        API_AD = API_AD_1;
+                        VERSION_URL = VERSION_URL_4;
+                        break;
+                    case ENVIRONMENT_COMPANY:
+                        API_CASE = API_CASE_2;
+                        API_HB_ROOT = API_HB_ROOT_2;
+                        API_OA = API_OA_2;
+                        API_TJ = API_TJ_2;
+                        API_CONSUMERW = API_COMSUMER_1;
+                        API_AD = API_AD_1;
+                        VERSION_URL = VERSION_URL_3;
+                        break;
                 }
                 commonInit();
                 caseInit();
@@ -237,6 +236,10 @@ public class ApiManager {
         if (commonApi == null){
             synchronized (ApiManager.class){
                 if (commonApi == null){
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    okHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
+                    okHttpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+                    retrofitBuilder.client(okHttpClient);
                     Retrofit retrofit = retrofitBuilder
                             .baseUrl(VERSION_URL)
                             .build();
@@ -442,13 +445,6 @@ public class ApiManager {
                 .baseUrl(API_FGDJ_ROOT)
                 .build();
         fgdjApi = retrofit.create(FGDJApi.class);
-    }
-
-    private void lawInit() {
-        retrofit = retrofitBuilder
-                .baseUrl(API_LAW_ROOT)
-                .build();
-        lawApi = retrofit.create(LawApi.class);
     }
 
 }

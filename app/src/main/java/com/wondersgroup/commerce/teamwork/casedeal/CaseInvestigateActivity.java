@@ -45,6 +45,7 @@ import com.wondersgroup.commerce.utils.DataUtils;
 import com.wondersgroup.commerce.utils.DividerItemDecoration;
 import com.wondersgroup.commerce.widget.CusDatePickerDialog;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
+import com.wondersgroup.commerce.widget.SearchBar;
 import com.wondersgroup.commerce.ynwq.widget.CountBar;
 
 import java.sql.Date;
@@ -77,10 +78,10 @@ public class CaseInvestigateActivity extends AppCompatActivity {
     TextView title;
     @BindView(R.id.simple_navigation_drawer)
     DrawerLayout drawerLayout;
+    @BindView(R.id.search_layout)
+    RelativeLayout searchLayout;
     @BindView(R.id.search_bar)
-    RelativeLayout searchBar;
-    @BindView(R.id.searchtxt)
-    EditText searchEdit;
+    SearchBar searchBar;
     @BindView(R.id.drawer_btn_list)
     RecyclerView casestageRecyclerView;
     @BindView(R.id.date1)
@@ -134,6 +135,12 @@ public class CaseInvestigateActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        searchBar.setSearchListener(new SearchBar.SearchListener() {
+            @Override
+            public void search(String content) {
+                searchByName();
+            }
+        });
         //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         caseBtnAdapter = new CaseBtnAdapter(this, stateBtnStr, itemsIsClick);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -243,7 +250,7 @@ public class CaseInvestigateActivity extends AppCompatActivity {
             getMyCaseToInvestigate(pageNo);
         } else {
             title.setText("案件查询结果");
-            searchBar.setVisibility(View.GONE);
+            searchLayout.setVisibility(View.GONE);
             final SerializableMap serializableMap = (SerializableMap) bundle.getSerializable("conditionMap");
             conditionMap = serializableMap.getMap();
             getQueryMyCase(pageNo);
@@ -251,13 +258,10 @@ public class CaseInvestigateActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.searchbtn, R.id.filterbtn, R.id.date1, R.id.date2, R.id.resetbtn, R.id.submitbtn})
+    @OnClick({R.id.filterbtn, R.id.date1, R.id.date2, R.id.resetbtn, R.id.submitbtn})
     public void onClick(View v) {
         final CusDatePickerDialog dateDialog;
         switch (v.getId()) {
-            case R.id.searchbtn:
-                searchByName();
-                break;
             case R.id.filterbtn:
                 drawerLayout.openDrawer(Gravity.RIGHT);
                 break;
@@ -349,8 +353,8 @@ public class CaseInvestigateActivity extends AppCompatActivity {
         map.put("userId", loginBean.getResult().getUserId());
         map.put("currentPage", String.valueOf(page));
         map.put("wsCodeReq", "03010002");
-        if (!"".equals(searchEdit.getText().toString().trim()))
-            map.put("caseNameOrNo", searchEdit.getText().toString().trim());
+        if (!"".equals(searchBar.getInput()))
+            map.put("caseNameOrNo", searchBar.getInput());
         if (!"".equals(caseState))
             map.put("caseStatus", DataUtils.getKey(caseStatusMap, caseState));
         if (!"".equals(startDate))

@@ -25,6 +25,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.orhanobut.hawk.Hawk;
 import com.wondersgroup.commerce.R;
 import com.wondersgroup.commerce.application.RootAppcation;
+import com.wondersgroup.commerce.constant.Constants;
+import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.model.ccjc.DicItem;
 import com.wondersgroup.commerce.model.ccjc.DicResult;
 import com.wondersgroup.commerce.model.ccjc.DicT;
@@ -93,8 +95,10 @@ public class ListDialog extends DialogFragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        DataShared dataShared=new DataShared(getContext());
-        organId=(String)dataShared.get("organId","");
+
+        TotalLoginBean loginBean = Hawk.get(Constants.LOGIN_BEAN);
+        if (loginBean != null)
+            organId = loginBean.getResult().getOrganId();
         title.setText(titleString);
         if("CCZT".equals(type)){
             errorMsg="获取抽查状态失败";

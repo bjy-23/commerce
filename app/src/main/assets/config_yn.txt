@@ -54,7 +54,7 @@
                     "menuName":"案件查询",
                     "authId":"03010009",
                     "type":"0",
-                    "isShow":true
+                    "isShow":false
                 }
                     ],
             "isShow":true
@@ -150,27 +150,46 @@
             "menus":[
                 {
                     "menuName":"公示信息查询",
-                    "authId":"08012001",
+                    "authId":"999",
                     "type":0
                 },
                 {
                     "menuName":"法律法规查询",
                     "authId":"03010033",
                     "type":0
+                },
+                {
+                    "menuName":"办理进度查询",
+                    "authId":"999",
+                    "type":0
+                },
+                {
+                    "menuName":"微企信息查询",
+                    "authId":"999",
+                    "type":0
+                },
+                {
+                    "menuName":"扶持情况查询",
+                    "authId":"999",
+                    "type":0
                 }
-                    ],
-            "isShow":true
+                    ]
         },
         {
             "title":"统计",
             "menus":[
                 {
                     "menuName":"统计分析",
-                    "authId":"03010502",
+                    "authId":"999",
                     "type":0
+                },
+                {
+                    "menuName":"统计(微企)",
+                    "authId":"999",
+                    "type":0,
+                    "isShow":true
                 }
-                    ],
-            "isShow":true
+                    ]
         }
     ]
 }

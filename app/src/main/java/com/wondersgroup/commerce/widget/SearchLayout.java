@@ -36,14 +36,13 @@ public class SearchLayout extends RelativeLayout implements View.OnClickListener
     private ImageView imgSearch;
     private EditText editText;
     private TextView tvHint;
-
     private int width1, width2, height2;
     private String hint;
     private int textPadding = DWZH.dp(5);
 
     private TranslateAnimation translateAnimation;
-
     private SearchListener listener;
+    private TextChangeListener textChangeListener;
 
     public SearchLayout(Context context) {
         this(context, null);
@@ -109,10 +108,14 @@ public class SearchLayout extends RelativeLayout implements View.OnClickListener
         editText.addTextChangedListener(new TextChanger() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (!TextUtils.isEmpty(String.valueOf(s).trim()))
+                if (textChangeListener != null)
+                    textChangeListener.textchange(String.valueOf(s));
+
+                if (!TextUtils.isEmpty(String.valueOf(s).trim())){
                     tvHint.setVisibility(GONE);
-                else
+                } else {
                     tvHint.setVisibility(VISIBLE);
+                }
             }
         });
 
@@ -211,5 +214,13 @@ public class SearchLayout extends RelativeLayout implements View.OnClickListener
 
     public void setSearchListenr(SearchListener listenr) {
         this.listener = listenr;
+    }
+
+    public interface TextChangeListener{
+        void textchange(String text);
+    }
+
+    public void addTextChangeListener(TextChangeListener textChangeListener){
+        this.textChangeListener = textChangeListener;
     }
 }

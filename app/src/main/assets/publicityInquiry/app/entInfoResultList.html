@@ -65,11 +65,11 @@
     }
 
     .clearInputSearchKey {
-        /*display: none;*/
+        display: none;
         visibility: hidden;
         width: 16px;
         height: 16px;
-        margin: 0 0 0 -26px;
+        /*margin: 0 0 0 -26px;*/
         background: url(../static/image/input_del.png) no-repeat;
         background-size: contain;
         outline: none;
@@ -83,6 +83,31 @@
     .searchKeyInput:valid + .clearInputSearchKey {
         display: inline;
          visibility: visible;
+    }
+
+    /*当输入框有输入时，改变输入框的右边padding，留出显示清除按钮的位置*/
+    /*没有输入时，右边padding为5，让placeholder能够完全占满整个输入框*/
+    .searchKeyInput:valid {
+        /*padding-right: 30px;*/
+    }
+
+    .cancelSearchButton {
+        color: #FFFFFF;
+        font-size: 1.4rem;
+        /* 让按钮文字在15%宽度中居中 */
+        text-align: center;
+        width: 15%;
+        /*margin-left设定一个合适的带下，否则屏幕太小，剩下的位置不够显示两个文字*/
+        margin-left: 2px;
+        padding: 0;
+        border: none;
+        /*-webkit-tap-highlight-color:rgba(0,0,0,0);*/
+        background-color: inherit;
+    }
+
+    .cancelSearchButton:hover {
+        text-decoration: none;
+        color: #FFFFFF;
     }
 
     .resultItem {
@@ -177,6 +202,7 @@
             <a class="clearInputSearchKey" ng-click="clearSearchKey()"></a>
         </form>
         <!--ng-focus="$state.go('entInfoQuery', {inputedSearchKey: $scope.searchedKey, searchType: $scope.searchType});">-->
+        <a class="cancelSearchButton" ng-click="startSearching();">搜索</a>
     </div>
 </div>
 <div class="pageBody">

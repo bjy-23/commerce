@@ -7,13 +7,12 @@
     android:background="@color/white"
     tools:context="com.wondersgroup.commerce.teamwork.trademarkInquiry.TradeMarksListActivity">
 
-    <include layout="@layout/view_search_menu_toolbar" />
+    <include layout="@layout/head1" />
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/simple_navigation_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:layout_width="match_parent"
