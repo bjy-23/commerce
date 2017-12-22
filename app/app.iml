@@ -8,11 +8,11 @@
     </facet>
     <facet type="android" name="Android">
       <configuration>
-        <option name="SELECTED_BUILD_VARIANT" value="SC_PRODUCT_TEST_AUTH_NO_Debug" />
-        <option name="ASSEMBLE_TASK_NAME" value="assembleSC_PRODUCT_TEST_AUTH_NO_Debug" />
-        <option name="COMPILE_JAVA_TASK_NAME" value="compileSC_PRODUCT_TEST_AUTH_NO_DebugSources" />
+        <option name="SELECTED_BUILD_VARIANT" value="SC_COMPANY_AUTH_NO_Debug" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleSC_COMPANY_AUTH_NO_Debug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileSC_COMPANY_AUTH_NO_DebugSources" />
         <afterSyncTasks>
-          <task>generateSC_PRODUCT_TEST_AUTH_NO_DebugSources</task>
+          <task>generateSC_COMPANY_AUTH_NO_DebugSources</task>
         </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
@@ -22,68 +22,68 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/build/intermediates/classes/SC_PRODUCT_TEST_AUTH_NO_/debug" />
-    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/SC_PRODUCT_TEST_AUTH_NO_/debug" />
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+    <output url="file://$MODULE_DIR$/build/intermediates/classes/SC_COMPANY_AUTH_NO_/debug" />
+    <output-test url="file://$MODULE_DIR$/build/intermediates/classes/test/SC_COMPANY_AUTH_NO_/debug" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/SC_PRODUCT_TEST_AUTH_NO_/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/SC_PRODUCT_TEST_AUTH_NO_/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_Debug/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_Debug/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_Debug/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_Debug/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_Debug/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_Debug/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_Debug/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/SC_PRODUCT_TEST_AUTH_NO_/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/SC_PRODUCT_TEST_AUTH_NO_/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/SC_PRODUCT_TEST_AUTH_NO_/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_Debug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_Debug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_Debug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_Debug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_Debug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_Debug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_Debug/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_PRODUCT_TEST_AUTH_NO_/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/test/SC_PRODUCT_TEST_AUTH_NO_/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_Debug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_Debug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_Debug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_Debug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_Debug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_Debug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_Debug/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testSC_PRODUCT_TEST_AUTH_NO_/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/SC_COMPANY_AUTH_NO_/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/SC_COMPANY_AUTH_NO_/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/SC_COMPANY_AUTH_NO_/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/SC_COMPANY_AUTH_NO_/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/SC_COMPANY_AUTH_NO_/debug" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/SC_COMPANY_AUTH_NO_/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/SC_COMPANY_AUTH_NO_/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_Debug/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_Debug/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_Debug/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_Debug/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_Debug/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_Debug/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_Debug/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SC_COMPANY_AUTH_NO_/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/SC_COMPANY_AUTH_NO_/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/SC_COMPANY_AUTH_NO_/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/SC_COMPANY_AUTH_NO_/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/SC_COMPANY_AUTH_NO_/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/SC_COMPANY_AUTH_NO_/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/SC_COMPANY_AUTH_NO_/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/SC_COMPANY_AUTH_NO_/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_Debug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_Debug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_Debug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_Debug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_Debug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_Debug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_Debug/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestSC_COMPANY_AUTH_NO_/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/test/SC_COMPANY_AUTH_NO_/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_Debug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_Debug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_Debug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_Debug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_Debug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_Debug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_Debug/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testSC_COMPANY_AUTH_NO_/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/SC_/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/SC_/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/SC_/assets" type="java-resource" />
@@ -105,27 +105,27 @@
       <sourceFolder url="file://$MODULE_DIR$/src/testSC_/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testSC_/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testSC_/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/PRODUCT_TEST_/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/PRODUCT_TEST_/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/PRODUCT_TEST_/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/PRODUCT_TEST_/aidl" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/PRODUCT_TEST_/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/PRODUCT_TEST_/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/PRODUCT_TEST_/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPRODUCT_TEST_/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPRODUCT_TEST_/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPRODUCT_TEST_/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPRODUCT_TEST_/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPRODUCT_TEST_/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPRODUCT_TEST_/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPRODUCT_TEST_/shaders" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestPRODUCT_TEST_/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestPRODUCT_TEST_/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestPRODUCT_TEST_/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestPRODUCT_TEST_/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestPRODUCT_TEST_/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestPRODUCT_TEST_/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestPRODUCT_TEST_/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/COMPANY_/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/COMPANY_/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/COMPANY_/assets" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/COMPANY_/aidl" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/COMPANY_/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/COMPANY_/rs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/COMPANY_/shaders" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testCOMPANY_/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testCOMPANY_/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testCOMPANY_/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testCOMPANY_/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testCOMPANY_/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testCOMPANY_/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testCOMPANY_/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestCOMPANY_/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestCOMPANY_/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestCOMPANY_/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestCOMPANY_/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestCOMPANY_/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestCOMPANY_/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestCOMPANY_/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/AUTH_NO_/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/AUTH_NO_/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/AUTH_NO_/assets" type="java-resource" />
@@ -204,9 +204,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged-not-compiled-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/processing-tools" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/proguard-rules" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
@@ -217,6 +218,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />

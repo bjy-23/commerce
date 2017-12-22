@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 /**
  * Created by yclli on 2015/12/1.
+ * 云南正式环境先屏蔽“案件查询”，注意修改配置文件
  */
 public class Constants {
     public final static String AREA_SC = "四川";
@@ -17,11 +18,6 @@ public class Constants {
     public final static String LOGIN_MODE_2 = "登录&无权限";
     public final static String LOGIN_MODE_3 = "免登录";
     public final static String LOGIN_MODE = BuildConfig.LOGIN_MODE;
-
-    /*
-    * 云南正式环境先屏蔽“案件查询”，注意修改配置文件
-    * */
-
 
     public static HashMap<String,Integer> firstColorMap;
     public static HashMap<String,Integer> menuIconMapYN;
@@ -107,7 +103,6 @@ public class Constants {
     public static final String WDAJCX_ID_2 = "03040033";
     public static final String WDAJCX_NAME_2 = "我的案件查询";
     public static final String JYCX_ID = "08011007";
-    public static final String JYCX_NAME = "简易程序处理";
     public static final String TSJBCL_ID = "02050141";
     public static final String TSJBCL_NAME = "投诉举报处理";
     public static final String TSJBCX_ID = "02050214";
@@ -121,7 +116,6 @@ public class Constants {
     public static final String SSJLR = "双随机录入";
     public static final String RCJG = "日常监管";
     public static final String SBCX_ID = "02077110";
-    public static final String SBCX_NAME = "注册商标查询";
     public static final String FLFG_ID = "03010033";//法律法规的权限和案件调查保持一致
     public static final String FLFG_NAME = "法律法规查询";
 
@@ -133,8 +127,6 @@ public class Constants {
     public static final String GWPY_NAME = "公文批阅";
     public static final String GWJS_ID = "08011004,07010527";
     public static final String GWJS_NAME = "公文检索";
-    public static final String XWQYCX = "小微企业查询";
-    public static final String XWQYFCQKCX = "小微企业扶持/n情况查询";
 
     //云南
     public static final String BLJDCX_ID_YN = COMMON_ID;
@@ -168,7 +160,7 @@ public class Constants {
     public static final String AJCX_ID_SC = "03010009,04131203";
     public static final String AJCX_NAME_SC = "案件查询";
     public static final String JYCX_ID_SC = "08011007,03010007";
-    public static final String JYCX_NAME_SC = "简易程序处理";
+    public static final String JYCX_NAME_SC = "简易案件处理";
     public static final String SSJLR_ID_SC = "0502B000";
     public static final String SSJLR_NAME_SC = "双随机录入";
     public static final String RCJG_ID_SC = COMMON_ID;
@@ -199,6 +191,9 @@ public class Constants {
     public static HashMap<String,Integer> firstColorMap(){
         if (firstColorMap == null){
             firstColorMap = new HashMap<>();
+            HashMap hashMap = new HashMap();
+            hashMap.get("");
+            hashMap.put("", "");
             firstColorMap.put(Constants.TSJBCL_ID, R.drawable.circle_blue);
             firstColorMap.put(Constants.CCJCLR_ID, R.drawable.circle_yellow);
             firstColorMap.put(Constants.WQCB_ID, R.drawable.circle_green);
@@ -310,10 +305,6 @@ public class Constants {
     public static final String wqcbcs="微企财补初审";
     public static final String fgdjgl="非公党建管理";
     public static final String fgdjcx="非公党建查询";
-    public static final String LAW_RULE_QUERY = "法律法规查询";
-    public static final String QUERY_COUNT = "查询统计";
-    public static final String BUSINESS_COUNT = "业务统计";
-
 
     //统计地址,测试环境
     public static final String TJ_URL_1 ="http://10.1.8.203/cognos8/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2ffolder%5b%40name%3d%27%e4%b8%9a%e5%8a%a1%e6%95%b0%e6%8d%ae%e5%88%86%e6%9e%90(%e6%9d%83%e9%99%90)%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e7%99%bb%e8%ae%b0%27%5d%2ffolder%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f%27%5d%2freport%5b%40name%3d%27%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1%27%5d&ui.name=%e5%86%85%e8%b5%84%e6%9c%ac%e6%9c%9f1&run.outputFormat=&run.prompt=true&run.outputFormat=&run.prompt=false&&cv.header=false&cv.toolbar=false";

@@ -252,11 +252,11 @@ public class LoginActivity extends RootActivity {
                         } else if (response.body().getCode() == 200 && "请选择部门登录".equals(response.body().getResult().getErrorMsg())) {
                             detpList = response.body().getResult().getDeptIdInfo();
                             showDeptDialog();
-                        } else if (response.body().getCode() == 400) {
-                            Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        } else if (response.body().getCode() == 200 && response.body().getResult().getErrorMsg() != null) {
+                            Toast.makeText(LoginActivity.this, "请检查用户名、密码", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.error_connect), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "请检查用户名、密码", Toast.LENGTH_SHORT).show();
                     }
                 }
 

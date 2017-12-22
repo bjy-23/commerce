@@ -176,6 +176,8 @@ public class TradeMarksListActivity extends AppCompatActivity {
 
         tvCancel.setVisibility(View.VISIBLE);
         tvCancel.setText("搜索");
+        tvCancel.setTextColor(getResources().getColor(R.color.blue));
+        tvCancel.setBackgroundDrawable(getResources().getDrawable(R.drawable.rect_corner_white));
 
         menuChooseOption = new ArrayList<MarkChooseOption>();
         searchRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

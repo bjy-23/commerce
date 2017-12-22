@@ -175,7 +175,7 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         activityType = bundle.getString("activityType");
         if (activityType.equals(ApiManager.caseApi.INVESTIGATE_CASE_LIST)) {
-            tvTitle.setText("简易程序案件");
+            tvTitle.setText(Constants.JYCX_NAME_SC);
             getProcedureCastList(1);
         } else {
             tvTitle.setText("案件查询结果");
@@ -286,15 +286,6 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
         map.put("userId", userId);
         map.put("currentPage", String.valueOf(page));
         map.put("wsCodeReq", "03010101");
-//        if (!isEditTextEmpty(caseNameEdit)) {
-//            map.put("caseName", caseNameEdit.getText().toString().trim());
-//        }
-//        if (!isEditTextEmpty(userIdMainNameEdit)) {
-//            map.put("userIdMainName", userIdMainNameEdit.getText().toString().trim());
-//        }
-//        if (!isEditTextEmpty(litigtNameEdit)) {
-//            map.put("litigtName", litigtNameEdit.getText().toString().trim());
-//        }
         if (!isEditTextEmpty(searchEdit)) {
             map.put("name", searchEdit.getText().toString().trim());
         }
@@ -307,12 +298,6 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
 
         Call<ProcedureCaseItemListBean> call;
         call = ApiManager.caseApi.getProcedureCaseList(map);
-//        if("湖南".equals(app.getVersion())) {
-//            call = ApiManager.hnApi.getProcedureCaseList(map);
-//        }else {
-//            call = ApiManager.hbApi.getProcedureCaseList(map);
-//        }
-
         call.enqueue(new Callback<ProcedureCaseItemListBean>() {
             @Override
             public void onResponse(Response<ProcedureCaseItemListBean> response, Retrofit retrofit) {
@@ -360,12 +345,7 @@ public class ProcedureCaseListActivity extends AppCompatActivity {
         map.put("wsCodeReq", "03010003");
         conditionMap.put("\"" + "currentPage" + "\"", "\"" + String.valueOf(page) + "\"");
         map.put("condition", conditionMap.toString());
-        Call<ProcedureCaseQueryResult> call;
-        if ("湖南".equals(app.getVersion())) {
-            call = ApiManager.hnApi.queryProcedureCase(map);
-        } else {
-            call = ApiManager.hbApi.queryProcedureCase(map);
-        }
+        Call<ProcedureCaseQueryResult> call = ApiManager.caseApi.queryProcedureCase(map);
 
         call.enqueue(new Callback<ProcedureCaseQueryResult
                 >() {

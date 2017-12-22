@@ -1,6 +1,5 @@
 package com.wondersgroup.commerce.teamwork.dailycheck;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,7 +28,6 @@ import com.wondersgroup.commerce.model.TotalLoginBean;
 import com.wondersgroup.commerce.service.ApiManager;
 import com.wondersgroup.commerce.utils.CheckUtil;
 import com.wondersgroup.commerce.utils.LogHelper;
-import com.wondersgroup.commerce.widget.LoadingDialog;
 import com.wondersgroup.commerce.widget.MyProgressDialog;
 
 import org.json.JSONException;
@@ -38,7 +36,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit.Call;

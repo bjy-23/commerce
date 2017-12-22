@@ -944,7 +944,7 @@ public class ProcedureCaseDetailActivity extends AppCompatActivity {
             addBaseView();
             getVolumesList();
         }
-        title.setText("简易程序案件");
+        title.setText(Constants.JYCX_NAME_SC);
     }
 
     //5.3.6. 企业选择，初始化选择的企业内容

@@ -1,7 +1,5 @@
 package com.wondersgroup.commerce.teamwork.dailycheck;
 
-import android.util.Log;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;

@@ -56,11 +56,13 @@ android {
         PRODUCT_FORMAL_ {
             dimension "ENVIRONMENT"
             buildConfigField("String", "ENVIRONMENT", '"PRODUCT_FORMAL"')
+            applicationIdSuffix ".formal"
         }
 
         PRODUCT_TEST_ {
             dimension "ENVIRONMENT"
             buildConfigField("String", "ENVIRONMENT", '"PRODUCT_TEST"')
+            applicationIdSuffix ".test"
         }
 
         COMPANY_ {
@@ -87,16 +89,36 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            shrinkResources false
+//            minifyEnabled false
+//            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
+                    def names = variant.flavorName
+                    if(names.contains("SC_")){
+                        if(names.contains("PRODUCT_TEST_")){
+                            resValue "string", "app_name", "移动工商测试"
+                        }
+                    }
                     outputFileName = "${variant.name}-${variant.versionName}.apk"
                 }
             }
         }
         debug {
             signingConfig signingConfigs.release
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    def names = variant.flavorName
+                    if(names.contains("SC_")){
+                        if(names.contains("PRODUCT_TEST_")){
+                            resValue "string", "app_name", "四川测试"
+                        }else if(names.contains("PRODUCT_FORMAL_")){
+                            resValue "string", "app_name", "四川正式"
+                        }
+                    }
+                    outputFileName = "${variant.name}-${variant.versionName}.apk"
+                }
+            }
         }
     }
 
@@ -123,8 +145,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 

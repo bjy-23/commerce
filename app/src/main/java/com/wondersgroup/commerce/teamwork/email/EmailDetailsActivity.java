@@ -190,23 +190,6 @@ public class EmailDetailsActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    public int getImageId(ImageView imageView){
-        Field[] fields = imageView.getClass().getDeclaredFields();
-        int id = 0;
-        for (Field field : fields){
-            if (field.getName().equals("mResource")){
-                field.setAccessible(true);
-                try {
-                    id = field.getInt(imageView);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-        }
-        return id;
-    }
-
     public void setImgState(){
         if (position == 0){
             imgUp.setImageResource(R.mipmap.arrow_top_gray);

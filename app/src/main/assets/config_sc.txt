@@ -51,7 +51,7 @@
                 "isShow":true
             },
             {
-                "menuName":"简易程序处理",
+                "menuName":"简易案件处理",
                 "authId":"08011007,03010007",
                 "type":1,
                 "isShow":true

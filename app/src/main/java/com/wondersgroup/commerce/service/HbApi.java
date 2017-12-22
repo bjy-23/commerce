@@ -48,21 +48,12 @@ import retrofit.http.POST;
 public interface HbApi {
     //登录&消息
     public static final String URL_2 = "gsyth/services/mobile/";
-    //案件
-    public static final String URL_CASE = "case/services/mobile/";
-
     String API_LOGIN = URL_2 + "getLoginInfo";
-//    String API_LOGIN = "services/mobile/getLoginInfo";
     String GET_MENU_BY_USE_RID = URL_2 + "getMenuByUserId";
-//    String GET_MENU_BY_USE_RID = "services/mobile/getMenuByUserId";
 
     String API_ADDRESS_DEPT_ALL = URL_2 + "getAllOrgan";
     String API_ADDRESS_DEPT_ORGANID = URL_2 + "getChildByOrganId";
     String API_ADDRESS_DEPT_ORGAN = URL_2 + "getOrganByDept";
-
-
-    String PROCEDURE_CASE_LIST = URL_CASE + "";       //获取简易程序案件列表
-    String PROCEDURE_CASE_QUERY = URL_CASE + "";     //获取简易程序案件条件查询
 
     /**
      *移动应用版本
@@ -115,7 +106,6 @@ public interface HbApi {
      */
 
 
-
     //获取部门
     @FormUrlEncoded
     @POST(API_ADDRESS_DEPT_ALL)
@@ -131,30 +121,5 @@ public interface HbApi {
     @POST(API_ADDRESS_DEPT_ORGAN)
     public Call<DeptOne> deptOrganDept(@FieldMap Map<String, String> body);
 
-
-
-    //————————————————————————————————————————————————————————————————————————————————
-
-
-
-
-
-    //————————————————————————————————————————————————————————————————————————————————
-
-
-
-
-
-    /**
-     * 简易程序案件
-     * ——————————————————————————————————————————————————————————————————————————————
-     */
-    @FormUrlEncoded
-    @POST(PROCEDURE_CASE_LIST)
-    public Call<ProcedureCaseItemListBean> getProcedureCaseList(@FieldMap Map<String, String> body);
-
-    @FormUrlEncoded
-    @POST(PROCEDURE_CASE_QUERY)
-    public Call<ProcedureCaseQueryResult> queryProcedureCase(@FieldMap Map<String, String> body);
 
 }

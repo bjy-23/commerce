@@ -2,6 +2,8 @@ package com.wondersgroup.commerce.activity;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,28 +46,25 @@ public class GSActivity extends AppCompatActivity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        webView.setWebChromeClient(new WebChromeClient());
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAppCacheEnabled(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-        try {
-            if (Build.VERSION.SDK_INT >= 16) {
-                Class<?> clazz = webView.getSettings().getClass();
-                Method method = clazz.getMethod(
-                        "setAllowUniversalAccessFromFileURLs", boolean.class);
-                if (method != null) {
+        //解决跨域问题
+        if (Build.VERSION.SDK_INT >= 16) {
+            Class<?> clazz = webView.getSettings().getClass();
+            Method method = null;
+            try {
+                method = clazz.getMethod("setAllowUniversalAccessFromFileURLs", boolean.class);
+                if (method != null)
                     method.invoke(webView.getSettings(), true);
-                }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
             }
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
         }
 
         webView.setWebChromeClient(new WebChromeClient() {
@@ -81,13 +80,7 @@ public class GSActivity extends AppCompatActivity {
                 super.onConsoleMessage(message, lineNumber, sourceID);
             }
         });
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
+        webView.setWebViewClient(new WebViewClient());
 
         JsInteration jsInteration = new JsInteration();
         String url = "";
@@ -104,7 +97,6 @@ public class GSActivity extends AppCompatActivity {
         }
         jsInteration.url = url;
         webView.addJavascriptInterface(jsInteration, "interaction");
-        //webView.loadUrl("http://10.10.16.163:8080/public/publicityInquiry/app/index.html#/entInfoQuery?searchType=1&backUrl=home");
         webView.loadUrl("file:///android_asset/publicityInquiry/app/index.html#/entInfoQuery?searchType=1&backUrl=home");
     }
 
@@ -113,7 +105,7 @@ public class GSActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public void goBackHunan() {
-            //Toast.makeText(GSActivity.this, "aaaaaa", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(GSActivity.this, "aaaaaa", Toast.LENGTH_SHORT).show();
             finish();
         }
 

@@ -90,6 +90,7 @@ public interface CaseApi {
     /*
     * 简易程序
     * */
+    String PROCEDURE_CASE_QUERY = URL_CASE_1 + "";     //获取简易程序案件条件查询
     String PROCEDURE_CASE_LIST = URL_CASE_1 + "querySimpleCaseList";       //获取简易程序案件列表
     String PROCEDURE_CASE_DETAIL = URL_CASE_1 + "toSimpleCaseEdit";       //获取简易程序案件详情
     String PROCEDURE_CASE_DISTRICT_LIST = URL_CASE_1 + "caseSpotQuery";       //案发地（区）列表
@@ -105,6 +106,10 @@ public interface CaseApi {
     String PROCEDURE_CASE_QUERY_COMPANY_SELECT = URL_CASE_1 + "queryEtpsSelected ";     //5.3.6. 企业选择
     String PROCEDURE_CASE_DOWNLAODER_ATTACH =URL_CASE_1 + "downloadAttachFileByPost";      //附件下载
     String PROCEDURE_CASE_BRAND_TYPE = URL_CASE_1 + "queryTrademarkMap";             //商标类型二级菜单
+
+    @FormUrlEncoded
+    @POST(PROCEDURE_CASE_QUERY)
+    public Call<ProcedureCaseQueryResult> queryProcedureCase(@FieldMap Map<String, String> body);
 
     @FormUrlEncoded
     @POST

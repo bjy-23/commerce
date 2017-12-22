@@ -47,7 +47,7 @@ public class ApiManager {
     private static final String SHY_URL_2 = "http://172.28.129.18:8031/shy/services/mobile/";//云南市场监督管理局行政执法系统 正式
 
     //Sc
-    public static final String  VERSION_URL_3 = "http://10.1.192.40:8001/zfMobileService/";//公司
+    public static final String VERSION_URL_3 = "http://10.1.192.40:8001/zfMobileService/";//公司
     public static final String VERSION_URL_4 = "http://182.131.3.110:8001/";//现场测试
     public static final String VERSION_URL_5 = "http://182.131.3.112:8001/";//现场正式
 
@@ -62,7 +62,9 @@ public class ApiManager {
     public static final String API_AD_1 = "http://10.1.192.40:8008/ad/";//广告
     public static final String API_COMSUMER_1 = "http://10.1.192.40:8010/consumerw/";
     public static final String API_COMSUMER_2 = "http://10.2.103.208:8080/consumerw/";
-    public static final String TRADEMARK_API_TEST = "http://10.1.192.40:8008/tm/";
+    public static final String API_TRADEMARK_COMPANY = "http://10.1.192.40:8008/tm/";
+    public static final String API_TRADEMARK_TEST = API_TRADEMARK_COMPANY;
+    public static final String API_TRADEMARK_FORMAL = API_TRADEMARK_COMPANY;
 
     private String VERSION_URL ;
     private String API_CASE;//案件
@@ -76,6 +78,7 @@ public class ApiManager {
     public String API_FGDJ_ROOT;
     private String API_TJ;
     private String API_AD;
+    private String API_TRADEMARK;
 
     public static String RESULT_SUCCESS = "200";    //code="200"表示请求执行成功
     private volatile static ApiManager instance;
@@ -172,6 +175,7 @@ public class ApiManager {
                         API_CONSUMERW = API_COMSUMER_1;
                         API_AD = API_AD_1;
                         VERSION_URL = VERSION_URL_5;
+                        API_TRADEMARK = API_TRADEMARK_FORMAL;
                         break;
                     case ENVIRONMENT_PRODUCT_TEST:
                         API_CASE = API_CASE_1;
@@ -181,6 +185,7 @@ public class ApiManager {
                         API_CONSUMERW = API_COMSUMER_1;
                         API_AD = API_AD_1;
                         VERSION_URL = VERSION_URL_4;
+                        API_TRADEMARK = API_TRADEMARK_TEST;
                         break;
                     case ENVIRONMENT_COMPANY:
                         API_CASE = API_CASE_2;
@@ -190,6 +195,7 @@ public class ApiManager {
                         API_CONSUMERW = API_COMSUMER_1;
                         API_AD = API_AD_1;
                         VERSION_URL = VERSION_URL_3;
+                        API_TRADEMARK = API_TRADEMARK_COMPANY;
                         break;
                 }
                 commonInit();
@@ -225,7 +231,7 @@ public class ApiManager {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             okHttpClient.interceptors().add(interceptor);
             retrofit = retrofitBuilder
-                    .baseUrl(TRADEMARK_API_TEST)
+                    .baseUrl(API_TRADEMARK)
                     .client(okHttpClient)
                     .build();
             tradeMarkApi = retrofit.create(TradeMarkApi.class);
@@ -239,8 +245,9 @@ public class ApiManager {
                     OkHttpClient okHttpClient = new OkHttpClient();
                     okHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
                     okHttpClient.interceptors().add(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
-                    retrofitBuilder.client(okHttpClient);
-                    Retrofit retrofit = retrofitBuilder
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(okHttpClient)
                             .baseUrl(VERSION_URL)
                             .build();
                     commonApi = retrofit.create(CommonApi.class);
@@ -269,7 +276,9 @@ public class ApiManager {
                             return chain.proceed(request);
                         }
                     });
-                    Retrofit retrofit = retrofitBuilder
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .client(okHttpClient)
                             .baseUrl(API_CASE)
                             .client(okHttpClient)
                             .build();
@@ -377,7 +386,9 @@ public class ApiManager {
                     return chain.proceed(request);
                 }
             });
-            Retrofit retrofit = retrofitBuilder
+            Retrofit retrofit = new Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
                     .baseUrl(API_YN_ROOT)
                     .client(okHttpClient)
                     .build();
@@ -406,7 +417,9 @@ public class ApiManager {
                 }
             });
 
-            Retrofit retrofit = retrofitBuilder
+            Retrofit retrofit = new Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
                     .baseUrl(API_HB_ROOT)
                     .client(okHttpClient)
                     .build();
@@ -433,7 +446,9 @@ public class ApiManager {
             }
         });
 
-        retrofit = retrofitBuilder
+        retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .baseUrl(API_RE_ROOT)
                 .client(okHttpClient)
                 .build();
